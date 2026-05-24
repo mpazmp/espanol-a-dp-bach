@@ -5,9 +5,9 @@
   <title>Módulo 7 · La conversación</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
-    :root{--acc:#ba007c;--acc2:#d4339a;--azul:#0b4a82;--crema:#faf6f0;--co:#f0e9df;--gt:#2c2c2c;--gs:#7a7a7a;--vok:#2d6a4f;--bg:#fce8f4}
+    :root{--acc:#ba007c;--acc2:#d4339a;--azul:#0b4a82;--cr:#faf6f0;--co:#f0e9df;--gt:#2c2c2c;--gs:#7a7a7a;--vok:#2d6a4f;--bg:#fce8f4}
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Source Sans 3',sans-serif;background:var(--crema);color:var(--gt)}
+    body{font-family:'Source Sans 3',sans-serif;background:var(--cr);color:var(--gt);padding-bottom:60px}
     .bi{background:#fff;padding:10px 28px;display:flex;align-items:center;justify-content:center;border-bottom:3px solid var(--acc);box-shadow:0 2px 8px rgba(0,0,0,.06)}
     .bi img{height:50px;width:auto}
     .cab{background:linear-gradient(135deg,var(--acc),var(--acc2));padding:34px 32px 26px;position:relative;overflow:hidden}
@@ -17,8 +17,8 @@
     .cab p{color:rgba(255,255,255,.75);font-size:13.5px;font-weight:300;position:relative}
     .ntabs{display:flex;background:#fff;border-bottom:2px solid var(--co);overflow-x:auto}
     .ntab{flex:1;min-width:90px;padding:13px 6px;text-align:center;font-size:11.5px;font-weight:600;color:var(--gs);cursor:pointer;border-bottom:3px solid transparent;transition:all .25s;white-space:nowrap}
-    .ntab:hover{color:var(--acc);background:var(--crema)}
-    .ntab.on{color:var(--acc);border-bottom-color:var(--acc);background:var(--crema)}
+    .ntab:hover{color:var(--acc);background:var(--cr)}
+    .ntab.on{color:var(--acc);border-bottom-color:var(--acc);background:var(--cr)}
     .box{padding:24px 24px 38px;max-width:760px;margin:0 auto}
     .sec{display:none;animation:ap .3s ease}
     .sec.on{display:block}
@@ -26,9 +26,8 @@
     .card{background:#fff;border-radius:12px;padding:22px;margin-bottom:16px;border:1px solid var(--co);box-shadow:0 2px 8px rgba(0,0,0,.04)}
     .card h2{font-family:'Playfair Display',serif;font-size:17px;color:var(--acc);margin-bottom:14px;display:flex;align-items:center;gap:10px}
     .ico{width:32px;height:32px;background:var(--bg);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-    /* SÍ/NO */
-    .sngrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
-    @media(max-width:500px){.sngrid{grid-template-columns:1fr}}
+    .sng{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+    @media(max-width:500px){.sng{grid-template-columns:1fr}}
     .sic{background:#f0fff4;border:1px solid #b7dfc9;border-radius:10px;padding:14px}
     .noc{background:#fff8f8;border:1px solid #f5c2c7;border-radius:10px;padding:14px}
     .st{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
@@ -38,58 +37,54 @@
     .snl li:last-child{border-bottom:none}
     .sic li::before{content:'✓';position:absolute;left:0;color:var(--vok);font-weight:700}
     .noc li::before{content:'✗';position:absolute;left:0;color:#842029;font-weight:700}
-    /* TIPOS */
-    .tcard{border-radius:10px;overflow:hidden;margin-bottom:8px;border:1px solid var(--co);cursor:pointer}
-    .th{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;transition:background .2s}
-    .th:hover{background:var(--crema)}
-    .tnum{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;font-family:'Playfair Display',serif;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-    .tinfo{flex:1}
-    .ttit{font-size:13.5px;font-weight:600;color:var(--gt);margin-bottom:2px}
-    .tsub{font-size:12px;color:var(--gs)}
-    .ttog{font-size:14px;color:var(--gs);transition:transform .25s}
-    .tcard.open .ttog{transform:rotate(180deg)}
-    .tbody{display:none;padding:14px 16px;background:var(--crema);border-top:1px solid var(--co)}
-    .tcard.open .tbody{display:block;animation:ap .2s ease}
+    .tc{border-radius:10px;overflow:hidden;margin-bottom:8px;border:1px solid var(--co);cursor:pointer}
+    .tc-h{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;transition:background .2s}
+    .tc-h:hover{background:var(--cr)}
+    .tcnum{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;font-family:'Playfair Display',serif;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .tci{flex:1}
+    .tct{font-size:13.5px;font-weight:600;color:var(--gt);margin-bottom:2px}
+    .tcs{font-size:12px;color:var(--gs)}
+    .tctg{font-size:14px;color:var(--gs);transition:transform .25s}
+    .tc.op .tctg{transform:rotate(180deg)}
+    .tc-bd{display:none;padding:14px 16px;background:var(--cr);border-top:1px solid var(--co)}
+    .tc.op .tc-bd{display:block;animation:ap .2s ease}
     .ejp{background:#fff;border-radius:8px;padding:10px 14px;margin-bottom:8px;border-left:3px solid var(--acc);font-size:13px;font-style:italic;line-height:1.5}
-    .estrat{font-size:12.5px;color:var(--gs);line-height:1.6}
-    .estrat strong{color:var(--gt)}
-    /* SIMULADOR */
+    .est{font-size:12.5px;color:var(--gs);line-height:1.6}
+    .est strong{color:var(--gt)}
     .ssel{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
     .sbtn{padding:6px 14px;border-radius:20px;border:1.5px solid var(--co);background:#fff;font-size:12px;font-weight:600;cursor:pointer;color:var(--gs);transition:all .2s}
     .sbtn:hover{border-color:var(--acc);color:var(--acc)}
     .sbtn.on{background:var(--acc);border-color:var(--acc);color:#fff}
     .spq{background:linear-gradient(135deg,var(--acc),var(--acc2));border-radius:12px;padding:18px 20px;margin-bottom:14px}
     .stag{display:inline-block;background:rgba(255,255,255,.2);color:rgba(255,255,255,.9);font-size:10.5px;font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:8px}
-    .sptxt{font-size:15px;font-weight:600;color:#fff;line-height:1.4;font-style:italic}
+    .sptx{font-size:15px;font-weight:600;color:#fff;line-height:1.4;font-style:italic}
     .sra{display:none;margin-bottom:14px}
     .sra.vis{display:block;animation:ap .3s ease}
-    .sstrat{background:var(--bg);border-radius:10px;padding:14px 16px;margin-bottom:10px}
-    .sst{font-size:11px;font-weight:700;color:var(--acc);text-transform:uppercase;margin-bottom:6px}
-    .sstxt{font-size:13px;line-height:1.6}
+    .sst{background:var(--bg);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+    .sstl{font-size:11px;font-weight:700;color:var(--acc);text-transform:uppercase;margin-bottom:6px}
+    .sstx{font-size:13px;line-height:1.6}
     .sej{background:#fff;border-radius:8px;padding:12px 14px;border-left:3px solid var(--acc);font-size:13px;font-style:italic;line-height:1.6}
     .sbtns{display:flex;gap:8px;flex-wrap:wrap}
     .bver{padding:8px 18px;border-radius:8px;border:none;font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;cursor:pointer;background:var(--acc);color:#fff;transition:opacity .2s}
     .bver:hover{opacity:.85}
-    .botra{padding:8px 18px;border-radius:8px;border:1.5px solid var(--co);font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;cursor:pointer;background:#fff;color:var(--gt)}
-    .botra:hover{border-color:var(--acc);color:var(--acc)}
+    .botr{padding:8px 18px;border-radius:8px;border:1.5px solid var(--co);font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;cursor:pointer;background:#fff;color:var(--gt)}
+    .botr:hover{border-color:var(--acc);color:var(--acc)}
     .scnt{font-size:12px;color:var(--gs);align-self:center;margin-left:auto}
-    /* RESCATES */
-    .rcard{border-radius:10px;overflow:hidden;margin-bottom:8px;border:1px solid var(--co);cursor:pointer}
-    .rh{display:flex;align-items:center;gap:10px;padding:13px 16px;background:#fff;transition:background .2s}
-    .rh:hover{background:var(--crema)}
+    .rc{border-radius:10px;overflow:hidden;margin-bottom:8px;border:1px solid var(--co);cursor:pointer}
+    .rc-h{display:flex;align-items:center;gap:10px;padding:13px 16px;background:#fff;transition:background .2s}
+    .rc-h:hover{background:var(--cr)}
     .rem{font-size:18px;flex-shrink:0}
     .rsit{font-size:13px;font-weight:600;flex:1}
-    .rtog{font-size:14px;color:var(--gs);transition:transform .25s}
-    .rcard.open .rtog{transform:rotate(180deg)}
-    .rbody{display:none;padding:14px 16px;background:var(--crema);border-top:1px solid var(--co)}
-    .rcard.open .rbody{display:block;animation:ap .2s ease}
-    .frase{background:#fff;border-radius:8px;padding:10px 12px;margin-bottom:6px;border-left:3px solid var(--acc);font-size:13px;font-style:italic;line-height:1.5}
-    .rnota{font-size:12px;color:var(--gs);margin-top:8px;line-height:1.5}
-    /* CHECKLIST */
+    .rctg{font-size:14px;color:var(--gs);transition:transform .25s}
+    .rc.op .rctg{transform:rotate(180deg)}
+    .rc-bd{display:none;padding:14px 16px;background:var(--cr);border-top:1px solid var(--co)}
+    .rc.op .rc-bd{display:block;animation:ap .2s ease}
+    .fr{background:#fff;border-radius:8px;padding:10px 12px;margin-bottom:6px;border-left:3px solid var(--acc);font-size:13px;font-style:italic;line-height:1.5}
+    .rnt{font-size:12px;color:var(--gs);margin-top:8px;line-height:1.5}
     .chk{list-style:none}
     .chk li{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--co);cursor:pointer;border-radius:4px;transition:background .15s}
     .chk li:last-child{border-bottom:none}
-    .chk li:hover{background:var(--crema)}
+    .chk li:hover{background:var(--cr)}
     .cb{width:20px;height:20px;border:2px solid var(--co);border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all .2s;margin-top:1px;background:#fff}
     .chk li.mk .cb{background:var(--vok);border-color:var(--vok);color:#fff}
     .ct{font-size:13.5px;line-height:1.5}
@@ -97,30 +92,15 @@
     .pb{height:6px;background:var(--co);border-radius:3px;margin:16px 0 6px;overflow:hidden}
     .pf{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:3px;transition:width .4s}
     .plbl{font-size:12px;color:var(--gs);text-align:right}
-    
-    .mininav{position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#fff;
-      border-top:2px solid #e8e0d5;padding:8px 14px;display:flex;align-items:center;
-      gap:8px;box-shadow:0 -2px 12px rgba(0,0,0,0.1)}
-    body{padding-bottom:60px}
-    .mn-home{padding:6px 12px;border-radius:8px;background:#0b4a82;color:#fff;
-      border:none;font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:600;
-      cursor:pointer;text-decoration:none;white-space:nowrap}
+    .tf{display:flex;gap:8px;justify-content:flex-end;margin-top:18px;padding-top:14px;border-top:1px solid var(--co)}
+    .tfb{padding:8px 18px;border-radius:8px;border:1.5px solid var(--co);font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+    .tfp{background:#fff;color:var(--gs)}.tfp:hover{background:var(--co)}
+    .minnav{position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#fff;border-top:2px solid #e8e0d5;padding:8px 14px;display:flex;align-items:center;gap:8px;box-shadow:0 -2px 12px rgba(0,0,0,.1)}
+    .mn-home{padding:6px 12px;border-radius:8px;background:#0b4a82;color:#fff;border:none;font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap}
     .mn-home:hover{background:#185fa5}
-    .mn-btn{padding:6px 12px;border-radius:8px;border:1.5px solid #e8e0d5;
-      font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:600;
-      cursor:pointer;background:#fff;color:#7a7a7a;white-space:nowrap}
+    .mn-btn{padding:6px 12px;border-radius:8px;border:1.5px solid #e8e0d5;font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:600;cursor:pointer;background:#fff;color:#7a7a7a;white-space:nowrap}
     .mn-btn:hover{background:#f0e9df}
-    .mn-sel{flex:1;padding:6px 8px;border-radius:8px;border:1.5px solid #e8e0d5;
-      font-family:'Source Sans 3',sans-serif;font-size:12px;color:#2c2c2c;
-      background:#faf6f0;cursor:pointer;min-width:0}
-    .tab-footer{display:flex;gap:8px;justify-content:flex-end;
-      margin-top:18px;padding-top:14px;border-top:1px solid #f0e9df}
-    .btn-tf{padding:8px 18px;border-radius:8px;border:1.5px solid #e8e0d5;
-      font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;
-      cursor:pointer;transition:all 0.2s}
-    .btn-tf-prev{background:#fff;color:#7a7a7a}
-    .btn-tf-prev:hover{background:#f0e9df}
-
+    .mn-sel{flex:1;padding:6px 8px;border-radius:8px;border:1.5px solid #e8e0d5;font-family:'Source Sans 3',sans-serif;font-size:12px;color:#2c2c2c;background:#faf6f0;cursor:pointer;min-width:0}
   </style>
 </head>
 <body>
@@ -128,21 +108,21 @@
 <div class="cab">
   <div class="etq">Módulo 7 · Oral Individual IB</div>
   <h1>La conversación<br>con el profesor</h1>
-  <p>Cinco minutos que no son un examen: son una oportunidad.</p>
+  <p>Cinco minutos que no son un examen: son una oportunidad de demostrar comprensión genuina.</p>
 </div>
 <div class="ntabs">
   <div class="ntab on" onclick="ir(0)">💬 Qué es</div>
-  <div class="ntab" onclick="ir(1)">❓ Tipos</div>
-  <div class="ntab" onclick="ir(2)">🎯 Simulador</div>
-  <div class="ntab" onclick="ir(3)">🆘 Rescate</div>
-  <div class="ntab" onclick="ir(4)">✅ Checklist</div>
+  <div class="ntab"    onclick="ir(1)">❓ Tipos</div>
+  <div class="ntab"    onclick="ir(2)">🎯 Simulador</div>
+  <div class="ntab"    onclick="ir(3)">🆘 Rescate</div>
+  <div class="ntab"    onclick="ir(4)">✅ Checklist</div>
 </div>
 <div class="box">
 
   <div class="sec on" id="s0">
     <div class="card">
       <h2><span class="ico">💬</span> Qué es y qué no es</h2>
-      <div class="sngrid">
+      <div class="sng">
         <div class="sic"><div class="st">✓ Sí es</div>
           <ul class="snl">
             <li>Una conversación para profundizar en ideas del oral</li>
@@ -151,7 +131,8 @@
             <li>La prueba de que el conocimiento no está memorizado</li>
             <li>El momento donde los Criterios A y D se revelan mejor</li>
             <li>Un espacio donde puedes decir "no lo había pensado así, pero..."</li>
-          </ul></div>
+          </ul>
+        </div>
         <div class="noc"><div class="st">✗ No es</div>
           <ul class="snl">
             <li>Una trampa diseñada para hacerte fallar</li>
@@ -160,10 +141,11 @@
             <li>Un momento para repetir lo ya dicho</li>
             <li>Un espacio donde no puedes decir "no lo sé con certeza"</li>
             <li>Un examen adicional independiente</li>
-          </ul></div>
+          </ul>
+        </div>
       </div>
     </div>
-    <div class="tab-footer"><button class="btn-tf" style="background:#ba007c;color:#fff;border-color:#ba007c" onclick="cambiarSeccion(1)">Pestaña siguiente →</button></div>
+    <div class="tf"><button class="tfb" style="background:var(--acc);color:#fff;border-color:var(--acc)" onclick="ir(1)">Pestaña siguiente →</button></div>
   </div>
 
   <div class="sec" id="s1">
@@ -172,7 +154,10 @@
       <p style="font-size:13px;color:var(--gs);margin-bottom:14px">Reconocer el tipo te ayuda a responder con la estrategia correcta.</p>
       <div id="tipos"></div>
     </div>
-    <div class="tab-footer"><button class="btn-tf btn-tf-prev" onclick="cambiarSeccion(0)">← Pestaña anterior</button><button class="btn-tf" style="background:#ba007c;color:#fff;border-color:#ba007c" onclick="cambiarSeccion(2)">Pestaña siguiente →</button></div>
+    <div class="tf">
+      <button class="tfb tfp" onclick="ir(0)">← Pestaña anterior</button>
+      <button class="tfb" style="background:var(--acc);color:#fff;border-color:var(--acc)" onclick="ir(2)">Pestaña siguiente →</button>
+    </div>
   </div>
 
   <div class="sec" id="s2">
@@ -182,7 +167,10 @@
       <div class="ssel" id="ssel"></div>
       <div id="simcont"></div>
     </div>
-    <div class="tab-footer"><button class="btn-tf btn-tf-prev" onclick="cambiarSeccion(1)">← Pestaña anterior</button><button class="btn-tf" style="background:#ba007c;color:#fff;border-color:#ba007c" onclick="cambiarSeccion(3)">Pestaña siguiente →</button></div>
+    <div class="tf">
+      <button class="tfb tfp" onclick="ir(1)">← Pestaña anterior</button>
+      <button class="tfb" style="background:var(--acc);color:#fff;border-color:var(--acc)" onclick="ir(3)">Pestaña siguiente →</button>
+    </div>
   </div>
 
   <div class="sec" id="s3">
@@ -191,7 +179,10 @@
       <p style="font-size:13px;color:var(--gs);margin-bottom:14px">Cada situación difícil tiene una salida elegante.</p>
       <div id="rescates"></div>
     </div>
-    <div class="tab-footer"><button class="btn-tf btn-tf-prev" onclick="cambiarSeccion(2)">← Pestaña anterior</button><button class="btn-tf" style="background:#ba007c;color:#fff;border-color:#ba007c" onclick="cambiarSeccion(4)">Pestaña siguiente →</button></div>
+    <div class="tf">
+      <button class="tfb tfp" onclick="ir(2)">← Pestaña anterior</button>
+      <button class="tfb" style="background:var(--acc);color:#fff;border-color:var(--acc)" onclick="ir(4)">Pestaña siguiente →</button>
+    </div>
   </div>
 
   <div class="sec" id="s4">
@@ -201,81 +192,155 @@
       <div class="plbl" id="plbl">0 de 7</div>
       <ul class="chk">
         <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">Conozco la obra completa, no solo el extracto.</div></li>
-        <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">He practicado responder preguntas de profundización.</div></li>
+        <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">He practicado respondiendo preguntas de profundización.</div></li>
         <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">Tengo frases de rescate preparadas para momentos difíciles.</div></li>
         <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">Entiendo que "no lo sé con certeza, pero creo que..." es válido.</div></li>
         <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">He practicado con el simulador al menos una vez.</div></li>
-        <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">Sé que la conversación no es para corregir sino para desarrollar.</div></li>
+        <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">Sé que la conversación es para desarrollar ideas, no para corregirlas.</div></li>
         <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">Puedo conectar cualquier pregunta con mi cuestión global.</div></li>
       </ul>
     </div>
-    <div class="tab-footer"><button class="btn-tf btn-tf-prev" onclick="cambiarSeccion(3)">← Pestaña anterior</button><button class="btn-tf" style="background:#ba007c;color:#fff;border-color:#ba007c" onclick="window.location.href='modulo-bonus-vocabulario.html'">Módulo Bonus →</button></div>
+    <div class="tf">
+      <button class="tfb tfp" onclick="ir(3)">← Pestaña anterior</button>
+      <button class="tfb" style="background:var(--acc);color:#fff;border-color:var(--acc)" onclick="window.location.href='modulo-bonus-vocabulario.html'">Módulo Bonus →</button>
+    </div>
   </div>
-
 </div>
-
-<div class="mininav">
+<div class="minnav">
   <a class="mn-home" href="index-oral-individual.html">🏠 Menú</a>
-  <button class="mn-btn" style="" onclick="window.location.href='modulo-06-estructura-tiempo.html'">← Ant.</button>
+  <button class="mn-btn" onclick="window.location.href='modulo-06-estructura-tiempo.html'">← Ant.</button>
   <select class="mn-sel" onchange="if(this.value)window.location.href=this.value">
-<option value="index-oral-individual.html">🏠 Índice</option>
-<option value="modulo-01-estructura-evaluacion.html">Módulo 1 · Estructura</option>
-<option value="modulo-02-elegir-obra-corpus.html">Módulo 2 · Obra y corpus</option>
-<option value="modulo-03-cuestion-global.html">Módulo 3 · Cuestión global</option>
-<option value="modulo-04-seleccionar-extracto.html">Módulo 4 · El extracto</option>
-<option value="modulo-05-analizar-recursos.html">Módulo 5 · Recursos</option>
-<option value="modulo-06-estructura-tiempo.html">Módulo 6 · Estructura/tiempo</option>
-<option value="modulo-07-conversacion.html"  selected>Módulo 7 · Conversación</option>
-<option value="modulo-bonus-vocabulario.html">Bonus · Vocabulario</option>
+    <option value="index-oral-individual.html">🏠 Índice</option>
+    <option value="modulo-01-estructura-evaluacion.html">Módulo 1 · Estructura</option>
+    <option value="modulo-02-elegir-obra-corpus.html">Módulo 2 · Obra y corpus</option>
+    <option value="modulo-03-cuestion-global.html">Módulo 3 · Cuestión global</option>
+    <option value="modulo-04-seleccionar-extracto.html">Módulo 4 · El extracto</option>
+    <option value="modulo-05-analizar-recursos.html">Módulo 5 · Recursos</option>
+    <option value="modulo-06-estructura-tiempo.html">Módulo 6 · Estructura y tiempo</option>
+    <option value="modulo-07-conversacion.html" selected>Módulo 7 · Conversación</option>
+    <option value="modulo-bonus-vocabulario.html">Bonus · Vocabulario</option>
   </select>
-  <button class="mn-btn" style="" onclick="window.location.href='modulo-bonus-vocabulario.html'">Sig. →</button>
+  <button class="mn-btn" onclick="window.location.href='modulo-bonus-vocabulario.html'">Sig. →</button>
 </div>
-<div style="text-align:center;font-size:11px;color:var(--gs);padding:16px;border-top:1px solid var(--co)">IB Español A · Oral Individual · Módulo 7 de 7</div>
 <script>
-function ir(i){
-  document.querySelectorAll('.sec').forEach(function(s,j){s.classList.toggle('on',i===j);});
-  document.querySelectorAll('.ntab').forEach(function(t,j){t.classList.toggle('on',i===j);});
+function ir(i) {
+  document.querySelectorAll('.sec').forEach(function(s,j){ s.classList.toggle('on', i===j); });
+  document.querySelectorAll('.ntab').forEach(function(t,j){ t.classList.toggle('on', i===j); });
 }
-// TIPOS
-var tipos=[
-  {n:1,t:'Profundización',s:'La profesora quiere que vayas más allá',ej:['Has dicho que el imperativo "realiza el poder". ¿Puedes explicar eso?','Has mencionado la ironía del Lazarillo. ¿Un ejemplo concreto?'],e:'<strong>No repitas lo mismo.</strong> Añade una capa: ejemplo más específico, explica el mecanismo, conecta con otro momento.'},
-  {n:2,t:'Ampliación',s:'La profesora lleva a algo que no mencionaste',ej:['Has hablado del silencio. ¿Hay personajes que lo resistan?','Has analizado el ethos. ¿Qué rol juega el pathos?'],e:'<strong>No te asustes.</strong> Conecta con lo que sí sabes: "No lo había analizado así, pero desde la CG creo que..."'},
-  {n:3,t:'Evaluación',s:'Te pide tu opinión o juicio',ej:['¿Lorca presenta a Bernarda con simpatía o como antagonista sin matices?','¿Qué hace el discurso de Malala más efectivo: la experiencia o el argumento?'],e:'<strong>Da una opinión argumentada.</strong> Empieza por tomar posición y justifica con el texto. Puedes reconocer complejidad.'},
-  {n:4,t:'Conexión global',s:'Conecta el texto con el mundo contemporáneo',ej:['¿El tipo de control de Bernarda existe hoy?','¿En qué contextos el discurso de Malala sería igual de relevante?'],e:'<strong>La pregunta donde más demuestras comprensión.</strong> Conecta con un ejemplo concreto actual. El razonamiento importa más que la precisión.'},
-  {n:5,t:'Clarificación',s:'La profesora no entendió algo o pide más precisión',ej:['Cuando dices "construye el silencio", ¿qué quieres decir?','Has dicho que los textos "se complementan". ¿Más específico?'],e:'<strong>No te pongas a la defensiva.</strong> Reformula con más concreción. Si cometiste un error, corrígelo con naturalidad.'}
+
+var tipos = [
+  { n:1, t:'Profundizacion', s:'La profesora quiere que vayas mas alla de lo que dijiste',
+    ej:['Has dicho que el imperativo realiza el poder. Puedes explicar que quieres decir?','Has mencionado la ironia del Lazarillo. Puedes dar un ejemplo concreto?'],
+    e:'No repitas lo mismo. Anade una capa: ejemplo mas especifico, explica el mecanismo, conecta con otro momento de la obra.' },
+  { n:2, t:'Ampliacion', s:'La profesora lleva la conversacion a algo que no mencionaste',
+    ej:['Has hablado del silencio impuesto. Hay personajes que lo resistan?','Has analizado el ethos de Malala. Que rol juega el pathos?'],
+    e:'No te asustes. Conecta con lo que si sabes: No lo habia analizado asi, pero desde la CG creo que...' },
+  { n:3, t:'Evaluacion', s:'La profesora te pide tu opinion o juicio',
+    ej:['Crees que Lorca presenta a Bernarda con simpatia o como antagonista sin matices?','Que hace el discurso de Malala mas efectivo: la experiencia personal o el argumento racional?'],
+    e:'Da una opinion argumentada. Empieza por tomar posicion y justifica con el texto.' },
+  { n:4, t:'Conexion global', s:'La profesora conecta el texto con el mundo contemporaneo',
+    ej:['Crees que el tipo de control de Bernarda existe hoy?','En que contextos el discurso de Malala seria igual de relevante?'],
+    e:'La pregunta donde mas demuestras comprension. Conecta con un ejemplo concreto actual.' },
+  { n:5, t:'Clarificacion', s:'La profesora pide que precises algo',
+    ej:['Cuando dices que Bernarda construye el silencio, que quieres decir exactamente?','Has dicho que los textos se complementan. Puedes ser mas especifica?'],
+    e:'No te pongas a la defensiva. Reformula con mas concrecion. Si cometiste un error, corrigelo con naturalidad.' }
 ];
-document.getElementById('tipos').innerHTML=tipos.map(function(t){return '<div class="tcard" onclick="this.classList.toggle('open')"><div class="th"><div class="tnum">'+t.n+'</div><div class="tinfo"><div class="ttit">'+t.t+'</div><div class="tsub">'+t.s+'</div></div><span class="ttog">▾</span></div><div class="tbody"><p style="font-size:12px;font-weight:600;color:var(--gs);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px">Ejemplos</p>'+t.ej.map(function(e){return '<div class="ejp">'+e+'</div>';}).join('')+'<p style="font-size:12px;font-weight:600;color:var(--acc);margin:10px 0 6px;text-transform:uppercase;letter-spacing:.5px">Estrategia</p><div class="estrat">'+t.e+'</div></div></div>';}).join('');
-// SIMULADOR
-var sdata={
-  b:{label:'Bernarda+Malala',pregs:[
-    {ti:'Profundización',p:'Has dicho que el imperativo "realiza el poder". ¿Puedes explicar eso?',es:'Explica la performatividad: el lenguaje no describe la autoridad, la crea en el momento en que se pronuncia.',ej:'"Me refería a que cuando Bernarda dice "aquí se hace lo que yo mando", no está describiendo una situación: la está creando. El imperativo no anuncia la autoridad, es la autoridad. Por eso no hay espacio para la réplica."'},
-    {ti:'Ampliación',p:'¿Algún personaje de la obra resiste ese silencio, aunque sea en privado?',es:'Piensa en Adela, la Poncia, María Josefa. La resistencia no tiene que ser pública para ser real.',ej:'"Adela resiste en privado y de noche, lo que ya es aceptar las reglas. María Josefa quizás es quien más resiste abiertamente, pero el sistema neutraliza esa resistencia declarándola locura."'},
-    {ti:'Conexión global',p:'¿Crees que el tipo de control de Bernarda existe hoy?',es:'No te limites a decir "sí". Da un ejemplo concreto y conecta el mecanismo, no solo la situación.',ej:'"Sí. El mecanismo del qué dirán como control de la reputación femenina sigue operando en muchos contextos. Lo que Lorca dramatiza no es solo la España rural: es cualquier comunidad donde la honra femenina es propiedad colectiva."'}
+var tiposEl = document.getElementById('tipos');
+tipos.forEach(function(t) {
+  var div = document.createElement('div');
+  div.className = 'tc';
+  div.innerHTML = '<div class="tc-h"><div class="tcnum">' + t.n + '</div><div class="tci"><div class="tct">' + t.t + '</div><div class="tcs">' + t.s + '</div></div><span class="tctg">&#9662;</span></div>' +
+    '<div class="tc-bd"><p style="font-size:12px;font-weight:600;color:var(--gs);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px">Ejemplos</p>' +
+    t.ej.map(function(e){ return '<div class="ejp">' + e + '</div>'; }).join('') +
+    '<p style="font-size:12px;font-weight:600;color:var(--acc);margin:10px 0 6px;text-transform:uppercase;letter-spacing:.5px">Estrategia</p>' +
+    '<div class="est">' + t.e + '</div></div>';
+  div.onclick = function() { this.classList.toggle('op'); };
+  tiposEl.appendChild(div);
+});
+
+var sd = {
+  b: { label:'Bernarda+Malala', pregs:[
+    { ti:'Profundizacion', p:'Has dicho que el imperativo de Bernarda realiza el poder. Puedes explicar que quieres decir con eso?',
+      es:'Explica la performatividad: el lenguaje no describe la autoridad, la crea en el momento en que se pronuncia.',
+      ej:'Me referia a que cuando Bernarda dice aqui se hace lo que yo mando, no esta describiendo: esta creando. El imperativo no anuncia la autoridad, es la autoridad.' },
+    { ti:'Ampliacion', p:'Algun personaje de la obra resiste ese silencio, aunque sea en privado?',
+      es:'Piensa en Adela, la Poncia, Maria Josefa. La resistencia no tiene que ser publica para ser real.',
+      ej:'Adela resiste en privado y de noche, lo que ya es aceptar las reglas. Maria Josefa quizas resiste mas abiertamente, pero el sistema la neutraliza declarandola loca.' },
+    { ti:'Conexion global', p:'Crees que el tipo de control que ejerce Bernarda existe hoy en dia?',
+      es:'Da un ejemplo concreto y conecta el mecanismo, no solo la situacion general.',
+      ej:'Si. El mecanismo del que diran como control sobre la reputacion femenina sigue operando. Lo que Lorca dramatiza no es solo la Espana rural: es cualquier comunidad donde la honra femenina es propiedad colectiva.' }
   ]},
-  l:{label:'Lazarillo+Mujica',pregs:[
-    {ti:'Profundización',p:'Has dicho que la ironía es "crítica sin riesgo". ¿Puedes desarrollar?',es:'Explica la paradoja: el humor permite decir verdades que una crítica directa no podría sin consecuencias.',ej:'"El narrador no puede acusar directamente sin poner en riesgo su supervivencia. La ironía le permite decir una cosa y que el lector entienda otra: es protección y crítica al mismo tiempo."'}
+  l: { label:'Lazarillo+Mujica', pregs:[
+    { ti:'Profundizacion', p:'Has dicho que la ironia del Lazarillo es critica sin riesgo. Puedes desarrollar eso?',
+      es:'Explica la paradoja: el humor permite decir verdades que una critica directa no podria sin consecuencias.',
+      ej:'El narrador no puede acusar directamente sin poner en riesgo su supervivencia. La ironia le permite decir una cosa y que el lector entienda otra: es proteccion y critica al mismo tiempo.' }
   ]}
 };
-var sa='b',sp=0;
-function renderSSel(){document.getElementById('ssel').innerHTML=Object.entries(sdata).map(function(kv){return '<button class="sbtn'+(kv[0]===sa?' on':'')+'" onclick="selS(''+kv[0]+'')">'+kv[1].label+'</button>';}).join('');}
-function renderSim(){
-  var p=sdata[sa].pregs[sp];
-  document.getElementById('simcont').innerHTML='<div class="spq"><div class="stag">'+p.ti+'</div><div class="sptxt">"'+p.p+'"</div></div><div class="sra" id="sra"><div class="sstrat"><div class="sst">Estrategia</div><div class="sstxt">'+p.es+'</div></div><div class="sej">'+p.ej+'</div></div><div class="sbtns"><button class="bver" onclick="document.getElementById('sra').classList.add('vis');this.style.display='none'">Ver estrategia</button><button class="botra" onclick="selOtra()">Otra pregunta</button><span class="scnt">'+(sp+1)+' / '+sdata[sa].pregs.length+'</span></div>';
+var sa = 'b', sp = 0;
+function renderSSel() {
+  var el = document.getElementById('ssel');
+  el.innerHTML = '';
+  Object.keys(sd).forEach(function(k) {
+    var btn = document.createElement('button');
+    btn.className = 'sbtn' + (k === sa ? ' on' : '');
+    btn.textContent = sd[k].label;
+    btn.onclick = (function(key){ return function(){ selS(key); }; })(k);
+    el.appendChild(btn);
+  });
 }
-function selS(k){sa=k;sp=0;renderSSel();renderSim();}
-function selOtra(){sp=(sp+1)%sdata[sa].pregs.length;renderSim();}
-renderSSel();renderSim();
-// RESCATES
-var resc=[
-  {e:'🤔',s:'No sé cómo responder',fs:['No lo había pensado exactamente así, pero conectándolo con mi CG creo que...','Es una perspectiva interesante. Lo que sí puedo decir es...'],n:'Nunca digas solo "no sé". Siempre conecta con algo que sí sabes.'},
-  {e:'💭',s:'Me he quedado en blanco',fs:['Permítame reformularlo de otra manera...','Lo que quiero decir es que en el texto esto se ve cuando...'],n:'Una pausa de 3 segundos es normal. No la llenes con "ehhh".'},
-  {e:'😅',s:'La profesora pide más y ya no tengo',fs:['Podría añadir que esto también conecta con otro momento de la obra...','Si lo pienso en relación con el corpus, la diferencia más llamativa es...'],n:'Cuando no puedas profundizar más, desplázate: conecta con la otra obra.'},
-  {e:'🤨',s:'Señalan algo que contradice mi análisis',fs:['Es un punto válido. Quizás debería matizar que...','Tienes razón, eso complica mi argumento. Reformulándolo...'],n:'Matizar demuestra pensamiento crítico real. No te defiendas.'},
-  {e:'📖',s:'No recuerdo la cita exacta',fs:['No recuerdo la cita exacta, pero el fragmento al que me refiero es aquel donde...'],n:'No inventes citas. Es mejor describir el fragmento con precisión.'},
-  {e:'❓',s:'Pregunta sobre algo que no trabajé',fs:['No lo analicé, pero puedo aplicar el mismo enfoque...','Conectándolo con mi CG, creo que...'],n:'La conversación puede ir más allá. Es una oportunidad, no una trampa.'}
+function renderSim() {
+  var p = sd[sa].pregs[sp];
+  var el = document.getElementById('simcont');
+  el.innerHTML = '<div class="spq"><div class="stag">' + p.ti + '</div><div class="sptx">' + p.p + '</div></div>' +
+    '<div class="sra" id="sra"><div class="sst"><div class="sstl">Estrategia</div><div class="sstx">' + p.es + '</div></div><div class="sej">' + p.ej + '</div></div>' +
+    '<div class="sbtns"><button class="bver" id="bver">Ver estrategia</button><button class="botr" id="botr">Otra pregunta</button><span class="scnt">' + (sp+1) + ' / ' + sd[sa].pregs.length + '</span></div>';
+  document.getElementById('bver').onclick = function() {
+    document.getElementById('sra').classList.add('vis');
+    this.style.display = 'none';
+  };
+  document.getElementById('botr').onclick = function() { selOtra(); };
+}
+function selS(k) { sa = k; sp = 0; renderSSel(); renderSim(); }
+function selOtra() { sp = (sp+1) % sd[sa].pregs.length; renderSim(); }
+renderSSel(); renderSim();
+
+var resc = [
+  { e:'&#129300;', s:'No se como responder la pregunta',
+    fs:['No lo habia pensado exactamente asi, pero conectandolo con mi CG creo que...','Es una perspectiva interesante. Lo que si puedo decir es que en el texto...'],
+    n:'Nunca digas solo no se. Siempre conecta con algo que si sabes.' },
+  { e:'&#128173;', s:'Me he quedado en blanco a mitad de una respuesta',
+    fs:['Permitame reformularlo de otra manera...','Lo que quiero decir es que en el texto esto se ve cuando...'],
+    n:'Una pausa de 3 segundos es normal. No la llenes con ehhh.' },
+  { e:'&#128517;', s:'La profesora pide mas y ya no tengo mas',
+    fs:['Podria anadir que esto tambien conecta con otro momento de la obra, cuando...','Si lo pienso en relacion con el corpus, la diferencia mas llamativa seria...'],
+    n:'Cuando no puedas profundizar, desplazate: conecta con la otra obra o la CG.' },
+  { e:'&#129320;', s:'Senalan algo que contradice mi analisis',
+    fs:['Es un punto valido. Quizas deberia matizar que lo que yo queria decir era...','Tienes razon en que eso complica mi argumento. Reformulandolo, diria que...'],
+    n:'Matizar o corregir demuestra pensamiento critico real. No te defiendas.' },
+  { e:'&#128214;', s:'No recuerdo la cita exacta del texto',
+    fs:['No recuerdo la cita exacta, pero el fragmento al que me refiero es aquel donde...'],
+    n:'No inventes citas. Es mejor describir el fragmento con precision.' },
+  { e:'&#10067;', s:'Me preguntan sobre algo que no trabaje en el oral',
+    fs:['No lo analice en mi presentacion, pero puedo intentar aplicar el mismo enfoque...','Conectandolo con mi CG, creo que...'],
+    n:'La conversacion puede ir mas alla de lo preparado. Es una oportunidad.' }
 ];
-document.getElementById('rescates').innerHTML=resc.map(function(r){return '<div class="rcard" onclick="this.classList.toggle('open')"><div class="rh"><span class="rem">'+r.e+'</span><span class="rsit">'+r.s+'</span><span class="rtog">▾</span></div><div class="rbody">'+r.fs.map(function(f){return '<div class="frase">"'+f+'"</div>';}).join('')+'<div class="rnota">💡 '+r.n+'</div></div></div>';}).join('');
-// CHECKLIST
-function mk(li){li.classList.toggle('mk');var t=document.querySelectorAll('.chk li').length,m=document.querySelectorAll('.chk li.mk').length;document.getElementById('pf').style.width=Math.round(m/t*100)+'%';document.getElementById('plbl').textContent=m+' de '+t;}
+var rEl = document.getElementById('rescates');
+resc.forEach(function(r) {
+  var div = document.createElement('div');
+  div.className = 'rc';
+  div.innerHTML = '<div class="rc-h"><span class="rem">' + r.e + '</span><span class="rsit">' + r.s + '</span><span class="rctg">&#9662;</span></div>' +
+    '<div class="rc-bd">' + r.fs.map(function(f){ return '<div class="fr">' + f + '</div>'; }).join('') + '<div class="rnt">&#128161; ' + r.n + '</div></div>';
+  div.onclick = function() { this.classList.toggle('op'); };
+  rEl.appendChild(div);
+});
+
+function mk(li) {
+  li.classList.toggle('mk');
+  var t = document.querySelectorAll('.chk li').length;
+  var m = document.querySelectorAll('.chk li.mk').length;
+  document.getElementById('pf').style.width = Math.round(m/t*100) + '%';
+  document.getElementById('plbl').textContent = m + ' de ' + t;
+}
 </script>
-</body></html>
+</body>
+</html>
