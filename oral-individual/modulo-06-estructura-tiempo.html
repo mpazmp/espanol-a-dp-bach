@@ -131,6 +131,22 @@
     .btn-siguiente{display:block;width:100%;margin-top:24px;padding:14px 24px;background:linear-gradient(135deg,var(--verde),var(--verde-claro));color:#fff;border:none;border-radius:10px;font-family:'Source Sans 3',sans-serif;font-size:14px;font-weight:600;cursor:pointer;text-align:center;transition:opacity 0.2s,transform 0.2s}
     .btn-siguiente:hover{opacity:0.9;transform:translateY(-1px)}
     .pie{text-align:center;font-size:11px;color:var(--gris-suave);padding:16px;border-top:1px solid var(--crema-oscura);margin-top:8px}
+
+    /* ── MINI-NAV FIJA ── */
+    .mininav{position:fixed;bottom:0;left:0;right:0;z-index:999;background:#fff;border-top:2px solid #e8e0d5;padding:8px 14px;display:flex;align-items:center;gap:8px;box-shadow:0 -2px 12px rgba(0,0,0,0.08)}
+    body{padding-bottom:58px}
+    .mn-home{padding:6px 12px;border-radius:8px;background:#0b4a82;color:#fff;border:none;font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+    .mn-home:hover{background:#185fa5}
+    .mn-btn{padding:6px 12px;border-radius:8px;border:1.5px solid #e8e0d5;font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:600;cursor:pointer;background:#fff;color:#7a7a7a;transition:all 0.2s;white-space:nowrap}
+    .mn-btn:hover{background:#f0e9df}
+    .mn-btn.off{opacity:0.3;pointer-events:none}
+    .mn-sel{flex:1;padding:6px 8px;border-radius:8px;border:1.5px solid #e8e0d5;font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:600;color:#2c2c2c;background:#faf6f0;cursor:pointer;min-width:0}
+    /* ── BOTONES DE PESTAÑA ── */
+    .tab-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:20px;padding-top:14px;border-top:1px solid #f0e9df}
+    .btn-tf{padding:8px 18px;border-radius:8px;border:1.5px solid #e8e0d5;font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s}
+    .btn-tf-prev{background:#fff;color:#7a7a7a}
+    .btn-tf-prev:hover{background:#f0e9df}
+
   </style>
 </head>
 <body>
@@ -203,7 +219,10 @@
         </ul>
       </div>
     </div>
-  </div>
+  
+<div class="tab-footer"><button class="btn-tf" style="background:#1d9e75;color:#fff;border-color:#1d9e75" onclick="cambiarSeccion(1)">Pestaña siguiente →</button></div>
+</div>
+
 
   <!-- SECCIÓN 2: GUIÓN -->
   <div class="seccion" id="sec-1">
@@ -213,7 +232,10 @@
       <div class="obra-selector" id="guion-selector"></div>
       <div id="guion-contenido"></div>
     </div>
-  </div>
+  
+<div class="tab-footer"><button class="btn-tf btn-tf-prev" onclick="cambiarSeccion(0)">← Pestaña anterior</button><button class="btn-tf" style="background:#1d9e75;color:#fff;border-color:#1d9e75" onclick="cambiarSeccion(2)">Pestaña siguiente →</button></div>
+</div>
+
 
   <!-- SECCIÓN 3: ERRORES -->
   <div class="seccion" id="sec-2">
@@ -221,7 +243,10 @@
       <h2><span class="icono">⚠️</span> Errores de estructura más frecuentes</h2>
       <div class="errores-lista" id="errores-lista"></div>
     </div>
-  </div>
+  
+<div class="tab-footer"><button class="btn-tf btn-tf-prev" onclick="cambiarSeccion(1)">← Pestaña anterior</button><button class="btn-tf" style="background:#1d9e75;color:#fff;border-color:#1d9e75" onclick="cambiarSeccion(3)">Pestaña siguiente →</button></div>
+</div>
+
 
   <!-- SECCIÓN 4: CRONÓMETRO -->
   <div class="seccion" id="sec-3">
@@ -244,7 +269,10 @@
         </div>
       </div>
     </div>
-  </div>
+  
+<div class="tab-footer"><button class="btn-tf btn-tf-prev" onclick="cambiarSeccion(2)">← Pestaña anterior</button><button class="btn-tf" style="background:#1d9e75;color:#fff;border-color:#1d9e75" onclick="cambiarSeccion(4)">Pestaña siguiente →</button></div>
+</div>
+
 
   <!-- SECCIÓN 5: CHECKLIST -->
   <div class="seccion" id="sec-4">
@@ -263,11 +291,10 @@
         <li onclick="marcarItem(this)"><div class="check-box">✓</div><div class="check-texto">Sé exactamente qué voy a decir en los primeros 30 segundos del oral.</div></li>
       </ul>
     </div>
-  </div>
+  
+<div class="tab-footer"><button class="btn-tf btn-tf-prev" onclick="cambiarSeccion(3)">← Pestaña anterior</button><button class="btn-tf" style="background:#1d9e75;color:#fff;border-color:#1d9e75" onclick="window.location.href='modulo-07-conversacion.html'">Módulo 7 →</button></div>
+</div>
 
-  <button class="btn-siguiente" onclick="window.location.href='modulo-07-conversacion.html'">
-    Ir al Módulo 7 → La conversación
-  </button>
 </div>
 
 <div class="pie">IB Español A: Lengua y Literatura · Oral Individual · Módulo 6 de 7</div>
@@ -530,5 +557,23 @@ function actualizarProgreso() {
   document.getElementById('label-progreso').textContent = `${marcados} de ${total} completados`;
 }
 </script>
+
+<!-- MINI-NAV -->
+<div class="mininav">
+  <a class="mn-home" href="index-oral-individual.html">🏠 Menú</a>
+  <button class="mn-btn " onclick="window.location.href='modulo-05-analizar-recursos.html'">← Ant.</button>
+  <select class="mn-sel" onchange="if(this.value)window.location.href=this.value">
+<option value="index-oral-individual.html" >🏠 Índice de módulos</option>
+<option value="modulo-01-estructura-evaluacion.html" >Módulo 1 · Estructura</option>
+<option value="modulo-02-elegir-obra-corpus.html" >Módulo 2 · Obra y corpus</option>
+<option value="modulo-03-cuestion-global.html" >Módulo 3 · Cuestión global</option>
+<option value="modulo-04-seleccionar-extracto.html" >Módulo 4 · El extracto</option>
+<option value="modulo-05-analizar-recursos.html" >Módulo 5 · Recursos</option>
+<option value="modulo-06-estructura-tiempo.html" selected>Módulo 6 · Estructura y tiempo</option>
+<option value="modulo-07-conversacion.html" >Módulo 7 · La conversación</option>
+<option value="modulo-bonus-vocabulario.html" >Bonus · Vocabulario analítico</option>
+  </select>
+  <button class="mn-btn " onclick="window.location.href='modulo-07-conversacion.html'">Sig. →</button>
+</div>
 </body>
 </html>
