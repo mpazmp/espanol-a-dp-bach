@@ -440,55 +440,61 @@ const preguntas = [
 let pregActual=0, puntos=0, respondida=false;
 
 function renderTest() {
-  const p=preguntas[pregActual];
-  respondida=false;
-  document.getElementById('test-contenido').innerHTML=`
-    <div class="test-pregunta-box">
-      <div class="test-enunciado">${p.enunciado}</div>
-    </div>
-    <div class="test-opciones">
-      ${p.opciones.map((o,i)=>`<div class="test-opcion" onclick="responderTest(this,${i},${i===p.correcta},'${p.feedback.replace(/'/g,"\'")}')">
-        ${o}
-      </div>`).join('')}
-    </div>
-    <div class="test-feedback" id="test-fb"></div>
-    <div class="test-nav">
-      <span class="test-info">Pregunta ${pregActual+1} de ${preguntas.length}</span>
-      <span class="marcador" id="marcador">${puntos} correctas</span>
-      <button class="btn-test" id="btn-siguiente-test" onclick="siguienteTest()" disabled>Siguiente →</button>
-    </div>`;
+  const p = preguntas[pregActual];
+  respondida = false;
+  const cont = document.getElementById('test-contenido');
+  cont.innerHTML =
+    '<div class="test-pregunta-box"><div class="test-enunciado">' + p.enunciado + '</div></div>' +
+    '<div class="test-opciones" id="test-ops"></div>' +
+    '<div class="test-feedback" id="test-fb"></div>' +
+    '<div class="test-nav">' +
+      '<span class="test-info">Pregunta ' + (pregActual+1) + ' de ' + preguntas.length + '</span>' +
+      '<span class="marcador" id="marcador">' + puntos + ' correctas</span>' +
+      '<button class="btn-test" id="btn-siguiente-test" onclick="siguienteTest()" disabled>Siguiente &#8594;</button>' +
+    '</div>';
+
+  const ops = document.getElementById('test-ops');
+  p.opciones.forEach(function(o, i) {
+    const div = document.createElement('div');
+    div.className = 'test-opcion';
+    div.textContent = o;
+    div.onclick = (function(idx, correcta, feedback) {
+      return function() { responderTest(this, idx, correcta, feedback); };
+    })(i, i === p.correcta, p.feedback);
+    ops.appendChild(div);
+  });
 }
 
-function responderTest(el,idx,correcta,feedback) {
-  if(respondida) return;
-  respondida=true;
-  document.querySelectorAll('.test-opcion').forEach(o=>o.classList.add('bloqueada'));
-  el.classList.add(correcta?'correcta':'incorrecta');
-  if(correcta) puntos++;
-  const fb=document.getElementById('test-fb');
-  fb.textContent=feedback;
-  fb.className='test-feedback '+(correcta?'correcto':'incorrecto');
-  document.getElementById('marcador').textContent=puntos+' correctas';
-  document.getElementById('btn-siguiente-test').disabled=false;
+function responderTest(el, idx, correcta, feedback) {
+  if (respondida) return;
+  respondida = true;
+  document.querySelectorAll('.test-opcion').forEach(function(o){ o.classList.add('bloqueada'); });
+  el.classList.add(correcta ? 'correcta' : 'incorrecta');
+  if (correcta) puntos++;
+  const fb = document.getElementById('test-fb');
+  fb.textContent = feedback;
+  fb.className = 'test-feedback ' + (correcta ? 'correcto' : 'incorrecto');
+  document.getElementById('marcador').textContent = puntos + ' correctas';
+  document.getElementById('btn-siguiente-test').disabled = false;
 }
 
 function siguienteTest() {
-  if(pregActual<preguntas.length-1) {
+  if (pregActual < preguntas.length - 1) {
     pregActual++;
     renderTest();
   } else {
-    const pct=Math.round((puntos/preguntas.length)*100);
-    document.getElementById('test-contenido').innerHTML=`
-      <div style="text-align:center;padding:30px 20px">
-        <div style="font-family:'Playfair Display',serif;font-size:52px;font-weight:700;color:var(--dorado)">${puntos}/${preguntas.length}</div>
-        <div style="font-size:16px;font-weight:600;margin:8px 0 6px">${pct>=80?'¡Excelente dominio del vocabulario analítico!':pct>=60?'Buen nivel, sigue practicando.':'Repasa el banco de vocabulario y vuelve a intentarlo.'}</div>
-        <div style="font-size:13px;color:var(--gris-suave);margin-bottom:20px">${pct>=80?'Tu lenguaje analítico está listo para el oral.':'Recuerda: el vocabulario preciso es lo que diferencia un 6 de un 9.'}</div>
-        <button class="btn-test" onclick="reiniciarTest()">Reiniciar test</button>
-      </div>`;
+    const pct = Math.round((puntos / preguntas.length) * 100);
+    document.getElementById('test-contenido').innerHTML =
+      '<div style="text-align:center;padding:30px 20px">' +
+        '<div style="font-family:serif;font-size:52px;font-weight:700;color:var(--dorado)">' + puntos + '/' + preguntas.length + '</div>' +
+        '<div style="font-size:16px;font-weight:600;margin:8px 0 6px">' + (pct>=80?'Excelente dominio del vocabulario!':pct>=60?'Buen nivel, sigue practicando.':'Repasa el banco de vocabulario e intentalo de nuevo.') + '</div>' +
+        '<div style="font-size:13px;color:var(--gs);margin-bottom:20px">' + (pct>=80?'Tu lenguaje analitico esta listo para el oral.':'Recuerda: el vocabulario preciso diferencia un 6 de un 9.') + '</div>' +
+        '<button class="btn-test" onclick="reiniciarTest()">Reiniciar test</button>' +
+      '</div>';
   }
 }
 
-function reiniciarTest() { pregActual=0; puntos=0; renderTest(); }
+function reiniciarTest() { pregActual = 0; puntos = 0; renderTest(); }
 renderTest();
 </script>
 
