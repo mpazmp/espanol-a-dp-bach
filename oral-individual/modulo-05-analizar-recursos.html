@@ -6,9 +6,9 @@
   <title>Módulo 5 · Analizar recursos</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
-    :root{--acc:#c64829;--acc2:#e07b39;--azul:#0b4a82;--tq:#0e9aa7;--crema:#faf6f0;--co:#f0e9df;--gt:#2c2c2c;--gs:#7a7a7a;--vok:#2d6a4f;--bg:#faece7}
+    :root{--acc:#c64829;--acc2:#e07b39;--azul:#0b4a82;--tq:#0e9aa7;--cr:#faf6f0;--co:#f0e9df;--gt:#2c2c2c;--gs:#7a7a7a;--vok:#2d6a4f;--bg:#faece7}
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Source Sans 3',sans-serif;background:var(--crema);color:var(--gt)}
+    body{font-family:'Source Sans 3',sans-serif;background:var(--cr);color:var(--gt);padding-bottom:60px}
     .bi{background:#fff;padding:10px 28px;display:flex;align-items:center;justify-content:center;border-bottom:3px solid var(--acc);box-shadow:0 2px 8px rgba(0,0,0,.06)}
     .bi img{height:50px;width:auto}
     .cab{background:linear-gradient(135deg,var(--acc),var(--acc2));padding:34px 32px 26px;position:relative;overflow:hidden}
@@ -18,8 +18,8 @@
     .cab p{color:rgba(255,255,255,.75);font-size:13.5px;font-weight:300;position:relative}
     .ntabs{display:flex;background:#fff;border-bottom:2px solid var(--co);overflow-x:auto}
     .ntab{flex:1;min-width:100px;padding:13px 8px;text-align:center;font-size:12px;font-weight:600;color:var(--gs);cursor:pointer;border-bottom:3px solid transparent;transition:all .25s;white-space:nowrap}
-    .ntab:hover{color:var(--acc);background:var(--crema)}
-    .ntab.on{color:var(--acc);border-bottom-color:var(--acc);background:var(--crema)}
+    .ntab:hover{color:var(--acc);background:var(--cr)}
+    .ntab.on{color:var(--acc);border-bottom-color:var(--acc);background:var(--cr)}
     .box{padding:24px 24px 38px;max-width:760px;margin:0 auto}
     .sec{display:none;animation:ap .3s ease}
     .sec.on{display:block}
@@ -27,94 +27,69 @@
     .card{background:#fff;border-radius:12px;padding:22px;margin-bottom:16px;border:1px solid var(--co);box-shadow:0 2px 8px rgba(0,0,0,.04)}
     .card h2{font-family:'Playfair Display',serif;font-size:17px;color:var(--acc);margin-bottom:14px;display:flex;align-items:center;gap:10px}
     .ico{width:32px;height:32px;background:var(--bg);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-    /* ICAV */
     .icav{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
     @media(max-width:520px){.icav{grid-template-columns:1fr 1fr}}
-    .icav-card{border-radius:10px;overflow:hidden;text-align:center;border:1px solid var(--co)}
-    .icav-top{padding:16px 10px 10px}
-    .icav-letra{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:#fff;line-height:1}
-    .icav-nom{font-size:12px;font-weight:600;color:#fff;padding-bottom:4px;opacity:.9}
-    .icav-desc{padding:12px 10px;font-size:12px;line-height:1.55;color:var(--gt);background:#fff}
-    .ci .icav-top{background:var(--acc)}
-    .cc .icav-top{background:var(--acc2)}
-    .ca .icav-top{background:var(--azul)}
-    .cv .icav-top{background:var(--tq)}
-    /* NIVELES */
-    .obra-sel{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+    .ic{border-radius:10px;overflow:hidden;text-align:center;border:1px solid var(--co)}
+    .ic-top{padding:16px 10px 10px}
+    .ic-l{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:#fff;line-height:1}
+    .ic-n{font-size:12px;font-weight:600;color:#fff;padding-bottom:4px;opacity:.9}
+    .ic-d{padding:12px 10px;font-size:12px;line-height:1.55;color:var(--gt);background:#fff}
+    .cI .ic-top{background:var(--acc)}.cC .ic-top{background:var(--acc2)}.cA .ic-top{background:var(--azul)}.cV .ic-top{background:var(--tq)}
+    .osel{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
     .obtn{padding:6px 14px;border-radius:20px;border:1.5px solid var(--co);background:#fff;font-size:12px;font-weight:600;cursor:pointer;color:var(--gs);transition:all .2s}
     .obtn:hover{border-color:var(--acc);color:var(--acc)}
     .obtn.on{background:var(--acc);border-color:var(--acc);color:#fff}
-    .nlvl{border-radius:10px;overflow:hidden;margin-bottom:8px;border:1px solid var(--co);cursor:pointer}
-    .nlvl-h{display:flex;align-items:center;gap:10px;padding:11px 16px}
-    .nlvl-badge{padding:3px 12px;border-radius:20px;font-size:11px;font-weight:700;color:#fff;white-space:nowrap}
-    .nlvl-title{font-size:13px;font-weight:600;color:#fff;flex:1}
-    .nlvl-tog{font-size:14px;color:rgba(255,255,255,.8);transition:transform .25s}
-    .nlvl.open .nlvl-tog{transform:rotate(180deg)}
-    .nlvl-body{display:none;padding:14px 16px;background:var(--crema);border-top:1px solid var(--co)}
-    .nlvl.open .nlvl-body{display:block;animation:ap .2s ease}
-    .nlvl-txt{font-size:13.5px;font-style:italic;line-height:1.6;padding:12px 14px;border-radius:8px;margin-bottom:10px;border-left:3px solid}
-    .nlvl-exp{font-size:12.5px;color:var(--gs);line-height:1.6}
-    .nlvl-exp strong{color:var(--gt)}
-    .nb .nlvl-h{background:linear-gradient(135deg,#842029,#c0392b)}
-    .nb .nlvl-txt{background:#fff8f8;border-color:#f5c2c7;color:#842029}
-    .nm .nlvl-h{background:linear-gradient(135deg,#a07418,#c9973a)}
-    .nm .nlvl-txt{background:#faeeda;border-color:#e8c47a;color:#633806}
-    .na .nlvl-h{background:linear-gradient(135deg,#2d6a4f,#3a9068)}
-    .na .nlvl-txt{background:#f0fff4;border-color:#b7dfc9;color:#1a5e35}
-    /* GLOSARIO */
+    .nl{border-radius:10px;overflow:hidden;margin-bottom:8px;border:1px solid var(--co);cursor:pointer}
+    .nl-h{display:flex;align-items:center;gap:10px;padding:11px 16px}
+    .nl-b{padding:3px 12px;border-radius:20px;font-size:11px;font-weight:700;color:#fff;white-space:nowrap}
+    .nl-t{font-size:13px;font-weight:600;color:#fff;flex:1}
+    .nl-tg{font-size:14px;color:rgba(255,255,255,.8);transition:transform .25s}
+    .nl.op .nl-tg{transform:rotate(180deg)}
+    .nl-bd{display:none;padding:14px 16px;background:var(--cr);border-top:1px solid var(--co)}
+    .nl.op .nl-bd{display:block;animation:ap .2s ease}
+    .nl-tx{font-size:13.5px;font-style:italic;line-height:1.6;padding:12px 14px;border-radius:8px;margin-bottom:10px;border-left:3px solid}
+    .nl-ex{font-size:12.5px;color:var(--gs);line-height:1.6}
+    .nl-ex strong{color:var(--gt)}
+    .nb .nl-h{background:linear-gradient(135deg,#842029,#c0392b)}.nb .nl-tx{background:#fff8f8;border-color:#f5c2c7;color:#842029}
+    .nm .nl-h{background:linear-gradient(135deg,#a07418,#c9973a)}.nm .nl-tx{background:#faeeda;border-color:#e8c47a;color:#633806}
+    .na .nl-h{background:linear-gradient(135deg,#2d6a4f,#3a9068)}.na .nl-tx{background:#f0fff4;border-color:#b7dfc9;color:#1a5e35}
     .ctabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
     .cbtn{padding:5px 12px;border-radius:20px;border:1.5px solid var(--co);background:#fff;font-size:12px;font-weight:600;cursor:pointer;color:var(--gs);transition:all .2s}
     .cbtn:hover{border-color:var(--acc);color:var(--acc)}
     .cbtn.on{background:var(--acc);border-color:var(--acc);color:#fff}
-    .rgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-    @media(max-width:500px){.rgrid{grid-template-columns:1fr}}
-    .rcard{border-radius:9px;overflow:hidden;border:1px solid var(--co);cursor:pointer}
-    .rcard-h{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:#fff;transition:background .2s}
-    .rcard-h:hover{background:var(--crema)}
-    .rcard-nom{font-size:13px;font-weight:600;color:var(--gt)}
-    .rcard-tog{font-size:13px;color:var(--gs);transition:transform .2s}
-    .rcard.open .rcard-tog{transform:rotate(180deg)}
-    .rcard-body{display:none;padding:12px;background:var(--crema);border-top:1px solid var(--co)}
-    .rcard.open .rcard-body{display:block;animation:ap .2s ease}
+    .rg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    @media(max-width:500px){.rg{grid-template-columns:1fr}}
+    .rc{border-radius:9px;overflow:hidden;border:1px solid var(--co);cursor:pointer}
+    .rc-h{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:#fff;transition:background .2s}
+    .rc-h:hover{background:var(--cr)}
+    .rc-n{font-size:13px;font-weight:600;color:var(--gt)}
+    .rc-tg{font-size:13px;color:var(--gs);transition:transform .2s}
+    .rc.op .rc-tg{transform:rotate(180deg)}
+    .rc-bd{display:none;padding:12px;background:var(--cr);border-top:1px solid var(--co)}
+    .rc.op .rc-bd{display:block;animation:ap .2s ease}
     .rdef{font-size:12.5px;line-height:1.55;margin-bottom:8px}
     .rej{font-size:12px;font-style:italic;background:#fff;padding:8px 10px;border-radius:6px;border-left:3px solid var(--acc);line-height:1.5;margin-bottom:6px}
-    .rfun{font-size:12px;color:var(--azul);font-weight:500;line-height:1.5}
-    /* CHECKLIST */
+    .rfn{font-size:12px;color:var(--azul);font-weight:500;line-height:1.5}
     .chk{list-style:none}
     .chk li{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--co);cursor:pointer;border-radius:4px;transition:background .15s}
     .chk li:last-child{border-bottom:none}
-    .chk li:hover{background:var(--crema)}
+    .chk li:hover{background:var(--cr)}
     .cb{width:20px;height:20px;border:2px solid var(--co);border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all .2s;margin-top:1px;background:#fff}
     .chk li.mk .cb{background:var(--vok);border-color:var(--vok);color:#fff}
     .ct{font-size:13.5px;line-height:1.5}
     .chk li.mk .ct{text-decoration:line-through;color:var(--gs)}
     .pb{height:6px;background:var(--co);border-radius:3px;margin:16px 0 6px;overflow:hidden}
-    .pf{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:3px;transition:width .4s ease}
+    .pf{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:3px;transition:width .4s}
     .plbl{font-size:12px;color:var(--gs);text-align:right}
-    
-    .mininav{position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#fff;
-      border-top:2px solid #e8e0d5;padding:8px 14px;display:flex;align-items:center;
-      gap:8px;box-shadow:0 -2px 12px rgba(0,0,0,0.1)}
-    body{padding-bottom:60px}
-    .mn-home{padding:6px 12px;border-radius:8px;background:#0b4a82;color:#fff;
-      border:none;font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:600;
-      cursor:pointer;text-decoration:none;white-space:nowrap}
+    .tf{display:flex;gap:8px;justify-content:flex-end;margin-top:18px;padding-top:14px;border-top:1px solid var(--co)}
+    .tfb{padding:8px 18px;border-radius:8px;border:1.5px solid var(--co);font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+    .tfp{background:#fff;color:var(--gs)}.tfp:hover{background:var(--co)}
+    .minnav{position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#fff;border-top:2px solid #e8e0d5;padding:8px 14px;display:flex;align-items:center;gap:8px;box-shadow:0 -2px 12px rgba(0,0,0,.1)}
+    .mn-home{padding:6px 12px;border-radius:8px;background:#0b4a82;color:#fff;border:none;font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap}
     .mn-home:hover{background:#185fa5}
-    .mn-btn{padding:6px 12px;border-radius:8px;border:1.5px solid #e8e0d5;
-      font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:600;
-      cursor:pointer;background:#fff;color:#7a7a7a;white-space:nowrap}
+    .mn-btn{padding:6px 12px;border-radius:8px;border:1.5px solid #e8e0d5;font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:600;cursor:pointer;background:#fff;color:#7a7a7a;white-space:nowrap}
     .mn-btn:hover{background:#f0e9df}
-    .mn-sel{flex:1;padding:6px 8px;border-radius:8px;border:1.5px solid #e8e0d5;
-      font-family:'Source Sans 3',sans-serif;font-size:12px;color:#2c2c2c;
-      background:#faf6f0;cursor:pointer;min-width:0}
-    .tab-footer{display:flex;gap:8px;justify-content:flex-end;
-      margin-top:18px;padding-top:14px;border-top:1px solid #f0e9df}
-    .btn-tf{padding:8px 18px;border-radius:8px;border:1.5px solid #e8e0d5;
-      font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;
-      cursor:pointer;transition:all 0.2s}
-    .btn-tf-prev{background:#fff;color:#7a7a7a}
-    .btn-tf-prev:hover{background:#f0e9df}
-
+    .mn-sel{flex:1;padding:6px 8px;border-radius:8px;border:1.5px solid #e8e0d5;font-family:'Source Sans 3',sans-serif;font-size:12px;color:#2c2c2c;background:#faf6f0;cursor:pointer;min-width:0}
   </style>
 </head>
 <body>
@@ -122,7 +97,7 @@
 <div class="cab">
   <div class="etq">Módulo 5 · Oral Individual IB</div>
   <h1>Analizar recursos<br>literarios y retóricos</h1>
-  <p>No basta con identificar: hay que explicar qué hace, cómo lo hace y por qué.</p>
+  <p>No basta con identificar: hay que explicar qué hace, cómo lo hace y por qué el autor lo eligió.</p>
 </div>
 <div class="ntabs">
   <div class="ntab on"  onclick="ir(0)">🔬 Fórmula ICAV</div>
@@ -131,153 +106,217 @@
   <div class="ntab"     onclick="ir(3)">✅ Checklist</div>
 </div>
 <div class="box">
-
   <div class="sec on" id="s0">
     <div class="card">
-      <h2><span class="ico">🔬</span> La fórmula ICAV</h2>
+      <h2><span class="ico">🔬</span> La fórmula del análisis real</h2>
       <div class="icav">
-        <div class="icav-card ci"><div class="icav-top"><div class="icav-letra">I</div><div class="icav-nom">Identifica</div></div><div class="icav-desc">Nombra el recurso y señala dónde aparece exactamente.</div></div>
-        <div class="icav-card cc"><div class="icav-top"><div class="icav-letra">C</div><div class="icav-nom">Cita</div></div><div class="icav-desc">Menciona las palabras o el pasaje concreto del texto.</div></div>
-        <div class="icav-card ca"><div class="icav-top"><div class="icav-letra">A</div><div class="icav-nom">Analiza</div></div><div class="icav-desc">Explica qué efecto produce y cómo lo consigue el autor/a.</div></div>
-        <div class="icav-card cv"><div class="icav-top"><div class="icav-letra">V</div><div class="icav-nom">Vincula</div></div><div class="icav-desc">Conecta ese efecto con la cuestión global de tu oral.</div></div>
+        <div class="ic cI"><div class="ic-top"><div class="ic-l">I</div><div class="ic-n">Identifica</div></div><div class="ic-d">Nombra el recurso y señala dónde aparece exactamente en el texto.</div></div>
+        <div class="ic cC"><div class="ic-top"><div class="ic-l">C</div><div class="ic-n">Cita</div></div><div class="ic-d">Menciona las palabras o el pasaje concreto del texto.</div></div>
+        <div class="ic cA"><div class="ic-top"><div class="ic-l">A</div><div class="ic-n">Analiza</div></div><div class="ic-d">Explica qué efecto produce y cómo lo consigue el autor/a.</div></div>
+        <div class="ic cV"><div class="ic-top"><div class="ic-l">V</div><div class="ic-n">Vincula</div></div><div class="ic-d">Conecta ese efecto con la cuestión global de tu oral.</div></div>
       </div>
       <div style="background:var(--bg);border-left:3px solid var(--acc);border-radius:8px;padding:13px 16px;margin-top:14px;font-size:13px;line-height:1.6">
-        <strong style="color:var(--acc)">El error más frecuente:</strong> quedarse en la I y la C. "Hay una metáfora aquí" no es análisis. El Criterio B se gana en los pasos A y V: explicar el efecto y vincularlo con la cuestión global.
+        <strong style="color:var(--acc)">El error más frecuente:</strong> quedarse en la I y la C. "Hay una metáfora aquí" no es análisis. El Criterio B se gana en los pasos A y V.
       </div>
     </div>
-    <div class="tab-footer"><button class="btn-tf" style="background:#c64829;color:#fff;border-color:#c64829" onclick="cambiarSeccion(1)">Pestaña siguiente →</button></div>
+    <div class="tf"><button class="tfb" style="background:var(--acc);color:#fff;border-color:var(--acc)" onclick="ir(1)">Pestaña siguiente →</button></div>
   </div>
 
   <div class="sec" id="s1">
     <div class="card">
       <h2><span class="ico">📊</span> Del nivel básico al excelente</h2>
       <p style="font-size:13px;color:var(--gs);margin-bottom:12px">Haz clic en cada nivel para ver el ejemplo real.</p>
-      <div class="obra-sel" id="nsel"></div>
+      <div class="osel" id="nsel"></div>
       <div id="ncont"></div>
     </div>
-    <div class="tab-footer"><button class="btn-tf btn-tf-prev" onclick="cambiarSeccion(0)">← Pestaña anterior</button><button class="btn-tf" style="background:#c64829;color:#fff;border-color:#c64829" onclick="cambiarSeccion(2)">Pestaña siguiente →</button></div>
+    <div class="tf">
+      <button class="tfb tfp" onclick="ir(0)">← Pestaña anterior</button>
+      <button class="tfb" style="background:var(--acc);color:#fff;border-color:var(--acc)" onclick="ir(2)">Pestaña siguiente →</button>
+    </div>
   </div>
 
   <div class="sec" id="s2">
     <div class="card">
       <h2><span class="ico">📖</span> Glosario de recursos</h2>
+      <p style="font-size:13px;color:var(--gs);margin-bottom:12px">Haz clic para ver definición, ejemplo de las obras del curso y función analítica.</p>
       <div class="ctabs" id="ctabs"></div>
-      <div class="rgrid" id="rgrid"></div>
+      <div class="rg" id="rg"></div>
     </div>
-    <div class="tab-footer"><button class="btn-tf btn-tf-prev" onclick="cambiarSeccion(1)">← Pestaña anterior</button><button class="btn-tf" style="background:#c64829;color:#fff;border-color:#c64829" onclick="cambiarSeccion(3)">Pestaña siguiente →</button></div>
+    <div class="tf">
+      <button class="tfb tfp" onclick="ir(1)">← Pestaña anterior</button>
+      <button class="tfb" style="background:var(--acc);color:#fff;border-color:var(--acc)" onclick="ir(3)">Pestaña siguiente →</button>
+    </div>
   </div>
 
   <div class="sec" id="s3">
     <div class="card">
-      <h2><span class="ico">✅</span> Checklist · ¿Analizo bien?</h2>
+      <h2><span class="ico">✅</span> Checklist</h2>
       <div class="pb"><div class="pf" id="pf" style="width:0%"></div></div>
       <div class="plbl" id="plbl">0 de 8</div>
       <ul class="chk">
         <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">Para cada recurso que nombro, explico qué efecto concreto produce.</div></li>
         <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">No me limito a decir "hay una metáfora": explico qué construye.</div></li>
         <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">Cito las palabras exactas del texto antes de analizarlas.</div></li>
-        <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">Conecto cada análisis con la cuestión global — el paso V.</div></li>
+        <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">Conecto cada análisis con la cuestión global — el paso V de ICAV.</div></li>
         <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">Analizo al menos 4 recursos diferentes en cada extracto.</div></li>
         <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">Uso vocabulario preciso: "construye", "materializa", no solo "muestra".</div></li>
         <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">Explico por qué el autor tomó esa decisión formal concreta.</div></li>
         <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">Mi análisis va más allá del contenido: explica cómo está construido.</div></li>
       </ul>
     </div>
-    <div class="tab-footer"><button class="btn-tf btn-tf-prev" onclick="cambiarSeccion(2)">← Pestaña anterior</button><button class="btn-tf" style="background:#c64829;color:#fff;border-color:#c64829" onclick="window.location.href='modulo-06-estructura-tiempo.html'">Módulo 6 →</button></div>
+    <div class="tf">
+      <button class="tfb tfp" onclick="ir(2)">← Pestaña anterior</button>
+      <button class="tfb" style="background:var(--acc);color:#fff;border-color:var(--acc)" onclick="window.location.href='modulo-06-estructura-tiempo.html'">Módulo 6 →</button>
+    </div>
   </div>
-
 </div>
-
-<div class="mininav">
+<div class="minnav">
   <a class="mn-home" href="index-oral-individual.html">🏠 Menú</a>
-  <button class="mn-btn" style="" onclick="window.location.href='modulo-04-seleccionar-extracto.html'">← Ant.</button>
+  <button class="mn-btn" onclick="window.location.href='modulo-04-seleccionar-extracto.html'">← Ant.</button>
   <select class="mn-sel" onchange="if(this.value)window.location.href=this.value">
-<option value="index-oral-individual.html">🏠 Índice</option>
-<option value="modulo-01-estructura-evaluacion.html">Módulo 1 · Estructura</option>
-<option value="modulo-02-elegir-obra-corpus.html">Módulo 2 · Obra y corpus</option>
-<option value="modulo-03-cuestion-global.html">Módulo 3 · Cuestión global</option>
-<option value="modulo-04-seleccionar-extracto.html">Módulo 4 · El extracto</option>
-<option value="modulo-05-analizar-recursos.html"  selected>Módulo 5 · Recursos</option>
-<option value="modulo-06-estructura-tiempo.html">Módulo 6 · Estructura/tiempo</option>
-<option value="modulo-07-conversacion.html">Módulo 7 · Conversación</option>
-<option value="modulo-bonus-vocabulario.html">Bonus · Vocabulario</option>
+    <option value="index-oral-individual.html">🏠 Índice</option>
+    <option value="modulo-01-estructura-evaluacion.html">Módulo 1 · Estructura</option>
+    <option value="modulo-02-elegir-obra-corpus.html">Módulo 2 · Obra y corpus</option>
+    <option value="modulo-03-cuestion-global.html">Módulo 3 · Cuestión global</option>
+    <option value="modulo-04-seleccionar-extracto.html">Módulo 4 · El extracto</option>
+    <option value="modulo-05-analizar-recursos.html" selected>Módulo 5 · Recursos</option>
+    <option value="modulo-06-estructura-tiempo.html">Módulo 6 · Estructura y tiempo</option>
+    <option value="modulo-07-conversacion.html">Módulo 7 · Conversación</option>
+    <option value="modulo-bonus-vocabulario.html">Bonus · Vocabulario</option>
   </select>
-  <button class="mn-btn" style="" onclick="window.location.href='modulo-06-estructura-tiempo.html'">Sig. →</button>
+  <button class="mn-btn" onclick="window.location.href='modulo-06-estructura-tiempo.html'">Sig. →</button>
 </div>
-<div style="text-align:center;font-size:11px;color:var(--gs);padding:16px;border-top:1px solid var(--co)">IB Español A · Oral Individual · Módulo 5 de 7</div>
 <script>
-function ir(i){
-  document.querySelectorAll('.sec').forEach((s,j)=>s.classList.toggle('on',i===j));
-  document.querySelectorAll('.ntab').forEach((t,j)=>t.classList.toggle('on',i===j));
+function ir(i) {
+  document.querySelectorAll('.sec').forEach(function(s,j){ s.classList.toggle('on', i===j); });
+  document.querySelectorAll('.ntab').forEach(function(t,j){ t.classList.toggle('on', i===j); });
 }
-// NIVELES
-var nd={
-  b:{label:'Bernarda',rec:'el imperativo acumulado',lvl:[
-    {c:'nb',b:'1–4',t:'Básico',txt:'"Lorca usa muchos imperativos en el discurso de Bernarda. Esto muestra que ella tiene mucho poder."',exp:'Solo identifica y describe. No cita, no analiza el efecto, no vincula con la CG.'},
-    {c:'nm',b:'5–7',t:'Medio',txt:'"Lorca usa imperativos como "silencio" o "aquí se hace lo que yo mando" para mostrar la autoridad de Bernarda. El lenguaje imperativo refleja su poder."',exp:'"Refleja su poder" es descriptivo, no analítico. No explica el mecanismo ni vincula con la CG.'},
-    {c:'na',b:'9–10',t:'Excelente',txt:'"La acumulación de imperativos construye la autoridad performativamente. Cada imperativo es un acto de poder que no admite réplica sintáctica; la ausencia de interrogativas reproduce la estructura autoritaria que el drama denuncia."',exp:'Identifica, cita, analiza el efecto (performativo, sintáctico) y vincula con la CG. La decisión formal se convierte en argumento.'}
+
+var nd = {
+  b: { label:'Bernarda', rec:'el imperativo acumulado', lvl:[
+    { c:'nb', b:'1-4', t:'Basico',
+      txt:'"Lorca usa muchos imperativos en el discurso de Bernarda. Esto muestra que ella tiene mucho poder."',
+      exp:'Solo identifica y describe. No cita, no analiza el efecto, no vincula con la cuestion global.' },
+    { c:'nm', b:'5-7', t:'Medio',
+      txt:'"Lorca usa imperativos como silencio o aqui se hace lo que yo mando para mostrar la autoridad de Bernarda. El lenguaje imperativo refleja su poder."',
+      exp:'"Refleja su poder" es descriptivo, no analitico. No explica el mecanismo ni vincula con la CG.' },
+    { c:'na', b:'9-10', t:'Excelente',
+      txt:'"La acumulacion de imperativos construye la autoridad performativamente. Cada imperativo es un acto de poder que no admite replica sintactica; la ausencia de interrogativas reproduce la estructura autoritaria que el drama denuncia."',
+      exp:'Identifica, cita, analiza el efecto (performativo, sintactico) y vincula con la CG. La decision formal se convierte en argumento.' }
   ]},
-  m:{label:'Malala',rec:'la anáfora',lvl:[
-    {c:'nb',b:'1–4',t:'Básico',txt:'"Malala repite palabras para dar fuerza a su discurso. Esto hace que su mensaje sea más poderoso."',exp:'Vago. No nombra el recurso, no cita, no explica el efecto concreto.'},
-    {c:'nm',b:'5–7',t:'Medio',txt:'"Malala usa la anáfora con "tienen miedo de..." para mostrar que la educación es una amenaza. La repetición refuerza su argumento."',exp:'"Refuerza su argumento" es genérico. No explica el mecanismo ni lo conecta con la CG.'},
-    {c:'na',b:'9–10',t:'Excelente',txt:'"La anáfora "tienen miedo de los libros, de los bolígrafos, de las mujeres" invierte la relación de fuerza: quien teme es quien domina, y ese dominio es frágil. Esta inversión es el núcleo de la CG."',exp:'Aplica ICAV completo. Analiza el mecanismo (inversión) y vincula directamente con la CG.'}
+  m: { label:'Malala', rec:'la anafora', lvl:[
+    { c:'nb', b:'1-4', t:'Basico',
+      txt:'"Malala repite palabras para dar fuerza a su discurso. Esto hace que su mensaje sea mas poderoso."',
+      exp:'Vago. No nombra el recurso, no cita, no explica el efecto concreto.' },
+    { c:'nm', b:'5-7', t:'Medio',
+      txt:'"Malala usa la anafora con tienen miedo de... para mostrar que la educacion es una amenaza. La repeticion refuerza su argumento."',
+      exp:'"Refuerza su argumento" es generico. No explica el mecanismo ni lo conecta con la CG.' },
+    { c:'na', b:'9-10', t:'Excelente',
+      txt:'"La anafora tienen miedo de los libros, de los boligrafos, de las mujeres invierte la relacion de fuerza: quien teme es quien domina, y ese dominio es fragil. Esta inversion es el nucleo de la CG."',
+      exp:'Aplica ICAV completo. Analiza el mecanismo (inversion) y vincula directamente con la CG.' }
   ]},
-  l:{label:'Lazarillo',rec:'la ironía del narrador',lvl:[
-    {c:'nb',b:'1–4',t:'Básico',txt:'"El Lazarillo usa la ironía para hablar de sus amos. Esto hace el libro gracioso."',exp:'No cita, no explica cómo funciona la ironía, no conecta con análisis alguno.'},
-    {c:'nm',b:'5–7',t:'Medio',txt:'"El narrador usa la ironía cuando celebra sus engaños para criticar a sus amos. La ironía nos hace ver que el mundo es injusto."',exp:'"El mundo es injusto" es demasiado general. No explica el mecanismo de la ironía.'},
-    {c:'na',b:'9–10',t:'Excelente',txt:'"La distancia irónica entre el niño que sufrió y el adulto que recuerda construye una doble voz: el tono desapegado no expresa aceptación sino impostura de supervivencia. El humor es el mecanismo de una voz que no puede acusar sin riesgo."',exp:'Identifica la doble voz, analiza el mecanismo (impostura, distancia) y lo vincula con la CG.'}
+  l: { label:'Lazarillo', rec:'la ironia del narrador', lvl:[
+    { c:'nb', b:'1-4', t:'Basico',
+      txt:'"El Lazarillo usa la ironia para hablar de sus amos. Esto hace el libro gracioso."',
+      exp:'No cita, no explica como funciona la ironia, no conecta con analisis alguno.' },
+    { c:'nm', b:'5-7', t:'Medio',
+      txt:'"El narrador usa la ironia cuando celebra sus enganos para criticar a sus amos. La ironia nos hace ver que el mundo es injusto."',
+      exp:'"El mundo es injusto" es demasiado general. No explica el mecanismo de la ironia.' },
+    { c:'na', b:'9-10', t:'Excelente',
+      txt:'"La distancia ironica entre el nino que sufrio y el adulto que recuerda construye una doble voz: el tono desapegado no expresa aceptacion sino impostura de supervivencia. El humor es el mecanismo de una voz que no puede acusar sin riesgo."',
+      exp:'Identifica la doble voz, analiza el mecanismo (impostura, distancia) y lo vincula con la CG.' }
   ]}
 };
-var na='b';
-function renderNSel(){
-  document.getElementById('nsel').innerHTML=Object.entries(nd).map(([k,v])=>
-    '<button class="obtn'+(k===na?' on':'')+'" onclick="selN(''+k+'')">'+v.label+'</button>').join('');
+
+var na = 'b';
+function renderNSel() {
+  var el = document.getElementById('nsel');
+  el.innerHTML = '';
+  Object.keys(nd).forEach(function(k) {
+    var btn = document.createElement('button');
+    btn.className = 'obtn' + (k === na ? ' on' : '');
+    btn.textContent = nd[k].label;
+    btn.onclick = (function(key) { return function() { selN(key); }; })(k);
+    el.appendChild(btn);
+  });
 }
-function renderN(){
-  var d=nd[na];
-  document.getElementById('ncont').innerHTML='<p style="font-size:12.5px;color:var(--gs);margin-bottom:10px;font-style:italic">Recurso: '+d.rec+'</p>'+
-    d.lvl.map(function(n){return '<div class="nlvl '+n.c+'" onclick="this.classList.toggle('open')"><div class="nlvl-h"><span class="nlvl-badge">'+n.b+'</span><span class="nlvl-title">'+n.t+'</span><span class="nlvl-tog">▾</span></div><div class="nlvl-body"><div class="nlvl-txt">'+n.txt+'</div><div class="nlvl-exp">'+n.exp+'</div></div></div>';}).join('');
+function renderN() {
+  var d = nd[na];
+  var el = document.getElementById('ncont');
+  el.innerHTML = '<p style="font-size:12.5px;color:var(--gs);margin-bottom:10px;font-style:italic">Recurso: ' + d.rec + '</p>';
+  d.lvl.forEach(function(n) {
+    var div = document.createElement('div');
+    div.className = 'nl ' + n.c;
+    div.innerHTML = '<div class="nl-h"><span class="nl-b">' + n.b + '</span><span class="nl-t">' + n.t + '</span><span class="nl-tg">&#9662;</span></div>' +
+      '<div class="nl-bd"><div class="nl-tx">' + n.txt + '</div><div class="nl-ex">' + n.exp + '</div></div>';
+    div.onclick = function() { this.classList.toggle('op'); };
+    el.appendChild(div);
+  });
 }
-function selN(k){na=k;renderNSel();renderN();}
-renderNSel();renderN();
-// GLOSARIO
-var gl={
-  'Repetición':[
-    {n:'Anáfora',d:'Repetición al inicio de versos u oraciones.',e:'"Tienen miedo de los libros, tienen miedo de los bolígrafos..." — Malala',f:'Crea ritmo acumulativo y posiciona al receptor en una cadena de certezas.'},
-    {n:'Paralelismo',d:'Repetición de una misma estructura sintáctica.',e:'"Aquí se hace lo que yo mando. Aquí no se discute nada." — Bernarda',f:'Construye autoridad mediante la reiteración estructural.'},
-    {n:'Aliteración',d:'Repetición de un mismo sonido en palabras próximas.',e:'Uso del sonido /s/ en Cernuda para crear melancolía.',f:'Crea musicalidad que refuerza el significado emocional.'}
+function selN(k) { na = k; renderNSel(); renderN(); }
+renderNSel(); renderN();
+
+var gl = {
+  'Repeticion': [
+    { n:'Anafora', d:'Repeticion al inicio de versos u oraciones consecutivas.', e:'"Tienen miedo de los libros, tienen miedo de los boligrafos..." Malala', f:'Crea ritmo acumulativo y posiciona al receptor en una cadena de certezas.' },
+    { n:'Paralelismo', d:'Repeticion de una misma estructura sintactica.', e:'"Aqui se hace lo que yo mando. Aqui no se discute nada." Bernarda', f:'Construye autoridad mediante la reiteracion estructural.' },
+    { n:'Aliteracion', d:'Repeticion de un mismo sonido en palabras proximas.', e:'Uso del sonido /s/ en Cernuda para crear melancolia.', f:'Crea musicalidad que refuerza el significado emocional.' }
   ],
-  'Contraste':[
-    {n:'Antítesis',d:'Contraposición de dos ideas de significado opuesto.',e:'"Silencio / voz", "encierro / libertad" en Bernarda Alba.',f:'Pone en tensión dos conceptos para hacer visible un conflicto.'},
-    {n:'Paradoja',d:'Afirmación contradictoria que encierra una verdad profunda.',e:'"El miedo a los libros es la prueba de su poder."',f:'Obliga a reinterpretar: la contradicción aparente es el argumento.'},
-    {n:'Ironía',d:'Expresión que da a entender lo contrario de lo dicho.',e:'El Lazarillo adulto celebra sus engaños con ecuanimidad calculada.',f:'Crítica social sin acusación directa.'}
+  'Contraste': [
+    { n:'Antitesis', d:'Contraposicion de dos ideas de significado opuesto.', e:'Silencio/voz, encierro/libertad en Bernarda Alba.', f:'Pone en tension dos conceptos para hacer visible un conflicto.' },
+    { n:'Paradoja', d:'Afirmacion aparentemente contradictoria que encierra una verdad.', e:'El miedo a los libros es la prueba de su poder.', f:'Obliga a reinterpretar: la contradiccion aparente es el argumento.' },
+    { n:'Ironia', d:'Expresion que da a entender lo contrario de lo dicho.', e:'El Lazarillo adulto celebra sus enganos con ecuanimidad calculada.', f:'Critica social sin acusacion directa.' }
   ],
-  'Imagen':[
-    {n:'Metáfora',d:'Identificación de un término real con uno imaginario.',e:'"La casa es una jaula" — lectura estructural de Bernarda Alba.',f:'Condensa un argumento complejo en una imagen.'},
-    {n:'Personificación',d:'Atribución de cualidades humanas a seres inanimados.',e:'La casa de Bernarda como entidad que oprime.',f:'Extiende la responsabilidad: no solo un personaje oprime, sino un sistema.'}
+  'Imagen': [
+    { n:'Metafora', d:'Identificacion de un termino real con uno imaginario.', e:'La casa como jaula: lectura estructural de Bernarda Alba.', f:'Condensa un argumento complejo en una imagen.' },
+    { n:'Personificacion', d:'Atribucion de cualidades humanas a seres inanimados.', e:'La casa de Bernarda como entidad que oprime.', f:'Extiende la responsabilidad: no solo un personaje oprime, sino un sistema.' }
   ],
-  'Retórica':[
-    {n:'Apóstrofe',d:'Interpelación directa a persona u abstracción.',e:'"Queridos niños del mundo..." — Malala.',f:'Construye proximidad y convierte al receptor en cómplice.'},
-    {n:'Pregunta retórica',d:'Pregunta que no espera respuesta.',e:'Preguntas en discursos que implican la respuesta en su formulación.',f:'Implica al oyente: él "llega" a la conclusión.'},
-    {n:'Gradación',d:'Ordenación de expresiones en escala ascendente.',e:'La enumeración de los miedos en Malala: de objetos pequeños a resistencia enorme.',f:'Guía emocionalmente al receptor hacia un punto culminante.'}
+  'Retorica': [
+    { n:'Apostrofe', d:'Interpelacion directa a persona u abstraccion.', e:'"Queridos ninos del mundo..." Malala.', f:'Construye proximidad y convierte al receptor en complice.' },
+    { n:'Pregunta retorica', d:'Pregunta que no espera respuesta.', e:'Preguntas que implican la respuesta en su formulacion.', f:'Implica al oyente: el llega a la conclusion.' },
+    { n:'Gradacion', d:'Ordenacion de expresiones en escala ascendente.', e:'La enumeracion de los miedos en Malala.', f:'Guia emocionalmente al receptor hacia un punto culminante.' }
   ],
-  'Narrativa':[
-    {n:'Narrador autodiegético',d:'Narrador que es también protagonista.',e:'El Lazarillo: Lázaro adulto narra su propia vida.',f:'La doble perspectiva crea ironía y distancia crítica.'},
-    {n:'Monólogo interior',d:'Reproducción del pensamiento sin mediación narrativa.',e:'El cuarto de atrás: la narradora en su insomnio.',f:'Borra la frontera entre pasado y presente.'},
-    {n:'Acotación escénica',d:'Instrucción del dramaturgo sobre espacio o gestos.',e:'Las acotaciones de Lorca: el espacio como metáfora.',f:'En Lorca son poéticas: el espacio argumenta.'}
+  'Narrativa': [
+    { n:'Narrador autodiegetico', d:'Narrador que es tambien protagonista.', e:'El Lazarillo: Lazaro adulto narra su propia vida.', f:'La doble perspectiva crea ironia y distancia critica.' },
+    { n:'Monologo interior', d:'Reproduccion del pensamiento sin mediacion narrativa.', e:'El cuarto de atras: la narradora en su insomnio.', f:'Borra la frontera entre pasado y presente.' },
+    { n:'Acotacion escenica', d:'Instruccion del dramaturgo sobre espacio o gestos.', e:'Las acotaciones de Lorca: el espacio como metafora.', f:'En Lorca son poeticas: el espacio argumenta.' }
   ]
 };
-var ca=Object.keys(gl)[0];
-function renderCTabs(){
-  document.getElementById('ctabs').innerHTML=Object.keys(gl).map(function(k){return '<button class="cbtn'+(k===ca?' on':'')+'" onclick="selC(''+k+'')">'+k+'</button>';}).join('');
+
+var ca = 'Repeticion';
+function renderCTabs() {
+  var el = document.getElementById('ctabs');
+  el.innerHTML = '';
+  Object.keys(gl).forEach(function(k) {
+    var btn = document.createElement('button');
+    btn.className = 'cbtn' + (k === ca ? ' on' : '');
+    btn.textContent = k;
+    btn.onclick = (function(key) { return function() { selC(key); }; })(k);
+    el.appendChild(btn);
+  });
 }
-function renderG(){
-  document.getElementById('rgrid').innerHTML=gl[ca].map(function(r){return '<div class="rcard" onclick="this.classList.toggle('open')"><div class="rcard-h"><span class="rcard-nom">'+r.n+'</span><span class="rcard-tog">▾</span></div><div class="rcard-body"><div class="rdef">'+r.d+'</div><div class="rej">'+r.e+'</div><div class="rfun">→ '+r.f+'</div></div></div>';}).join('');
+function renderG() {
+  var el = document.getElementById('rg');
+  el.innerHTML = '';
+  gl[ca].forEach(function(r) {
+    var div = document.createElement('div');
+    div.className = 'rc';
+    div.innerHTML = '<div class="rc-h"><span class="rc-n">' + r.n + '</span><span class="rc-tg">&#9662;</span></div>' +
+      '<div class="rc-bd"><div class="rdef">' + r.d + '</div><div class="rej">' + r.e + '</div><div class="rfn">&#8594; ' + r.f + '</div></div>';
+    div.onclick = function() { this.classList.toggle('op'); };
+    el.appendChild(div);
+  });
 }
-function selC(k){ca=k;renderCTabs();renderG();}
-renderCTabs();renderG();
-// CHECKLIST
-function mk(li){li.classList.toggle('mk');var t=document.querySelectorAll('.chk li').length,m=document.querySelectorAll('.chk li.mk').length;document.getElementById('pf').style.width=Math.round(m/t*100)+'%';document.getElementById('plbl').textContent=m+' de '+t;}
+function selC(k) { ca = k; renderCTabs(); renderG(); }
+renderCTabs(); renderG();
+
+function mk(li) {
+  li.classList.toggle('mk');
+  var t = document.querySelectorAll('.chk li').length;
+  var m = document.querySelectorAll('.chk li.mk').length;
+  document.getElementById('pf').style.width = Math.round(m/t*100) + '%';
+  document.getElementById('plbl').textContent = m + ' de ' + t;
+}
 </script>
 </body>
 </html>
