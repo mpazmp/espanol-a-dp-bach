@@ -5,9 +5,9 @@
   <title>Módulo 6 · Estructura y tiempo</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
-    :root{--acc:#1d9e75;--acc2:#3ab88a;--azul:#0b4a82;--tq:#0e9aa7;--mo:#534ab7;--crema:#faf6f0;--co:#f0e9df;--gt:#2c2c2c;--gs:#7a7a7a;--vok:#2d6a4f;--bg:#e8f7f2}
+    :root{--acc:#1d9e75;--acc2:#3ab88a;--azul:#0b4a82;--tq:#0e9aa7;--mo:#534ab7;--cr:#faf6f0;--co:#f0e9df;--gt:#2c2c2c;--gs:#7a7a7a;--vok:#2d6a4f;--bg:#e8f7f2}
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Source Sans 3',sans-serif;background:var(--crema);color:var(--gt)}
+    body{font-family:'Source Sans 3',sans-serif;background:var(--cr);color:var(--gt);padding-bottom:60px}
     .bi{background:#fff;padding:10px 28px;display:flex;align-items:center;justify-content:center;border-bottom:3px solid var(--acc);box-shadow:0 2px 8px rgba(0,0,0,.06)}
     .bi img{height:50px;width:auto}
     .cab{background:linear-gradient(135deg,var(--acc),var(--acc2));padding:34px 32px 26px;position:relative;overflow:hidden}
@@ -17,8 +17,8 @@
     .cab p{color:rgba(255,255,255,.75);font-size:13.5px;font-weight:300;position:relative}
     .ntabs{display:flex;background:#fff;border-bottom:2px solid var(--co);overflow-x:auto}
     .ntab{flex:1;min-width:90px;padding:13px 6px;text-align:center;font-size:11.5px;font-weight:600;color:var(--gs);cursor:pointer;border-bottom:3px solid transparent;transition:all .25s;white-space:nowrap}
-    .ntab:hover{color:var(--acc);background:var(--crema)}
-    .ntab.on{color:var(--acc);border-bottom-color:var(--acc);background:var(--crema)}
+    .ntab:hover{color:var(--acc);background:var(--cr)}
+    .ntab.on{color:var(--acc);border-bottom-color:var(--acc);background:var(--cr)}
     .box{padding:24px 24px 38px;max-width:760px;margin:0 auto}
     .sec{display:none;animation:ap .3s ease}
     .sec.on{display:block}
@@ -26,7 +26,6 @@
     .card{background:#fff;border-radius:12px;padding:22px;margin-bottom:16px;border:1px solid var(--co);box-shadow:0 2px 8px rgba(0,0,0,.04)}
     .card h2{font-family:'Playfair Display',serif;font-size:17px;color:var(--acc);margin-bottom:14px;display:flex;align-items:center;gap:10px}
     .ico{width:32px;height:32px;background:var(--bg);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-    /* BLOQUES */
     .bgrid{display:grid;grid-template-columns:1fr 3fr 3fr 1fr;gap:6px;margin:14px 0}
     @media(max-width:520px){.bgrid{grid-template-columns:1fr 1fr}}
     .bt{border-radius:10px;padding:14px 10px;text-align:center;cursor:pointer;transition:transform .2s,box-shadow .2s}
@@ -37,53 +36,49 @@
     .blit{background:linear-gradient(135deg,var(--azul),#185fa5)}
     .bnol{background:linear-gradient(135deg,var(--tq),#1ab5c4)}
     .bcie{background:linear-gradient(135deg,var(--acc),var(--acc2))}
-    .det{display:none;background:var(--crema);border-radius:10px;padding:14px 16px;margin-top:6px;border:1px solid var(--co)}
+    .det{display:none;background:var(--cr);border-radius:10px;padding:14px 16px;margin-top:6px;border:1px solid var(--co)}
     .det.vis{display:block;animation:ap .2s ease}
     .det-t{font-size:13px;font-weight:700;margin-bottom:8px}
     .det ul{list-style:none}
     .det li{font-size:13px;padding:4px 0 4px 18px;position:relative;border-bottom:1px solid var(--co)}
     .det li:last-child{border-bottom:none}
     .det li::before{content:'→';position:absolute;left:0;color:var(--acc);font-weight:700}
-    /* GUIONES */
     .osel{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
     .obtn{padding:6px 14px;border-radius:20px;border:1.5px solid var(--co);background:#fff;font-size:12px;font-weight:600;cursor:pointer;color:var(--gs);transition:all .2s}
     .obtn:hover{border-color:var(--acc);color:var(--acc)}
     .obtn.on{background:var(--acc);border-color:var(--acc);color:#fff}
     .gb{border-radius:10px;overflow:hidden;margin-bottom:8px;border:1px solid var(--co)}
     .gb-h{display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer;transition:background .2s;background:#fff}
-    .gb-h:hover{background:var(--crema)}
+    .gb-h:hover{background:var(--cr)}
     .gb-t{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;min-width:70px;color:var(--acc)}
     .gb-ti{font-size:13px;font-weight:600;flex:1}
     .gb-tog{font-size:14px;color:var(--gs);transition:transform .25s}
-    .gb.open .gb-tog{transform:rotate(180deg)}
-    .gb-body{display:none;padding:14px 16px;background:var(--crema);border-top:1px solid var(--co)}
-    .gb.open .gb-body{display:block;animation:ap .2s ease}
-    .gfrase{font-style:italic;color:var(--azul);background:#e6f1fb;padding:8px 12px;border-radius:6px;margin:6px 0;font-size:13px;line-height:1.6;border-left:3px solid var(--azul)}
-    /* ERRORES */
+    .gb.op .gb-tog{transform:rotate(180deg)}
+    .gb-bd{display:none;padding:14px 16px;background:var(--cr);border-top:1px solid var(--co)}
+    .gb.op .gb-bd{display:block;animation:ap .2s ease}
+    .gfr{font-style:italic;color:var(--azul);background:#e6f1fb;padding:8px 12px;border-radius:6px;margin:6px 0;font-size:13px;line-height:1.6;border-left:3px solid var(--azul)}
     .egrid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--co);border-radius:10px;overflow:hidden;margin-bottom:10px}
     .ecol{padding:10px 14px;font-size:12.5px;line-height:1.55}
-    .ecol.malo{background:#fff8f8;border-right:1px solid var(--co)}
+    .emalo{background:#fff8f8;border-right:1px solid var(--co)}
     .etit{font-size:11px;font-weight:700;margin-bottom:4px}
-    .etit.m{color:#842029}.etit.b{color:var(--vok)}
-    /* CRONÓMETRO */
+    .etitm{color:#842029}.etitb{color:var(--vok)}
     .crono{text-align:center;padding:24px 16px}
     .ctime{font-family:'Playfair Display',serif;font-size:72px;font-weight:700;color:var(--acc);line-height:1;margin-bottom:6px;transition:color .5s}
     .ctime.av{color:#c9973a}.ctime.ur{color:#842029}
-    .cbloque{font-size:14px;font-weight:600;color:var(--gs);margin-bottom:20px}
-    .cbwrap{display:grid;grid-template-columns:9fr 21fr 21fr 9fr;gap:3px;margin:0 0 6px}
-    .cseg{height:10px;border-radius:4px;background:var(--co);transition:background .3s}
-    .cseg.on-i{background:var(--mo)}.cseg.on-l{background:var(--azul)}.cseg.on-n{background:var(--tq)}.cseg.on-c{background:var(--acc)}
-    .clabels{display:grid;grid-template-columns:9fr 21fr 21fr 9fr;gap:3px;margin-bottom:18px}
-    .clabel{text-align:center;font-size:10.5px;color:var(--gs);font-weight:500}
+    .cblq{font-size:14px;font-weight:600;color:var(--gs);margin-bottom:20px}
+    
+    
+    
+    
+    
     .cbtns{display:flex;gap:10px;justify-content:center}
-    .cbtn-c{padding:10px 28px;border-radius:10px;border:none;font-family:'Source Sans 3',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
+    .cbtn-x{padding:10px 28px;border-radius:10px;border:none;font-family:'Source Sans 3',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
     .cbtn-i{background:var(--acc);color:#fff}.cbtn-i:hover{background:var(--vok)}
     .cbtn-r{background:var(--co);color:var(--gt)}.cbtn-r:hover{background:#ddd}
-    /* CHECKLIST */
     .chk{list-style:none}
     .chk li{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--co);cursor:pointer;border-radius:4px;transition:background .15s}
     .chk li:last-child{border-bottom:none}
-    .chk li:hover{background:var(--crema)}
+    .chk li:hover{background:var(--cr)}
     .cb{width:20px;height:20px;border:2px solid var(--co);border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all .2s;margin-top:1px;background:#fff}
     .chk li.mk .cb{background:var(--vok);border-color:var(--vok);color:#fff}
     .ct{font-size:13.5px;line-height:1.5}
@@ -91,30 +86,15 @@
     .pb{height:6px;background:var(--co);border-radius:3px;margin:16px 0 6px;overflow:hidden}
     .pf{height:100%;background:linear-gradient(90deg,var(--acc),var(--tq));border-radius:3px;transition:width .4s}
     .plbl{font-size:12px;color:var(--gs);text-align:right}
-    
-    .mininav{position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#fff;
-      border-top:2px solid #e8e0d5;padding:8px 14px;display:flex;align-items:center;
-      gap:8px;box-shadow:0 -2px 12px rgba(0,0,0,0.1)}
-    body{padding-bottom:60px}
-    .mn-home{padding:6px 12px;border-radius:8px;background:#0b4a82;color:#fff;
-      border:none;font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:600;
-      cursor:pointer;text-decoration:none;white-space:nowrap}
+    .tf{display:flex;gap:8px;justify-content:flex-end;margin-top:18px;padding-top:14px;border-top:1px solid var(--co)}
+    .tfb{padding:8px 18px;border-radius:8px;border:1.5px solid var(--co);font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+    .tfp{background:#fff;color:var(--gs)}.tfp:hover{background:var(--co)}
+    .minnav{position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#fff;border-top:2px solid #e8e0d5;padding:8px 14px;display:flex;align-items:center;gap:8px;box-shadow:0 -2px 12px rgba(0,0,0,.1)}
+    .mn-home{padding:6px 12px;border-radius:8px;background:#0b4a82;color:#fff;border:none;font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap}
     .mn-home:hover{background:#185fa5}
-    .mn-btn{padding:6px 12px;border-radius:8px;border:1.5px solid #e8e0d5;
-      font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:600;
-      cursor:pointer;background:#fff;color:#7a7a7a;white-space:nowrap}
+    .mn-btn{padding:6px 12px;border-radius:8px;border:1.5px solid #e8e0d5;font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:600;cursor:pointer;background:#fff;color:#7a7a7a;white-space:nowrap}
     .mn-btn:hover{background:#f0e9df}
-    .mn-sel{flex:1;padding:6px 8px;border-radius:8px;border:1.5px solid #e8e0d5;
-      font-family:'Source Sans 3',sans-serif;font-size:12px;color:#2c2c2c;
-      background:#faf6f0;cursor:pointer;min-width:0}
-    .tab-footer{display:flex;gap:8px;justify-content:flex-end;
-      margin-top:18px;padding-top:14px;border-top:1px solid #f0e9df}
-    .btn-tf{padding:8px 18px;border-radius:8px;border:1.5px solid #e8e0d5;
-      font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;
-      cursor:pointer;transition:all 0.2s}
-    .btn-tf-prev{background:#fff;color:#7a7a7a}
-    .btn-tf-prev:hover{background:#f0e9df}
-
+    .mn-sel{flex:1;padding:6px 8px;border-radius:8px;border:1.5px solid #e8e0d5;font-family:'Source Sans 3',sans-serif;font-size:12px;color:#2c2c2c;background:#faf6f0;cursor:pointer;min-width:0}
   </style>
 </head>
 <body>
@@ -126,10 +106,10 @@
 </div>
 <div class="ntabs">
   <div class="ntab on" onclick="ir(0)">📐 Bloques</div>
-  <div class="ntab" onclick="ir(1)">📝 Guión</div>
-  <div class="ntab" onclick="ir(2)">⚠️ Errores</div>
-  <div class="ntab" onclick="ir(3)">⏱️ Cronómetro</div>
-  <div class="ntab" onclick="ir(4)">✅ Checklist</div>
+  <div class="ntab"    onclick="ir(1)">📝 Guión</div>
+  <div class="ntab"    onclick="ir(2)">⚠️ Errores</div>
+  <div class="ntab"    onclick="ir(3)">⏱️ Cronómetro</div>
+  <div class="ntab"    onclick="ir(4)">✅ Checklist</div>
 </div>
 <div class="box">
 
@@ -139,16 +119,36 @@
       <p style="font-size:13px;color:var(--gs);margin-bottom:6px">Haz clic en cada bloque para ver qué debe ocurrir.</p>
       <div class="bgrid">
         <div class="bt bint" onclick="det('i')"><div class="bt-t">1'30"</div><div class="bt-l">Intro</div></div>
-        <div class="bt blit" onclick="det('l')"><div class="bt-t">3'30"</div><div class="bt-l">Extracto literario</div></div>
+        <div class="bt blit" onclick="det('l')"><div class="bt-t">3'30"</div><div class="bt-l">Extracto lit.</div></div>
         <div class="bt bnol" onclick="det('n')"><div class="bt-t">3'30"</div><div class="bt-l">Extracto no lit.</div></div>
         <div class="bt bcie" onclick="det('c')"><div class="bt-t">1'30"</div><div class="bt-l">Cierre</div></div>
       </div>
-      <div class="det" id="di"><div class="det-t" style="color:var(--mo)">Introducción · 1'30"</div><ul><li>Presenta tu cuestión global con claridad</li><li>Nombra las dos obras y por qué las has elegido</li><li>Anuncia qué vas a demostrar, no lo que vas a contar</li><li>No empieces a analizar: la intro es el mapa, no el viaje</li></ul></div>
-      <div class="det" id="dl"><div class="det-t" style="color:var(--azul)">Extracto literario · 3'30"</div><ul><li>Contextualiza brevemente el fragmento (30 segundos máx.)</li><li>Analiza 3-4 decisiones formales con la fórmula ICAV</li><li>Conecta cada análisis con la cuestión global</li><li>Cierra con una frase que sintetice cómo responde la CG</li></ul></div>
-      <div class="det" id="dn"><div class="det-t" style="color:var(--tq)">Extracto no literario · 3'30"</div><ul><li>Contextualiza el texto: quién, cuándo, en qué situación</li><li>Analiza 3-4 recursos retóricos con ICAV</li><li>Conecta con la CG y también con la obra literaria</li><li>El énfasis está en los recursos retóricos, no en el argumento</li></ul></div>
-      <div class="det" id="dc"><div class="det-t" style="color:var(--acc)">Comparación y cierre · 1'30"</div><ul><li>Conecta explícitamente ambos textos a través de la CG</li><li>Señala una diferencia significativa en cómo cada autor la construye</li><li>Cierra con una idea que el examinador recuerde</li><li>La última frase debe responder la CG, no describirla</li></ul></div>
+      <div class="det" id="di"><div class="det-t" style="color:var(--mo)">Introducción · 1'30"</div><ul>
+        <li>Presenta tu cuestión global con claridad</li>
+        <li>Nombra las dos obras y por qué las elegiste</li>
+        <li>Anuncia qué vas a demostrar, no lo que vas a contar</li>
+        <li>No empieces a analizar: la intro es el mapa, no el viaje</li>
+      </ul></div>
+      <div class="det" id="dl"><div class="det-t" style="color:var(--azul)">Extracto literario · 3'30"</div><ul>
+        <li>Contextualiza brevemente el fragmento (30 seg. máx.)</li>
+        <li>Analiza 3-4 decisiones formales con la fórmula ICAV</li>
+        <li>Conecta cada análisis con la cuestión global</li>
+        <li>Cierra con una frase que sintetice cómo responde la CG</li>
+      </ul></div>
+      <div class="det" id="dn"><div class="det-t" style="color:var(--tq)">Extracto no literario · 3'30"</div><ul>
+        <li>Contextualiza el texto: quién, cuándo, en qué situación</li>
+        <li>Analiza 3-4 recursos retóricos con ICAV</li>
+        <li>Conecta con la CG y también con la obra literaria</li>
+        <li>El énfasis está en los recursos retóricos, no en el argumento</li>
+      </ul></div>
+      <div class="det" id="dc"><div class="det-t" style="color:var(--acc)">Comparación y cierre · 1'30"</div><ul>
+        <li>Conecta explícitamente ambos textos a través de la CG</li>
+        <li>Señala una diferencia significativa en cómo cada autor la construye</li>
+        <li>Cierra con una idea que el examinador recuerde</li>
+        <li>La última frase debe responder la CG, no describirla</li>
+      </ul></div>
     </div>
-    <div class="tab-footer"><button class="btn-tf" style="background:#1d9e75;color:#fff;border-color:#1d9e75" onclick="cambiarSeccion(1)">Pestaña siguiente →</button></div>
+    <div class="tf"><button class="tfb" style="background:var(--acc);color:#fff;border-color:var(--acc)" onclick="ir(1)">Pestaña siguiente →</button></div>
   </div>
 
   <div class="sec" id="s1">
@@ -157,7 +157,10 @@
       <div class="osel" id="gsel"></div>
       <div id="gcont"></div>
     </div>
-    <div class="tab-footer"><button class="btn-tf btn-tf-prev" onclick="cambiarSeccion(0)">← Pestaña anterior</button><button class="btn-tf" style="background:#1d9e75;color:#fff;border-color:#1d9e75" onclick="cambiarSeccion(2)">Pestaña siguiente →</button></div>
+    <div class="tf">
+      <button class="tfb tfp" onclick="ir(0)">← Pestaña anterior</button>
+      <button class="tfb" style="background:var(--acc);color:#fff;border-color:var(--acc)" onclick="ir(2)">Pestaña siguiente →</button>
+    </div>
   </div>
 
   <div class="sec" id="s2">
@@ -165,30 +168,52 @@
       <h2><span class="ico">⚠️</span> Errores frecuentes</h2>
       <div id="errlist"></div>
     </div>
-    <div class="tab-footer"><button class="btn-tf btn-tf-prev" onclick="cambiarSeccion(1)">← Pestaña anterior</button><button class="btn-tf" style="background:#1d9e75;color:#fff;border-color:#1d9e75" onclick="cambiarSeccion(3)">Pestaña siguiente →</button></div>
+    <div class="tf">
+      <button class="tfb tfp" onclick="ir(1)">← Pestaña anterior</button>
+      <button class="tfb" style="background:var(--acc);color:#fff;border-color:var(--acc)" onclick="ir(3)">Pestaña siguiente →</button>
+    </div>
   </div>
 
   <div class="sec" id="s3">
     <div class="card">
       <h2><span class="ico">⏱️</span> Cronómetro de práctica · 10 minutos</h2>
-      <p style="font-size:13px;color:var(--gs);margin-bottom:6px">Las fases se iluminan automáticamente. A los 5 minutos debes estar empezando el segundo extracto.</p>
+      <p style="font-size:13px;color:var(--gs);margin-bottom:6px">A los 5 minutos debes estar empezando el segundo extracto.</p>
       <div class="crono">
-        <div class="ctime" id="ctime">10:00</div>
-        <div class="cbloque" id="cbloque">Bloque actual: <strong>Introducción</strong></div>
-        <div class="cbwrap" id="cbwrap"></div>
-        <div class="clabels">
-          <div class="clabel" style="color:var(--mo)">Intro<br>1'30"</div>
-          <div class="clabel" style="color:var(--azul)">Extracto 1<br>3'30"</div>
-          <div class="clabel" style="color:var(--tq)">Extracto 2<br>3'30"</div>
-          <div class="clabel" style="color:var(--acc)">Cierre<br>1'30"</div>
+
+      <div style="display:grid;grid-template-columns:9fr 21fr 21fr 9fr;gap:4px;margin-bottom:18px">
+        <div id="bl0" style="background:var(--mo);border-radius:6px;padding:10px 6px;text-align:center;position:relative;overflow:hidden">
+          <div id="ov0" style="position:absolute;top:0;right:0;bottom:0;width:100%;background:rgba(255,255,255,0.55);transition:width 1s linear;border-radius:6px"></div>
+          <div style="position:relative;z-index:1;font-size:10px;font-weight:700;color:#fff">INTRO</div>
+          <div style="position:relative;z-index:1;font-size:11px;color:rgba(255,255,255,.9)">1'30"</div>
         </div>
+        <div id="bl1" style="background:var(--azul);border-radius:6px;padding:10px 6px;text-align:center;position:relative;overflow:hidden">
+          <div id="ov1" style="position:absolute;top:0;right:0;bottom:0;width:100%;background:rgba(255,255,255,0.55);transition:width 1s linear;border-radius:6px"></div>
+          <div style="position:relative;z-index:1;font-size:10px;font-weight:700;color:#fff">EXTRACTO 1</div>
+          <div style="position:relative;z-index:1;font-size:11px;color:rgba(255,255,255,.9)">3'30"</div>
+        </div>
+        <div id="bl2" style="background:var(--tq);border-radius:6px;padding:10px 6px;text-align:center;position:relative;overflow:hidden">
+          <div id="ov2" style="position:absolute;top:0;right:0;bottom:0;width:100%;background:rgba(255,255,255,0.55);transition:width 1s linear;border-radius:6px"></div>
+          <div style="position:relative;z-index:1;font-size:10px;font-weight:700;color:#fff">EXTRACTO 2</div>
+          <div style="position:relative;z-index:1;font-size:11px;color:rgba(255,255,255,.9)">3'30"</div>
+        </div>
+        <div id="bl3" style="background:var(--acc);border-radius:6px;padding:10px 6px;text-align:center;position:relative;overflow:hidden">
+          <div id="ov3" style="position:absolute;top:0;right:0;bottom:0;width:100%;background:rgba(255,255,255,0.55);transition:width 1s linear;border-radius:6px"></div>
+          <div style="position:relative;z-index:1;font-size:10px;font-weight:700;color:#fff">CIERRE</div>
+          <div style="position:relative;z-index:1;font-size:11px;color:rgba(255,255,255,.9)">1'30"</div>
+        </div>
+      </div>
+        <div class="ctime" id="ctime">10:00</div>
+        <div class="cblq" id="cblq">Bloque actual: <strong>Introducción</strong></div>
         <div class="cbtns">
-          <button class="cbtn-c cbtn-r" onclick="reinCrono()">Reiniciar</button>
-          <button class="cbtn-c cbtn-i" id="bcron" onclick="togCrono()">Iniciar</button>
+          <button class="cbtn-x cbtn-r" onclick="reinCrono()">Reiniciar</button>
+          <button class="cbtn-x cbtn-i" id="bcron" onclick="togCrono()">Iniciar</button>
         </div>
       </div>
     </div>
-    <div class="tab-footer"><button class="btn-tf btn-tf-prev" onclick="cambiarSeccion(2)">← Pestaña anterior</button><button class="btn-tf" style="background:#1d9e75;color:#fff;border-color:#1d9e75" onclick="cambiarSeccion(4)">Pestaña siguiente →</button></div>
+    <div class="tf">
+      <button class="tfb tfp" onclick="ir(2)">← Pestaña anterior</button>
+      <button class="tfb" style="background:var(--acc);color:#fff;border-color:var(--acc)" onclick="ir(4)">Pestaña siguiente →</button>
+    </div>
   </div>
 
   <div class="sec" id="s4">
@@ -197,8 +222,8 @@
       <div class="pb"><div class="pf" id="pf" style="width:0%"></div></div>
       <div class="plbl" id="plbl">0 de 8</div>
       <ul class="chk">
-        <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">Mi introducción dura entre 60 y 90 segundos — ni más ni menos.</div></li>
-        <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">A los 5 minutos, estoy empezando el análisis del segundo extracto.</div></li>
+        <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">Mi introducción dura entre 60 y 90 segundos.</div></li>
+        <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">A los 5 minutos, estoy empezando el segundo extracto.</div></li>
         <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">Ambas obras reciben aproximadamente el mismo tiempo.</div></li>
         <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">Mi cierre conecta explícitamente las dos obras a través de la CG.</div></li>
         <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">No leo un texto preparado: tengo notas, no un guión completo.</div></li>
@@ -207,108 +232,176 @@
         <li onclick="mk(this)"><div class="cb">✓</div><div class="ct">Sé exactamente qué voy a decir en los primeros 30 segundos.</div></li>
       </ul>
     </div>
-    <div class="tab-footer"><button class="btn-tf btn-tf-prev" onclick="cambiarSeccion(3)">← Pestaña anterior</button><button class="btn-tf" style="background:#1d9e75;color:#fff;border-color:#1d9e75" onclick="window.location.href='modulo-07-conversacion.html'">Módulo 7 →</button></div>
+    <div class="tf">
+      <button class="tfb tfp" onclick="ir(3)">← Pestaña anterior</button>
+      <button class="tfb" style="background:var(--acc);color:#fff;border-color:var(--acc)" onclick="window.location.href='modulo-07-conversacion.html'">Módulo 7 →</button>
+    </div>
   </div>
-
 </div>
-
-<div class="mininav">
+<div class="minnav">
   <a class="mn-home" href="index-oral-individual.html">🏠 Menú</a>
-  <button class="mn-btn" style="" onclick="window.location.href='modulo-05-analizar-recursos.html'">← Ant.</button>
+  <button class="mn-btn" onclick="window.location.href='modulo-05-analizar-recursos.html'">← Ant.</button>
   <select class="mn-sel" onchange="if(this.value)window.location.href=this.value">
-<option value="index-oral-individual.html">🏠 Índice</option>
-<option value="modulo-01-estructura-evaluacion.html">Módulo 1 · Estructura</option>
-<option value="modulo-02-elegir-obra-corpus.html">Módulo 2 · Obra y corpus</option>
-<option value="modulo-03-cuestion-global.html">Módulo 3 · Cuestión global</option>
-<option value="modulo-04-seleccionar-extracto.html">Módulo 4 · El extracto</option>
-<option value="modulo-05-analizar-recursos.html">Módulo 5 · Recursos</option>
-<option value="modulo-06-estructura-tiempo.html"  selected>Módulo 6 · Estructura/tiempo</option>
-<option value="modulo-07-conversacion.html">Módulo 7 · Conversación</option>
-<option value="modulo-bonus-vocabulario.html">Bonus · Vocabulario</option>
+    <option value="index-oral-individual.html">🏠 Índice</option>
+    <option value="modulo-01-estructura-evaluacion.html">Módulo 1 · Estructura</option>
+    <option value="modulo-02-elegir-obra-corpus.html">Módulo 2 · Obra y corpus</option>
+    <option value="modulo-03-cuestion-global.html">Módulo 3 · Cuestión global</option>
+    <option value="modulo-04-seleccionar-extracto.html">Módulo 4 · El extracto</option>
+    <option value="modulo-05-analizar-recursos.html">Módulo 5 · Recursos</option>
+    <option value="modulo-06-estructura-tiempo.html" selected>Módulo 6 · Estructura y tiempo</option>
+    <option value="modulo-07-conversacion.html">Módulo 7 · Conversación</option>
+    <option value="modulo-bonus-vocabulario.html">Bonus · Vocabulario</option>
   </select>
-  <button class="mn-btn" style="" onclick="window.location.href='modulo-07-conversacion.html'">Sig. →</button>
+  <button class="mn-btn" onclick="window.location.href='modulo-07-conversacion.html'">Sig. →</button>
 </div>
-<div style="text-align:center;font-size:11px;color:var(--gs);padding:16px;border-top:1px solid var(--co)">IB Español A · Oral Individual · Módulo 6 de 7</div>
 <script>
-function ir(i){
-  document.querySelectorAll('.sec').forEach(function(s,j){s.classList.toggle('on',i===j);});
-  document.querySelectorAll('.ntab').forEach(function(t,j){t.classList.toggle('on',i===j);});
+function ir(i) {
+  document.querySelectorAll('.sec').forEach(function(s,j){ s.classList.toggle('on', i===j); });
+  document.querySelectorAll('.ntab').forEach(function(t,j){ t.classList.toggle('on', i===j); });
 }
-// BLOQUES DETALLE
-var detAb=null;
-function det(id){
-  if(detAb&&detAb!==id)document.getElementById('d'+detAb).classList.remove('vis');
-  var el=document.getElementById('d'+id);
+
+var detAb = null;
+function det(id) {
+  if (detAb && detAb !== id) document.getElementById('d'+detAb).classList.remove('vis');
+  var el = document.getElementById('d'+id);
   el.classList.toggle('vis');
-  detAb=el.classList.contains('vis')?id:null;
+  detAb = el.classList.contains('vis') ? id : null;
 }
-// GUIONES
-var gd={
-  b:{label:'Bernarda+Malala',bloques:[
-    {t:'0:00–1:30',ti:'Introducción',fs:['La cuestión global es el uso del silencio como mecanismo de control sobre la voz femenina.','He elegido Bernarda Alba porque Lorca construye ese silencio desde la primera escena.','Y el discurso de Malala porque muestra cómo ese mecanismo opera hoy, pero también cómo puede romperse.']},
-    {t:'1:30–5:00',ti:'Extracto literario · Bernarda',fs:['La acumulación de imperativos —"silencio", "cállate"— construye la autoridad performativamente.','Cada imperativo cierra toda posibilidad de voz; la forma reproduce la estructura autoritaria que el drama denuncia.']},
-    {t:'5:00–8:30',ti:'Extracto no literario · Malala',fs:['La anáfora "tienen miedo de los libros, de los bolígrafos" invierte la relación de fuerza.','El opresor que necesita silenciar ya ha perdido la batalla simbólica.']},
-    {t:'8:30–10:00',ti:'Comparación y cierre',fs:['Lorca dramatiza el silencio como imposición; Malala lo expone como fragilidad.','El silencio que Bernarda impone es exactamente el que Malala decide no guardar.']}
+
+var gd = {
+  b: { label:'Bernarda+Malala', bloques:[
+    { t:'0:00-1:30', ti:'Introduccion', fs:['La cuestion global es el uso del silencio como mecanismo de control sobre la voz femenina.','He elegido Bernarda Alba porque Lorca construye ese silencio desde la primera escena.','Y el discurso de Malala porque muestra como ese mecanismo opera hoy, pero tambien como puede romperse.'] },
+    { t:'1:30-5:00', ti:'Extracto literario', fs:['La acumulacion de imperativos construye la autoridad performativamente.','Cada imperativo cierra toda posibilidad de voz; la forma reproduce la estructura autoritaria.'] },
+    { t:'5:00-8:30', ti:'Extracto no literario', fs:['La anafora invierte la relacion de fuerza: el opresor que necesita silenciar ya ha perdido.','Al enumerar los objetos del miedo, Malala transforma al opresor en el debil.'] },
+    { t:'8:30-10:00', ti:'Comparacion y cierre', fs:['Lorca dramatiza el silencio como imposicion; Malala lo expone como fragilidad.','El silencio que Bernarda impone es exactamente el que Malala decide no guardar.'] }
   ]},
-  l:{label:'Lazarillo+Mujica',bloques:[
-    {t:'0:00–1:30',ti:'Introducción',fs:['La cuestión es la voz del marginado como crítica subversiva al orden establecido.','El Lazarillo la construye desde dentro del sistema; Mujica la formula desde el poder.']},
-    {t:'1:30–5:00',ti:'Extracto literario · Lazarillo',fs:['La doble voz narrativa —el niño que sufre y el adulto que recuerda— crea distancia crítica.','El tono desapegado no es aceptación: es impostura de supervivencia. El humor denuncia lo que no puede acusar directamente.']},
-    {t:'5:00–8:30',ti:'Extracto no lit. · Mujica',fs:['El uso de "nosotros los pobres" construye un ethos de autenticidad inusual en un discurso político.','La paradoja de un presidente que critica el consumismo produce el mismo efecto que la ironía del Lazarillo.']},
-    {t:'8:30–10:00',ti:'Comparación y cierre',fs:['Ambos usan su propia vulnerabilidad como argumento: uno con ironía ficcional, el otro con paradoja retórica.','La gramática de la subversión es la misma cinco siglos después.']}
+  l: { label:'Lazarillo+Mujica', bloques:[
+    { t:'0:00-1:30', ti:'Introduccion', fs:['La cuestion es la voz del marginado como critica subversiva al orden establecido.','El Lazarillo la construye desde dentro del sistema; Mujica la formula desde el poder.'] },
+    { t:'1:30-5:00', ti:'Extracto literario', fs:['La doble voz narrativa crea distancia critica.','El tono desapegado es impostura de supervivencia: el humor denuncia lo que no puede acusar directamente.'] },
+    { t:'5:00-8:30', ti:'Extracto no literario', fs:['La paradoja de un presidente que critica el consumismo produce el mismo efecto que la ironia del Lazarillo.','Ambos hablan desde el margen aunque uno este formalmente en el centro.'] },
+    { t:'8:30-10:00', ti:'Comparacion y cierre', fs:['Ambos usan su vulnerabilidad como argumento: uno con ironia ficcional, el otro con paradoja retorica.','La gramatica de la subversion es la misma cinco siglos despues.'] }
   ]}
 };
-var ga='b';
-function renderGSel(){
-  document.getElementById('gsel').innerHTML=Object.entries(gd).map(function(kv){return '<button class="obtn'+(kv[0]===ga?' on':'')+'" onclick="selG(''+kv[0]+'')">'+kv[1].label+'</button>';}).join('');
+
+var ga = 'b';
+function renderGSel() {
+  var el = document.getElementById('gsel');
+  el.innerHTML = '';
+  Object.keys(gd).forEach(function(k) {
+    var btn = document.createElement('button');
+    btn.className = 'obtn' + (k === ga ? ' on' : '');
+    btn.textContent = gd[k].label;
+    btn.onclick = (function(key){ return function(){ selG(key); }; })(k);
+    el.appendChild(btn);
+  });
 }
-function renderG(){
-  document.getElementById('gcont').innerHTML=gd[ga].bloques.map(function(b){return '<div class="gb" onclick="this.classList.toggle('open')"><div class="gb-h"><span class="gb-t">'+b.t+'</span><span class="gb-ti">'+b.ti+'</span><span class="gb-tog">▾</span></div><div class="gb-body">'+b.fs.map(function(f){return '<div class="gfrase">'+f+'</div>';}).join('')+'</div></div>';}).join('');
+function renderG() {
+  var el = document.getElementById('gcont');
+  el.innerHTML = '';
+  gd[ga].bloques.forEach(function(b) {
+    var div = document.createElement('div');
+    div.className = 'gb';
+    div.innerHTML = '<div class="gb-h"><span class="gb-t">' + b.t + '</span><span class="gb-ti">' + b.ti + '</span><span class="gb-tog">&#9662;</span></div>' +
+      '<div class="gb-bd">' + b.fs.map(function(f){ return '<div class="gfr">' + f + '</div>'; }).join('') + '</div>';
+    div.onclick = function() { this.classList.toggle('op'); };
+    el.appendChild(div);
+  });
 }
-function selG(k){ga=k;renderGSel();renderG();}
-renderGSel();renderG();
-// ERRORES
-var errs=[
-  ['Dedicar 7 min a la primera obra','Practica con el cronómetro. A los 5 minutos debes empezar el segundo extracto.'],
-  ['Introducción de 3 minutos','La intro son 60-90 segundos: CG, dos obras, qué vas a demostrar. Nada más.'],
-  ['Dos análisis separados sin comparación','El bloque de comparación no es opcional. Al menos 90 segundos.'],
-  ['Terminar con "y bueno, eso es todo"','La conclusión debe recuperar la CG con una idea que el examinador recuerde.'],
-  ['Leer el guión completo en voz alta','Puedes tener notas. No un guión. La diferencia es entre hablar y recitar.']
+function selG(k) { ga = k; renderGSel(); renderG(); }
+renderGSel(); renderG();
+
+var errs = [
+  ['Dedicar 7 min a la primera obra', 'Practica con el cronometro. A los 5 minutos debes empezar el segundo extracto.'],
+  ['Introduccion de mas de 2 minutos', 'La intro son 60-90 segundos: CG, dos obras, que vas a demostrar. Nada mas.'],
+  ['Dos analisis separados sin comparacion', 'El bloque de comparacion no es opcional. Al menos 90 segundos.'],
+  ['Terminar con "y bueno, eso es todo"', 'La conclusion debe recuperar la CG con una idea que el examinador recuerde.'],
+  ['Leer el guion completo en voz alta', 'Puedes tener notas. No un guion. La diferencia es entre hablar y recitar.']
 ];
-document.getElementById('errlist').innerHTML=errs.map(function(e){return '<div class="egrid"><div class="ecol malo"><div class="etit m">❌ Error</div>'+e[0]+'</div><div class="ecol"><div class="etit b">✅ Solución</div>'+e[1]+'</div></div>';}).join('');
-// CRONÓMETRO
-var TOTAL=600,tr=TOTAL,intv=null,run=false;
-var BL=[{n:'Introducción',d:90,cl:'on-i',col:'var(--mo)'},{n:'Extracto literario',d:210,cl:'on-l',col:'var(--azul)'},{n:'Extracto no literario',d:210,cl:'on-n',col:'var(--tq)'},{n:'Comparación y cierre',d:90,cl:'on-c',col:'var(--acc)'}];
-function buildBarra(){
-  var w=document.getElementById('cbwrap');w.innerHTML='';
-  BL.forEach(function(b){for(var i=0;i<b.d;i++){var d=document.createElement('div');d.className='cseg';d.id='sg'+( TOTAL-(BL.slice(0,BL.indexOf(b)).reduce(function(a,x){return a+x.d;},0))-i-1);w.appendChild(d);}}); 
-}
-function updCrono(){
-  var m=Math.floor(tr/60),s=tr%60,el=document.getElementById('ctime');
-  el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
-  el.className='ctime'+(tr<=60?' ur':tr<=120?' av':'');
-  var tx=TOTAL-tr;
-  document.querySelectorAll('.cseg').forEach(function(sg){sg.className='cseg';});
-  var acc2=0;
-  for(var i=0;i<BL.length;i++){
-    var start=acc2,end=acc2+BL[i].d;
-    if(tx>start){for(var j=start;j<Math.min(tx,end);j++){var sg=document.getElementById('sg'+(TOTAL-1-j));if(sg)sg.classList.add(BL[i].cl);}}
-    acc2+=BL[i].d;
+var eEl = document.getElementById('errlist');
+errs.forEach(function(e) {
+  var div = document.createElement('div');
+  div.className = 'egrid';
+  div.innerHTML = '<div class="ecol emalo"><div class="etit etitm">&#10007; Error</div>' + e[0] + '</div><div class="ecol"><div class="etit etitb">&#10003; Solucion</div>' + e[1] + '</div>';
+  eEl.appendChild(div);
+});
+
+var TOTAL = 600, tr = TOTAL, intv = null, run = false;
+var BL = [
+  { n:'Introduccion', d:90 },
+  { n:'Extracto literario', d:210 },
+  { n:'Extracto no lit.', d:210 },
+  { n:'Comparacion/cierre', d:90 }
+];
+
+function updCrono() {
+  var tx = TOTAL - tr;
+  var m = Math.floor(tr/60), s = tr%60;
+  var el = document.getElementById('ctime');
+  el.textContent = (m<10?'0':'') + m + ':' + (s<10?'0':'') + s;
+  el.className = 'ctime' + (tr<=60?' ur':tr<=120?' av':'');
+
+  // Update overlay progress for each block
+  var acc = 0;
+  for (var i = 0; i < BL.length; i++) {
+    var start = acc;
+    var end = acc + BL[i].d;
+    var ov = document.getElementById('ov' + i);
+    if (ov) {
+      if (tx <= start) {
+        // Block not started yet - fully covered
+        ov.style.width = '100%';
+      } else if (tx >= end) {
+        // Block complete - fully revealed
+        ov.style.width = '0%';
+      } else {
+        // Block in progress - partially revealed from left
+        var pct = (tx - start) / BL[i].d;
+        ov.style.width = Math.round((1 - pct) * 100) + '%';
+      }
+    }
+    acc += BL[i].d;
   }
-  var acc3=0,cur=BL[0];
-  for(var i=0;i<BL.length;i++){acc3+=BL[i].d;if(tx<acc3){cur=BL[i];break;}}
-  document.getElementById('cbloque').innerHTML='Bloque actual: <strong style="color:'+cur.col+'">'+cur.n+'</strong>';
 }
-function togCrono(){
-  if(run){clearInterval(intv);run=false;document.getElementById('bcron').textContent='Continuar';}
-  else{
-    if(tr<=0)reinCrono();
-    run=true;document.getElementById('bcron').textContent='Pausar';
-    intv=setInterval(function(){tr--;updCrono();if(tr<=0){clearInterval(intv);run=false;document.getElementById('bcron').textContent='Iniciar';document.getElementById('ctime').textContent='00:00';document.getElementById('cbloque').innerHTML='<strong>¡Tiempo agotado!</strong>';}  },1000);
+
+function togCrono() {
+  if (run) {
+    clearInterval(intv); run = false;
+    document.getElementById('bcron').textContent = 'Continuar';
+  } else {
+    if (tr <= 0) reinCrono();
+    run = true;
+    document.getElementById('bcron').textContent = 'Pausar';
+    intv = setInterval(function() {
+      tr--;
+      updCrono();
+      if (tr <= 0) {
+        clearInterval(intv); run = false;
+        document.getElementById('bcron').textContent = 'Iniciar';
+        document.getElementById('ctime').textContent = '00:00';
+      }
+    }, 1000);
   }
 }
-function reinCrono(){clearInterval(intv);run=false;tr=TOTAL;document.getElementById('bcron').textContent='Iniciar';document.getElementById('ctime').textContent='10:00';document.getElementById('ctime').className='ctime';document.getElementById('cbloque').innerHTML='Bloque actual: <strong style="color:var(--mo)">Introducción</strong>';document.querySelectorAll('.cseg').forEach(function(s){s.className='cseg';});}
-buildBarra();
-// CHECKLIST
-function mk(li){li.classList.toggle('mk');var t=document.querySelectorAll('.chk li').length,m=document.querySelectorAll('.chk li.mk').length;document.getElementById('pf').style.width=Math.round(m/t*100)+'%';document.getElementById('plbl').textContent=m+' de '+t;}
+
+function reinCrono() {
+  clearInterval(intv); run = false; tr = TOTAL;
+  document.getElementById('bcron').textContent = 'Iniciar';
+  document.getElementById('ctime').textContent = '10:00';
+  document.getElementById('ctime').className = 'ctime';
+  for (var i = 0; i < 4; i++) {
+    var ov = document.getElementById('ov' + i);
+    if (ov) ov.style.width = '100%';
+  }
+}
+
+
+function mk(li) {
+  li.classList.toggle('mk');
+  var t = document.querySelectorAll('.chk li').length;
+  var m = document.querySelectorAll('.chk li.mk').length;
+  document.getElementById('pf').style.width = Math.round(m/t*100) + '%';
+  document.getElementById('plbl').textContent = m + ' de ' + t;
+}
 </script>
-</body></html>
+</body>
+</html>
