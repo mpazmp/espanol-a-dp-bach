@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 0 · Del texto al análisis · Prueba 1</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul:      #1a4a7a;
+    --azul-claro:#e8f0f8;
+    --terracota: #c64829;
+    --turquesa:  #0e9aa7;
+    --gris:      #3f3f3e;
+    --fondo:     #f9f7f4;
+    --blanco:    #ffffff;
+    --sombra:    0 2px 12px rgba(26,74,122,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--fondo);
+    color: var(--gris);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /* CABECERA */
+  .cabecera {
+    background: var(--azul);
+    color: var(--blanco);
+    padding: 2.2rem 2rem 1.6rem;
+    border-bottom: 4px solid var(--terracota);
+  }
+  .cabecera .etiqueta {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--turquesa);
+    margin-bottom: 0.4rem;
+  }
+  .cabecera h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  .cabecera p {
+    font-size: 0.95rem;
+    opacity: 0.85;
+    max-width: 680px;
+  }
+
+  /* NAVEGACIÓN TABS */
+  .tabs-nav {
+    display: flex;
+    background: var(--azul);
+    padding: 0 2rem;
+    gap: 0.2rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs-nav::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.65);
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 0.85rem 1.1rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .tab-btn:hover { color: rgba(255,255,255,0.9); }
+  .tab-btn.activo {
+    color: var(--blanco);
+    border-bottom-color: var(--terracota);
+  }
+
+  /* CONTENIDO */
+  .contenido {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel.activo { display: block; }
+
+  /* TÍTULOS DE SECCIÓN */
+  .seccion-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    color: var(--azul);
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+  }
+  .seccion-subtitulo {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 1.8rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 1rem;
+  }
+
+  /* TEXTO DEL CORPUS */
+  .texto-corpus {
+    background: var(--blanco);
+    border-left: 4px solid var(--azul);
+    border-radius: 0 8px 8px 0;
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--sombra);
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--gris);
+  }
+  .texto-corpus .fuente {
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: 0.8rem;
+    font-style: italic;
+  }
+
+  /* TAB 1 — PREGUNTA */
+  .pregunta-intro {
+    background: var(--azul-claro);
+    border-radius: 8px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1.8rem;
+    font-size: 0.97rem;
+    color: var(--azul);
+    font-weight: 600;
+  }
+
+  .respuestas-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin-bottom: 1.8rem;
+  }
+  @media (max-width: 600px) {
+    .respuestas-grid { grid-template-columns: 1fr; }
+  }
+
+  .respuesta-card {
+    background: var(--blanco);
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 1.3rem;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-shadow: var(--sombra);
+  }
+  .respuesta-card:hover { border-color: var(--azul); }
+  .respuesta-card .etiqueta-resp {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 0.6rem;
+  }
+  .respuesta-card p { font-size: 0.93rem; line-height: 1.7; }
+
+  .btn-elegir {
+    display: block;
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.6rem;
+    background: var(--azul);
+    color: var(--blanco);
+    border: none;
+    border-radius: 6px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-elegir:hover { background: #0d3560; }
+
+  .feedback-tab1 {
+    display: none;
+    border-radius: 10px;
+    padding: 1.3rem 1.5rem;
+    margin-top: 1.2rem;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+  .feedback-tab1.correcto {
+    background: #e8f5e9;
+    border-left: 4px solid #43a047;
+    color: #2e7d32;
+  }
+  .feedback-tab1.incorrecto {
+    background: #fdecea;
+    border-left: 4px solid var(--terracota);
+    color: #7a1c0a;
+  }
+
+  /* TAB 2 — FÓRMULA */
+  .formula-wrapper {
+    background: var(--blanco);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: var(--sombra);
+    margin-bottom: 2rem;
+  }
+  .formula-cita {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.08rem;
+    color: var(--azul);
+    font-style: italic;
+    border-left: 3px solid var(--terracota);
+    padding-left: 1rem;
+    margin-bottom: 1.8rem;
+    line-height: 1.6;
+  }
+  .formula-pasos {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  .formula-paso {
+    background: var(--azul);
+    color: var(--blanco);
+    border-radius: 8px;
+    padding: 1rem 1.1rem;
+    text-align: center;
+    min-width: 140px;
+    flex: 1;
+  }
+  .formula-paso .paso-nombre {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .formula-paso .paso-sub {
+    font-size: 0.75rem;
+    opacity: 0.8;
+    font-style: italic;
+  }
+  .formula-flecha {
+    display: flex;
+    align-items: center;
+    padding: 0 0.4rem;
+    color: var(--terracota);
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+  @media (max-width: 560px) {
+    .formula-flecha { display: none; }
+    .formula-paso { min-width: 100%; }
+  }
+
+  .formula-aplicada {
+    border-top: 1px solid #eee;
+    padding-top: 1.4rem;
+  }
+  .formula-aplicada h3 {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--turquesa);
+    margin-bottom: 1rem;
+  }
+  .formula-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+  }
+  .formula-tabla tr { border-bottom: 1px solid #f0f0f0; }
+  .formula-tabla tr:last-child { border-bottom: none; }
+  .formula-tabla td { padding: 0.7rem 0.5rem; vertical-align: top; }
+  .formula-tabla td:first-child {
+    font-weight: 700;
+    color: var(--azul);
+    width: 38%;
+    white-space: nowrap;
+  }
+
+  /* TAB 3 — EN ACCIÓN */
+  .texto-anotado {
+    background: var(--blanco);
+    border-radius: 10px;
+    padding: 1.6rem;
+    box-shadow: var(--sombra);
+    font-size: 1rem;
+    line-height: 1.9;
+    margin-bottom: 1.5rem;
+  }
+  .marca {
+    border-radius: 3px;
+    padding: 1px 3px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: opacity 0.2s;
+    position: relative;
+  }
+  .marca:hover { opacity: 0.8; }
+  .marca-azul    { background: rgba(26,74,122,0.15);  color: var(--azul); }
+  .marca-roja    { background: rgba(198,72,41,0.13);  color: var(--terracota); }
+  .marca-verde   { background: rgba(14,154,167,0.13); color: #0a7a85; }
+
+  .leyenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 1.4rem;
+  }
+  .leyenda-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .leyenda-dot {
+    width: 14px; height: 14px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .dot-azul  { background: var(--azul); }
+  .dot-rojo  { background: var(--terracota); }
+  .dot-verde { background: var(--turquesa); }
+
+  .anotacion-panel {
+    display: none;
+    background: var(--blanco);
+    border-radius: 10px;
+    box-shadow: var(--sombra);
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 1rem;
+    border-top: 4px solid var(--azul);
+    font-size: 0.93rem;
+  }
+  .anotacion-panel.visible { display: block; }
+  .anotacion-panel.color-rojo { border-top-color: var(--terracota); }
+  .anotacion-panel.color-verde { border-top-color: var(--turquesa); }
+
+  .anotacion-panel h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--azul);
+    margin-bottom: 0.8rem;
+  }
+  .anotacion-panel.color-rojo h4 { color: var(--terracota); }
+  .anotacion-panel.color-verde h4 { color: #0a7a85; }
+
+  .anotacion-fila {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 0.3rem 1rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.9rem;
+  }
+  .anotacion-fila:last-child { border-bottom: none; }
+  .anotacion-fila .etiq {
+    font-weight: 700;
+    color: var(--gris);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-top: 0.1rem;
+  }
+
+  /* TAB 4 — PRACTICA */
+  .ejercicio {
+    background: var(--blanco);
+    border-radius: 12px;
+    padding: 1.6rem;
+    box-shadow: var(--sombra);
+    margin-bottom: 2rem;
+  }
+  .ejercicio-num {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--turquesa);
+    margin-bottom: 0.3rem;
+  }
+  .ejercicio h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--azul);
+    margin-bottom: 0.4rem;
+  }
+  .ejercicio .instruccion {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1.4rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  /* EJ 1 */
+  .frag-card {
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.1rem 1.2rem;
+    margin-bottom: 1rem;
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+  .frag-card .frag-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #bbb;
+    margin-bottom: 0.5rem;
+  }
+  .frag-botones {
+    display: flex;
+    gap: 0.7rem;
+    margin-top: 1rem;
+  }
+  .btn-frag {
+    padding: 0.45rem 1.1rem;
+    border-radius: 6px;
+    border: 2px solid var(--azul);
+    background: transparent;
+    color: var(--azul);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .btn-frag:hover { background: var(--azul); color: var(--blanco); }
+  .btn-frag.correcto-btn { border-color: #43a047; color: #43a047; }
+  .btn-frag.incorrecto-btn { border-color: var(--terracota); color: var(--terracota); }
+
+  .frag-feedback {
+    display: none;
+    margin-top: 0.8rem;
+    padding: 0.7rem 1rem;
+    border-radius: 6px;
+    font-size: 0.88rem;
+  }
+  .frag-feedback.ok { background: #e8f5e9; color: #2e7d32; border-left: 3px solid #43a047; }
+  .frag-feedback.ko { background: #fdecea; color: #7a1c0a; border-left: 3px solid var(--terracota); }
+
+  /* EJ 2 — DRAG */
+  .drag-instruccion {
+    font-size: 0.88rem;
+    color: #888;
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+  .drag-area {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 1.2rem;
+  }
+  .drag-tarjeta {
+    background: var(--azul-claro);
+    border: 2px dashed var(--azul);
+    border-radius: 8px;
+    padding: 0.9rem 1.1rem;
+    cursor: grab;
+    font-size: 0.91rem;
+    user-select: none;
+    transition: background 0.15s;
+  }
+  .drag-tarjeta:active { cursor: grabbing; background: #d0e2f4; }
+  .drag-tarjeta.dragging { opacity: 0.4; }
+
+  .drop-zona {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+  }
+  .drop-slot {
+    min-height: 58px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: #fafafa;
+    transition: border-color 0.2s, background 0.2s;
+    font-size: 0.88rem;
+  }
+  .drop-slot.over { border-color: var(--azul); background: var(--azul-claro); }
+  .drop-slot .slot-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--azul);
+    min-width: 130px;
+    flex-shrink: 0;
+  }
+  .drop-slot .slot-contenido { color: var(--gris); font-size: 0.9rem; }
+
+  .btn-comprobar {
+    padding: 0.65rem 1.6rem;
+    background: var(--azul);
+    color: var(--blanco);
+    border: none;
+    border-radius: 7px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-right: 0.6rem;
+  }
+  .btn-comprobar:hover { background: #0d3560; }
+  .btn-reset {
+    padding: 0.65rem 1.2rem;
+    background: transparent;
+    color: var(--gris);
+    border: 2px solid #ccc;
+    border-radius: 7px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .btn-reset:hover { border-color: var(--azul); }
+
+  .drag-feedback {
+    display: none;
+    margin-top: 1rem;
+    padding: 0.9rem 1.1rem;
+    border-radius: 8px;
+    font-size: 0.92rem;
+  }
+  .drag-feedback.ok { background: #e8f5e9; color: #2e7d32; border-left: 3px solid #43a047; }
+  .drag-feedback.ko { background: #fdecea; color: #7a1c0a; border-left: 3px solid var(--terracota); }
+
+  /* EJ 3 — DESPLEGABLES */
+  .ej3-texto {
+    background: var(--azul-claro);
+    border-radius: 8px;
+    padding: 1.2rem 1.4rem;
+    font-size: 0.95rem;
+    line-height: 2;
+    margin-bottom: 1.4rem;
+  }
+  .ej3-select {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.88rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 5px;
+    border: 2px solid var(--azul);
+    color: var(--azul);
+    background: var(--blanco);
+    cursor: pointer;
+    vertical-align: middle;
+  }
+  .ej3-select.correcto { border-color: #43a047; color: #2e7d32; background: #e8f5e9; }
+  .ej3-select.incorrecto { border-color: var(--terracota); color: var(--terracota); background: #fdecea; }
+
+  .ej3-resultado {
+    display: none;
+    margin-top: 1.2rem;
+    padding: 1rem 1.2rem;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+  .ej3-resultado.ok { background: #e8f5e9; color: #2e7d32; border-left: 3px solid #43a047; }
+  .ej3-resultado.parcial { background: #fff8e1; color: #7a5c00; border-left: 3px solid #f9a825; }
+
+  /* MENSAJE FINAL */
+  .mensaje-final {
+    background: var(--azul);
+    color: var(--blanco);
+    border-radius: 12px;
+    padding: 1.8rem 2rem;
+    text-align: center;
+    margin-top: 2rem;
+    display: none;
+  }
+  .mensaje-final p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .mensaje-final span {
+    font-size: 0.85rem;
+    opacity: 0.75;
+  }
+</style>
+</head>
+<body>
+
+<div class="cabecera">
+  <div class="etiqueta">Prueba 1 · Módulo 0</div>
+  <h1>Del texto al análisis: aprende a leer como analista</h1>
+  <p>El primer paso no es identificar recursos. Es aprender a hacerse las preguntas correctas.</p>
+</div>
+
+<nav class="tabs-nav" role="tablist">
+  <button class="tab-btn activo" onclick="cambiarTab(0)" role="tab">El problema</button>
+  <button class="tab-btn" onclick="cambiarTab(1)" role="tab">La clave</button>
+  <button class="tab-btn" onclick="cambiarTab(2)" role="tab">Lo ves en acción</button>
+  <button class="tab-btn" onclick="cambiarTab(3)" role="tab">Practica</button>
+</nav>
+
+<div class="contenido">
+
+  <!-- TAB 1 -->
+  <div class="tab-panel activo" id="panel-0">
+    <h2 class="seccion-titulo">¿Sabes distinguir descripción de análisis?</h2>
+    <p class="seccion-subtitulo">Lee primero el texto. Luego decide cuál de las dos respuestas es un análisis real.</p>
+
+    <div class="texto-corpus">
+      <p>Las redes sociales han transformado profundamente la manera en que nos comunicamos, nos informamos y construimos nuestra identidad. Plataformas como Instagram, TikTok o X concentran millones de usuarios diarios y generan cantidades ingentes de contenido, datos e interacciones en cuestión de segundos. Su capacidad para conectar personas, amplificar voces y democratizar la información resulta, sin duda, revolucionaria. Sin embargo, <strong>¿estamos realmente más conectados o simplemente más expuestos? ¿Quién controla lo que vemos, lo que pensamos, lo que deseamos?</strong> En este escenario, es urgente que ciudadanos, empresas y legisladores asuman su responsabilidad y participen activamente en la construcción de un entorno digital más justo, crítico y consciente.</p>
+      <p class="fuente">Texto de elaboración propia · Uso educativo</p>
+    </div>
+
+    <div class="pregunta-intro">
+      Las dos respuestas siguientes analizan las interrogaciones retóricas del texto. ¿Cuál es la descriptiva y cuál es el análisis real? Pulsa tu elección en cada tarjeta.
+    </div>
+
+    <div class="respuestas-grid">
+      <div class="respuesta-card" id="card-A">
+        <div class="etiqueta-resp">Respuesta A</div>
+        <p>El autor utiliza dos interrogaciones retóricas, un recurso muy habitual en los textos argumentativos que consiste en plantear preguntas que no esperan respuesta directa del lector sino que invitan a la reflexión. Este recurso es especialmente eficaz para captar la atención y generar curiosidad. En la primera pregunta, el autor se cuestiona si realmente estamos conectados entre nosotros o si simplemente permitimos que los demás nos conozcan mejor a través de lo que publicamos. En la segunda, plantea que quizás no somos nosotros quienes decidimos qué vemos en nuestras pantallas. Ambas preguntas aparecen en la parte central del texto y abordan los aspectos más problemáticos de las redes sociales.</p>
+        <button class="btn-elegir" onclick="elegirRespuesta('A', 'descripcion')">Esta es la descriptiva</button>
+        <button class="btn-elegir" style="background:var(--turquesa); margin-top:0.5rem;" onclick="elegirRespuesta('A', 'analisis')">Esta es el análisis real</button>
+        <div class="feedback-tab1" id="fb-A"></div>
+      </div>
+      <div class="respuesta-card" id="card-B">
+        <div class="etiqueta-resp">Respuesta B</div>
+        <p>El autor utiliza dos interrogaciones retóricas consecutivas para desestabilizar al lector justo después de presentar los aspectos positivos de las redes sociales. La primera —<em>¿estamos realmente más conectados o simplemente más expuestos?</em>— introduce la duda sobre algo que el lector daba por sentado. La segunda —<em>¿Quién controla lo que vemos, lo que pensamos, lo que deseamos?</em>— escala la inquietud hacia una cuestión de poder y manipulación. Con esta progresión deliberada, el autor consigue que el lector cuestione su propia experiencia digital antes de proponer ninguna solución, creando así la necesidad del llamamiento final a la acción.</p>
+        <button class="btn-elegir" onclick="elegirRespuesta('B', 'descripcion')">Esta es la descriptiva</button>
+        <button class="btn-elegir" style="background:var(--turquesa); margin-top:0.5rem;" onclick="elegirRespuesta('B', 'analisis')">Esta es el análisis real</button>
+        <div class="feedback-tab1" id="fb-B"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2 -->
+  <div class="tab-panel" id="panel-1">
+    <h2 class="seccion-titulo">La fórmula del análisis</h2>
+    <p class="seccion-subtitulo">Una sola pregunta lo cambia todo: ¿por qué el autor tomó esa decisión?</p>
+
+    <div class="formula-wrapper">
+      <div class="formula-cita">
+        "Analizar no es describir lo que ves. Es explicar por qué el autor tomó esa decisión y qué efecto produce en ti como lectora."
+      </div>
+
+      <div class="formula-pasos">
+        <div class="formula-paso">
+          <span class="paso-nombre">RECURSO</span>
+          <span class="paso-sub">¿Qué hay en el texto?</span>
+        </div>
+        <div class="formula-flecha">→</div>
+        <div class="formula-paso">
+          <span class="paso-nombre">DECISIÓN DEL AUTOR</span>
+          <span class="paso-sub">¿Por qué lo puso aquí?</span>
+        </div>
+        <div class="formula-flecha">→</div>
+        <div class="formula-paso">
+          <span class="paso-nombre">EFECTO EN EL LECTOR</span>
+          <span class="paso-sub">lo que sientes mientras lees</span>
+        </div>
+        <div class="formula-flecha">→</div>
+        <div class="formula-paso">
+          <span class="paso-nombre">SIGNIFICADO</span>
+          <span class="paso-sub">la idea que queda después</span>
+        </div>
+      </div>
+
+      <div class="formula-aplicada">
+        <h3>Aplicada al texto · Interrogaciones retóricas</h3>
+        <table class="formula-tabla">
+          <tr>
+            <td>Recurso</td>
+            <td>Dos interrogaciones retóricas consecutivas</td>
+          </tr>
+          <tr>
+            <td>Decisión del autor</td>
+            <td>Situarlas justo en el giro del texto, tras presentar lo positivo</td>
+          </tr>
+          <tr>
+            <td>Efecto en el lector</td>
+            <td>El lector se siente interpelado y empieza a dudar de algo que daba por sentado</td>
+          </tr>
+          <tr>
+            <td>Significado</td>
+            <td>La conexión digital deja de ser un avance neutro y se convierte en una cuestión de poder</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3 -->
+  <div class="tab-panel" id="panel-2">
+    <h2 class="seccion-titulo">Lo ves en acción</h2>
+    <p class="seccion-subtitulo">Pulsa sobre cualquier fragmento destacado para ver cómo funciona la fórmula.</p>
+
+    <div class="leyenda">
+      <div class="leyenda-item" onclick="mostrarAnotacion('azul')">
+        <div class="leyenda-dot dot-azul"></div>
+        <span style="color:var(--azul)">Interrogaciones retóricas</span>
+      </div>
+      <div class="leyenda-item" onclick="mostrarAnotacion('rojo')">
+        <div class="leyenda-dot dot-rojo"></div>
+        <span style="color:var(--terracota)">Vocabulario y acumulación</span>
+      </div>
+      <div class="leyenda-item" onclick="mostrarAnotacion('verde')">
+        <div class="leyenda-dot dot-verde"></div>
+        <span style="color:#0a7a85">Estructura</span>
+      </div>
+    </div>
+
+    <div class="texto-anotado">
+      <span class="marca marca-verde" onclick="mostrarAnotacion('verde')">Las redes sociales han transformado profundamente la manera en que nos comunicamos, nos informamos y construimos nuestra identidad.</span> <span class="marca marca-roja" onclick="mostrarAnotacion('rojo')">Plataformas como Instagram, TikTok o X concentran <strong>millones de usuarios diarios</strong> y generan <strong>cantidades ingentes de contenido, datos e interacciones</strong> en cuestión de segundos. Su capacidad para <strong>conectar personas, amplificar voces y democratizar la información</strong> resulta, sin duda, <strong>revolucionaria</strong>.</span> <span class="marca marca-verde" onclick="mostrarAnotacion('verde')">Sin embargo,</span> <span class="marca marca-azul" onclick="mostrarAnotacion('azul')">¿estamos realmente más conectados o simplemente más expuestos? ¿Quién controla lo que vemos, lo que pensamos, lo que deseamos?</span> <span class="marca marca-verde" onclick="mostrarAnotacion('verde')">En este escenario, es urgente que <span class="marca marca-roja" onclick="mostrarAnotacion('rojo')">ciudadanos, empresas y legisladores</span> asuman su responsabilidad y participen activamente en la construcción de un entorno digital más <span class="marca marca-roja" onclick="mostrarAnotacion('rojo')">justo, crítico y consciente</span>.</span>
+    </div>
+
+    <div class="anotacion-panel" id="anot-azul">
+      <h4>Interrogaciones retóricas</h4>
+      <div class="anotacion-fila"><span class="etiq">Recurso</span><span>Dos interrogaciones retóricas consecutivas</span></div>
+      <div class="anotacion-fila"><span class="etiq">Decisión del autor</span><span>Situarlas justo tras los aspectos positivos, en el giro central del texto</span></div>
+      <div class="anotacion-fila"><span class="etiq">Efecto en el lector</span><span>El lector se siente interpelado y comienza a dudar de algo que daba por sentado</span></div>
+      <div class="anotacion-fila"><span class="etiq">Significado</span><span>La conexión digital deja de ser un avance neutro y se convierte en una cuestión de poder y control</span></div>
+    </div>
+
+    <div class="anotacion-panel color-rojo" id="anot-rojo">
+      <h4>Vocabulario valorativo y acumulación</h4>
+      <div class="anotacion-fila"><span class="etiq">Recurso</span><span>Series de tres elementos y adjetivos valorativos: "millones", "ingentes", "revolucionaria", "urgente"</span></div>
+      <div class="anotacion-fila"><span class="etiq">Decisión del autor</span><span>Acumular sustantivos y adjetivos para transmitir magnitud e inevitabilidad del fenómeno</span></div>
+      <div class="anotacion-fila"><span class="etiq">Efecto en el lector</span><span>El lector percibe que el fenómeno es masivo e imparable, imposible de ignorar</span></div>
+      <div class="anotacion-fila"><span class="etiq">Significado</span><span>Si el fenómeno es tan grande, la responsabilidad de responder también debe serlo</span></div>
+    </div>
+
+    <div class="anotacion-panel color-verde" id="anot-verde">
+      <h4>Estructura</h4>
+      <div class="anotacion-fila"><span class="etiq">Recurso</span><span>Tres bloques: presentación positiva → duda e interrogación → llamada a la acción</span></div>
+      <div class="anotacion-fila"><span class="etiq">Decisión del autor</span><span>Comenzar concediendo los beneficios para ganarse la credibilidad del lector antes de introducir la crítica</span></div>
+      <div class="anotacion-fila"><span class="etiq">Efecto en el lector</span><span>El lector baja la guardia al inicio y acepta el argumento crítico con menos resistencia</span></div>
+      <div class="anotacion-fila"><span class="etiq">Significado</span><span>La propia estructura es un recurso persuasivo: el orden de los argumentos construye el convencimiento</span></div>
+    </div>
+  </div>
+
+  <!-- TAB 4 -->
+  <div class="tab-panel" id="panel-3">
+    <h2 class="seccion-titulo">Practica</h2>
+    <p class="seccion-subtitulo">Tres ejercicios de dificultad creciente sobre el mismo texto.</p>
+
+    <!-- EJERCICIO 1 -->
+    <div class="ejercicio">
+      <div class="ejercicio-num">Ejercicio 1 · Identifica</div>
+      <h3>¿Descripción o análisis real?</h3>
+      <p class="instruccion">Lee los dos fragmentos sobre el vocabulario valorativo del texto. Para cada uno, decide si es una descripción o un análisis real.</p>
+
+      <div class="frag-card" id="frag-1">
+        <div class="frag-label">Fragmento 1</div>
+        <p>"La elección del vocabulario valorativo no es casual: términos como 'urgente', 'responsable' o 'equitativa' aparecen concentrados en la parte final del texto, justo cuando el autor lanza su llamamiento a la acción. Al reservar el léxico más cargado ideológicamente para el cierre, el autor consigue que el lector perciba la situación como una emergencia que exige respuesta inmediata, no como un debate abstracto."</p>
+        <div class="frag-botones">
+          <button class="btn-frag" onclick="responderFrag(1, 'descripcion')">Descripción</button>
+          <button class="btn-frag" onclick="responderFrag(1, 'analisis')">Análisis real</button>
+        </div>
+        <div class="frag-feedback" id="ff-1"></div>
+      </div>
+
+      <div class="frag-card" id="frag-2">
+        <div class="frag-label">Fragmento 2</div>
+        <p>"El autor utiliza a lo largo del texto un vocabulario valorativo que refleja su posición ante el tema. Palabras como 'revolucionando', 'ingentes', 'urgente' o 'responsable' transmiten una actitud determinada y le dan al texto un tono comprometido. Este tipo de léxico es propio de los textos argumentativos en los que el autor quiere expresar su opinión sobre un asunto."</p>
+        <div class="frag-botones">
+          <button class="btn-frag" onclick="responderFrag(2, 'descripcion')">Descripción</button>
+          <button class="btn-frag" onclick="responderFrag(2, 'analisis')">Análisis real</button>
+        </div>
+        <div class="frag-feedback" id="ff-2"></div>
+      </div>
+    </div>
+
+    <!-- EJERCICIO 2 -->
+    <div class="ejercicio">
+      <div class="ejercicio-num">Ejercicio 2 · Ordena</div>
+      <h3>Reconstruye la fórmula</h3>
+      <p class="instruccion">Estas cuatro tarjetas corresponden al análisis de la acumulación "ciudadanos, empresas y legisladores". Arrástralas hasta colocarlas en el orden correcto de la fórmula.</p>
+      <p class="drag-instruccion">Arrastra cada tarjeta a su posición en la fórmula.</p>
+
+      <div class="drag-area" id="drag-area">
+        <div class="drag-tarjeta" draggable="true" id="dt-A" data-id="A">El lector siente que la responsabilidad no recae solo en otros — también en él mismo</div>
+        <div class="drag-tarjeta" draggable="true" id="dt-B" data-id="B">La enumeración "ciudadanos, empresas y legisladores"</div>
+        <div class="drag-tarjeta" draggable="true" id="dt-C" data-id="C">Distribuir la responsabilidad en tres niveles: individual, económico e institucional</div>
+        <div class="drag-tarjeta" draggable="true" id="dt-D" data-id="D">El problema de las redes sociales no es tecnológico sino político y ético: requiere una respuesta colectiva organizada en todos los niveles de la sociedad</div>
+      </div>
+
+      <div class="drop-zona" id="drop-zona">
+        <div class="drop-slot" data-orden="0" data-esperado="B"><span class="slot-label">RECURSO</span><span class="slot-contenido"></span></div>
+        <div class="drop-slot" data-orden="1" data-esperado="C"><span class="slot-label">DECISIÓN DEL AUTOR</span><span class="slot-contenido"></span></div>
+        <div class="drop-slot" data-orden="2" data-esperado="A"><span class="slot-label">EFECTO EN EL LECTOR <em style="font-weight:300;font-size:0.8em">(lo que sientes mientras lees)</em></span><span class="slot-contenido"></span></div>
+        <div class="drop-slot" data-orden="3" data-esperado="D"><span class="slot-label">SIGNIFICADO <em style="font-weight:300;font-size:0.8em">(la idea que queda después)</em></span><span class="slot-contenido"></span></div>
+      </div>
+
+      <button class="btn-comprobar" onclick="comprobarDrag()">Comprobar</button>
+      <button class="btn-reset" onclick="resetDrag()">Reiniciar</button>
+      <div class="drag-feedback" id="drag-feedback"></div>
+    </div>
+
+    <!-- EJERCICIO 3 -->
+    <div class="ejercicio">
+      <div class="ejercicio-num">Ejercicio 3 · Completa</div>
+      <h3>Elige la opción correcta</h3>
+      <p class="instruccion">Completa el análisis de la estructura del texto eligiendo la opción correcta en cada hueco.</p>
+
+      <div class="ej3-texto" id="ej3-texto"></div>
+
+      <button class="btn-comprobar" onclick="comprobarEj3()">Comprobar</button>
+      <button class="btn-reset" onclick="resetEj3()">Reiniciar</button>
+      <div class="ej3-resultado" id="ej3-resultado"></div>
+    </div>
+
+    <!-- MENSAJE FINAL -->
+    <div class="mensaje-final" id="mensaje-final">
+      <p>"La fórmula es simple. Aplicarla, no tanto. Sigue practicando."</p>
+      <span>Módulo 0 completado · Prueba 1 · Español A</span>
+    </div>
+  </div>
+
+</div><!-- /contenido -->
+
+<script>
+// ————————————————————————————
+// TABS
+// ————————————————————————————
+function cambiarTab(idx) {
+  var paneles = document.querySelectorAll('.tab-panel');
+  var botones = document.querySelectorAll('.tab-btn');
+  paneles.forEach(function(p, i) {
+    p.classList.toggle('activo', i === idx);
+  });
+  botones.forEach(function(b, i) {
+    b.classList.toggle('activo', i === idx);
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ————————————————————————————
+// TAB 1 — ELEGIR RESPUESTA
+// ————————————————————————————
+var respuestasTab1 = { A: null, B: null };
+
+function elegirRespuesta(letra, tipo) {
+  respuestasTab1[letra] = tipo;
+  var correctaA = 'descripcion';
+  var correctaB = 'analisis';
+  var esCorrectoA = (respuestasTab1['A'] === correctaA);
+  var esCorrectoB = (respuestasTab1['B'] === correctaB);
+
+  var fbA = document.getElementById('fb-A');
+  var fbB = document.getElementById('fb-B');
+
+  if (letra === 'A') {
+    fbA.style.display = 'block';
+    if (tipo === correctaA) {
+      fbA.className = 'feedback-tab1 correcto';
+      fbA.textContent = '✓ Correcto. La Respuesta A define el recurso y parafrasea el texto, pero nunca conecta con una decisión consciente del autor ni con un efecto específico.';
+    } else {
+      fbA.className = 'feedback-tab1 incorrecto';
+      fbA.textContent = '✗ No es esta. Fíjate: la Respuesta A usa terminología correcta y parafrasea bien, pero solo explica qué hay en el texto, no por qué ni para qué.';
+    }
+  }
+  if (letra === 'B') {
+    fbB.style.display = 'block';
+    if (tipo === correctaB) {
+      fbB.className = 'feedback-tab1 correcto';
+      fbB.textContent = '✓ Correcto. La Respuesta B explica dónde coloca el autor las preguntas, por qué en ese momento, y qué efecto produce. Eso es análisis.';
+    } else {
+      fbB.className = 'feedback-tab1 incorrecto';
+      fbB.textContent = '✗ No es esta. Lee de nuevo la Respuesta B: ¿explica solo qué hay o también por qué y con qué efecto?';
+    }
+  }
+}
+
+// ————————————————————————————
+// TAB 3 — ANOTACIONES
+// ————————————————————————————
+function mostrarAnotacion(color) {
+  var ids = ['anot-azul', 'anot-rojo', 'anot-verde'];
+  var mapa = { azul: 'anot-azul', rojo: 'anot-rojo', verde: 'anot-verde' };
+  ids.forEach(function(id) {
+    document.getElementById(id).classList.remove('visible');
+  });
+  document.getElementById(mapa[color]).classList.add('visible');
+}
+
+// ————————————————————————————
+// TAB 4 — EJERCICIO 1
+// ————————————————————————————
+var respFrag = { 1: null, 2: null };
+var correctasFrag = { 1: 'analisis', 2: 'descripcion' };
+var feedbackFrag = {
+  1: {
+    analisis: '✓ Correcto. Este fragmento aplica la fórmula completa: identifica dónde aparece el vocabulario, explica la decisión del autor de concentrarlo al final y concluye con el efecto sobre el lector.',
+    descripcion: '✗ Revísalo. Este fragmento sí va más allá de describir: explica una decisión del autor y su efecto específico. ¿Lo ves?'
+  },
+  2: {
+    descripcion: '✓ Correcto. Este fragmento define el recurso y da ejemplos, pero no explica por qué el autor lo usa en este texto concreto ni qué efecto produce en el lector.',
+    analisis: '✗ Revísalo. ¿Este fragmento explica dónde, por qué y con qué efecto? Compáralo con el Fragmento 1.'
+  }
+};
+var completadosFrag = { 1: false, 2: false };
+
+function responderFrag(num, tipo) {
+  if (completadosFrag[num]) return;
+  respFrag[num] = tipo;
+  var fb = document.getElementById('ff-' + num);
+  fb.style.display = 'block';
+  if (tipo === correctasFrag[num]) {
+    fb.className = 'frag-feedback ok';
+    completadosFrag[num] = true;
+  } else {
+    fb.className = 'frag-feedback ko';
+  }
+  fb.textContent = feedbackFrag[num][tipo];
+  verificarMensajeFinal();
+}
+
+// ————————————————————————————
+// TAB 4 — EJERCICIO 2 DRAG
+// ————————————————————————————
+var dragItem = null;
+var slotData = {};
+
+function iniciarDrag() {
+  var tarjetas = document.querySelectorAll('.drag-tarjeta');
+  var slots = document.querySelectorAll('.drop-slot');
+
+  tarjetas.forEach(function(t) {
+    t.addEventListener('dragstart', function() {
+      dragItem = t;
+      setTimeout(function() { t.classList.add('dragging'); }, 0);
+    });
+    t.addEventListener('dragend', function() {
+      t.classList.remove('dragging');
+      dragItem = null;
+    });
+  });
+
+  slots.forEach(function(slot) {
+    slot.addEventListener('dragover', function(e) {
+      e.preventDefault();
+      slot.classList.add('over');
+    });
+    slot.addEventListener('dragleave', function() {
+      slot.classList.remove('over');
+    });
+    slot.addEventListener('drop', function(e) {
+      e.preventDefault();
+      slot.classList.remove('over');
+      if (!dragItem) return;
+      var orden = slot.getAttribute('data-orden');
+      var contenido = slot.querySelector('.slot-contenido');
+      var idAnterior = slotData[orden];
+      if (idAnterior) {
+        var devolver = document.getElementById('dt-' + idAnterior);
+        if (devolver) document.getElementById('drag-area').appendChild(devolver);
+      }
+      slotData[orden] = dragItem.getAttribute('data-id');
+      contenido.textContent = dragItem.textContent;
+      dragItem.remove();
+    });
+  });
+}
+
+function comprobarDrag() {
+  var slots = document.querySelectorAll('.drop-slot');
+  var correcto = true;
+  slots.forEach(function(slot) {
+    var orden = slot.getAttribute('data-orden');
+    var esperado = slot.getAttribute('data-esperado');
+    if (slotData[orden] !== esperado) correcto = false;
+  });
+  var fb = document.getElementById('drag-feedback');
+  fb.style.display = 'block';
+  if (correcto) {
+    fb.className = 'drag-feedback ok';
+    fb.textContent = '✓ Perfecto. Has ordenado correctamente los cuatro pasos de la fórmula aplicada a la acumulación. Fíjate cómo cada paso responde a una pregunta distinta sobre el mismo recurso.';
+    verificarMensajeFinal();
+  } else {
+    fb.className = 'drag-feedback ko';
+    fb.textContent = '✗ Algún paso no está en su lugar. Recuerda: primero identificas el recurso, luego la decisión del autor, luego el efecto inmediato en el lector y finalmente la idea más profunda que queda.';
+  }
+}
+
+function resetDrag() {
+  var area = document.getElementById('drag-area');
+  var ids = ['A', 'B', 'C', 'D'];
+  var textos = {
+    A: 'El lector siente que la responsabilidad no recae solo en otros — también en él mismo',
+    B: 'La enumeración "ciudadanos, empresas y legisladores"',
+    C: 'Distribuir la responsabilidad en tres niveles: individual, económico e institucional',
+    D: 'El problema de las redes sociales no es tecnológico sino político y ético: requiere una respuesta colectiva organizada en todos los niveles de la sociedad'
+  };
+  area.innerHTML = '';
+  ids.forEach(function(id) {
+    var t = document.createElement('div');
+    t.className = 'drag-tarjeta';
+    t.setAttribute('draggable', 'true');
+    t.setAttribute('id', 'dt-' + id);
+    t.setAttribute('data-id', id);
+    t.textContent = textos[id];
+    area.appendChild(t);
+  });
+  slotData = {};
+  document.querySelectorAll('.drop-slot .slot-contenido').forEach(function(c) {
+    c.textContent = '';
+  });
+  var fb = document.getElementById('drag-feedback');
+  fb.style.display = 'none';
+  iniciarDrag();
+}
+
+// ————————————————————————————
+// TAB 4 — EJERCICIO 3
+// ————————————————————————————
+var ej3Config = [
+  {
+    id: 'h1',
+    opciones: ['de menor a mayor importancia', 'deliberadamente ordenados de lo positivo a lo problemático', 'de forma cronológica'],
+    correcta: 'deliberadamente ordenados de lo positivo a lo problemático'
+  },
+  {
+    id: 'h2',
+    opciones: ['resumir los beneficios de las redes sociales', 'ganarse primero la confianza del lector antes de introducir la crítica', 'informar objetivamente sobre la tecnología'],
+    correcta: 'ganarse primero la confianza del lector antes de introducir la crítica'
+  },
+  {
+    id: 'h3',
+    opciones: ['aprenda datos nuevos sobre las redes sociales', 'baje la guardia y acepte los aspectos positivos como punto de partida', 'se sienta confundido por la cantidad de información'],
+    correcta: 'baje la guardia y acepte los aspectos positivos como punto de partida'
+  },
+  {
+    id: 'h4',
+    opciones: ['un índice que organiza la información', 'un recurso persuasivo en sí misma', 'una manera de dividir el texto en partes'],
+    correcta: 'un recurso persuasivo en sí misma'
+  }
+];
+
+function construirEj3() {
+  var contenedor = document.getElementById('ej3-texto');
+  contenedor.innerHTML = '';
+
+  var partes = [
+    { tipo: 'texto', valor: 'El autor organiza el texto en tres bloques ' },
+    { tipo: 'select', config: ej3Config[0] },
+    { tipo: 'texto', valor: ' para ' },
+    { tipo: 'select', config: ej3Config[1] },
+    { tipo: 'texto', valor: '. Esta decisión consigue que el lector ' },
+    { tipo: 'select', config: ej3Config[2] },
+    { tipo: 'texto', valor: ' antes de recibir el argumento crítico. De este modo, la estructura se convierte en ' },
+    { tipo: 'select', config: ej3Config[3] },
+    { tipo: 'texto', valor: '.' }
+  ];
+
+  partes.forEach(function(parte) {
+    if (parte.tipo === 'texto') {
+      contenedor.appendChild(document.createTextNode(parte.valor));
+    } else {
+      var sel = document.createElement('select');
+      sel.className = 'ej3-select';
+      sel.setAttribute('id', parte.config.id);
+      var opt0 = document.createElement('option');
+      opt0.value = '';
+      opt0.textContent = '— elige —';
+      sel.appendChild(opt0);
+      parte.config.opciones.forEach(function(op) {
+        var opt = document.createElement('option');
+        opt.value = op;
+        opt.textContent = op;
+        sel.appendChild(opt);
+      });
+      contenedor.appendChild(sel);
+    }
+  });
+}
+
+function comprobarEj3() {
+  var aciertos = 0;
+  ej3Config.forEach(function(cfg) {
+    var sel = document.getElementById(cfg.id);
+    if (!sel) return;
+    if (sel.value === cfg.correcta) {
+      sel.className = 'ej3-select correcto';
+      aciertos++;
+    } else {
+      sel.className = 'ej3-select incorrecto';
+    }
+  });
+  var res = document.getElementById('ej3-resultado');
+  res.style.display = 'block';
+  if (aciertos === ej3Config.length) {
+    res.className = 'ej3-resultado ok';
+    res.textContent = '✓ Perfecto. Has completado el análisis de la estructura. Fíjate: cada hueco respondía a un paso distinto de la fórmula. La estructura no es solo una forma de organizar — es en sí misma un argumento.';
+    verificarMensajeFinal();
+  } else {
+    res.className = 'ej3-resultado parcial';
+    res.textContent = aciertos + ' de 4 respuestas correctas. Los huecos marcados en rojo necesitan revisión. Vuelve al Tab 3 si necesitas repasar el análisis de la estructura.';
+  }
+}
+
+function resetEj3() {
+  construirEj3();
+  var res = document.getElementById('ej3-resultado');
+  res.style.display = 'none';
+}
+
+// ————————————————————————————
+// MENSAJE FINAL
+// ————————————————————————————
+var logros = { ej1: false, ej2: false, ej3: false };
+
+function verificarMensajeFinal() {
+  if (completadosFrag[1] && completadosFrag[2]) logros.ej1 = true;
+  var fb2 = document.getElementById('drag-feedback');
+  if (fb2 && fb2.classList.contains('ok')) logros.ej2 = true;
+  var res3 = document.getElementById('ej3-resultado');
+  if (res3 && res3.classList.contains('ok')) logros.ej3 = true;
+  if (logros.ej1 && logros.ej2 && logros.ej3) {
+    document.getElementById('mensaje-final').style.display = 'block';
+  }
+}
+
+// ————————————————————————————
+// INIT
+// ————————————————————————————
+document.addEventListener('DOMContentLoaded', function() {
+  iniciarDrag();
+  construirEj3();
+});
+</script>
+</body>
+</html>
