@@ -898,10 +898,10 @@
       id: 'metafora',
       color: 'morado',
       nombre: 'Metáfora implícita',
-      recurso: '«las balas nos silenciarían» · «murieron» / «nacieron» aplicados a sentimientos abstractos',
-      decision: 'Usar verbos propios de seres vivos para referirse a estados emocionales, sin marcar la comparación',
-      efecto: 'El lector vive la transformación interior como si fuera un hecho físico, tangible e irreversible',
-      significado: 'La experiencia emocional de Malala se convierte en algo concreto, que el lector puede sentir como propio'
+      recurso: '«pensaban que las balas nos silenciarían» — silenciar con una bala como si la voz fuera algo que se puede apagar físicamente',
+      decision: 'Usar el verbo «silenciar» aplicado a las balas para convertir la violencia física en una imagen de censura y control',
+      efecto: 'El lector entiende de golpe que el atentado no fue solo un acto de violencia: fue un intento deliberado de borrar una voz',
+      significado: 'Las ideas y la palabra tienen un poder tan real que quienes las temen intentan destruirlas con armas'
     }
   ];
 
@@ -1196,12 +1196,16 @@
     }
 
     textoEl.appendChild(txt('Hermanos y hermanas, recuerdo el nueve de octubre de dos mil doce, cuando los talibanes dispararon contra mí en el lado izquierdo de mi frente, en el autobús de la escuela. Dispararon a mis amigas también. '));
-    textoEl.appendChild(marca('Pensaban que las balas nos silenciarían.', 'metafora', 'morado'));
+    textoEl.appendChild(marca('Pensaban que las balas nos silenciarían.', 'anafora', 'rojo'));
+    textoEl.appendChild(txt(' '));
+    textoEl.appendChild(marca('Pensaban que cambiarían mis objetivos y pondrían fin a mis ambiciones.', 'anafora', 'rojo'));
+    textoEl.appendChild(txt(' '));
+    textoEl.appendChild(marca('Pensaban que los talibanes nos pararían.', 'anafora', 'rojo'));
     textoEl.appendChild(txt(' Pero se equivocaron. '));
     textoEl.appendChild(marca('Del silencio surgieron miles de voces.', 'paradoja', 'azul'));
-    textoEl.appendChild(txt(' '));
-    textoEl.appendChild(marca('Los terroristas pensaban que cambiarían mis objetivos y pondrían fin a mis ambiciones.', 'anafora', 'rojo'));
-    textoEl.appendChild(txt(' Pero nada cambió en mi vida excepto esto: '));
+    textoEl.appendChild(txt(' Los terroristas '));
+    textoEl.appendChild(marca('pensaban que las balas nos silenciarían', 'metafora', 'morado'));
+    textoEl.appendChild(txt(' y que cambiarían nuestras vidas. Pero nada cambió en mi vida excepto esto: '));
     textoEl.appendChild(marca('la debilidad, el miedo y la desesperanza', 'enumeracion', 'naranja'));
     textoEl.appendChild(txt(' '));
     textoEl.appendChild(marca('murieron.', 'antitesis', 'verde'));
