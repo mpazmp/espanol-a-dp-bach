@@ -1,1 +1,1526 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 1 · Recursos lingüísticos y retóricos · Prueba 1</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul:      #1a4a7a;
+    --azul-claro:#e8f0f8;
+    --terracota: #c64829;
+    --turquesa:  #0e9aa7;
+    --gris:      #3f3f3e;
+    --fondo:     #f9f7f4;
+    --blanco:    #ffffff;
+    --sombra:    0 2px 12px rgba(26,74,122,0.10);
+    --verde-ok:  #43a047;
+    --verde-bg:  #e8f5e9;
+    --rojo-bg:   #fdecea;
+  }
 
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--fondo);
+    color: var(--gris);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /* CABECERA */
+  .cabecera {
+    background: var(--azul);
+    color: var(--blanco);
+    padding: 2.2rem 2rem 1.6rem;
+    border-bottom: 4px solid var(--terracota);
+  }
+  .cabecera .etiqueta {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--turquesa);
+    margin-bottom: 0.4rem;
+  }
+  .cabecera h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  .cabecera p {
+    font-size: 0.95rem;
+    opacity: 0.85;
+    max-width: 680px;
+  }
+
+  /* NAVEGACIÓN TABS */
+  .tabs-nav {
+    display: flex;
+    background: var(--azul);
+    padding: 0 2rem;
+    gap: 0.2rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs-nav::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.65);
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 0.85rem 1.1rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .tab-btn:hover { color: rgba(255,255,255,0.9); }
+  .tab-btn.activo {
+    color: var(--blanco);
+    border-bottom-color: var(--terracota);
+  }
+
+  /* CONTENIDO */
+  .contenido {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel.activo { display: block; }
+
+  /* TÍTULOS */
+  .seccion-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    color: var(--azul);
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+  }
+  .seccion-subtitulo {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 1.8rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 1rem;
+  }
+
+  /* INTRO NIVEL */
+  .nivel-intro {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.6rem;
+    margin-top: 0.4rem;
+  }
+  .nivel-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.9rem;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .nivel-badge.n1 { background: #e3f2fd; color: #1565c0; }
+  .nivel-badge.n2 { background: #fff3e0; color: #e65100; }
+  .nivel-badge.n3 { background: #f3e5f5; color: #6a1b9a; }
+  .nivel-desc {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+  }
+
+  /* TARJETAS DE RECURSOS */
+  .recursos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 600px) {
+    .recursos-grid { grid-template-columns: 1fr; }
+  }
+
+  .recurso-card {
+    background: var(--blanco);
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--sombra);
+    transition: box-shadow 0.2s, border-color 0.2s;
+    cursor: pointer;
+  }
+  .recurso-card:hover {
+    box-shadow: 0 4px 20px rgba(26,74,122,0.15);
+    border-color: var(--azul);
+  }
+  .recurso-card.abierta { border-color: var(--azul); }
+
+  .recurso-cabecera {
+    padding: 1rem 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    background: var(--azul-claro);
+  }
+  .recurso-nombre {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--azul);
+  }
+  .recurso-toggle {
+    font-size: 1.2rem;
+    color: var(--azul);
+    font-weight: 700;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .recurso-card.abierta .recurso-toggle { transform: rotate(45deg); }
+
+  .recurso-cuerpo {
+    display: none;
+    padding: 1.1rem 1.2rem;
+  }
+  .recurso-card.abierta .recurso-cuerpo { display: block; }
+
+  .recurso-definicion {
+    font-size: 0.92rem;
+    color: var(--gris);
+    margin-bottom: 1rem;
+    line-height: 1.65;
+  }
+
+  .recurso-ficha {
+    border-top: 1px solid #eee;
+    padding-top: 0.9rem;
+  }
+  .ficha-fila {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 0.3rem 0.8rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid #f3f3f3;
+    font-size: 0.88rem;
+  }
+  .ficha-fila:last-child { border-bottom: none; }
+  .ficha-etiq {
+    font-weight: 700;
+    color: var(--azul);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-top: 0.1rem;
+  }
+  .ficha-val { color: var(--gris); line-height: 1.5; }
+  .ficha-val em {
+    color: var(--terracota);
+    font-style: normal;
+    font-weight: 600;
+  }
+  .ficha-val .fuente-real {
+    font-size: 0.78rem;
+    color: #999;
+    font-style: italic;
+    display: block;
+    margin-top: 0.2rem;
+  }
+
+  /* SEPARADOR DE NIVEL */
+  .nivel-separador {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0 1.4rem;
+  }
+  .nivel-separador .linea {
+    flex: 1;
+    height: 1px;
+    background: #ddd;
+  }
+  .nivel-separador .etiq-nivel {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.9rem;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .etiq-nivel.n1 { background: #e3f2fd; color: #1565c0; }
+  .etiq-nivel.n2 { background: #fff3e0; color: #e65100; }
+  .etiq-nivel.n3 { background: #f3e5f5; color: #6a1b9a; }
+
+  /* TEXTO CORPUS */
+  .texto-corpus {
+    background: var(--blanco);
+    border-left: 4px solid var(--azul);
+    border-radius: 0 8px 8px 0;
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 1.8rem;
+    box-shadow: var(--sombra);
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--gris);
+  }
+  .texto-corpus .fuente {
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: 0.8rem;
+    font-style: italic;
+  }
+
+  /* TEXTO ANOTADO */
+  .leyenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 1.4rem;
+  }
+  .leyenda-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .leyenda-item:hover { border-color: currentColor; }
+  .leyenda-dot {
+    width: 12px; height: 12px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .dot-azul    { background: var(--azul); }
+  .dot-rojo    { background: var(--terracota); }
+  .dot-verde   { background: var(--turquesa); }
+  .dot-naranja { background: #e67e22; }
+  .dot-morado  { background: #8e44ad; }
+
+  .texto-anotado {
+    background: var(--blanco);
+    border-radius: 10px;
+    padding: 1.6rem;
+    box-shadow: var(--sombra);
+    font-size: 1rem;
+    line-height: 2.1;
+    margin-bottom: 1.5rem;
+  }
+  .marca {
+    border-radius: 3px;
+    padding: 1px 3px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: opacity 0.2s;
+  }
+  .marca:hover { opacity: 0.75; }
+  .marca-azul    { background: rgba(26,74,122,0.15);  color: var(--azul); }
+  .marca-roja    { background: rgba(198,72,41,0.13);  color: var(--terracota); }
+  .marca-verde   { background: rgba(14,154,167,0.13); color: #0a7a85; }
+  .marca-naranja { background: rgba(230,126,34,0.13); color: #a04000; }
+  .marca-morada  { background: rgba(142,68,173,0.13); color: #6a1b9a; }
+
+  .anotacion-panel {
+    display: none;
+    background: var(--blanco);
+    border-radius: 10px;
+    box-shadow: var(--sombra);
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 1rem;
+    border-top: 4px solid var(--azul);
+    font-size: 0.93rem;
+  }
+  .anotacion-panel.visible { display: block; }
+  .anotacion-panel.c-rojo  { border-top-color: var(--terracota); }
+  .anotacion-panel.c-verde { border-top-color: var(--turquesa); }
+  .anotacion-panel.c-naranja { border-top-color: #e67e22; }
+  .anotacion-panel.c-morado  { border-top-color: #8e44ad; }
+
+  .anotacion-panel h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--azul);
+    margin-bottom: 0.8rem;
+  }
+  .anotacion-panel.c-rojo h4    { color: var(--terracota); }
+  .anotacion-panel.c-verde h4   { color: #0a7a85; }
+  .anotacion-panel.c-naranja h4 { color: #a04000; }
+  .anotacion-panel.c-morado h4  { color: #6a1b9a; }
+
+  .anotacion-fila {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 0.3rem 1rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.9rem;
+  }
+  .anotacion-fila:last-child { border-bottom: none; }
+  .anotacion-fila .etiq {
+    font-weight: 700;
+    color: var(--gris);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-top: 0.1rem;
+  }
+
+  /* EJERCICIOS */
+  .ejercicio {
+    background: var(--blanco);
+    border-radius: 12px;
+    padding: 1.6rem;
+    box-shadow: var(--sombra);
+    margin-bottom: 2rem;
+  }
+  .ejercicio-num {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--turquesa);
+    margin-bottom: 0.3rem;
+  }
+  .ejercicio h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--azul);
+    margin-bottom: 0.4rem;
+  }
+  .ejercicio .instruccion {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1.4rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  /* EJ 1 — TARJETAS CLASIFICAR */
+  .clasificar-texto {
+    background: var(--azul-claro);
+    border-radius: 8px;
+    padding: 1.2rem 1.4rem;
+    font-size: 0.95rem;
+    line-height: 2;
+    margin-bottom: 1.4rem;
+  }
+  .clasificar-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+  }
+  .clas-item {
+    background: #fafafa;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0.9rem 1.1rem;
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+  .clas-item .clas-frase {
+    margin-bottom: 0.7rem;
+    font-style: italic;
+    color: var(--gris);
+  }
+  .clas-botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .btn-clas {
+    padding: 0.38rem 0.9rem;
+    border-radius: 6px;
+    border: 2px solid var(--azul);
+    background: transparent;
+    color: var(--azul);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .btn-clas:hover { background: var(--azul); color: var(--blanco); }
+  .btn-clas.ok  { background: var(--verde-bg); border-color: var(--verde-ok); color: #2e7d32; }
+  .btn-clas.ko  { background: var(--rojo-bg);  border-color: var(--terracota); color: #7a1c0a; }
+  .clas-feedback {
+    display: none;
+    margin-top: 0.6rem;
+    padding: 0.6rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.87rem;
+    line-height: 1.5;
+  }
+  .clas-feedback.ok { background: var(--verde-bg); color: #2e7d32; border-left: 3px solid var(--verde-ok); }
+  .clas-feedback.ko { background: var(--rojo-bg);  color: #7a1c0a; border-left: 3px solid var(--terracota); }
+
+  /* EJ 2 — SELECTS */
+  .ej2-bloque {
+    margin-bottom: 1.4rem;
+    padding-bottom: 1.4rem;
+    border-bottom: 1px solid #eee;
+  }
+  .ej2-bloque:last-of-type { border-bottom: none; }
+  .ej2-cita {
+    font-size: 0.94rem;
+    font-style: italic;
+    color: var(--gris);
+    background: var(--azul-claro);
+    border-radius: 6px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.65;
+  }
+  .ej2-fuente {
+    font-size: 0.78rem;
+    color: #999;
+    font-style: normal;
+    display: block;
+    margin-top: 0.3rem;
+  }
+  .ej2-pregunta {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: var(--gris);
+  }
+  .ej2-select {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.88rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    border: 2px solid var(--azul);
+    color: var(--azul);
+    background: var(--blanco);
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+  }
+  .ej2-select.correcto { border-color: var(--verde-ok); color: #2e7d32; background: var(--verde-bg); }
+  .ej2-select.incorrecto { border-color: var(--terracota); color: #7a1c0a; background: var(--rojo-bg); }
+  .ej2-feedback {
+    display: none;
+    padding: 0.6rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.87rem;
+    line-height: 1.5;
+  }
+  .ej2-feedback.ok { background: var(--verde-bg); color: #2e7d32; border-left: 3px solid var(--verde-ok); }
+  .ej2-feedback.ko { background: var(--rojo-bg);  color: #7a1c0a; border-left: 3px solid var(--terracota); }
+
+  /* EJ 3 — COMPLETA LA FÓRMULA */
+  .ej3-cita {
+    background: var(--azul-claro);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    font-size: 0.95rem;
+    font-style: italic;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+    color: var(--gris);
+  }
+  .ej3-fuente {
+    font-size: 0.78rem;
+    color: #999;
+    font-style: normal;
+    display: block;
+    margin-top: 0.3rem;
+  }
+  .ej3-formula {
+    margin-bottom: 1.2rem;
+  }
+  .ej3-fila {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 0.4rem 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    align-items: start;
+    font-size: 0.9rem;
+  }
+  .ej3-fila:last-child { border-bottom: none; }
+  .ej3-etiq {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--azul);
+    padding-top: 0.4rem;
+  }
+  .ej3-select {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.88rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    border: 2px solid var(--azul);
+    color: var(--azul);
+    background: var(--blanco);
+    cursor: pointer;
+    width: 100%;
+  }
+  .ej3-select.correcto { border-color: var(--verde-ok); color: #2e7d32; background: var(--verde-bg); }
+  .ej3-select.incorrecto { border-color: var(--terracota); color: #7a1c0a; background: var(--rojo-bg); }
+
+  /* BOTONES */
+  .btn-comprobar {
+    padding: 0.65rem 1.6rem;
+    background: var(--azul);
+    color: var(--blanco);
+    border: none;
+    border-radius: 7px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-right: 0.6rem;
+    margin-top: 0.4rem;
+  }
+  .btn-comprobar:hover { background: #0d3560; }
+  .btn-reset {
+    padding: 0.65rem 1.2rem;
+    background: transparent;
+    color: var(--gris);
+    border: 2px solid #ccc;
+    border-radius: 7px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-top: 0.4rem;
+  }
+  .btn-reset:hover { border-color: var(--azul); }
+
+  .resultado-global {
+    display: none;
+    margin-top: 1.2rem;
+    padding: 1rem 1.2rem;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+  .resultado-global.ok      { background: var(--verde-bg); color: #2e7d32; border-left: 3px solid var(--verde-ok); }
+  .resultado-global.parcial { background: #fff8e1; color: #7a5c00; border-left: 3px solid #f9a825; }
+
+  /* MENSAJE FINAL */
+  .mensaje-final {
+    background: var(--azul);
+    color: var(--blanco);
+    border-radius: 12px;
+    padding: 1.8rem 2rem;
+    text-align: center;
+    margin-top: 2rem;
+    display: none;
+  }
+  .mensaje-final p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .mensaje-final span {
+    font-size: 0.85rem;
+    opacity: 0.75;
+  }
+</style>
+</head>
+<body>
+
+<div class="cabecera">
+  <div class="etiqueta">Prueba 1 · Módulo 1</div>
+  <h1>Caja de herramientas: recursos lingüísticos y retóricos</h1>
+  <p>Aprende a reconocer, nombrar y analizar los recursos que los autores usan para construir significado.</p>
+</div>
+
+<nav class="tabs-nav" role="tablist">
+  <button class="tab-btn activo" onclick="cambiarTab(0)" role="tab">La caja de herramientas</button>
+  <button class="tab-btn" onclick="cambiarTab(1)" role="tab">Los ves en acción</button>
+  <button class="tab-btn" onclick="cambiarTab(2)" role="tab">Practica</button>
+</nav>
+
+<div class="contenido">
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- TAB 1 — LA CAJA DE HERRAMIENTAS   -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="tab-panel activo" id="panel-0">
+    <h2 class="seccion-titulo">Los recursos lingüísticos y retóricos</h2>
+    <p class="seccion-subtitulo">Pulsa en cualquier tarjeta para ver su definición, un ejemplo y el efecto que produce. Están ordenados de más intuitivos a más complejos.</p>
+
+    <!-- NIVEL 1 -->
+    <div class="nivel-separador">
+      <div class="linea"></div>
+      <div class="etiq-nivel n1">Nivel 1 · Los que «se ven» fácilmente</div>
+      <div class="linea"></div>
+    </div>
+
+    <div class="recursos-grid" id="grid-n1"></div>
+
+    <!-- NIVEL 2 -->
+    <div class="nivel-separador">
+      <div class="linea"></div>
+      <div class="etiq-nivel n2">Nivel 2 · Los que requieren interpretación</div>
+      <div class="linea"></div>
+    </div>
+
+    <div class="recursos-grid" id="grid-n2"></div>
+
+    <!-- NIVEL 3 -->
+    <div class="nivel-separador">
+      <div class="linea"></div>
+      <div class="etiq-nivel n3">Nivel 3 · Los estructurales y de efecto acumulativo</div>
+      <div class="linea"></div>
+    </div>
+
+    <div class="recursos-grid" id="grid-n3"></div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- TAB 2 — LOS VES EN ACCIÓN         -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="tab-panel" id="panel-1">
+    <h2 class="seccion-titulo">Los ves en acción</h2>
+    <p class="seccion-subtitulo">Un texto real con cinco recursos marcados. Pulsa sobre cada uno para ver cómo funciona la fórmula completa.</p>
+
+    <div class="texto-corpus">
+      <p>Hermanos y hermanas, recuerdo el nueve de octubre de dos mil doce, cuando los talibanes dispararon contra mí en el lado izquierdo de mi frente, en el autobús de la escuela. Dispararon a mis amigas también. Pensaban que las balas nos silenciarían. Pero se equivocaron. Del silencio surgieron miles de voces. Los terroristas pensaban que cambiarían mis objetivos y pondrían fin a mis ambiciones. Pero nada cambió en mi vida excepto esto: la debilidad, el miedo y la desesperanza murieron. La fuerza, el poder y el valor nacieron.</p>
+      <p class="fuente">Malala Yousafzai · Discurso ante la ONU · 12 de julio de 2013 (fragmento)</p>
+    </div>
+
+    <div class="leyenda" id="leyenda-accion"></div>
+
+    <div class="texto-anotado" id="texto-anotado-accion"></div>
+
+    <div id="paneles-anotacion"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- TAB 3 — PRACTICA                  -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="tab-panel" id="panel-2">
+    <h2 class="seccion-titulo">Practica</h2>
+    <p class="seccion-subtitulo">Tres ejercicios de dificultad creciente para afianzar lo aprendido.</p>
+
+    <!-- EJERCICIO 1 -->
+    <div class="ejercicio">
+      <div class="ejercicio-num">Ejercicio 1 · Identifica</div>
+      <h3>Nombra el recurso</h3>
+      <p class="instruccion">Lee cada fragmento y elige el nombre del recurso lingüístico que se usa. Hay una sola respuesta correcta en cada caso.</p>
+      <div id="ej1-contenedor"></div>
+    </div>
+
+    <!-- EJERCICIO 2 -->
+    <div class="ejercicio">
+      <div class="ejercicio-num">Ejercicio 2 · Distingue</div>
+      <h3>¿Cuál es el efecto?</h3>
+      <p class="instruccion">Para cada fragmento, ya te damos el recurso identificado. Elige cuál es el efecto más preciso que produce en el lector.</p>
+      <div id="ej2-contenedor"></div>
+      <button class="btn-comprobar" onclick="comprobarEj2()">Comprobar</button>
+      <button class="btn-reset" onclick="resetEj2()">Reiniciar</button>
+      <div class="resultado-global" id="ej2-resultado"></div>
+    </div>
+
+    <!-- EJERCICIO 3 -->
+    <div class="ejercicio">
+      <div class="ejercicio-num">Ejercicio 3 · Analiza</div>
+      <h3>Completa la fórmula</h3>
+      <p class="instruccion">Lee el fragmento y completa los cuatro pasos de la fórmula eligiendo la opción más precisa en cada casilla.</p>
+      <div id="ej3-contenedor"></div>
+      <button class="btn-comprobar" onclick="comprobarEj3()">Comprobar</button>
+      <button class="btn-reset" onclick="resetEj3()">Reiniciar</button>
+      <div class="resultado-global" id="ej3-resultado"></div>
+    </div>
+
+    <div class="mensaje-final" id="mensaje-final">
+      <p>"Reconocer el recurso es el principio. Explicar qué hace y por qué importa es el análisis."</p>
+      <span>Módulo 1 completado · Prueba 1 · Español A</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+
+  // ═══════════════════════════════════════════════════════
+  // DATOS — RECURSOS
+  // ═══════════════════════════════════════════════════════
+  var RECURSOS = {
+    n1: [
+      {
+        nombre: 'Metáfora',
+        definicion: 'Identifica una cosa con otra sin usar «como» ni «cual». El autor afirma que algo ES otra cosa para crear una imagen mental directa.',
+        ejemplo: '<em>«La vida es un camino lleno de piedras.»</em>',
+        efecto: 'Crea una imagen vívida e inmediata. El lector entiende la idea de forma intuitiva, antes incluso de razonarla.',
+        fuente: 'Ejemplo neutro'
+      },
+      {
+        nombre: 'Símil',
+        definicion: 'Compara dos cosas usando «como», «cual», «parece» o «igual que». A diferencia de la metáfora, señala la comparación de forma explícita.',
+        ejemplo: '<em>«Sus ojos brillaban como estrellas en la noche.»</em>',
+        efecto: 'Hace que el lector visualice la cualidad descrita. El «como» invita a la mente a construir la imagen por sí misma.',
+        fuente: 'Ejemplo neutro'
+      },
+      {
+        nombre: 'Personificación',
+        definicion: 'Atribuye cualidades humanas (sentimientos, acciones, voz) a objetos, animales o ideas abstractas.',
+        ejemplo: '<em>«El viento gemía entre las ramas y la lluvia lloraba sin descanso.»</em>',
+        efecto: 'Hace que el lector sienta empatía hacia algo que no es humano. El mundo descrito adquiere vida emocional.',
+        fuente: 'Ejemplo neutro'
+      },
+      {
+        nombre: 'Hipérbole',
+        definicion: 'Exageración deliberada de una idea para enfatizarla. No busca ser literal: busca que el lector sienta la intensidad.',
+        ejemplo: '<em>«Te lo he dicho mil veces»</em> o <em>«Estoy muerto de cansancio.»</em>',
+        efecto: 'Produce énfasis emocional. El lector capta la intensidad del sentimiento aunque sabe que la afirmación no es literal.',
+        fuente: 'Ejemplo neutro'
+      }
+    ],
+    n2: [
+      {
+        nombre: 'Ironía',
+        definicion: 'Dice lo contrario de lo que se quiere decir, esperando que el lector descifre el sentido real. Requiere contexto para entenderse.',
+        ejemplo: '<em>«¡Qué tiempo tan maravilloso!»</em> (dicho mientras llueve a cántaros).',
+        efecto: 'Crea distancia crítica. El lector se siente cómplice del autor al descifrar el mensaje oculto, lo que refuerza el argumento.',
+        fuente: 'Ejemplo neutro'
+      },
+      {
+        nombre: 'Antítesis',
+        definicion: 'Contrapone dos ideas, palabras o frases de significado opuesto en una misma estructura para crear contraste.',
+        ejemplo: '<em>«La fuerza, el poder y el valor nacieron. La debilidad, el miedo y la desesperanza murieron.»</em>',
+        efecto: 'Hace que el contraste sea inevitable y rotundo. El lector no puede ignorar la oposición: ambos polos se iluminan mutuamente.',
+        fuente: 'Malala Yousafzai · Discurso ante la ONU · 2013'
+      },
+      {
+        nombre: 'Paradoja',
+        definicion: 'Afirmación que parece contradictoria o imposible pero que, al reflexionar, contiene una verdad profunda.',
+        ejemplo: '<em>«Del silencio surgieron miles de voces.»</em>',
+        efecto: 'Detiene al lector. La contradicción aparente obliga a pensar más despacio y hace que la idea quede grabada en la memoria.',
+        fuente: 'Malala Yousafzai · Discurso ante la ONU · 2013'
+      },
+      {
+        nombre: 'Eufemismo',
+        definicion: 'Sustituye una palabra o expresión desagradable, violenta o tabú por otra más suave o indirecta.',
+        ejemplo: '<em>«Pasó a mejor vida»</em> en lugar de «murió»; <em>«conflicto bélico»</em> en lugar de «guerra».',
+        efecto: 'Puede suavizar la dureza de la realidad (intención compasiva) o disimularla para restar impacto (intención manipuladora). El lector debe decidir cuál es la intención.',
+        fuente: 'Ejemplo neutro'
+      }
+    ],
+    n3: [
+      {
+        nombre: 'Anáfora',
+        definicion: 'Repetición de una o varias palabras al principio de frases o versos consecutivos. La repetición es deliberada y rítmica.',
+        ejemplo: '<em>«Pensaban que las balas nos silenciarían. Pensaban que cambiarían mis objetivos. Pensaban que pondrían fin a mis ambiciones.»</em>',
+        efecto: 'Crea ritmo y martilleo emocional. Cada repetición refuerza la idea y produce una sensación de acumulación que culmina en un clímax.',
+        fuente: 'Adaptado de Malala Yousafzai · Discurso ante la ONU · 2013'
+      },
+      {
+        nombre: 'Paralelismo',
+        definicion: 'Repetición de la misma estructura gramatical en frases sucesivas. No requiere que las mismas palabras se repitan, sino la misma forma.',
+        ejemplo: '<em>«La debilidad murió. El miedo murió. La desesperanza murió.»</em>',
+        efecto: 'Da sensación de orden, equilibrio y contundencia. Las ideas quedan al mismo nivel, con el mismo peso. Sugiere inevitabilidad.',
+        fuente: 'Ejemplo neutro basado en Malala Yousafzai · 2013'
+      },
+      {
+        nombre: 'Enumeración',
+        definicion: 'Lista de elementos relacionados presentados en sucesión. Puede ser con conjunciones (polisíndeton) o sin ellas (asíndeton).',
+        ejemplo: '<em>«La fuerza, el poder y el valor nacieron.»</em>',
+        efecto: 'La acumulación amplía el significado: cada elemento añadido suma intensidad. El lector siente la magnitud de lo que se describe.',
+        fuente: 'Malala Yousafzai · Discurso ante la ONU · 2013'
+      },
+      {
+        nombre: 'Pregunta retórica',
+        definicion: 'Pregunta que no espera respuesta directa. El autor la lanza para provocar reflexión, involucrar al lector o reforzar un argumento.',
+        ejemplo: '<em>«¿Acaso hay algo más poderoso que un libro, un bolígrafo o una maestra?»</em>',
+        efecto: 'Convierte al lector en participante activo. La pregunta queda en el aire y obliga a tomar posición, lo que refuerza el compromiso con la idea.',
+        fuente: 'Adaptado de Malala Yousafzai · Discurso ante la ONU · 2013'
+      }
+    ]
+  };
+
+  // ═══════════════════════════════════════════════════════
+  // DATOS — TEXTO EN ACCIÓN (anotaciones)
+  // ═══════════════════════════════════════════════════════
+  var ANOTACIONES = [
+    {
+      id: 'paradoja',
+      color: 'azul',
+      nombre: 'Paradoja',
+      recurso: '«Del silencio surgieron miles de voces»',
+      decision: 'Colocar la paradoja justo después de describir el atentado, en el momento de mayor tensión emocional del discurso',
+      efecto: 'El lector frena, descifra la contradicción y siente que el intento de silenciar a Malala produjo el efecto contrario',
+      significado: 'La violencia no puede detener las ideas: cualquier intento de acallarlas las amplifica'
+    },
+    {
+      id: 'anafora',
+      color: 'rojo',
+      nombre: 'Anáfora',
+      recurso: 'Repetición de «Pensaban que…» en frases consecutivas',
+      decision: 'Repetir la misma estructura para acumular los argumentos del adversario antes de rebatirlos todos a la vez',
+      efecto: 'El lector anticipa el giro: sabe que cada «pensaban que» será refutado. La espera aumenta el impacto del rechazo final',
+      significado: 'La repetición construye la figura del agresor para derrumbarlo con mayor contundencia'
+    },
+    {
+      id: 'antitesis',
+      color: 'verde',
+      nombre: 'Antítesis',
+      recurso: '«La debilidad, el miedo y la desesperanza murieron. La fuerza, el poder y el valor nacieron»',
+      decision: 'Contraponer dos enumeraciones paralelas con verbos opuestos (murieron / nacieron) para marcar el punto de inflexión',
+      efecto: 'El contraste es rotundo: el lector siente que algo cerró y algo nuevo abrió en el mismo instante',
+      significado: 'El atentado no fue el fin de Malala sino su transformación: de víctima a símbolo'
+    },
+    {
+      id: 'enumeracion',
+      color: 'naranja',
+      nombre: 'Enumeración',
+      recurso: '«La fuerza, el poder y el valor»; «la debilidad, el miedo y la desesperanza»',
+      decision: 'Agrupar tres sustantivos abstractos en cada polo para dar amplitud y peso a ambos lados de la antítesis',
+      efecto: 'Cada elemento suma: el lector no percibe un solo sentimiento sino un bloque completo de transformación interior',
+      significado: 'El cambio descrito no es superficial: es total, en todos los planos de la experiencia personal'
+    },
+    {
+      id: 'metafora',
+      color: 'morado',
+      nombre: 'Metáfora implícita',
+      recurso: '«las balas nos silenciarían» · «murieron» / «nacieron» aplicados a sentimientos abstractos',
+      decision: 'Usar verbos propios de seres vivos para referirse a estados emocionales, sin marcar la comparación',
+      efecto: 'El lector vive la transformación interior como si fuera un hecho físico, tangible e irreversible',
+      significado: 'La experiencia emocional de Malala se convierte en algo concreto, que el lector puede sentir como propio'
+    }
+  ];
+
+  // ═══════════════════════════════════════════════════════
+  // DATOS — EJERCICIOS
+  // ═══════════════════════════════════════════════════════
+  var EJ1_ITEMS = [
+    {
+      id: 'e1a',
+      frase: '«Sus palabras cayeron como piedras en un estanque tranquilo.»',
+      opciones: ['Metáfora', 'Símil', 'Anáfora', 'Hipérbole'],
+      correcta: 'Símil',
+      fb_ok: '✓ Correcto. El «como» marca explícitamente la comparación. La metáfora diría «sus palabras fueron piedras», sin el nexo comparativo.',
+      fb_ko: 'El nexo «como» es la clave. Cuando la comparación se marca con «como» o «cual», es un símil, no una metáfora.'
+    },
+    {
+      id: 'e1b',
+      frase: '«Hoy hemos perdido a un gran luchador»  (en el obituario de un político que murió en su cama).',
+      opciones: ['Hipérbole', 'Eufemismo', 'Personificación', 'Ironía'],
+      correcta: 'Eufemismo',
+      fb_ok: '✓ Correcto. «Perdido» sustituye a «murió» para suavizar la expresión. El eufemismo siempre reemplaza algo más directo o desagradable.',
+      fb_ko: 'Fíjate en «perdido»: sustituye una palabra más directa. Cuando una expresión suave reemplaza a una dura, es eufemismo.'
+    },
+    {
+      id: 'e1c',
+      frase: '«Libro a libro, página a página, idea a idea, construyeron un mundo nuevo.»',
+      opciones: ['Enumeración', 'Paralelismo', 'Anáfora', 'Antítesis'],
+      correcta: 'Anáfora',
+      fb_ok: '✓ Correcto. La misma estructura «X a X» se repite al inicio de cada grupo, creando el ritmo acumulativo característico de la anáfora.',
+      fb_ko: 'Observa qué se repite al principio de cada unidad: «X a X». Esa repetición al inicio de frases o grupos consecutivos define la anáfora.'
+    },
+    {
+      id: 'e1d',
+      frase: '«La luna lloraba sobre los tejados de la ciudad dormida.»',
+      opciones: ['Metáfora', 'Símil', 'Personificación', 'Paradoja'],
+      correcta: 'Personificación',
+      fb_ok: '✓ Correcto. «Llorar» es una acción humana atribuida a la luna, un objeto inanimado. Eso es personificación.',
+      fb_ko: 'La luna no puede llorar: se le atribuye una acción humana. Atribuir cualidades humanas a lo que no es humano es personificación.'
+    }
+  ];
+
+  var EJ2_CONFIG = [
+    {
+      id: 'e2a',
+      cita: '«No me rendiré. No me callaré. No me detendré.»',
+      fuente: 'Ejemplo neutro',
+      recurso: 'Anáfora (repetición de «No me…»)',
+      pregunta: '¿Cuál es el efecto más preciso que produce en el oyente?',
+      opciones: [
+        'El oyente siente que el discurso es largo y repetitivo',
+        'La repetición crea un ritmo que convierte la negativa en algo rotundo e inquebrantable',
+        'El oyente aprende fácilmente las ideas porque están repetidas'
+      ],
+      correcta: 'La repetición crea un ritmo que convierte la negativa en algo rotundo e inquebrantable',
+      fb_ok: '✓ Exacto. La anáfora no repite por descuido: crea impacto acumulativo. Cada «No me» añade una capa más de determinación.',
+      fb_ko: 'La anáfora tiene un propósito retórico preciso. No es descuido ni recurso para memorizar: construye un clímax emocional.'
+    },
+    {
+      id: 'e2b',
+      cita: '«¡Qué orgulloso debe de estar el equipo de haber perdido cuatro partidos seguidos!»',
+      fuente: 'Ejemplo neutro (contexto deportivo)',
+      recurso: 'Ironía',
+      pregunta: '¿Qué efecto produce la ironía aquí?',
+      opciones: [
+        'El lector siente que el autor elogia sinceramente al equipo',
+        'El lector se siente cómplice del autor al descifrar el mensaje real: una crítica disfrazada de elogio',
+        'El autor usa la ironía para suavizar la crítica y no herir sentimientos'
+      ],
+      correcta: 'El lector se siente cómplice del autor al descifrar el mensaje real: una crítica disfrazada de elogio',
+      fb_ok: '✓ Correcto. La ironía crea complicidad: el lector que la descifra siente que comparte la perspectiva crítica del autor.',
+      fb_ko: 'La ironía no elogia ni suaviza: hace lo contrario. Al decir lo opuesto de lo que piensa, el autor implica al lector en la crítica.'
+    }
+  ];
+
+  var EJ3_CITA = '«Pensaban que las balas nos silenciarían. Pero se equivocaron. Del silencio surgieron miles de voces.»';
+  var EJ3_FUENTE = 'Malala Yousafzai · Discurso ante la ONU · 2013';
+  var EJ3_CONFIG = [
+    {
+      id: 'ej3r',
+      etiq: 'RECURSO',
+      opciones: [
+        '— elige —',
+        'Una paradoja seguida de una afirmación rotunda («Pero se equivocaron»)',
+        'Una metáfora que compara las balas con el silencio',
+        'Una hipérbole que exagera el número de voces'
+      ],
+      correcta: 'Una paradoja seguida de una afirmación rotunda («Pero se equivocaron»)'
+    },
+    {
+      id: 'ej3d',
+      etiq: 'DECISIÓN DEL AUTOR',
+      opciones: [
+        '— elige —',
+        'Malala quiere describir lo que pasó en el atentado de forma objetiva',
+        'Malala coloca la paradoja justo después de mencionar las balas para convertir el momento más oscuro en punto de inflexión',
+        'Malala usa la paradoja porque no encuentra otra forma de explicar lo que vivió'
+      ],
+      correcta: 'Malala coloca la paradoja justo después de mencionar las balas para convertir el momento más oscuro en punto de inflexión'
+    },
+    {
+      id: 'ej3e',
+      etiq: 'EFECTO EN EL LECTOR',
+      opciones: [
+        '— elige —',
+        'El lector entiende que hubo muchas manifestaciones en apoyo a Malala',
+        'El lector se detiene ante la contradicción y siente que el intento de silenciarla produjo exactamente el efecto contrario',
+        'El lector se confunde porque no puede entender cómo el silencio produce voces'
+      ],
+      correcta: 'El lector se detiene ante la contradicción y siente que el intento de silenciarla produjo exactamente el efecto contrario'
+    },
+    {
+      id: 'ej3s',
+      etiq: 'SIGNIFICADO',
+      opciones: [
+        '— elige —',
+        'Las ideas no pueden ser destruidas por la violencia: cualquier intento de acallarlas las amplifica',
+        'Disparar contra alguien es un error porque siempre hay consecuencias legales',
+        'El silencio es un recurso poderoso en la comunicación política'
+      ],
+      correcta: 'Las ideas no pueden ser destruidas por la violencia: cualquier intento de acallarlas las amplifica'
+    }
+  ];
+
+  // ═══════════════════════════════════════════════════════
+  // TABS
+  // ═══════════════════════════════════════════════════════
+  function cambiarTab(idx) {
+    var paneles = document.querySelectorAll('.tab-panel');
+    var botones = document.querySelectorAll('.tab-btn');
+    paneles.forEach(function (p, i) {
+      p.classList.toggle('activo', i === idx);
+    });
+    botones.forEach(function (b, i) {
+      b.classList.toggle('activo', i === idx);
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  window.cambiarTab = cambiarTab;
+
+  // ═══════════════════════════════════════════════════════
+  // TAB 1 — CONSTRUIR TARJETAS
+  // ═══════════════════════════════════════════════════════
+  function construirTarjetas(nivel, contenedorId) {
+    var contenedor = document.getElementById(contenedorId);
+    if (!contenedor) return;
+    RECURSOS[nivel].forEach(function (rec, i) {
+      var id = 'card-' + nivel + '-' + i;
+
+      var card = document.createElement('div');
+      card.className = 'recurso-card';
+      card.id = id;
+
+      var cab = document.createElement('div');
+      cab.className = 'recurso-cabecera';
+      cab.onclick = function () { toggleCard(id); };
+
+      var nom = document.createElement('div');
+      nom.className = 'recurso-nombre';
+      nom.textContent = rec.nombre;
+
+      var tog = document.createElement('div');
+      tog.className = 'recurso-toggle';
+      tog.textContent = '+';
+
+      cab.appendChild(nom);
+      cab.appendChild(tog);
+
+      var cuerpo = document.createElement('div');
+      cuerpo.className = 'recurso-cuerpo';
+
+      var def = document.createElement('p');
+      def.className = 'recurso-definicion';
+      def.textContent = rec.definicion;
+
+      var ficha = document.createElement('div');
+      ficha.className = 'recurso-ficha';
+
+      var filas = [
+        { etiq: 'Ejemplo', val: rec.ejemplo, esFuente: false },
+        { etiq: 'Efecto', val: rec.efecto, esFuente: false },
+        { etiq: 'Fuente', val: rec.fuente, esFuente: true }
+      ];
+
+      filas.forEach(function (fila) {
+        var f = document.createElement('div');
+        f.className = 'ficha-fila';
+        var e = document.createElement('div');
+        e.className = 'ficha-etiq';
+        e.textContent = fila.etiq;
+        var v = document.createElement('div');
+        v.className = 'ficha-val';
+        if (fila.esFuente) {
+          v.style.fontSize = '0.8rem';
+          v.style.color = '#888';
+          v.style.fontStyle = 'italic';
+          v.textContent = fila.val;
+        } else {
+          v.innerHTML = fila.val;
+        }
+        f.appendChild(e);
+        f.appendChild(v);
+        ficha.appendChild(f);
+      });
+
+      cuerpo.appendChild(def);
+      cuerpo.appendChild(ficha);
+      card.appendChild(cab);
+      card.appendChild(cuerpo);
+      contenedor.appendChild(card);
+    });
+  }
+
+  function toggleCard(id) {
+    var card = document.getElementById(id);
+    if (!card) return;
+    card.classList.toggle('abierta');
+  }
+  window.toggleCard = toggleCard;
+
+  // ═══════════════════════════════════════════════════════
+  // TAB 2 — TEXTO EN ACCIÓN
+  // ═══════════════════════════════════════════════════════
+  var COLORES_DOT = {
+    azul: 'dot-azul', rojo: 'dot-rojo', verde: 'dot-verde',
+    naranja: 'dot-naranja', morado: 'dot-morado'
+  };
+  var COLORES_MARCA = {
+    azul: 'marca-azul', rojo: 'marca-roja', verde: 'marca-verde',
+    naranja: 'marca-naranja', morado: 'marca-morada'
+  };
+  var COLORES_PANEL = {
+    azul: '', rojo: 'c-rojo', verde: 'c-verde',
+    naranja: 'c-naranja', morado: 'c-morado'
+  };
+
+  function construirTextoAccion() {
+    var leyenda = document.getElementById('leyenda-accion');
+    var textoEl = document.getElementById('texto-anotado-accion');
+    var panelesEl = document.getElementById('paneles-anotacion');
+    if (!leyenda || !textoEl || !panelesEl) return;
+
+    // Leyenda
+    ANOTACIONES.forEach(function (anot) {
+      var item = document.createElement('div');
+      item.className = 'leyenda-item';
+      item.style.color = 'var(--' + (anot.color === 'morado' ? 'gris' : anot.color === 'naranja' ? 'gris' : anot.color) + ')';
+      item.onclick = (function (aid) {
+        return function () { mostrarAnotacion(aid); };
+      })(anot.id);
+
+      var dot = document.createElement('div');
+      dot.className = 'leyenda-dot ' + COLORES_DOT[anot.color];
+
+      var label = document.createElement('span');
+      label.textContent = anot.nombre;
+      if (anot.color === 'azul') label.style.color = 'var(--azul)';
+      if (anot.color === 'rojo') label.style.color = 'var(--terracota)';
+      if (anot.color === 'verde') label.style.color = '#0a7a85';
+      if (anot.color === 'naranja') label.style.color = '#a04000';
+      if (anot.color === 'morado') label.style.color = '#6a1b9a';
+
+      item.appendChild(dot);
+      item.appendChild(label);
+      leyenda.appendChild(item);
+    });
+
+    // Texto con marcas
+    // Hermanos y hermanas, recuerdo el nueve de octubre de dos mil doce,
+    // cuando los talibanes dispararon contra mí en el lado izquierdo de mi frente,
+    // en el autobús de la escuela.
+    // Dispararon a mis amigas también.
+    // Pensaban que las balas nos silenciarían. [anafora + metafora]
+    // Pero se equivocaron.
+    // Del silencio surgieron miles de voces. [paradoja]
+    // Los terroristas pensaban que cambiarían mis objetivos [anafora]
+    // y pondrían fin a mis ambiciones. [anafora]
+    // Pero nada cambió en mi vida excepto esto:
+    // la debilidad, el miedo y la desesperanza murieron. [antitesis + enumeracion]
+    // La fuerza, el poder y el valor nacieron. [antitesis + enumeracion]
+
+    function txt(t) {
+      return document.createTextNode(t);
+    }
+    function marca(texto, anot_id, color) {
+      var sp = document.createElement('span');
+      sp.className = 'marca ' + COLORES_MARCA[color];
+      sp.innerHTML = texto;
+      sp.onclick = (function (aid) {
+        return function () { mostrarAnotacion(aid); };
+      })(anot_id);
+      return sp;
+    }
+
+    textoEl.appendChild(txt('Hermanos y hermanas, recuerdo el nueve de octubre de dos mil doce, cuando los talibanes dispararon contra mí en el lado izquierdo de mi frente, en el autobús de la escuela. Dispararon a mis amigas también. '));
+    textoEl.appendChild(marca('Pensaban que las balas nos silenciarían.', 'metafora', 'morado'));
+    textoEl.appendChild(txt(' Pero se equivocaron. '));
+    textoEl.appendChild(marca('Del silencio surgieron miles de voces.', 'paradoja', 'azul'));
+    textoEl.appendChild(txt(' '));
+    textoEl.appendChild(marca('Los terroristas pensaban que cambiarían mis objetivos y pondrían fin a mis ambiciones.', 'anafora', 'rojo'));
+    textoEl.appendChild(txt(' Pero nada cambió en mi vida excepto esto: '));
+    textoEl.appendChild(marca('la debilidad, el miedo y la desesperanza', 'enumeracion', 'naranja'));
+    textoEl.appendChild(txt(' '));
+    textoEl.appendChild(marca('murieron.', 'antitesis', 'verde'));
+    textoEl.appendChild(txt(' '));
+    textoEl.appendChild(marca('La fuerza, el poder y el valor', 'enumeracion', 'naranja'));
+    textoEl.appendChild(txt(' '));
+    textoEl.appendChild(marca('nacieron.', 'antitesis', 'verde'));
+
+    // Paneles de anotación
+    ANOTACIONES.forEach(function (anot) {
+      var panel = document.createElement('div');
+      panel.className = 'anotacion-panel ' + COLORES_PANEL[anot.color];
+      panel.id = 'panel-anot-' + anot.id;
+
+      var h4 = document.createElement('h4');
+      h4.textContent = anot.nombre;
+      panel.appendChild(h4);
+
+      var filas = [
+        { etiq: 'Recurso', val: anot.recurso },
+        { etiq: 'Decisión del autor', val: anot.decision },
+        { etiq: 'Efecto en el lector', val: anot.efecto },
+        { etiq: 'Significado', val: anot.significado }
+      ];
+      filas.forEach(function (fila) {
+        var f = document.createElement('div');
+        f.className = 'anotacion-fila';
+        var e = document.createElement('span');
+        e.className = 'etiq';
+        e.textContent = fila.etiq;
+        var v = document.createElement('span');
+        v.textContent = fila.val;
+        f.appendChild(e);
+        f.appendChild(v);
+        panel.appendChild(f);
+      });
+      panelesEl.appendChild(panel);
+    });
+  }
+
+  function mostrarAnotacion(id) {
+    document.querySelectorAll('.anotacion-panel').forEach(function (p) {
+      p.classList.remove('visible');
+    });
+    var target = document.getElementById('panel-anot-' + id);
+    if (target) target.classList.add('visible');
+  }
+  window.mostrarAnotacion = mostrarAnotacion;
+
+  // ═══════════════════════════════════════════════════════
+  // TAB 3 — EJERCICIO 1
+  // ═══════════════════════════════════════════════════════
+  var ej1Estado = {};
+
+  function construirEj1() {
+    var cont = document.getElementById('ej1-contenedor');
+    if (!cont) return;
+    cont.innerHTML = '';
+    EJ1_ITEMS.forEach(function (item) {
+      ej1Estado[item.id] = false;
+
+      var bloque = document.createElement('div');
+      bloque.className = 'clasificar-items';
+
+      var card = document.createElement('div');
+      card.className = 'clas-item';
+
+      var frase = document.createElement('div');
+      frase.className = 'clas-frase';
+      frase.innerHTML = item.frase;
+
+      var botones = document.createElement('div');
+      botones.className = 'clas-botones';
+
+      item.opciones.forEach(function (op) {
+        var btn = document.createElement('button');
+        btn.className = 'btn-clas';
+        btn.textContent = op;
+        btn.onclick = (function (opcion, itemId, btnRef) {
+          return function () {
+            if (ej1Estado[itemId]) return;
+            var fb = document.getElementById('fb-' + itemId);
+            if (opcion === item.correcta) {
+              btnRef.className = 'btn-clas ok';
+              fb.className = 'clas-feedback ok';
+              fb.textContent = item.fb_ok;
+              fb.style.display = 'block';
+              ej1Estado[itemId] = true;
+              verificarMensajeFinal();
+            } else {
+              btnRef.className = 'btn-clas ko';
+              fb.className = 'clas-feedback ko';
+              fb.textContent = item.fb_ko;
+              fb.style.display = 'block';
+              setTimeout(function () {
+                btnRef.className = 'btn-clas';
+                fb.style.display = 'none';
+              }, 2200);
+            }
+          };
+        })(op, item.id, btn);
+        botones.appendChild(btn);
+      });
+
+      var fb = document.createElement('div');
+      fb.className = 'clas-feedback';
+      fb.id = 'fb-' + item.id;
+
+      card.appendChild(frase);
+      card.appendChild(botones);
+      card.appendChild(fb);
+      bloque.appendChild(card);
+      cont.appendChild(bloque);
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════
+  // TAB 3 — EJERCICIO 2
+  // ═══════════════════════════════════════════════════════
+  function construirEj2() {
+    var cont = document.getElementById('ej2-contenedor');
+    if (!cont) return;
+    cont.innerHTML = '';
+    EJ2_CONFIG.forEach(function (cfg) {
+      var bloque = document.createElement('div');
+      bloque.className = 'ej2-bloque';
+
+      var cita = document.createElement('div');
+      cita.className = 'ej2-cita';
+      cita.innerHTML = cfg.cita;
+      var fuente = document.createElement('span');
+      fuente.className = 'ej2-fuente';
+      fuente.textContent = cfg.fuente;
+      cita.appendChild(fuente);
+
+      var recLabel = document.createElement('div');
+      recLabel.style.cssText = 'font-size:0.82rem;font-weight:700;color:var(--turquesa);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.5rem;';
+      recLabel.textContent = 'Recurso identificado: ' + cfg.recurso;
+
+      var preg = document.createElement('div');
+      preg.className = 'ej2-pregunta';
+      preg.textContent = cfg.pregunta;
+
+      var sel = document.createElement('select');
+      sel.className = 'ej2-select';
+      sel.id = 'sel-' + cfg.id;
+
+      var opt0 = document.createElement('option');
+      opt0.value = '';
+      opt0.textContent = '— elige —';
+      sel.appendChild(opt0);
+      cfg.opciones.forEach(function (op) {
+        var opt = document.createElement('option');
+        opt.value = op;
+        opt.textContent = op;
+        sel.appendChild(opt);
+      });
+
+      var fb = document.createElement('div');
+      fb.className = 'ej2-feedback';
+      fb.id = 'fb2-' + cfg.id;
+
+      bloque.appendChild(cita);
+      bloque.appendChild(recLabel);
+      bloque.appendChild(preg);
+      bloque.appendChild(sel);
+      bloque.appendChild(fb);
+      cont.appendChild(bloque);
+    });
+  }
+
+  function comprobarEj2() {
+    var aciertos = 0;
+    EJ2_CONFIG.forEach(function (cfg) {
+      var sel = document.getElementById('sel-' + cfg.id);
+      var fb = document.getElementById('fb2-' + cfg.id);
+      if (!sel || !fb) return;
+      if (sel.value === cfg.correcta) {
+        sel.className = 'ej2-select correcto';
+        fb.className = 'ej2-feedback ok';
+        fb.textContent = cfg.fb_ok;
+        fb.style.display = 'block';
+        aciertos++;
+      } else if (sel.value === '') {
+        fb.style.display = 'none';
+      } else {
+        sel.className = 'ej2-select incorrecto';
+        fb.className = 'ej2-feedback ko';
+        fb.textContent = cfg.fb_ko;
+        fb.style.display = 'block';
+      }
+    });
+    var res = document.getElementById('ej2-resultado');
+    res.style.display = 'block';
+    if (aciertos === EJ2_CONFIG.length) {
+      res.className = 'resultado-global ok';
+      res.textContent = '✓ Perfecto. Has identificado el efecto preciso en los dos casos. Recuerda: el efecto siempre se formula desde el punto de vista del lector, no del texto.';
+      logros.ej2 = true;
+      verificarMensajeFinal();
+    } else {
+      res.className = 'resultado-global parcial';
+      res.textContent = aciertos + ' de ' + EJ2_CONFIG.length + ' correctas. Revisa las marcadas en rojo: el efecto debe ser específico para ese recurso en ese contexto, no una descripción general.';
+    }
+  }
+  window.comprobarEj2 = comprobarEj2;
+
+  function resetEj2() {
+    construirEj2();
+    var res = document.getElementById('ej2-resultado');
+    res.style.display = 'none';
+    logros.ej2 = false;
+  }
+  window.resetEj2 = resetEj2;
+
+  // ═══════════════════════════════════════════════════════
+  // TAB 3 — EJERCICIO 3
+  // ═══════════════════════════════════════════════════════
+  function construirEj3() {
+    var cont = document.getElementById('ej3-contenedor');
+    if (!cont) return;
+    cont.innerHTML = '';
+
+    var cita = document.createElement('div');
+    cita.className = 'ej3-cita';
+    cita.textContent = EJ3_CITA;
+    var fuente = document.createElement('span');
+    fuente.className = 'ej3-fuente';
+    fuente.textContent = EJ3_FUENTE;
+    cita.appendChild(fuente);
+    cont.appendChild(cita);
+
+    var formula = document.createElement('div');
+    formula.className = 'ej3-formula';
+
+    EJ3_CONFIG.forEach(function (cfg) {
+      var fila = document.createElement('div');
+      fila.className = 'ej3-fila';
+
+      var etiq = document.createElement('div');
+      etiq.className = 'ej3-etiq';
+      etiq.textContent = cfg.etiq;
+
+      var sel = document.createElement('select');
+      sel.className = 'ej3-select';
+      sel.id = cfg.id;
+      cfg.opciones.forEach(function (op) {
+        var opt = document.createElement('option');
+        opt.value = op === '— elige —' ? '' : op;
+        opt.textContent = op;
+        sel.appendChild(opt);
+      });
+
+      fila.appendChild(etiq);
+      fila.appendChild(sel);
+      formula.appendChild(fila);
+    });
+    cont.appendChild(formula);
+  }
+
+  function comprobarEj3() {
+    var aciertos = 0;
+    EJ3_CONFIG.forEach(function (cfg) {
+      var sel = document.getElementById(cfg.id);
+      if (!sel) return;
+      if (sel.value === cfg.correcta) {
+        sel.className = 'ej3-select correcto';
+        aciertos++;
+      } else {
+        sel.className = 'ej3-select incorrecto';
+      }
+    });
+    var res = document.getElementById('ej3-resultado');
+    res.style.display = 'block';
+    if (aciertos === EJ3_CONFIG.length) {
+      res.className = 'resultado-global ok';
+      res.textContent = '✓ Excelente. Has completado la fórmula de análisis en sus cuatro pasos aplicada a un texto real. Eso es exactamente lo que pide la Prueba 1.';
+      logros.ej3 = true;
+      verificarMensajeFinal();
+    } else {
+      res.className = 'resultado-global parcial';
+      res.textContent = aciertos + ' de ' + EJ3_CONFIG.length + ' pasos correctos. Los marcados en rojo necesitan revisión. Vuelve al Tab 2 si quieres repasar cómo funciona la fórmula en este texto.';
+    }
+  }
+  window.comprobarEj3 = comprobarEj3;
+
+  function resetEj3() {
+    construirEj3();
+    var res = document.getElementById('ej3-resultado');
+    res.style.display = 'none';
+    logros.ej3 = false;
+  }
+  window.resetEj3 = resetEj3;
+
+  // ═══════════════════════════════════════════════════════
+  // MENSAJE FINAL
+  // ═══════════════════════════════════════════════════════
+  var logros = { ej1: false, ej2: false, ej3: false };
+
+  function verificarMensajeFinal() {
+    var todosEj1 = EJ1_ITEMS.every(function (item) { return ej1Estado[item.id]; });
+    if (todosEj1) logros.ej1 = true;
+    if (logros.ej1 && logros.ej2 && logros.ej3) {
+      var mf = document.getElementById('mensaje-final');
+      if (mf) mf.style.display = 'block';
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════
+  // INIT
+  // ═══════════════════════════════════════════════════════
+  construirTarjetas('n1', 'grid-n1');
+  construirTarjetas('n2', 'grid-n2');
+  construirTarjetas('n3', 'grid-n3');
+  construirTextoAccion();
+  construirEj1();
+  construirEj2();
+  construirEj3();
+
+})();
+</script>
+</body>
+</html>
