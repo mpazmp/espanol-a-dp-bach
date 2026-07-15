@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 6 · Estrategia de examen · Prueba 1</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul:      #1a4a7a;
+    --azul-claro:#e8f0f8;
+    --terracota: #c64829;
+    --turquesa:  #0e9aa7;
+    --gris:      #3f3f3e;
+    --fondo:     #f9f7f4;
+    --blanco:    #ffffff;
+    --sombra:    0 2px 12px rgba(26,74,122,0.10);
+    --verde-ok:  #43a047;
+    --verde-bg:  #e8f5e9;
+    --rojo-bg:   #fdecea;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--fondo);
+    color: var(--gris);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /* CABECERA */
+  .cabecera {
+    background: var(--azul);
+    color: var(--blanco);
+    padding: 2.2rem 2rem 1.6rem;
+    border-bottom: 4px solid var(--terracota);
+  }
+  .cabecera .etiqueta {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--turquesa);
+    margin-bottom: 0.4rem;
+  }
+  .cabecera h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  .cabecera p {
+    font-size: 0.95rem;
+    opacity: 0.85;
+    max-width: 680px;
+  }
+
+  /* NAVEGACIÓN TABS */
+  .tabs-nav {
+    display: flex;
+    background: var(--azul);
+    padding: 0 2rem;
+    gap: 0.2rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs-nav::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.65);
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 0.85rem 1.1rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .tab-btn:hover { color: rgba(255,255,255,0.9); }
+  .tab-btn.activo {
+    color: var(--blanco);
+    border-bottom-color: var(--terracota);
+  }
+
+  /* CONTENIDO */
+  .contenido {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel.activo { display: block; }
+
+  /* TÍTULOS */
+  .seccion-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    color: var(--azul);
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+  }
+  .seccion-subtitulo {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 1.8rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 1rem;
+  }
+
+  /* TARJETAS DE FASES (reutiliza el patrón de la caja de herramientas) */
+  .recursos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 600px) {
+    .recursos-grid { grid-template-columns: 1fr; }
+  }
+
+  .recurso-card {
+    background: var(--blanco);
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--sombra);
+    transition: box-shadow 0.2s, border-color 0.2s;
+    cursor: pointer;
+  }
+  .recurso-card:hover {
+    box-shadow: 0 4px 20px rgba(26,74,122,0.15);
+    border-color: var(--azul);
+  }
+  .recurso-card.abierta { border-color: var(--azul); }
+
+  .recurso-cabecera {
+    padding: 1rem 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    background: var(--azul-claro);
+  }
+  .recurso-nombre {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.0rem;
+    font-weight: 700;
+    color: var(--azul);
+  }
+  .recurso-tiempo {
+    display: block;
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: var(--turquesa);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.15rem;
+  }
+  .recurso-toggle {
+    font-size: 1.2rem;
+    color: var(--azul);
+    font-weight: 700;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .recurso-card.abierta .recurso-toggle { transform: rotate(45deg); }
+
+  .recurso-cuerpo {
+    display: none;
+    padding: 1.1rem 1.2rem;
+  }
+  .recurso-card.abierta .recurso-cuerpo { display: block; }
+
+  .recurso-definicion {
+    font-size: 0.92rem;
+    color: var(--gris);
+    margin-bottom: 1rem;
+    line-height: 1.65;
+  }
+
+  .recurso-ficha {
+    border-top: 1px solid #eee;
+    padding-top: 0.9rem;
+  }
+  .ficha-fila {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 0.3rem 0.8rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid #f3f3f3;
+    font-size: 0.88rem;
+  }
+  .ficha-fila:last-child { border-bottom: none; }
+  .ficha-etiq {
+    font-weight: 700;
+    color: var(--azul);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-top: 0.1rem;
+  }
+  .ficha-val { color: var(--gris); line-height: 1.5; }
+
+  /* SEPARADOR DE CATEGORÍA */
+  .nivel-separador {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0 1.4rem;
+  }
+  .nivel-separador .linea {
+    flex: 1;
+    height: 1px;
+    background: #ddd;
+  }
+  .nivel-separador .etiq-nivel {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.9rem;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .etiq-nivel.n1 { background: #e3f2fd; color: #1565c0; }
+  .etiq-nivel.n2 { background: #fff3e0; color: #e65100; }
+
+  .nota-categoria {
+    background: var(--azul-claro);
+    border-radius: 8px;
+    padding: 0.9rem 1.1rem;
+    font-size: 0.86rem;
+    color: var(--azul);
+    margin-bottom: 1.2rem;
+    line-height: 1.6;
+  }
+
+  /* EJERCICIOS */
+  .ejercicio {
+    background: var(--blanco);
+    border-radius: 12px;
+    padding: 1.6rem;
+    box-shadow: var(--sombra);
+    margin-bottom: 2rem;
+  }
+  .ejercicio-num {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--turquesa);
+    margin-bottom: 0.3rem;
+  }
+  .ejercicio h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--azul);
+    margin-bottom: 0.4rem;
+  }
+  .ejercicio .instruccion {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1.4rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  /* EJ 1 — TARJETAS CLASIFICAR */
+  .clasificar-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+  }
+  .clas-item {
+    background: #fafafa;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0.9rem 1.1rem;
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+  .clas-item .clas-frase {
+    margin-bottom: 0.7rem;
+    font-style: italic;
+    color: var(--gris);
+  }
+  .clas-botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .btn-clas {
+    padding: 0.38rem 0.9rem;
+    border-radius: 6px;
+    border: 2px solid var(--azul);
+    background: transparent;
+    color: var(--azul);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .btn-clas:hover { background: var(--azul); color: var(--blanco); }
+  .btn-clas.ok  { background: var(--verde-bg); border-color: var(--verde-ok); color: #2e7d32; }
+  .btn-clas.ko  { background: var(--rojo-bg);  border-color: var(--terracota); color: #7a1c0a; }
+  .clas-feedback {
+    display: none;
+    margin-top: 0.6rem;
+    padding: 0.6rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.87rem;
+    line-height: 1.5;
+  }
+  .clas-feedback.ok { background: var(--verde-bg); color: #2e7d32; border-left: 3px solid var(--verde-ok); }
+  .clas-feedback.ko { background: var(--rojo-bg);  color: #7a1c0a; border-left: 3px solid var(--terracota); }
+
+  /* EJ 2 — SELECTS */
+  .ej2-bloque {
+    margin-bottom: 1.4rem;
+    padding-bottom: 1.4rem;
+    border-bottom: 1px solid #eee;
+  }
+  .ej2-bloque:last-of-type { border-bottom: none; }
+  .ej2-cita {
+    font-size: 0.94rem;
+    font-style: italic;
+    color: var(--gris);
+    background: var(--azul-claro);
+    border-radius: 6px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.65;
+  }
+  .ej2-pregunta {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: var(--gris);
+  }
+  .ej2-select {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.88rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    border: 2px solid var(--azul);
+    color: var(--azul);
+    background: var(--blanco);
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+  .ej2-select.correcto { border-color: var(--verde-ok); color: #2e7d32; background: var(--verde-bg); }
+  .ej2-select.incorrecto { border-color: var(--terracota); color: #7a1c0a; background: var(--rojo-bg); }
+  .ej2-feedback {
+    display: none;
+    padding: 0.6rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.87rem;
+    line-height: 1.5;
+  }
+  .ej2-feedback.ok { background: var(--verde-bg); color: #2e7d32; border-left: 3px solid var(--verde-ok); }
+  .ej2-feedback.ko { background: var(--rojo-bg);  color: #7a1c0a; border-left: 3px solid var(--terracota); }
+
+  /* EJ 3 — PLANIFICA TU TIEMPO */
+  .ej3-formula { margin-bottom: 1.2rem; }
+  .ej3-fila {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 0.4rem 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    align-items: start;
+    font-size: 0.9rem;
+  }
+  .ej3-fila:last-child { border-bottom: none; }
+  .ej3-etiq {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--azul);
+    padding-top: 0.4rem;
+  }
+  .ej3-select {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.88rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    border: 2px solid var(--azul);
+    color: var(--azul);
+    background: var(--blanco);
+    cursor: pointer;
+    width: 100%;
+  }
+  .ej3-select.correcto { border-color: var(--verde-ok); color: #2e7d32; background: var(--verde-bg); }
+  .ej3-select.incorrecto { border-color: var(--terracota); color: #7a1c0a; background: var(--rojo-bg); }
+
+  /* BOTONES */
+  .btn-comprobar {
+    padding: 0.65rem 1.6rem;
+    background: var(--azul);
+    color: var(--blanco);
+    border: none;
+    border-radius: 7px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-right: 0.6rem;
+    margin-top: 0.4rem;
+  }
+  .btn-comprobar:hover { background: #0d3560; }
+  .btn-reset {
+    padding: 0.65rem 1.2rem;
+    background: transparent;
+    color: var(--gris);
+    border: 2px solid #ccc;
+    border-radius: 7px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-top: 0.4rem;
+  }
+  .btn-reset:hover { border-color: var(--azul); }
+
+  .resultado-global {
+    display: none;
+    margin-top: 1.2rem;
+    padding: 1rem 1.2rem;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+  .resultado-global.ok      { background: var(--verde-bg); color: #2e7d32; border-left: 3px solid var(--verde-ok); }
+  .resultado-global.parcial { background: #fff8e1; color: #7a5c00; border-left: 3px solid #f9a825; }
+
+  /* MENSAJE FINAL */
+  .mensaje-final {
+    background: var(--azul);
+    color: var(--blanco);
+    border-radius: 12px;
+    padding: 1.8rem 2rem;
+    text-align: center;
+    margin-top: 2rem;
+    display: none;
+  }
+  .mensaje-final p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .mensaje-final span {
+    font-size: 0.85rem;
+    opacity: 0.75;
+  }
+</style>
+</head>
+<body>
+
+<div class="cabecera">
+  <div class="etiqueta">Prueba 1 · Módulo 6</div>
+  <h1>Estrategia de examen y gestión del tiempo</h1>
+  <p>Conocer los recursos, los tipos de texto y la fórmula de análisis no sirve de nada si el tiempo se gestiona mal el día del examen. Este módulo cierra el bloque de Prueba 1.</p>
+</div>
+
+<nav class="tabs-nav" role="tablist">
+  <button class="tab-btn activo" onclick="cambiarTab(0)" role="tab">Tu hoja de ruta</button>
+  <button class="tab-btn" onclick="cambiarTab(1)" role="tab">Los ves en acción</button>
+  <button class="tab-btn" onclick="cambiarTab(2)" role="tab">Practica</button>
+</nav>
+
+<div class="contenido">
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- TAB 1 — TU HOJA DE RUTA           -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="tab-panel activo" id="panel-0">
+    <h2 class="seccion-titulo">Tu hoja de ruta en el examen</h2>
+    <p class="seccion-subtitulo">Pulsa en cada fase para ver qué hacer, cuánto tiempo dedicarle y la señal de alerta que te avisa si te estás retrasando. El reparto cambia según tu nivel.</p>
+
+    <div class="nivel-separador">
+      <div class="linea"></div>
+      <div class="etiq-nivel n1">Nivel Medio (NM) · 1h 15min · eliges 1 de 2 textos</div>
+      <div class="linea"></div>
+    </div>
+    <div class="nota-categoria">En NM, la Prueba 1 dura 1 hora y 15 minutos (75 minutos). Se te presentan dos pasajes de tipos de texto distintos, cada uno con su pregunta de orientación: <strong>eliges uno solo</strong> y escribes un único análisis (20 puntos).</div>
+    <div class="recursos-grid" id="grid-nm"></div>
+
+    <div class="nivel-separador">
+      <div class="linea"></div>
+      <div class="etiq-nivel n2">Nivel Superior (NS) · 2h 15min · trabajas los 2 textos</div>
+      <div class="linea"></div>
+    </div>
+    <div class="nota-categoria">En NS, la Prueba 1 dura 2 horas y 15 minutos (135 minutos). Se te presentan los mismos dos pasajes, pero <strong>debes escribir un análisis de cada uno</strong> (20 puntos por texto, 40 en total).</div>
+    <div class="recursos-grid" id="grid-ns"></div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- TAB 2 — LOS VES EN ACCIÓN         -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="tab-panel" id="panel-1">
+    <h2 class="seccion-titulo">Los ves en acción</h2>
+    <p class="seccion-subtitulo">Cinco errores de gestión del tiempo que se repiten curso tras curso —incluido en nuestro propio simulacro de este año—. Pulsa cada tarjeta para ver la consecuencia y cómo corregirlo.</p>
+    <div class="recursos-grid" id="grid-errores"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- TAB 3 — PRACTICA                  -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="tab-panel" id="panel-2">
+    <h2 class="seccion-titulo">Practica</h2>
+    <p class="seccion-subtitulo">Tres ejercicios de dificultad creciente para afianzar lo aprendido.</p>
+
+    <!-- EJERCICIO 1 -->
+    <div class="ejercicio">
+      <div class="ejercicio-num">Ejercicio 1 · Identifica</div>
+      <h3>¿Qué deberías hacer?</h3>
+      <p class="instruccion">Cuatro situaciones reales de examen. Elige la decisión de gestión del tiempo más acertada en cada caso.</p>
+      <div id="ej1-contenedor"></div>
+    </div>
+
+    <!-- EJERCICIO 2 -->
+    <div class="ejercicio">
+      <div class="ejercicio-num">Ejercicio 2 · Distingue</div>
+      <h3>¿Qué criterio protege esta estrategia?</h3>
+      <p class="instruccion">Cada buena práctica de gestión del tiempo protege, sobre todo, uno de los cuatro criterios de Prueba 1. Identifícalo.</p>
+      <div id="ej2-contenedor"></div>
+      <button class="btn-comprobar" onclick="comprobarEj2()">Comprobar</button>
+      <button class="btn-reset" onclick="resetEj2()">Reiniciar</button>
+      <div class="resultado-global" id="ej2-resultado"></div>
+    </div>
+
+    <!-- EJERCICIO 3 -->
+    <div class="ejercicio">
+      <div class="ejercicio-num">Ejercicio 3 · Planifica</div>
+      <h3>Reparte tu tiempo (NM · 75 minutos · 1 texto)</h3>
+      <p class="instruccion">Asigna a cada fase un tiempo realista. Recuerda: son 75 minutos en total para elegir, leer, planificar, redactar y revisar un único texto.</p>
+      <div id="ej3-contenedor"></div>
+      <button class="btn-comprobar" onclick="comprobarEj3()">Comprobar</button>
+      <button class="btn-reset" onclick="resetEj3()">Reiniciar</button>
+      <div class="resultado-global" id="ej3-resultado"></div>
+    </div>
+
+    <div class="mensaje-final" id="mensaje-final">
+      <p>"Saber analizar un texto y saber gestionar el reloj del examen son dos habilidades distintas. Esta web te ha dado las dos. El resto es practicar."</p>
+      <span>Módulo 6 completado · Prueba 1 completa · Español A</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+
+  // ═══════════════════════════════════════════════════════
+  // DATOS — FASES NM (75 minutos, 1 texto)
+  // ═══════════════════════════════════════════════════════
+  var FASES_NM = [
+    {
+      nombre: '1. Elige tu texto',
+      tiempo: '0-5 min',
+      que_hacer: 'Lee las dos preguntas de orientación y hojea rápidamente ambos textos. No los leas a fondo todavía: solo busca cuál te ofrece más recursos reconocibles de un vistazo.',
+      pista: 'Elige el texto en el que ya ves 2-3 recursos claros relacionados con su pregunta, no el que "suena" más interesante por el tema.',
+      alerta: 'Si llevas más de 5 minutos dudando entre los dos, elige el que hayas leído primero y sigue adelante. Decidir tarde cuesta más caro que decidir "bien".'
+    },
+    {
+      nombre: '2. Lee y anota',
+      tiempo: '5-20 min',
+      que_hacer: 'Lee el texto elegido con atención, subrayando los recursos relacionados con la pregunta de orientación. Anota al margen, en una palabra, el recurso y el efecto que intuyes.',
+      pista: 'No anotes todo lo que veas: prioriza los recursos directamente vinculados a la pregunta de orientación, no cualquier recurso llamativo.',
+      alerta: 'Si a los 20 minutos sigues subrayando sin haber empezado a pensar en tu esquema, pasa a la fase siguiente aunque no hayas anotado todo.'
+    },
+    {
+      nombre: '3. Planifica',
+      tiempo: '20-30 min',
+      que_hacer: 'Haz un esquema breve: idea central de tu introducción, 2-3 recursos en el orden en que los vas a desarrollar, y la idea de tu conclusión.',
+      pista: 'Un esquema de cinco líneas es mejor que ningún esquema. No necesitas frases completas, solo las ideas clave en el orden correcto.',
+      alerta: 'Si te encuentras redactando frases completas en esta fase, estás perdiendo el control del tiempo: vuelve al esquema en forma de lista.'
+    },
+    {
+      nombre: '4. Redacta',
+      tiempo: '30-65 min',
+      que_hacer: 'Desarrolla tu esquema en prosa completa. Para cada recurso, aplica la fórmula: recurso → decisión del autor → efecto en quien lee → significado. Cuida las transiciones entre párrafos.',
+      pista: 'Escribe la conclusión aunque el tiempo apriete: una respuesta sin conclusión pierde puntos claros en el Criterio C, aunque el análisis central sea bueno.',
+      alerta: 'Si a los 55 minutos no has empezado la conclusión, resérvate los últimos 5 minutos de esta fase exclusivamente para cerrarla, aunque sea de forma breve.'
+    },
+    {
+      nombre: '5. Revisa',
+      tiempo: '65-75 min',
+      que_hacer: 'Relee tu respuesta completa. Comprueba que responde directamente a la pregunta de orientación, corrige errores evidentes y verifica que la terminología de análisis es precisa.',
+      pista: 'Pregúntate: si alguien leyera solo mi primer y mi último párrafo, ¿entendería mi idea central en respuesta a la pregunta?',
+      alerta: 'No uses este tiempo para añadir ideas nuevas sin desarrollar: es mejor pulir lo que ya tienes que abrir frentes nuevos a última hora.'
+    }
+  ];
+
+  // ═══════════════════════════════════════════════════════
+  // DATOS — FASES NS (135 minutos, 2 textos)
+  // ═══════════════════════════════════════════════════════
+  var FASES_NS = [
+    {
+      nombre: '1. Visión general de ambos textos',
+      tiempo: '0-15 min',
+      que_hacer: 'Lee las dos preguntas de orientación y hojea los dos textos completos. Decide el orden en que vas a trabajarlos.',
+      pista: 'Empieza siempre por el texto que veas más claro. Ganarás confianza y, si te sobra algo de tiempo, lo tendrás disponible para el texto más exigente.',
+      alerta: 'No emplees este tiempo en leer a fondo: es una visión general para decidir el orden, no la lectura analítica completa.'
+    },
+    {
+      nombre: '2. Texto 1 · Lee, anota y planifica',
+      tiempo: '15-35 min',
+      que_hacer: 'Lee a fondo el primer texto elegido, subraya recursos vinculados a su pregunta de orientación y haz un esquema breve.',
+      pista: 'Aplica el mismo proceso que en NM (leer+anotar y planificar), pero con el reloj mental puesto en que tienes un segundo texto pendiente.',
+      alerta: 'Si a los 35 minutos no tienes al menos un esquema básico, empieza a redactar igualmente: el esquema puede seguir afinándose mientras escribes.'
+    },
+    {
+      nombre: '3. Texto 1 · Redacta y revisa',
+      tiempo: '35-70 min',
+      que_hacer: 'Redacta el análisis completo del primer texto aplicando la fórmula en cada recurso, y resérvate unos minutos finales para revisarlo.',
+      pista: 'No te obsesiones con la perfección en el primer texto: un buen resultado en ambos suma más que un resultado excelente en uno y flojo en otro.',
+      alerta: 'Si llegas al minuto 70 sin haber terminado el primer texto, ciérralo con una conclusión breve y pasa al segundo: dejarlo sin conclusión penaliza más que una conclusión corta.'
+    },
+    {
+      nombre: '4. Texto 2 · Lee, anota y planifica',
+      tiempo: '70-90 min',
+      que_hacer: 'Repite el proceso con el segundo texto: lectura activa, anotación de recursos vinculados a su pregunta y esquema breve.',
+      pista: 'Si el segundo texto es el que te resulta más difícil, tómate un momento para respirar: ya tienes un texto completo hecho, y solo necesitas repetir el mismo proceso.',
+      alerta: 'No reduzcas la fase de planificación del segundo texto para "ganar tiempo": sin esquema, este segundo análisis suele perder organización.'
+    },
+    {
+      nombre: '5. Texto 2 · Redacta y revisa',
+      tiempo: '90-125 min',
+      que_hacer: 'Redacta el análisis completo del segundo texto, con la misma estructura y exigencia que el primero.',
+      pista: 'Vuelve a mirar la pregunta de orientación de este segundo texto cada 2-3 párrafos para no perder el foco.',
+      alerta: 'Si el tiempo aprieta mucho, prioriza terminar la conclusión antes que añadir un cuarto recurso sin desarrollar del todo.'
+    },
+    {
+      nombre: '6. Revisión final global',
+      tiempo: '125-135 min',
+      que_hacer: 'Con los minutos que queden, revisa ambas respuestas: ortografía, que cada una responda a su pregunta de orientación y que ambas tengan conclusión.',
+      pista: 'Si solo te quedan 2-3 minutos, dedícalos a comprobar que ninguna de las dos respuestas se ha quedado sin conclusión.',
+      alerta: 'No empieces a reescribir párrafos enteros en esta fase: es momento de pulir, no de reconstruir.'
+    }
+  ];
+
+  // ═══════════════════════════════════════════════════════
+  // DATOS — ERRORES FRECUENTES (tab 2)
+  // ═══════════════════════════════════════════════════════
+  var ERRORES = [
+    {
+      frase: '«Dedico 15-20 minutos a decidir qué texto elegir, comparando frase a frase las dos opciones antes de decantarme.» (NM)',
+      consecuencia: 'Le quedan apenas 55-60 minutos para leer, planificar, redactar y revisar un único texto, lo que obliga a recortar drásticamente la fase de revisión final.',
+      correccion: 'Fija un límite estricto de 5 minutos para decidir. Una vez elegido el texto, no vuelvas atrás: la decisión "perfecta" no existe, la decisión "a tiempo" sí.'
+    },
+    {
+      frase: '«Empiezo a redactar directamente después de leer el texto, sin hacer ningún esquema previo.»',
+      consecuencia: 'La respuesta pierde organización a mitad de camino, mezcla ideas sin conexión clara entre ellas y suele bajar específicamente en el Criterio C (focalización y organización), incluso cuando el análisis de fondo es bueno.',
+      correccion: 'Reserva siempre 8-10 minutos para un esquema, aunque sea muy breve: idea central, recursos en el orden en que los vas a desarrollar, idea de la conclusión.'
+    },
+    {
+      frase: '«En la Prueba 1 de NS, dedico exactamente el mismo tiempo a ambos textos, sin fijarme en cuál domino mejor.»',
+      consecuencia: 'Si el segundo texto resulta más difícil de lo esperado, se queda sin tiempo suficiente para desarrollarlo con la misma profundidad que el primero, y ese segundo análisis se resiente notablemente.',
+      correccion: 'Empieza siempre por el texto que veas más claro: ganas confianza y, si el segundo es más exigente, ya has "amortizado" tiempo extra gracias a la fluidez del primero.'
+    },
+    {
+      frase: '«Reservo toda la última media hora para "repasar bien" en lugar de terminar de redactar la conclusión.»',
+      consecuencia: 'La respuesta se queda sin conclusión, o con una conclusión escrita de forma apresurada en el último minuto, lo que perjudica directamente el Criterio C.',
+      correccion: 'Redactar la conclusión no es parte de la revisión: es parte de la fase de escritura. La revisión es para pulir un texto ya completo, no para terminarlo.'
+    },
+    {
+      frase: '«Mientras escribo, no vuelvo a mirar la pregunta de orientación, y termino hablando del tema del texto en general.»',
+      consecuencia: 'La respuesta se aleja del enfoque técnico que pide la pregunta y pierde puntos en el Criterio C, aunque el análisis de los recursos individuales sea correcto.',
+      correccion: 'Escribe la pregunta de orientación en la parte superior de tu esquema, en tus propias palabras, y vuelve a mirarla cada 2-3 párrafos mientras redactas.'
+    }
+  ];
+
+  // ═══════════════════════════════════════════════════════
+  // DATOS — EJERCICIOS
+  // ═══════════════════════════════════════════════════════
+  var EJ1_ITEMS = [
+    {
+      id: 'e1a',
+      frase: 'NM (75 min). Llevas 25 minutos de examen y todavía no has terminado de leer y anotar el texto. ¿Qué deberías hacer?',
+      opciones: [
+        'Seguir anotando con calma hasta sentirte completamente seguro/a de haberlo visto todo',
+        'Pasar a planificar ya, aunque no hayas anotado absolutamente todo: la lectura ya te ha dado suficiente material',
+        'Empezar a redactar directamente sin hacer ningún esquema, para ganar tiempo'
+      ],
+      correcta: 'Pasar a planificar ya, aunque no hayas anotado absolutamente todo: la lectura ya te ha dado suficiente material',
+      fb_ok: '✓ Correcto. La lectura y anotación tiene un límite de tiempo: pasado ese límite, es mejor avanzar con lo que ya tienes que perfeccionar esa fase a costa de las siguientes.',
+      fb_ko: 'Ni te quedes atascado/a en la lectura ni saltes directamente a redactar sin esquema: el orden correcto es avanzar a la planificación con lo que ya tengas anotado.'
+    },
+    {
+      id: 'e1b',
+      frase: 'NS (135 min, 2 textos). Uno de los textos te resulta mucho más claro que el otro. ¿Por cuál deberías empezar?',
+      opciones: [
+        'Por el que te resulte más difícil, para quitártelo de encima cuando tengas más energía al principio',
+        'Por el que veas más claro y domines mejor, para ganar confianza y tiempo extra de cara al más difícil',
+        'Da igual el orden: siempre debes dedicar exactamente el mismo tiempo a cada uno'
+      ],
+      correcta: 'Por el que veas más claro y domines mejor, para ganar confianza y tiempo extra de cara al más difícil',
+      fb_ok: '✓ Correcto. Empezar por el texto más claro te permite avanzar con fluidez y, si te sobra algo de tiempo, tenerlo disponible para el texto más exigente.',
+      fb_ko: 'Empezar por el texto más difícil suele generar bloqueo y consumir un tiempo desproporcionado. Es mejor ganar ritmo con el texto más claro primero.'
+    },
+    {
+      id: 'e1c',
+      frase: 'Terminas de redactar tu análisis 10 minutos antes de que acabe el examen. ¿Qué deberías hacer con ese tiempo?',
+      opciones: [
+        'Nada, ya has terminado: puedes esperar a que acabe el tiempo',
+        'Releer tu respuesta comprobando que responde a la pregunta de orientación, corrigiendo errores evidentes y verificando que la conclusión está completa',
+        'Añadir todos los recursos adicionales que se te ocurran, aunque no los desarrolles con la fórmula completa'
+      ],
+      correcta: 'Releer tu respuesta comprobando que responde a la pregunta de orientación, corrigiendo errores evidentes y verificando que la conclusión está completa',
+      fb_ok: '✓ Correcto. Ese tiempo final es exactamente para revisar: foco en la pregunta, errores evidentes y que la conclusión esté cerrada.',
+      fb_ko: 'Nunca "sobra" tiempo en un examen: esos minutos finales son para revisar con foco, no para desperdiciarlos ni para añadir ideas nuevas sin desarrollar.'
+    },
+    {
+      id: 'e1d',
+      frase: 'Estás escribiendo el segundo párrafo y notas que llevas un rato hablando del tema general del texto, sin mencionar ningún recurso ni la pregunta de orientación. ¿Qué deberías hacer?',
+      opciones: [
+        'Seguir así: cuanto más escribas sobre el tema, mejor comprensión demuestras',
+        'Detenerte, releer la pregunta de orientación y redirigir el párrafo hacia un recurso concreto vinculado a esa pregunta',
+        'Empezar un párrafo nuevo desde cero sin corregir el actual'
+      ],
+      correcta: 'Detenerte, releer la pregunta de orientación y redirigir el párrafo hacia un recurso concreto vinculado a esa pregunta',
+      fb_ok: '✓ Correcto. Detectar a tiempo que te has alejado del foco y corregir el rumbo es exactamente lo que protege tu puntuación en el Criterio C.',
+      fb_ko: 'Hablar del tema en general, por extenso que sea, no sustituye al análisis de recursos vinculados a la pregunta de orientación. Hay que corregir el rumbo en cuanto lo detectas.'
+    }
+  ];
+
+  var EJ2_CONFIG = [
+    {
+      id: 'e2a',
+      cita: 'Reservar 10 minutos al final para revisar que tu conclusión responde directamente a la pregunta de orientación.',
+      pregunta: '¿Qué criterio protege principalmente esta estrategia?',
+      opciones: [
+        'Criterio A (Comprensión e interpretación)',
+        'Criterio C (Focalización y organización)',
+        'Criterio D (Lenguaje)'
+      ],
+      correcta: 'Criterio C (Focalización y organización)',
+      fb_ok: '✓ Correcto. Mantener la respuesta centrada en la pregunta de orientación de principio a fin es exactamente lo que evalúa el Criterio C.',
+      fb_ko: 'Esta estrategia no trata sobre el vocabulario ni sobre la comprensión del texto en sí, sino sobre mantener la respuesta centrada y organizada: eso es el Criterio C.'
+    },
+    {
+      id: 'e2b',
+      cita: 'Aplicar la fórmula RECURSO → DECISIÓN → EFECTO → SIGNIFICADO en cada recurso que menciones, en lugar de solo nombrarlo.',
+      pregunta: '¿Qué criterio protege principalmente esta estrategia?',
+      opciones: [
+        'Criterio B (Análisis y evaluación)',
+        'Criterio D (Lenguaje)',
+        'Criterio A (Comprensión e interpretación)'
+      ],
+      correcta: 'Criterio B (Análisis y evaluación)',
+      fb_ok: '✓ Correcto. Pasar de nombrar un recurso a explicar su función y su efecto es precisamente lo que distingue una respuesta descriptiva de una analítica en el Criterio B.',
+      fb_ko: 'Nombrar un recurso no basta: el salto de la descripción al análisis (decisión, efecto, significado) es justo lo que mide el Criterio B, no el lenguaje ni la comprensión literal.'
+    }
+  ];
+
+  var EJ3_CONFIG = [
+    {
+      id: 'ej3-1',
+      etiq: '1. Elegir el texto',
+      opciones: ['— elige —', '5 minutos', '20 minutos', '1 minuto'],
+      correcta: '5 minutos'
+    },
+    {
+      id: 'ej3-2',
+      etiq: '2. Leer y anotar',
+      opciones: ['— elige —', '15 minutos', '40 minutos', '2 minutos'],
+      correcta: '15 minutos'
+    },
+    {
+      id: 'ej3-3',
+      etiq: '3. Planificar',
+      opciones: ['— elige —', '10 minutos', '1 minuto', '30 minutos'],
+      correcta: '10 minutos'
+    },
+    {
+      id: 'ej3-4',
+      etiq: '4. Redactar',
+      opciones: ['— elige —', '35 minutos', '5 minutos', '60 minutos'],
+      correcta: '35 minutos'
+    },
+    {
+      id: 'ej3-5',
+      etiq: '5. Revisar',
+      opciones: ['— elige —', '10 minutos', '45 minutos', '1 minuto'],
+      correcta: '10 minutos'
+    }
+  ];
+
+  // ═══════════════════════════════════════════════════════
+  // TABS
+  // ═══════════════════════════════════════════════════════
+  function cambiarTab(idx) {
+    var paneles = document.querySelectorAll('.tab-panel');
+    var botones = document.querySelectorAll('.tab-btn');
+    paneles.forEach(function (p, i) {
+      p.classList.toggle('activo', i === idx);
+    });
+    botones.forEach(function (b, i) {
+      b.classList.toggle('activo', i === idx);
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  window.cambiarTab = cambiarTab;
+
+  // ═══════════════════════════════════════════════════════
+  // TAB 1 — CONSTRUIR TARJETAS DE FASES
+  // ═══════════════════════════════════════════════════════
+  function construirFases(fases, contenedorId, prefijo) {
+    var contenedor = document.getElementById(contenedorId);
+    if (!contenedor) return;
+    fases.forEach(function (fase, i) {
+      var id = 'card-' + prefijo + '-' + i;
+
+      var card = document.createElement('div');
+      card.className = 'recurso-card';
+      card.id = id;
+
+      var cab = document.createElement('div');
+      cab.className = 'recurso-cabecera';
+      cab.onclick = function () { toggleCard(id); };
+
+      var nomWrap = document.createElement('div');
+      var nom = document.createElement('div');
+      nom.className = 'recurso-nombre';
+      nom.textContent = fase.nombre;
+      var tiempo = document.createElement('span');
+      tiempo.className = 'recurso-tiempo';
+      tiempo.textContent = fase.tiempo;
+      nomWrap.appendChild(nom);
+      nomWrap.appendChild(tiempo);
+
+      var tog = document.createElement('div');
+      tog.className = 'recurso-toggle';
+      tog.textContent = '+';
+
+      cab.appendChild(nomWrap);
+      cab.appendChild(tog);
+
+      var cuerpo = document.createElement('div');
+      cuerpo.className = 'recurso-cuerpo';
+
+      var ficha = document.createElement('div');
+      ficha.className = 'recurso-ficha';
+      ficha.style.borderTop = 'none';
+      ficha.style.paddingTop = '0';
+
+      var filas = [
+        { etiq: 'Qué hacer', val: fase.que_hacer },
+        { etiq: 'Pista', val: fase.pista },
+        { etiq: 'Alerta', val: fase.alerta }
+      ];
+      filas.forEach(function (fila) {
+        var f = document.createElement('div');
+        f.className = 'ficha-fila';
+        var e = document.createElement('div');
+        e.className = 'ficha-etiq';
+        e.textContent = fila.etiq;
+        var v = document.createElement('div');
+        v.className = 'ficha-val';
+        v.textContent = fila.val;
+        f.appendChild(e);
+        f.appendChild(v);
+        ficha.appendChild(f);
+      });
+
+      cuerpo.appendChild(ficha);
+      card.appendChild(cab);
+      card.appendChild(cuerpo);
+      contenedor.appendChild(card);
+    });
+  }
+
+  function toggleCard(id) {
+    var card = document.getElementById(id);
+    if (!card) return;
+    card.classList.toggle('abierta');
+  }
+  window.toggleCard = toggleCard;
+
+  // ═══════════════════════════════════════════════════════
+  // TAB 2 — ERRORES FRECUENTES
+  // ═══════════════════════════════════════════════════════
+  function construirErrores() {
+    var contenedor = document.getElementById('grid-errores');
+    if (!contenedor) return;
+    ERRORES.forEach(function (item, i) {
+      var id = 'error-' + i;
+
+      var card = document.createElement('div');
+      card.className = 'recurso-card';
+      card.id = id;
+
+      var cab = document.createElement('div');
+      cab.className = 'recurso-cabecera';
+      cab.onclick = function () { toggleCard(id); };
+
+      var nom = document.createElement('div');
+      nom.className = 'recurso-nombre';
+      nom.style.fontSize = '0.92rem';
+      nom.style.fontStyle = 'italic';
+      nom.style.fontWeight = '600';
+      nom.textContent = item.frase;
+
+      var tog = document.createElement('div');
+      tog.className = 'recurso-toggle';
+      tog.textContent = '+';
+
+      cab.appendChild(nom);
+      cab.appendChild(tog);
+
+      var cuerpo = document.createElement('div');
+      cuerpo.className = 'recurso-cuerpo';
+
+      var ficha = document.createElement('div');
+      ficha.className = 'recurso-ficha';
+      ficha.style.borderTop = 'none';
+      ficha.style.paddingTop = '0';
+
+      var filas = [
+        { etiq: 'Consecuencia', val: item.consecuencia },
+        { etiq: 'Corrección', val: item.correccion }
+      ];
+      filas.forEach(function (fila) {
+        var f = document.createElement('div');
+        f.className = 'ficha-fila';
+        var e = document.createElement('div');
+        e.className = 'ficha-etiq';
+        e.textContent = fila.etiq;
+        var v = document.createElement('div');
+        v.className = 'ficha-val';
+        v.textContent = fila.val;
+        f.appendChild(e);
+        f.appendChild(v);
+        ficha.appendChild(f);
+      });
+
+      cuerpo.appendChild(ficha);
+      card.appendChild(cab);
+      card.appendChild(cuerpo);
+      contenedor.appendChild(card);
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════
+  // TAB 3 — EJERCICIO 1
+  // ═══════════════════════════════════════════════════════
+  var ej1Estado = {};
+
+  function construirEj1() {
+    var cont = document.getElementById('ej1-contenedor');
+    if (!cont) return;
+    cont.innerHTML = '';
+    EJ1_ITEMS.forEach(function (item) {
+      ej1Estado[item.id] = false;
+
+      var bloque = document.createElement('div');
+      bloque.className = 'clasificar-items';
+
+      var card = document.createElement('div');
+      card.className = 'clas-item';
+
+      var frase = document.createElement('div');
+      frase.className = 'clas-frase';
+      frase.textContent = item.frase;
+
+      var botones = document.createElement('div');
+      botones.className = 'clas-botones';
+
+      item.opciones.forEach(function (op) {
+        var btn = document.createElement('button');
+        btn.className = 'btn-clas';
+        btn.textContent = op;
+        btn.onclick = (function (opcion, itemId, btnRef) {
+          return function () {
+            if (ej1Estado[itemId]) return;
+            var fb = document.getElementById('fb-' + itemId);
+            if (opcion === item.correcta) {
+              btnRef.className = 'btn-clas ok';
+              fb.className = 'clas-feedback ok';
+              fb.textContent = item.fb_ok;
+              fb.style.display = 'block';
+              ej1Estado[itemId] = true;
+              verificarMensajeFinal();
+            } else {
+              btnRef.className = 'btn-clas ko';
+              fb.className = 'clas-feedback ko';
+              fb.textContent = item.fb_ko;
+              fb.style.display = 'block';
+              setTimeout(function () {
+                btnRef.className = 'btn-clas';
+                fb.style.display = 'none';
+              }, 2200);
+            }
+          };
+        })(op, item.id, btn);
+        botones.appendChild(btn);
+      });
+
+      var fb = document.createElement('div');
+      fb.className = 'clas-feedback';
+      fb.id = 'fb-' + item.id;
+
+      card.appendChild(frase);
+      card.appendChild(botones);
+      card.appendChild(fb);
+      bloque.appendChild(card);
+      cont.appendChild(bloque);
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════
+  // TAB 3 — EJERCICIO 2
+  // ═══════════════════════════════════════════════════════
+  function construirEj2() {
+    var cont = document.getElementById('ej2-contenedor');
+    if (!cont) return;
+    cont.innerHTML = '';
+    EJ2_CONFIG.forEach(function (cfg) {
+      var bloque = document.createElement('div');
+      bloque.className = 'ej2-bloque';
+
+      var cita = document.createElement('div');
+      cita.className = 'ej2-cita';
+      cita.textContent = cfg.cita;
+
+      var preg = document.createElement('div');
+      preg.className = 'ej2-pregunta';
+      preg.textContent = cfg.pregunta;
+
+      var sel = document.createElement('select');
+      sel.className = 'ej2-select';
+      sel.id = 'sel-' + cfg.id;
+
+      var opt0 = document.createElement('option');
+      opt0.value = '';
+      opt0.textContent = '— elige —';
+      sel.appendChild(opt0);
+      cfg.opciones.forEach(function (op) {
+        var opt = document.createElement('option');
+        opt.value = op;
+        opt.textContent = op;
+        sel.appendChild(opt);
+      });
+
+      var fb = document.createElement('div');
+      fb.className = 'ej2-feedback';
+      fb.id = 'fb2-' + cfg.id;
+
+      bloque.appendChild(cita);
+      bloque.appendChild(preg);
+      bloque.appendChild(sel);
+      bloque.appendChild(fb);
+      cont.appendChild(bloque);
+    });
+  }
+
+  function comprobarEj2() {
+    var aciertos = 0;
+    EJ2_CONFIG.forEach(function (cfg) {
+      var sel = document.getElementById('sel-' + cfg.id);
+      var fb = document.getElementById('fb2-' + cfg.id);
+      if (!sel || !fb) return;
+      if (sel.value === cfg.correcta) {
+        sel.className = 'ej2-select correcto';
+        fb.className = 'ej2-feedback ok';
+        fb.textContent = cfg.fb_ok;
+        fb.style.display = 'block';
+        aciertos++;
+      } else if (sel.value === '') {
+        fb.style.display = 'none';
+      } else {
+        sel.className = 'ej2-select incorrecto';
+        fb.className = 'ej2-feedback ko';
+        fb.textContent = cfg.fb_ko;
+        fb.style.display = 'block';
+      }
+    });
+    var res = document.getElementById('ej2-resultado');
+    res.style.display = 'block';
+    if (aciertos === EJ2_CONFIG.length) {
+      res.className = 'resultado-global ok';
+      res.textContent = '✓ Perfecto. Cada buena práctica de gestión del tiempo protege un criterio concreto: no es solo "ir más rápido", es proteger tu nota.';
+      logros.ej2 = true;
+      verificarMensajeFinal();
+    } else {
+      res.className = 'resultado-global parcial';
+      res.textContent = aciertos + ' de ' + EJ2_CONFIG.length + ' correctas. Revisa las marcadas en rojo.';
+    }
+  }
+  window.comprobarEj2 = comprobarEj2;
+
+  function resetEj2() {
+    construirEj2();
+    var res = document.getElementById('ej2-resultado');
+    res.style.display = 'none';
+    logros.ej2 = false;
+  }
+  window.resetEj2 = resetEj2;
+
+  // ═══════════════════════════════════════════════════════
+  // TAB 3 — EJERCICIO 3
+  // ═══════════════════════════════════════════════════════
+  function construirEj3() {
+    var cont = document.getElementById('ej3-contenedor');
+    if (!cont) return;
+    cont.innerHTML = '';
+
+    var formula = document.createElement('div');
+    formula.className = 'ej3-formula';
+
+    EJ3_CONFIG.forEach(function (cfg) {
+      var fila = document.createElement('div');
+      fila.className = 'ej3-fila';
+
+      var etiq = document.createElement('div');
+      etiq.className = 'ej3-etiq';
+      etiq.textContent = cfg.etiq;
+
+      var sel = document.createElement('select');
+      sel.className = 'ej3-select';
+      sel.id = cfg.id;
+      cfg.opciones.forEach(function (op) {
+        var opt = document.createElement('option');
+        opt.value = op === '— elige —' ? '' : op;
+        opt.textContent = op;
+        sel.appendChild(opt);
+      });
+
+      fila.appendChild(etiq);
+      fila.appendChild(sel);
+      formula.appendChild(fila);
+    });
+    cont.appendChild(formula);
+  }
+
+  function comprobarEj3() {
+    var aciertos = 0;
+    EJ3_CONFIG.forEach(function (cfg) {
+      var sel = document.getElementById(cfg.id);
+      if (!sel) return;
+      if (sel.value === cfg.correcta) {
+        sel.className = 'ej3-select correcto';
+        aciertos++;
+      } else {
+        sel.className = 'ej3-select incorrecto';
+      }
+    });
+    var res = document.getElementById('ej3-resultado');
+    res.style.display = 'block';
+    if (aciertos === EJ3_CONFIG.length) {
+      res.className = 'resultado-global ok';
+      res.textContent = '✓ Excelente. 5 + 15 + 10 + 35 + 10 = 75 minutos. Ese es un reparto realista para NM. Adapta las proporciones si trabajas en NS con dos textos.';
+      logros.ej3 = true;
+      verificarMensajeFinal();
+    } else {
+      res.className = 'resultado-global parcial';
+      res.textContent = aciertos + ' de ' + EJ3_CONFIG.length + ' correctos. Revisa los marcados en rojo y vuelve al Tab 1 si necesitas repasar el reparto de NM.';
+    }
+  }
+  window.comprobarEj3 = comprobarEj3;
+
+  function resetEj3() {
+    construirEj3();
+    var res = document.getElementById('ej3-resultado');
+    res.style.display = 'none';
+    logros.ej3 = false;
+  }
+  window.resetEj3 = resetEj3;
+
+  // ═══════════════════════════════════════════════════════
+  // MENSAJE FINAL
+  // ═══════════════════════════════════════════════════════
+  var logros = { ej1: false, ej2: false, ej3: false };
+
+  function verificarMensajeFinal() {
+    var todosEj1 = EJ1_ITEMS.every(function (item) { return ej1Estado[item.id]; });
+    if (todosEj1) logros.ej1 = true;
+    if (logros.ej1 && logros.ej2 && logros.ej3) {
+      var mf = document.getElementById('mensaje-final');
+      if (mf) mf.style.display = 'block';
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════
+  // INIT
+  // ═══════════════════════════════════════════════════════
+  construirFases(FASES_NM, 'grid-nm', 'nm');
+  construirFases(FASES_NS, 'grid-ns', 'ns');
+  construirErrores();
+  construirEj1();
+  construirEj2();
+  construirEj3();
+
+})();
+</script>
+</body>
+</html>
