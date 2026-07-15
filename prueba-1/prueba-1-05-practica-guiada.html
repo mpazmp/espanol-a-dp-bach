@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 5 · Práctica guiada · Prueba 1</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul:      #1a4a7a;
+    --azul-claro:#e8f0f8;
+    --terracota: #c64829;
+    --turquesa:  #0e9aa7;
+    --gris:      #3f3f3e;
+    --fondo:     #f9f7f4;
+    --blanco:    #ffffff;
+    --sombra:    0 2px 12px rgba(26,74,122,0.10);
+    --verde-ok:  #43a047;
+    --verde-bg:  #e8f5e9;
+    --rojo-bg:   #fdecea;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--fondo);
+    color: var(--gris);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /* CABECERA */
+  .cabecera {
+    background: var(--azul);
+    color: var(--blanco);
+    padding: 2.2rem 2rem 1.6rem;
+    border-bottom: 4px solid var(--terracota);
+  }
+  .cabecera .etiqueta {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--turquesa);
+    margin-bottom: 0.4rem;
+  }
+  .cabecera h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  .cabecera p {
+    font-size: 0.95rem;
+    opacity: 0.85;
+    max-width: 680px;
+  }
+
+  /* NAVEGACIÓN TABS */
+  .tabs-nav {
+    display: flex;
+    background: var(--azul);
+    padding: 0 2rem;
+    gap: 0.2rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs-nav::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.65);
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 0.85rem 1.1rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .tab-btn:hover { color: rgba(255,255,255,0.9); }
+  .tab-btn.activo {
+    color: var(--blanco);
+    border-bottom-color: var(--terracota);
+  }
+
+  /* CONTENIDO */
+  .contenido {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel.activo { display: block; }
+
+  /* TÍTULOS */
+  .seccion-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    color: var(--azul);
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+  }
+  .seccion-subtitulo {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 1.8rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 1rem;
+  }
+
+  /* TEXTO COMPLETO */
+  .etiqueta-tipo {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--turquesa);
+    background: var(--azul-claro);
+    padding: 0.3rem 0.9rem;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+  }
+  .texto-completo {
+    background: var(--blanco);
+    border-left: 4px solid var(--azul);
+    border-radius: 0 8px 8px 0;
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 1.2rem;
+    box-shadow: var(--sombra);
+    font-size: 0.98rem;
+    line-height: 1.85;
+    color: var(--gris);
+  }
+  .texto-completo p { margin-bottom: 0.9rem; }
+  .texto-completo p:last-child { margin-bottom: 0; }
+  .texto-completo .fuente {
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: 0.8rem;
+    font-style: italic;
+  }
+
+  .pregunta-orientacion {
+    background: var(--azul);
+    color: var(--blanco);
+    border-radius: 10px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--sombra);
+  }
+  .pregunta-orientacion .etiq {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--turquesa);
+    margin-bottom: 0.5rem;
+  }
+  .pregunta-orientacion p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  /* PASOS */
+  .paso {
+    background: var(--blanco);
+    border-radius: 12px;
+    padding: 1.6rem;
+    box-shadow: var(--sombra);
+    margin-bottom: 1.6rem;
+  }
+  .paso-num {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--turquesa);
+    margin-bottom: 0.3rem;
+  }
+  .paso h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--azul);
+    margin-bottom: 0.4rem;
+  }
+  .paso .instruccion {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1.4rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  /* ITEMS DE CLASIFICAR (reutilizado de módulos anteriores) */
+  .clasificar-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .clas-item {
+    background: #fafafa;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0.9rem 1.1rem;
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+  .clas-item + .clas-item { margin-top: 0.8rem; }
+  .clas-item .clas-frase {
+    margin-bottom: 0.7rem;
+    font-style: italic;
+    color: var(--gris);
+  }
+  .clas-botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .btn-clas {
+    padding: 0.38rem 0.9rem;
+    border-radius: 6px;
+    border: 2px solid var(--azul);
+    background: transparent;
+    color: var(--azul);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .btn-clas:hover { background: var(--azul); color: var(--blanco); }
+  .btn-clas.ok  { background: var(--verde-bg); border-color: var(--verde-ok); color: #2e7d32; }
+  .btn-clas.ko  { background: var(--rojo-bg);  border-color: var(--terracota); color: #7a1c0a; }
+  .clas-feedback {
+    display: none;
+    margin-top: 0.6rem;
+    padding: 0.6rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.87rem;
+    line-height: 1.5;
+  }
+  .clas-feedback.ok { background: var(--verde-bg); color: #2e7d32; border-left: 3px solid var(--verde-ok); }
+  .clas-feedback.ko { background: var(--rojo-bg);  color: #7a1c0a; border-left: 3px solid var(--terracota); }
+
+  /* FÓRMULA (paso 4) */
+  .ej3-cita {
+    background: var(--azul-claro);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    font-size: 0.95rem;
+    font-style: italic;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+    color: var(--gris);
+  }
+  .ej3-formula { margin-bottom: 1.2rem; }
+  .ej3-fila {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 0.4rem 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    align-items: start;
+    font-size: 0.9rem;
+  }
+  .ej3-fila:last-child { border-bottom: none; }
+  .ej3-etiq {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--azul);
+    padding-top: 0.4rem;
+  }
+  .ej3-select {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.88rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    border: 2px solid var(--azul);
+    color: var(--azul);
+    background: var(--blanco);
+    cursor: pointer;
+    width: 100%;
+  }
+  .ej3-select.correcto { border-color: var(--verde-ok); color: #2e7d32; background: var(--verde-bg); }
+  .ej3-select.incorrecto { border-color: var(--terracota); color: #7a1c0a; background: var(--rojo-bg); }
+
+  /* BOTONES */
+  .btn-comprobar {
+    padding: 0.65rem 1.6rem;
+    background: var(--azul);
+    color: var(--blanco);
+    border: none;
+    border-radius: 7px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-right: 0.6rem;
+    margin-top: 0.4rem;
+  }
+  .btn-comprobar:hover { background: #0d3560; }
+  .btn-reset {
+    padding: 0.65rem 1.2rem;
+    background: transparent;
+    color: var(--gris);
+    border: 2px solid #ccc;
+    border-radius: 7px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-top: 0.4rem;
+  }
+  .btn-reset:hover { border-color: var(--azul); }
+
+  .resultado-global {
+    display: none;
+    margin-top: 1.2rem;
+    padding: 1rem 1.2rem;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+  .resultado-global.ok      { background: var(--verde-bg); color: #2e7d32; border-left: 3px solid var(--verde-ok); }
+  .resultado-global.parcial { background: #fff8e1; color: #7a5c00; border-left: 3px solid #f9a825; }
+
+  /* AUTOEVALUACIÓN (tab 3) */
+  .criterio-card {
+    background: var(--blanco);
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--sombra);
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .criterio-card:hover { border-color: var(--azul); }
+  .criterio-card.abierta { border-color: var(--azul); }
+  .criterio-cabecera {
+    padding: 1rem 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    background: var(--azul-claro);
+  }
+  .criterio-nombre {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--azul);
+  }
+  .criterio-puntos {
+    font-size: 0.78rem;
+    color: var(--turquesa);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .criterio-toggle {
+    font-size: 1.2rem;
+    color: var(--azul);
+    font-weight: 700;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .criterio-card.abierta .criterio-toggle { transform: rotate(45deg); }
+  .criterio-cuerpo { display: none; padding: 1.1rem 1.2rem; }
+  .criterio-card.abierta .criterio-cuerpo { display: block; }
+  .criterio-pregunta {
+    font-size: 0.9rem;
+    color: var(--gris);
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+  .criterio-fila {
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.7rem;
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+  .criterio-fila:last-child { margin-bottom: 0; }
+  .criterio-fila.alto { background: var(--verde-bg); border-left: 3px solid var(--verde-ok); }
+  .criterio-fila.bajo { background: var(--rojo-bg); border-left: 3px solid var(--terracota); }
+  .criterio-fila .etiq-nivel-mini {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+  }
+  .criterio-fila.alto .etiq-nivel-mini { color: #2e7d32; }
+  .criterio-fila.bajo .etiq-nivel-mini { color: #a63a1e; }
+  .criterio-pregunta-final {
+    background: var(--azul-claro);
+    border-radius: 6px;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.85rem;
+    color: var(--azul);
+    font-weight: 600;
+    margin-top: 0.6rem;
+  }
+
+  /* PASO 6 — REDACCIÓN LIBRE */
+  .redaccion-checklist {
+    background: var(--azul-claro);
+    border-radius: 8px;
+    padding: 0.9rem 1.1rem;
+    font-size: 0.85rem;
+    color: var(--azul);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+  .redaccion-checklist strong { color: var(--terracota); }
+  .textarea-redaccion {
+    width: 100%;
+    min-height: 260px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--gris);
+    padding: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    resize: vertical;
+  }
+  .textarea-redaccion:focus { outline: none; border-color: var(--azul); }
+  .redaccion-pie {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 0.7rem;
+  }
+  .contador-palabras {
+    font-size: 0.82rem;
+    color: #888;
+  }
+  .contador-palabras.ok { color: var(--verde-ok); font-weight: 600; }
+  .guardado-aviso {
+    font-size: 0.8rem;
+    color: var(--turquesa);
+    font-style: italic;
+    display: none;
+  }
+
+  /* TAB 3 — MI TEXTO REDACTADO (solo lectura) */
+  .mi-texto-box {
+    background: var(--blanco);
+    border-left: 4px solid var(--turquesa);
+    border-radius: 0 8px 8px 0;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1.4rem;
+    box-shadow: var(--sombra);
+  }
+  .mi-texto-cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+  .mi-texto-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--azul);
+  }
+  .btn-actualizar {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--turquesa);
+    background: transparent;
+    border: 1px solid var(--turquesa);
+    border-radius: 20px;
+    padding: 0.25rem 0.8rem;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn-actualizar:hover { background: var(--turquesa); color: var(--blanco); }
+  .mi-texto-contenido {
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: var(--gris);
+    white-space: pre-wrap;
+  }
+  .mi-texto-contenido.vacio {
+    color: #999;
+    font-style: italic;
+  }
+  .mi-texto-contador {
+    font-size: 0.78rem;
+    color: #999;
+    margin-top: 0.6rem;
+  }
+
+  /* MENSAJE FINAL */
+  .mensaje-final {
+    background: var(--azul);
+    color: var(--blanco);
+    border-radius: 12px;
+    padding: 1.8rem 2rem;
+    text-align: center;
+    margin-top: 2rem;
+    display: none;
+  }
+  .mensaje-final p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .mensaje-final span {
+    font-size: 0.85rem;
+    opacity: 0.75;
+  }
+</style>
+</head>
+<body>
+
+<div class="cabecera">
+  <div class="etiqueta">Prueba 1 · Módulo 5</div>
+  <h1>Práctica guiada con textos reales</h1>
+  <p>Dos textos completos, de tipos distintos, cada uno con su pregunta de orientación —igual que en el examen real— y un recorrido paso a paso para aplicar todo lo que has aprendido en los módulos anteriores.</p>
+</div>
+
+<nav class="tabs-nav" role="tablist">
+  <button class="tab-btn activo" onclick="cambiarTab(0)" role="tab">Texto A · Discurso</button>
+  <button class="tab-btn" onclick="cambiarTab(1)" role="tab">Texto B · Columna de opinión</button>
+  <button class="tab-btn" onclick="cambiarTab(2)" role="tab">Autoevaluación final</button>
+</nav>
+
+<div class="contenido">
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- TAB 1 — TEXTO A · DISCURSO        -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="tab-panel activo" id="panel-0">
+    <h2 class="seccion-titulo">Texto A</h2>
+    <p class="seccion-subtitulo">Lee el texto completo y la pregunta de orientación antes de empezar los pasos. Vuelve a leerlo tantas veces como necesites: es lo que harías en el examen real.</p>
+
+    <div class="etiqueta-tipo">Texto no literario · elaborado para este módulo</div>
+    <div class="texto-completo">
+      <p>Amigas y amigos, hermanas y hermanos de todos los rincones del planeta:</p>
+      <p>Hoy no vengo a hablarles de estadísticas que ya conocen. Vengo a hablarles de mi abuela, que sembraba naranjos en un patio que hoy es un desierto de asfalto. Vengo a hablarles de mi hermano pequeño, que nunca ha visto nevar en las montañas donde yo aprendí a caminar.</p>
+      <p>Nos dijeron que el cambio vendría poco a poco. Nos dijeron que teníamos tiempo. Nos dijeron que otros, más adelante, se ocuparían del problema. Pero el tiempo se acabó, y los otros somos nosotros.</p>
+      <p>¿Cuántas generaciones más deben perder su patio, su nieve, su río, antes de que actuemos? ¿Cuántas promesas incumplidas hacen falta para que dejemos de creer en las promesas y empecemos a exigir hechos?</p>
+      <p>No estoy aquí para pedir permiso. Estoy aquí para exigir responsabilidad. Cada fábrica que sigue contaminando sin control, cada bosque que cae sin ser replantado, cada río que se seca mientras se firman acuerdos vacíos: todo eso es una decisión, tomada por alguien, en algún despacho, en algún momento.</p>
+      <p>Las decisiones se toman. Y las decisiones se pueden deshacer.</p>
+      <p>Por eso les pido, no que sientan lástima por mi generación, sino que actúen con nosotros. Porque el planeta que hereden nuestros hijos no está escrito todavía. Se está escribiendo ahora, en esta sala, con cada palabra que decidamos convertir en acción.</p>
+      <p>Gracias.</p>
+      <p class="fuente">Discurso de apertura de una cumbre juvenil sobre cambio climático (texto elaborado para este módulo)</p>
+    </div>
+
+    <div class="pregunta-orientacion">
+      <div class="etiq">Pregunta de orientación</div>
+      <p>¿De qué manera la oradora utiliza la estructura y los recursos retóricos para movilizar emocionalmente a su audiencia?</p>
+    </div>
+
+    <div id="pasos-a"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- TAB 2 — TEXTO B · COLUMNA DE OPINIÓN -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="tab-panel" id="panel-1">
+    <h2 class="seccion-titulo">Texto B</h2>
+    <p class="seccion-subtitulo">Un tipo de texto distinto al anterior —tal como ocurre en el examen real, donde los dos pasajes son siempre de tipos diferentes.</p>
+
+    <div class="etiqueta-tipo">Texto no literario · elaborado para este módulo</div>
+    <div class="texto-completo">
+      <p>Hace un mes le pregunté a mi sobrina de quince años qué opinaba sobre un tema de actualidad. Su respuesta fue rápida, segura y, sospechosamente, idéntica a la de otras tres adolescentes que conozco. No es que mi sobrina no piense: es que, cada vez más, piensa lo que el algoritmo ha decidido que piense.</p>
+      <p>Nos venden las redes sociales como una plaza pública gigantesca, un lugar donde todas las voces tienen el mismo altavoz. Es mentira, o al menos es una verdad a medias. La plaza existe, sí, pero alguien decide qué voces se amplifican y cuáles se apagan en silencio, sin que nadie note el gesto.</p>
+      <p>Ese alguien no es una persona. Es una fórmula matemática diseñada, no para informarnos mejor, sino para mantenernos mirando la pantalla el mayor tiempo posible. Y resulta que el contenido que más nos retiene no es el más veraz, ni el más matizado, sino el más indignante.</p>
+      <p>Así que no debería sorprendernos que cada vez sea más difícil sostener una conversación en la que dos personas no estén de acuerdo. Hemos entrenado, sin saberlo, un ecosistema que premia la certeza absoluta y castiga la duda razonable.</p>
+      <p>¿La solución? No tengo una fórmula mágica, y desconfiaría de quien la ofreciera. Pero sí sé que el primer paso es dejar de fingir que el algoritmo es neutral. No lo es, nunca lo ha sido, y cuanto antes lo entendamos, antes podremos exigir que nos rindan cuentas.</p>
+      <p>Mientras tanto, sigo esperando que mi sobrina, algún día, me sorprenda con una opinión que no haya visto antes en ningún otro sitio.</p>
+      <p class="fuente">«El algoritmo también piensa por ti» · columna de opinión (texto elaborado para este módulo)</p>
+    </div>
+
+    <div class="pregunta-orientacion">
+      <div class="etiq">Pregunta de orientación</div>
+      <p>¿Cómo emplea el autor el tono y la estructura argumentativa para expresar su postura crítica sobre el papel de los algoritmos en las redes sociales?</p>
+    </div>
+
+    <div id="pasos-b"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- TAB 3 — AUTOEVALUACIÓN FINAL      -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="tab-panel" id="panel-2">
+    <h2 class="seccion-titulo">Autoevaluación final</h2>
+    <p class="seccion-subtitulo">Estos son los cuatro criterios reales con los que se evalúa la Prueba 1 (5 puntos cada uno, 20 puntos por texto). Usa estas tarjetas para revisar el análisis completo que has redactado en el <strong>Paso 6</strong> de cada texto, antes de entregarlo o de pedirle a tu profesora que lo corrija. Rellenar los pasos anteriores sin llegar a escribir el Paso 6 no es suficiente: lo que se evalúa en el examen real es el texto redactado completo.</p>
+
+    <div class="mi-texto-box">
+      <div class="mi-texto-cabecera">
+        <div class="mi-texto-titulo">Tu análisis del Texto A (discurso)</div>
+        <button class="btn-actualizar" onclick="actualizarMisTextos()">🔄 Actualizar</button>
+      </div>
+      <div class="mi-texto-contenido" id="mi-texto-a"></div>
+      <div class="mi-texto-contador" id="mi-texto-a-contador"></div>
+    </div>
+
+    <div class="mi-texto-box">
+      <div class="mi-texto-cabecera">
+        <div class="mi-texto-titulo">Tu análisis del Texto B (columna de opinión)</div>
+        <button class="btn-actualizar" onclick="actualizarMisTextos()">🔄 Actualizar</button>
+      </div>
+      <div class="mi-texto-contenido" id="mi-texto-b"></div>
+      <div class="mi-texto-contador" id="mi-texto-b-contador"></div>
+    </div>
+
+    <div id="criterios-contenedor"></div>
+
+    <div class="mensaje-final" id="mensaje-final">
+      <p>"Aplicar la fórmula recurso a recurso está bien. Pero un análisis de Prueba 1 completo es el que conecta esos recursos con la pregunta de orientación de principio a fin."</p>
+      <span>Módulo 5 completado · Prueba 1 · Español A</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+
+  // ═══════════════════════════════════════════════════════
+  // DATOS — PASOS TEXTO A (DISCURSO)
+  // ═══════════════════════════════════════════════════════
+  var PASOS_A = [
+    {
+      id: 'a1',
+      numero: 'Paso 1',
+      titulo: 'Identifica el tipo de texto',
+      instruccion: 'Antes de analizar nada, confirma qué tipo de texto tienes delante. Eso condiciona qué esperar de su estructura y su registro.',
+      tipo: 'mcq',
+      items: [
+        {
+          id: 'a1-1',
+          frase: '¿Qué tipo de texto es este, según sus rasgos formales (apelación directa a una audiencia, estructura pensada para ser oída, recursos retóricos)?',
+          opciones: ['Discurso', 'Columna de opinión', 'Carta', 'Entrada de blog'],
+          correcta: 'Discurso',
+          fb_ok: '✓ Correcto. La apelación inicial «Amigas y amigos, hermanas y hermanos...» y la estructura pensada para el oído confirman que es un discurso.',
+          fb_ko: 'Fíjate en la apertura: se dirige directamente a una audiencia presente, con fórmulas propias de la oralidad. Eso es un discurso, no una columna de opinión ni una carta.'
+        }
+      ]
+    },
+    {
+      id: 'a2',
+      numero: 'Paso 2',
+      titulo: 'Comprende la pregunta de orientación',
+      instruccion: 'La pregunta de orientación marca el enfoque obligatorio de tu análisis. Antes de buscar recursos, asegúrate de entender qué te está pidiendo exactamente.',
+      tipo: 'mcq',
+      items: [
+        {
+          id: 'a2-1',
+          frase: '«¿De qué manera la oradora utiliza la estructura y los recursos retóricos para movilizar emocionalmente a su audiencia?» ¿En qué debe centrarse principalmente tu análisis?',
+          opciones: [
+            'En resumir qué dice la oradora sobre el cambio climático',
+            'En explicar cómo la organización del discurso y sus recursos retóricos generan un efecto emocional en quien escucha',
+            'En valorar si estás de acuerdo o no con las ideas de la oradora'
+          ],
+          correcta: 'En explicar cómo la organización del discurso y sus recursos retóricos generan un efecto emocional en quien escucha',
+          fb_ok: '✓ Exacto. La pregunta pide un análisis técnico centrado en el CÓMO (estructura y recursos) y en el EFECTO (movilización emocional), no un resumen ni una opinión personal.',
+          fb_ko: 'Las preguntas de orientación de Prueba 1 siempre piden explicar cómo se construye un efecto, no resumir el contenido ni dar tu opinión personal sobre el tema.'
+        }
+      ]
+    },
+    {
+      id: 'a3',
+      numero: 'Paso 3',
+      titulo: 'Localiza los recursos relevantes',
+      instruccion: 'Busca en el texto marcas concretas que respondan a la pregunta de orientación. Identifica el recurso en cada uno de estos tres fragmentos.',
+      tipo: 'mcq',
+      items: [
+        {
+          id: 'a3-1',
+          frase: '«Vengo a hablarles de mi abuela, que sembraba naranjos... Vengo a hablarles de mi hermano pequeño, que nunca ha visto nevar...»',
+          opciones: ['Anáfora', 'Pregunta retórica', 'Eufemismo', 'Ironía'],
+          correcta: 'Anáfora',
+          fb_ok: '✓ Correcto. La repetición de «Vengo a hablarles de...» al inicio de las frases es una anáfora.',
+          fb_ko: 'Fíjate en qué se repite al principio de cada frase: «Vengo a hablarles de...». Esa repetición inicial es una anáfora.'
+        },
+        {
+          id: 'a3-2',
+          frase: '«¿Cuántas generaciones más deben perder su patio, su nieve, su río, antes de que actuemos?»',
+          opciones: ['Metáfora', 'Pregunta retórica', 'Antítesis', 'Hipérbole'],
+          correcta: 'Pregunta retórica',
+          fb_ok: '✓ Correcto. No espera una respuesta literal: busca que la audiencia sienta la urgencia del problema.',
+          fb_ko: 'No se espera que nadie responda literalmente con un número. Cuando una pregunta busca provocar reflexión y no una respuesta real, es una pregunta retórica.'
+        },
+        {
+          id: 'a3-3',
+          frase: '«Las decisiones se toman. Y las decisiones se pueden deshacer.»',
+          opciones: ['Paralelismo', 'Ironía', 'Eufemismo', 'Pregunta retórica'],
+          correcta: 'Paralelismo',
+          fb_ok: '✓ Correcto. Dos frases cortas con la misma estructura gramatical («Las decisiones se + verbo») crean un paralelismo rotundo.',
+          fb_ko: 'Compara la construcción de ambas frases: «Las decisiones se toman» / «las decisiones se pueden deshacer». Esa repetición de estructura gramatical es un paralelismo.'
+        }
+      ]
+    },
+    {
+      id: 'a4',
+      numero: 'Paso 4',
+      titulo: 'Aplica la fórmula completa',
+      instruccion: 'Toma uno de los recursos localizados y desarrolla el análisis completo: RECURSO → DECISIÓN → EFECTO → SIGNIFICADO.',
+      tipo: 'formula',
+      cita: '«¿Cuántas generaciones más deben perder su patio, su nieve, su río, antes de que actuemos? ¿Cuántas promesas incumplidas hacen falta para que dejemos de creer en las promesas y empecemos a exigir hechos?»',
+      fuente: 'Texto A · fragmento central',
+      pasos_formula: [
+        {
+          etiq: 'RECURSO',
+          opciones: [
+            '— elige —',
+            'Dos preguntas retóricas consecutivas que enumeran pérdidas concretas y personales (patio, nieve, río)',
+            'Una metáfora que compara las promesas con un río',
+            'Una hipérbole que exagera el número de generaciones afectadas'
+          ],
+          correcta: 'Dos preguntas retóricas consecutivas que enumeran pérdidas concretas y personales (patio, nieve, río)'
+        },
+        {
+          etiq: 'DECISIÓN DEL AUTOR',
+          opciones: [
+            '— elige —',
+            'La oradora describe el cambio climático de forma neutra y estadística',
+            'La oradora formula las preguntas justo después de exponer las promesas incumplidas, para que la acusación recaiga directamente sobre quienes escuchan',
+            'La oradora evita mencionar consecuencias concretas para no alarmar al público'
+          ],
+          correcta: 'La oradora formula las preguntas justo después de exponer las promesas incumplidas, para que la acusación recaiga directamente sobre quienes escuchan'
+        },
+        {
+          etiq: 'EFECTO EN QUIEN ESCUCHA',
+          opciones: [
+            '— elige —',
+            'El oyente se distrae porque la frase es demasiado larga',
+            'Quien escucha no puede responder cómodamente: se siente interpelado y corresponsable de la inacción',
+            'El oyente memoriza fácilmente el dato de las tres pérdidas mencionadas'
+          ],
+          correcta: 'Quien escucha no puede responder cómodamente: se siente interpelado y corresponsable de la inacción'
+        },
+        {
+          etiq: 'SIGNIFICADO',
+          opciones: [
+            '— elige —',
+            'La crisis climática no es un problema abstracto y lejano, sino una acumulación de pérdidas personales por las que alguien debe responder ahora',
+            'El cambio climático es un problema exclusivamente científico, ajeno a la responsabilidad individual',
+            'Las generaciones futuras se adaptarán sin dificultad a los cambios del planeta'
+          ],
+          correcta: 'La crisis climática no es un problema abstracto y lejano, sino una acumulación de pérdidas personales por las que alguien debe responder ahora'
+        }
+      ]
+    },
+    {
+      id: 'a5',
+      numero: 'Paso 5',
+      titulo: 'Sintetiza',
+      instruccion: 'El último paso de un buen análisis es conectar los recursos concretos con el efecto global que pide la pregunta de orientación.',
+      tipo: 'mcq',
+      items: [
+        {
+          id: 'a5-1',
+          frase: 'Elige la frase que mejor sintetiza cómo la estructura y los recursos retóricos del discurso logran movilizar emocionalmente a la audiencia.',
+          opciones: [
+            'La oradora habla de su familia y hace muchas preguntas para que el discurso sea más interesante.',
+            'La oradora combina el testimonio personal, la acumulación de preguntas retóricas y el paralelismo final para transformar un problema abstracto en una responsabilidad concreta y compartida que exige actuar ya.',
+            'La oradora explica de forma objetiva los datos científicos sobre el cambio climático para convencer con argumentos racionales.'
+          ],
+          correcta: 'La oradora combina el testimonio personal, la acumulación de preguntas retóricas y el paralelismo final para transformar un problema abstracto en una responsabilidad concreta y compartida que exige actuar ya.',
+          fb_ok: '✓ Excelente. Esta síntesis nombra los recursos concretos Y explica el efecto global que producen juntos: eso es exactamente lo que pide un cierre de análisis de Prueba 1.',
+          fb_ko: 'Una buena síntesis debe nombrar los recursos concretos y explicar el efecto global que producen juntos, no solo describir el tema ni quedarse en un detalle aislado.'
+        }
+      ]
+    },
+    {
+      id: 'a6',
+      numero: 'Paso 6',
+      titulo: 'Redacta tu análisis completo',
+      instruccion: 'Ahora sí: escribe la respuesta real, como la escribirías en el examen. Los pasos anteriores son tu borrador de trabajo, no el análisis en sí. Incluye una introducción con tu idea central, al menos tres recursos desarrollados con la fórmula completa, y una conclusión que responda directamente a la pregunta de orientación. Extensión orientativa: 250-350 palabras.',
+      tipo: 'redaccion',
+      storageKey: 'prueba1-mod5-redaccion-a'
+    }
+  ];
+
+  // ═══════════════════════════════════════════════════════
+  // DATOS — PASOS TEXTO B (COLUMNA DE OPINIÓN)
+  // ═══════════════════════════════════════════════════════
+  var PASOS_B = [
+    {
+      id: 'b1',
+      numero: 'Paso 1',
+      titulo: 'Identifica el tipo de texto',
+      instruccion: 'Antes de analizar nada, confirma qué tipo de texto tienes delante.',
+      tipo: 'mcq',
+      items: [
+        {
+          id: 'b1-1',
+          frase: '¿Qué tipo de texto es este, según sus rasgos formales (voz personal marcada, anécdota inicial, defensa explícita de una postura sobre un tema de actualidad)?',
+          opciones: ['Columna de opinión', 'Informe', 'Entrada de enciclopedia', 'Discurso'],
+          correcta: 'Columna de opinión',
+          fb_ok: '✓ Correcto. La voz personal, la anécdota inicial y la defensa explícita de una tesis sobre un tema de actualidad son propias de la columna de opinión.',
+          fb_ko: 'Fíjate en la anécdota personal inicial y en que el autor defiende abiertamente una postura: eso es propio de la columna de opinión, no de un informe ni de una entrada de enciclopedia, que son objetivos e impersonales.'
+        }
+      ]
+    },
+    {
+      id: 'b2',
+      numero: 'Paso 2',
+      titulo: 'Comprende la pregunta de orientación',
+      instruccion: 'Asegúrate de entender exactamente qué aspecto técnico te pide abordar la pregunta.',
+      tipo: 'mcq',
+      items: [
+        {
+          id: 'b2-1',
+          frase: '«¿Cómo emplea el autor el tono y la estructura argumentativa para expresar su postura crítica sobre el papel de los algoritmos en las redes sociales?» ¿En qué debe centrarse tu análisis?',
+          opciones: [
+            'En explicar técnicamente cómo funcionan los algoritmos de recomendación',
+            'En decir si tú estás de acuerdo o no con el autor sobre las redes sociales',
+            'En explicar cómo el tono y la organización de los argumentos construyen la postura crítica del autor'
+          ],
+          correcta: 'En explicar cómo el tono y la organización de los argumentos construyen la postura crítica del autor',
+          fb_ok: '✓ Exacto. La pregunta pide analizar el CÓMO (tono y estructura argumentativa), no explicar el funcionamiento técnico de los algoritmos ni dar tu opinión personal.',
+          fb_ko: 'Recuerda: las preguntas de orientación piden analizar decisiones técnicas y su efecto, no evaluar el contenido técnico del tema ni compartir tu propia opinión.'
+        }
+      ]
+    },
+    {
+      id: 'b3',
+      numero: 'Paso 3',
+      titulo: 'Localiza los recursos relevantes',
+      instruccion: 'Identifica el recurso en cada uno de estos tres fragmentos, vinculados al tono y la estructura argumentativa.',
+      tipo: 'mcq',
+      items: [
+        {
+          id: 'b3-1',
+          frase: '«Su respuesta fue rápida, segura y, sospechosamente, idéntica a la de otras tres adolescentes que conozco.»',
+          opciones: ['Ironía', 'Metáfora', 'Pregunta retórica', 'Eufemismo'],
+          correcta: 'Ironía',
+          fb_ok: '✓ Correcto. El adverbio «sospechosamente» revela una crítica velada bajo una observación aparentemente neutra: eso es ironía.',
+          fb_ko: 'Fíjate en la palabra «sospechosamente»: introduce una crítica implícita bajo una afirmación en apariencia neutra. Esa distancia entre lo que se dice y lo que se insinúa es ironía.'
+        },
+        {
+          id: 'b3-2',
+          frase: '«Nos venden las redes sociales como una plaza pública gigantesca... Es mentira, o al menos es una verdad a medias.»',
+          opciones: ['Antítesis / contraste', 'Anáfora', 'Hipérbole', 'Personificación'],
+          correcta: 'Antítesis / contraste',
+          fb_ok: '✓ Correcto. El autor presenta una imagen y de inmediato la contradice de forma tajante: eso es un contraste o antítesis.',
+          fb_ko: 'Observa el giro: primero se presenta una imagen («plaza pública gigantesca») y después se niega con rotundidad («Es mentira»). Ese enfrentamiento de ideas es un contraste o antítesis.'
+        },
+        {
+          id: 'b3-3',
+          frase: '«¿La solución? No tengo una fórmula mágica, y desconfiaría de quien la ofreciera.»',
+          opciones: ['Pregunta retórica', 'Paralelismo', 'Eufemismo', 'Hipérbole'],
+          correcta: 'Pregunta retórica',
+          fb_ok: '✓ Correcto. La pregunta no espera que el lector responda: introduce la reflexión final del autor.',
+          fb_ko: 'El autor no espera que el lector conteste literalmente: usa la pregunta para introducir su propia reflexión. Eso es una pregunta retórica.'
+        }
+      ]
+    },
+    {
+      id: 'b4',
+      numero: 'Paso 4',
+      titulo: 'Aplica la fórmula completa',
+      instruccion: 'Desarrolla el análisis completo del recurso de contraste: RECURSO → DECISIÓN → EFECTO → SIGNIFICADO.',
+      tipo: 'formula',
+      cita: '«Nos venden las redes sociales como una plaza pública gigantesca, un lugar donde todas las voces tienen el mismo altavoz. Es mentira, o al menos es una verdad a medias.»',
+      fuente: 'Texto B · segundo párrafo',
+      pasos_formula: [
+        {
+          etiq: 'RECURSO',
+          opciones: [
+            '— elige —',
+            'Contraste entre la imagen vendida (la plaza pública igualitaria) y la afirmación tajante que la desmiente («Es mentira»)',
+            'Una anáfora que repite la palabra «plaza» varias veces',
+            'Una hipérbole sobre el tamaño de la plaza pública'
+          ],
+          correcta: 'Contraste entre la imagen vendida (la plaza pública igualitaria) y la afirmación tajante que la desmiente («Es mentira»)'
+        },
+        {
+          etiq: 'DECISIÓN DEL AUTOR',
+          opciones: [
+            '— elige —',
+            'El autor explica de forma neutra el funcionamiento técnico de las redes sociales',
+            'El autor presenta primero la metáfora publicitaria de las redes sociales para después derribarla con una negación directa y sin matices',
+            'El autor evita dar su opinión personal sobre el tema'
+          ],
+          correcta: 'El autor presenta primero la metáfora publicitaria de las redes sociales para después derribarla con una negación directa y sin matices'
+        },
+        {
+          etiq: 'EFECTO EN QUIEN LEE',
+          opciones: [
+            '— elige —',
+            'El lector se aburre por la longitud de la frase',
+            'El lector, que probablemente había aceptado esa imagen de las redes como algo natural, se ve obligado a cuestionarla de golpe',
+            'El lector memoriza el dato de que las redes son como una plaza pública'
+          ],
+          correcta: 'El lector, que probablemente había aceptado esa imagen de las redes como algo natural, se ve obligado a cuestionarla de golpe'
+        },
+        {
+          etiq: 'SIGNIFICADO',
+          opciones: [
+            '— elige —',
+            'La supuesta neutralidad e igualdad de las redes sociales es una construcción interesada, no una realidad objetiva',
+            'Las redes sociales funcionan exactamente igual que una plaza pública tradicional',
+            'El autor considera que las redes sociales deberían prohibirse por completo'
+          ],
+          correcta: 'La supuesta neutralidad e igualdad de las redes sociales es una construcción interesada, no una realidad objetiva'
+        }
+      ]
+    },
+    {
+      id: 'b5',
+      numero: 'Paso 5',
+      titulo: 'Sintetiza',
+      instruccion: 'Conecta los recursos concretos con el efecto global que pide la pregunta de orientación.',
+      tipo: 'mcq',
+      items: [
+        {
+          id: 'b5-1',
+          frase: 'Elige la frase que mejor sintetiza cómo el tono y la estructura argumentativa del autor construyen su postura crítica.',
+          opciones: [
+            'El autor cuenta una anécdota sobre su sobrina para hacer el texto más ameno y cercano al lector.',
+            'El autor parte de una anécdota personal para desmontar, con un tono irónico y una estructura que avanza de la observación concreta a la denuncia general, la idea de que las redes sociales son neutrales, y termina reclamando responsabilidad sin ofrecer una solución fácil.',
+            'El autor explica de forma neutra el funcionamiento técnico de los algoritmos de recomendación.'
+          ],
+          correcta: 'El autor parte de una anécdota personal para desmontar, con un tono irónico y una estructura que avanza de la observación concreta a la denuncia general, la idea de que las redes sociales son neutrales, y termina reclamando responsabilidad sin ofrecer una solución fácil.',
+          fb_ok: '✓ Excelente. Esta síntesis conecta el tono (irónico), la estructura (de lo concreto a lo general) y la postura crítica final: es un cierre de análisis completo.',
+          fb_ko: 'Una buena síntesis debe mencionar el tono, la estructura argumentativa Y la postura crítica que ambos construyen juntos, no solo el tema o un recurso aislado.'
+        }
+      ]
+    },
+    {
+      id: 'b6',
+      numero: 'Paso 6',
+      titulo: 'Redacta tu análisis completo',
+      instruccion: 'Ahora sí: escribe la respuesta real, como la escribirías en el examen. Los pasos anteriores son tu borrador de trabajo, no el análisis en sí. Incluye una introducción con tu idea central, al menos tres recursos desarrollados con la fórmula completa, y una conclusión que responda directamente a la pregunta de orientación. Extensión orientativa: 250-350 palabras.',
+      tipo: 'redaccion',
+      storageKey: 'prueba1-mod5-redaccion-b'
+    }
+  ];
+
+  // ═══════════════════════════════════════════════════════
+  // DATOS — CRITERIOS DE AUTOEVALUACIÓN (Prueba 1, oficiales)
+  // ═══════════════════════════════════════════════════════
+  var CRITERIOS = [
+    {
+      id: 'crit-a',
+      nombre: 'Criterio A · Comprensión e interpretación',
+      puntos: '5 puntos',
+      pregunta: '¿En qué medida demuestro comprensión del texto y extraigo conclusiones razonadas a partir de sus implicaciones? ¿Están mis ideas respaldadas mediante referencias al texto?',
+      alto: 'Nivel alto (4-5): demuestro una comprensión profunda y extraigo conclusiones razonadas más allá de lo literal, con referencias al texto que respaldan constantemente mis ideas.',
+      bajo: 'Nivel bajo (1-2): mi respuesta se queda en lo literal, con poca interpretación de las implicaciones, y las referencias al texto son escasas o poco pertinentes.',
+      pregunta_final: '¿He ido más allá de contar lo que dice el texto? ¿Cada idea que afirmo está respaldada por una referencia concreta al texto?'
+    },
+    {
+      id: 'crit-b',
+      nombre: 'Criterio B · Análisis y evaluación',
+      puntos: '5 puntos',
+      pregunta: '¿En qué medida analizo los rasgos textuales y las decisiones del autor/a, y evalúo cómo influyen en el significado?',
+      alto: 'Nivel alto (4-5): identifico recursos y explico con precisión la decisión del autor, el efecto en quien lee y el significado que genera —no me quedo en nombrar el recurso.',
+      bajo: 'Nivel bajo (1-2): mi respuesta es descriptiva: nombro recursos («hay una metáfora») sin explicar cómo funcionan ni qué efecto producen.',
+      pregunta_final: '¿He aplicado la fórmula completa (RECURSO → DECISIÓN → EFECTO → SIGNIFICADO) o me he quedado solo en nombrar recursos?'
+    },
+    {
+      id: 'crit-c',
+      nombre: 'Criterio C · Focalización y organización',
+      puntos: '5 puntos',
+      pregunta: '¿En qué medida está mi presentación de ideas organizada, coherente y centrada en la pregunta de orientación?',
+      alto: 'Nivel alto (4-5): mis ideas están organizadas de forma eficaz y coherente, y mi respuesta se mantiene centrada en la pregunta de orientación de principio a fin.',
+      bajo: 'Nivel bajo (1-2): mis ideas muestran poca organización y mi respuesta se aleja de la pregunta de orientación o la pierde de vista a mitad de la redacción.',
+      pregunta_final: '¿Si alguien leyera solo mi primer y mi último párrafo, entendería cuál era mi argumento central en respuesta a la pregunta?'
+    },
+    {
+      id: 'crit-d',
+      nombre: 'Criterio D · Lenguaje',
+      puntos: '5 puntos',
+      pregunta: '¿En qué medida es claro, variado y correcto mi lenguaje? ¿Es apropiado mi registro (vocabulario, tono, terminología de análisis)?',
+      alto: 'Nivel alto (4-5): mi lenguaje es claro, variado y en su mayor parte correcto, con terminología de análisis literario/textual precisa y un registro adecuado para un comentario académico.',
+      bajo: 'Nivel bajo (1-2): mi lenguaje es limitado o impreciso, con errores que dificultan la comprensión, y uso poca o ninguna terminología de análisis.',
+      pregunta_final: '¿He usado términos como «anáfora», «tono», «estructura», «efecto en el lector»... o he descrito todo con palabras genéricas?'
+    }
+  ];
+
+  // ═══════════════════════════════════════════════════════
+  // TABS
+  // ═══════════════════════════════════════════════════════
+  function cambiarTab(idx) {
+    var paneles = document.querySelectorAll('.tab-panel');
+    var botones = document.querySelectorAll('.tab-btn');
+    paneles.forEach(function (p, i) {
+      p.classList.toggle('activo', i === idx);
+    });
+    botones.forEach(function (b, i) {
+      b.classList.toggle('activo', i === idx);
+    });
+    if (idx === 2) actualizarMisTextos();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  window.cambiarTab = cambiarTab;
+
+  // ═══════════════════════════════════════════════════════
+  // TAB 3 — MOSTRAR EL TEXTO REDACTADO (solo lectura)
+  // ═══════════════════════════════════════════════════════
+  function pintarMiTexto(storageKey, contenidoId, contadorId) {
+    var contenido = document.getElementById(contenidoId);
+    var contador = document.getElementById(contadorId);
+    if (!contenido || !contador) return;
+    var texto = '';
+    try {
+      texto = window.localStorage.getItem(storageKey) || '';
+    } catch (e) {
+      texto = '';
+    }
+    var limpio = texto.trim();
+    if (limpio === '') {
+      contenido.className = 'mi-texto-contenido vacio';
+      contenido.textContent = 'Aún no has escrito nada en el Paso 6 de este texto. Ve a la pestaña correspondiente, complétalo y vuelve aquí para revisarlo.';
+      contador.textContent = '';
+    } else {
+      contenido.className = 'mi-texto-contenido';
+      contenido.textContent = limpio;
+      var palabras = limpio.split(/\s+/).length;
+      contador.textContent = palabras + ' palabras';
+    }
+  }
+
+  function actualizarMisTextos() {
+    pintarMiTexto('prueba1-mod5-redaccion-a', 'mi-texto-a', 'mi-texto-a-contador');
+    pintarMiTexto('prueba1-mod5-redaccion-b', 'mi-texto-b', 'mi-texto-b-contador');
+  }
+  window.actualizarMisTextos = actualizarMisTextos;
+
+  // ═══════════════════════════════════════════════════════
+  // CONSTRUIR PASOS (mcq + fórmula)
+  // ═══════════════════════════════════════════════════════
+  var estadoItems = {};
+  var estadoFormula = {};
+
+  function construirBloquePasos(pasos, contenedorId) {
+    var contenedor = document.getElementById(contenedorId);
+    if (!contenedor) return;
+    pasos.forEach(function (paso) {
+      var card = document.createElement('div');
+      card.className = 'paso';
+
+      var num = document.createElement('div');
+      num.className = 'paso-num';
+      num.textContent = paso.numero;
+
+      var h3 = document.createElement('h3');
+      h3.textContent = paso.titulo;
+
+      var instr = document.createElement('p');
+      instr.className = 'instruccion';
+      instr.textContent = paso.instruccion;
+
+      card.appendChild(num);
+      card.appendChild(h3);
+      card.appendChild(instr);
+
+      if (paso.tipo === 'mcq') {
+        var lista = document.createElement('div');
+        lista.className = 'clasificar-items';
+        paso.items.forEach(function (item) {
+          estadoItems[item.id] = false;
+          lista.appendChild(construirItemMCQ(item));
+        });
+        card.appendChild(lista);
+      } else if (paso.tipo === 'formula') {
+        card.appendChild(construirBloqueFormula(paso));
+      } else if (paso.tipo === 'redaccion') {
+        card.appendChild(construirBloqueRedaccion(paso));
+      }
+
+      contenedor.appendChild(card);
+    });
+  }
+
+  function construirItemMCQ(item) {
+    var wrap = document.createElement('div');
+    wrap.className = 'clas-item';
+
+    var frase = document.createElement('div');
+    frase.className = 'clas-frase';
+    frase.textContent = item.frase;
+
+    var botones = document.createElement('div');
+    botones.className = 'clas-botones';
+
+    item.opciones.forEach(function (op) {
+      var btn = document.createElement('button');
+      btn.className = 'btn-clas';
+      btn.textContent = op;
+      btn.onclick = (function (opcion, itemId, btnRef) {
+        return function () {
+          if (estadoItems[itemId]) return;
+          var fb = document.getElementById('fb-' + itemId);
+          if (opcion === item.correcta) {
+            btnRef.className = 'btn-clas ok';
+            fb.className = 'clas-feedback ok';
+            fb.textContent = item.fb_ok;
+            fb.style.display = 'block';
+            estadoItems[itemId] = true;
+            verificarMensajeFinal();
+          } else {
+            btnRef.className = 'btn-clas ko';
+            fb.className = 'clas-feedback ko';
+            fb.textContent = item.fb_ko;
+            fb.style.display = 'block';
+            setTimeout(function () {
+              btnRef.className = 'btn-clas';
+              fb.style.display = 'none';
+            }, 2200);
+          }
+        };
+      })(op, item.id, btn);
+      botones.appendChild(btn);
+    });
+
+    var fb = document.createElement('div');
+    fb.className = 'clas-feedback';
+    fb.id = 'fb-' + item.id;
+
+    wrap.appendChild(frase);
+    wrap.appendChild(botones);
+    wrap.appendChild(fb);
+    return wrap;
+  }
+
+  function construirBloqueFormula(paso) {
+    var wrap = document.createElement('div');
+
+    var cita = document.createElement('div');
+    cita.className = 'ej3-cita';
+    cita.textContent = paso.cita;
+    var fuente = document.createElement('span');
+    fuente.className = 'ej3-fuente';
+    fuente.style.display = 'block';
+    fuente.style.fontSize = '0.78rem';
+    fuente.style.color = '#999';
+    fuente.style.marginTop = '0.3rem';
+    fuente.textContent = paso.fuente;
+    cita.appendChild(fuente);
+    wrap.appendChild(cita);
+
+    var formula = document.createElement('div');
+    formula.className = 'ej3-formula';
+
+    var selectIds = [];
+    paso.pasos_formula.forEach(function (cfg, i) {
+      var selId = paso.id + '-f' + i;
+      selectIds.push({ id: selId, correcta: cfg.correcta });
+
+      var fila = document.createElement('div');
+      fila.className = 'ej3-fila';
+
+      var etiq = document.createElement('div');
+      etiq.className = 'ej3-etiq';
+      etiq.textContent = cfg.etiq;
+
+      var sel = document.createElement('select');
+      sel.className = 'ej3-select';
+      sel.id = selId;
+      cfg.opciones.forEach(function (op) {
+        var opt = document.createElement('option');
+        opt.value = op === '— elige —' ? '' : op;
+        opt.textContent = op;
+        sel.appendChild(opt);
+      });
+
+      fila.appendChild(etiq);
+      fila.appendChild(sel);
+      formula.appendChild(fila);
+    });
+    wrap.appendChild(formula);
+
+    var btnComprobar = document.createElement('button');
+    btnComprobar.className = 'btn-comprobar';
+    btnComprobar.textContent = 'Comprobar';
+
+    var btnReset = document.createElement('button');
+    btnReset.className = 'btn-reset';
+    btnReset.textContent = 'Reiniciar';
+
+    var resultado = document.createElement('div');
+    resultado.className = 'resultado-global';
+    resultado.id = 'resultado-' + paso.id;
+
+    btnComprobar.onclick = function () {
+      var aciertos = 0;
+      selectIds.forEach(function (s) {
+        var sel = document.getElementById(s.id);
+        if (!sel) return;
+        if (sel.value === s.correcta) {
+          sel.className = 'ej3-select correcto';
+          aciertos++;
+        } else {
+          sel.className = 'ej3-select incorrecto';
+        }
+      });
+      resultado.style.display = 'block';
+      if (aciertos === selectIds.length) {
+        resultado.className = 'resultado-global ok';
+        resultado.textContent = '✓ Excelente. Has completado el análisis de este recurso en sus cuatro pasos.';
+        estadoFormula[paso.id] = true;
+        verificarMensajeFinal();
+      } else {
+        resultado.className = 'resultado-global parcial';
+        resultado.textContent = aciertos + ' de ' + selectIds.length + ' pasos correctos. Revisa los marcados en rojo.';
+        estadoFormula[paso.id] = false;
+      }
+    };
+
+    btnReset.onclick = function () {
+      selectIds.forEach(function (s) {
+        var sel = document.getElementById(s.id);
+        if (sel) { sel.value = ''; sel.className = 'ej3-select'; }
+      });
+      resultado.style.display = 'none';
+      estadoFormula[paso.id] = false;
+    };
+
+    wrap.appendChild(btnComprobar);
+    wrap.appendChild(btnReset);
+    wrap.appendChild(resultado);
+
+    return wrap;
+  }
+
+  function construirBloqueRedaccion(paso) {
+    var wrap = document.createElement('div');
+
+    var checklist = document.createElement('div');
+    checklist.className = 'redaccion-checklist';
+    checklist.innerHTML = '<strong>Antes de dar por terminado:</strong> ¿tienes una introducción con tu idea central? ¿desarrollas al menos tres recursos con la fórmula completa (recurso → decisión → efecto → significado)? ¿tu conclusión responde directamente a la pregunta de orientación?';
+    wrap.appendChild(checklist);
+
+    var textarea = document.createElement('textarea');
+    textarea.className = 'textarea-redaccion';
+    textarea.id = 'textarea-' + paso.id;
+    textarea.placeholder = 'Escribe aquí tu análisis completo en respuesta a la pregunta de orientación...';
+
+    var pie = document.createElement('div');
+    pie.className = 'redaccion-pie';
+
+    var contador = document.createElement('div');
+    contador.className = 'contador-palabras';
+    contador.id = 'contador-' + paso.id;
+    contador.textContent = '0 palabras';
+
+    var aviso = document.createElement('div');
+    aviso.className = 'guardado-aviso';
+    aviso.id = 'aviso-' + paso.id;
+    aviso.textContent = 'Borrador guardado en este navegador';
+
+    pie.appendChild(contador);
+    pie.appendChild(aviso);
+
+    // Recuperar borrador guardado, si existe
+    try {
+      var guardado = window.localStorage.getItem(paso.storageKey);
+      if (guardado) {
+        textarea.value = guardado;
+      }
+    } catch (e) {
+      // localStorage no disponible: se sigue trabajando sin guardado automático
+    }
+
+    function actualizarContador() {
+      var texto = textarea.value.trim();
+      var palabras = texto.length === 0 ? 0 : texto.split(/\s+/).length;
+      contador.textContent = palabras + ' palabras';
+      contador.className = (palabras >= 250 && palabras <= 400) ? 'contador-palabras ok' : 'contador-palabras';
+    }
+
+    var guardarTimeout = null;
+    textarea.oninput = function () {
+      actualizarContador();
+      clearTimeout(guardarTimeout);
+      guardarTimeout = setTimeout(function () {
+        try {
+          window.localStorage.setItem(paso.storageKey, textarea.value);
+          aviso.style.display = 'inline';
+          setTimeout(function () { aviso.style.display = 'none'; }, 2000);
+        } catch (e) {
+          // localStorage no disponible: no se puede guardar automáticamente
+        }
+      }, 600);
+    };
+
+    actualizarContador();
+
+    wrap.appendChild(textarea);
+    wrap.appendChild(pie);
+    return wrap;
+  }
+
+
+  function construirCriterios() {
+    var contenedor = document.getElementById('criterios-contenedor');
+    if (!contenedor) return;
+    CRITERIOS.forEach(function (crit) {
+      var card = document.createElement('div');
+      card.className = 'criterio-card';
+      card.id = crit.id;
+
+      var cab = document.createElement('div');
+      cab.className = 'criterio-cabecera';
+      cab.onclick = function () { card.classList.toggle('abierta'); };
+
+      var nomWrap = document.createElement('div');
+      var nom = document.createElement('div');
+      nom.className = 'criterio-nombre';
+      nom.textContent = crit.nombre;
+      var pts = document.createElement('div');
+      pts.className = 'criterio-puntos';
+      pts.textContent = crit.puntos;
+      nomWrap.appendChild(nom);
+      nomWrap.appendChild(pts);
+
+      var tog = document.createElement('div');
+      tog.className = 'criterio-toggle';
+      tog.textContent = '+';
+
+      cab.appendChild(nomWrap);
+      cab.appendChild(tog);
+
+      var cuerpo = document.createElement('div');
+      cuerpo.className = 'criterio-cuerpo';
+
+      var preg = document.createElement('div');
+      preg.className = 'criterio-pregunta';
+      preg.textContent = crit.pregunta;
+
+      var filaAlto = document.createElement('div');
+      filaAlto.className = 'criterio-fila alto';
+      var etiqAlto = document.createElement('span');
+      etiqAlto.className = 'etiq-nivel-mini';
+      etiqAlto.textContent = 'Rasgos de una respuesta fuerte';
+      filaAlto.appendChild(etiqAlto);
+      filaAlto.appendChild(document.createTextNode(crit.alto));
+
+      var filaBajo = document.createElement('div');
+      filaBajo.className = 'criterio-fila bajo';
+      var etiqBajo = document.createElement('span');
+      etiqBajo.className = 'etiq-nivel-mini';
+      etiqBajo.textContent = 'Rasgos de una respuesta débil';
+      filaBajo.appendChild(etiqBajo);
+      filaBajo.appendChild(document.createTextNode(crit.bajo));
+
+      var pregFinal = document.createElement('div');
+      pregFinal.className = 'criterio-pregunta-final';
+      pregFinal.textContent = '👉 ' + crit.pregunta_final;
+
+      cuerpo.appendChild(preg);
+      cuerpo.appendChild(filaAlto);
+      cuerpo.appendChild(filaBajo);
+      cuerpo.appendChild(pregFinal);
+
+      card.appendChild(cab);
+      card.appendChild(cuerpo);
+      contenedor.appendChild(card);
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════
+  // MENSAJE FINAL
+  // ═══════════════════════════════════════════════════════
+  function verificarMensajeFinal() {
+    var todosItems = Object.keys(estadoItems).every(function (k) { return estadoItems[k]; });
+    var todasFormulas = estadoFormula['a4'] && estadoFormula['b4'];
+    if (todosItems && todasFormulas) {
+      var mf = document.getElementById('mensaje-final');
+      if (mf) mf.style.display = 'block';
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════
+  // INIT
+  // ═══════════════════════════════════════════════════════
+  construirBloquePasos(PASOS_A, 'pasos-a');
+  construirBloquePasos(PASOS_B, 'pasos-b');
+  construirCriterios();
+  actualizarMisTextos();
+
+})();
+</script>
+</body>
+</html>
