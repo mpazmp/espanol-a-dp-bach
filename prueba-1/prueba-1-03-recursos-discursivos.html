@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 3 · Recursos discursivos · Prueba 1</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul:      #1a4a7a;
+    --azul-claro:#e8f0f8;
+    --terracota: #c64829;
+    --turquesa:  #0e9aa7;
+    --gris:      #3f3f3e;
+    --fondo:     #f9f7f4;
+    --blanco:    #ffffff;
+    --sombra:    0 2px 12px rgba(26,74,122,0.10);
+    --verde-ok:  #43a047;
+    --verde-bg:  #e8f5e9;
+    --rojo-bg:   #fdecea;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--fondo);
+    color: var(--gris);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /* CABECERA */
+  .cabecera {
+    background: var(--azul);
+    color: var(--blanco);
+    padding: 2.2rem 2rem 1.6rem;
+    border-bottom: 4px solid var(--terracota);
+  }
+  .cabecera .etiqueta {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--turquesa);
+    margin-bottom: 0.4rem;
+  }
+  .cabecera h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  .cabecera p {
+    font-size: 0.95rem;
+    opacity: 0.85;
+    max-width: 680px;
+  }
+
+  /* NAVEGACIÓN TABS */
+  .tabs-nav {
+    display: flex;
+    background: var(--azul);
+    padding: 0 2rem;
+    gap: 0.2rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs-nav::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.65);
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 0.85rem 1.1rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .tab-btn:hover { color: rgba(255,255,255,0.9); }
+  .tab-btn.activo {
+    color: var(--blanco);
+    border-bottom-color: var(--terracota);
+  }
+
+  /* CONTENIDO */
+  .contenido {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel.activo { display: block; }
+
+  /* TÍTULOS */
+  .seccion-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    color: var(--azul);
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+  }
+  .seccion-subtitulo {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 1.8rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 1rem;
+  }
+
+  /* INTRO CATEGORÍA */
+  .nivel-intro {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.6rem;
+    margin-top: 0.4rem;
+  }
+
+  /* TARJETAS DE RECURSOS */
+  .recursos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 600px) {
+    .recursos-grid { grid-template-columns: 1fr; }
+  }
+
+  .recurso-card {
+    background: var(--blanco);
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--sombra);
+    transition: box-shadow 0.2s, border-color 0.2s;
+    cursor: pointer;
+  }
+  .recurso-card:hover {
+    box-shadow: 0 4px 20px rgba(26,74,122,0.15);
+    border-color: var(--azul);
+  }
+  .recurso-card.abierta { border-color: var(--azul); }
+
+  .recurso-cabecera {
+    padding: 1rem 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    background: var(--azul-claro);
+  }
+  .recurso-nombre {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--azul);
+  }
+  .recurso-toggle {
+    font-size: 1.2rem;
+    color: var(--azul);
+    font-weight: 700;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .recurso-card.abierta .recurso-toggle { transform: rotate(45deg); }
+
+  .recurso-cuerpo {
+    display: none;
+    padding: 1.1rem 1.2rem;
+  }
+  .recurso-card.abierta .recurso-cuerpo { display: block; }
+
+  .recurso-definicion {
+    font-size: 0.92rem;
+    color: var(--gris);
+    margin-bottom: 1rem;
+    line-height: 1.65;
+  }
+
+  .recurso-ficha {
+    border-top: 1px solid #eee;
+    padding-top: 0.9rem;
+  }
+  .ficha-fila {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 0.3rem 0.8rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid #f3f3f3;
+    font-size: 0.88rem;
+  }
+  .ficha-fila:last-child { border-bottom: none; }
+  .ficha-etiq {
+    font-weight: 700;
+    color: var(--azul);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-top: 0.1rem;
+  }
+  .ficha-val { color: var(--gris); line-height: 1.5; }
+  .ficha-val em {
+    color: var(--terracota);
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  /* SEPARADOR DE CATEGORÍA */
+  .nivel-separador {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0 1.4rem;
+  }
+  .nivel-separador .linea {
+    flex: 1;
+    height: 1px;
+    background: #ddd;
+  }
+  .nivel-separador .etiq-nivel {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.9rem;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .etiq-nivel.n1 { background: #fff3e0; color: #e65100; }
+  .etiq-nivel.n2 { background: #e8f5e9; color: #2e7d32; }
+  .etiq-nivel.n3 { background: #fdecea; color: #a63a1e; }
+  .etiq-nivel.n4 { background: #e3f2fd; color: #1565c0; }
+
+  /* TEXTO CORPUS */
+  .texto-corpus {
+    background: var(--blanco);
+    border-left: 4px solid var(--azul);
+    border-radius: 0 8px 8px 0;
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 1.2rem;
+    box-shadow: var(--sombra);
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--gris);
+  }
+  .texto-corpus .fuente {
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: 0.8rem;
+    font-style: italic;
+  }
+  .texto-titulo-bloque {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--azul);
+    margin: 2.2rem 0 0.8rem;
+  }
+  .texto-titulo-bloque:first-of-type { margin-top: 0; }
+
+  /* TEXTO ANOTADO */
+  .leyenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 1.4rem;
+  }
+  .leyenda-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .leyenda-item:hover { border-color: currentColor; }
+  .leyenda-dot {
+    width: 12px; height: 12px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .dot-azul    { background: var(--azul); }
+  .dot-rojo    { background: var(--terracota); }
+  .dot-verde   { background: var(--turquesa); }
+  .dot-naranja { background: #e67e22; }
+
+  .texto-anotado {
+    background: var(--blanco);
+    border-radius: 10px;
+    padding: 1.6rem;
+    box-shadow: var(--sombra);
+    font-size: 1rem;
+    line-height: 2.1;
+    margin-bottom: 1.5rem;
+  }
+  .marca {
+    border-radius: 3px;
+    padding: 1px 3px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: opacity 0.2s;
+  }
+  .marca:hover { opacity: 0.75; }
+  .marca-azul    { background: rgba(26,74,122,0.15);  color: var(--azul); }
+  .marca-roja    { background: rgba(198,72,41,0.13);  color: var(--terracota); }
+  .marca-verde   { background: rgba(14,154,167,0.13); color: #0a7a85; }
+  .marca-naranja { background: rgba(230,126,34,0.13); color: #a04000; }
+
+  .anotacion-panel {
+    display: none;
+    background: var(--blanco);
+    border-radius: 10px;
+    box-shadow: var(--sombra);
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 1rem;
+    border-top: 4px solid var(--azul);
+    font-size: 0.93rem;
+  }
+  .anotacion-panel.visible { display: block; }
+  .anotacion-panel.c-rojo  { border-top-color: var(--terracota); }
+  .anotacion-panel.c-verde { border-top-color: var(--turquesa); }
+  .anotacion-panel.c-naranja { border-top-color: #e67e22; }
+
+  .anotacion-panel h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--azul);
+    margin-bottom: 0.8rem;
+  }
+  .anotacion-panel.c-rojo h4    { color: var(--terracota); }
+  .anotacion-panel.c-verde h4   { color: #0a7a85; }
+  .anotacion-panel.c-naranja h4 { color: #a04000; }
+
+  .anotacion-fila {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 0.3rem 1rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.9rem;
+  }
+  .anotacion-fila:last-child { border-bottom: none; }
+  .anotacion-fila .etiq {
+    font-weight: 700;
+    color: var(--gris);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-top: 0.1rem;
+  }
+
+  /* EJERCICIOS */
+  .ejercicio {
+    background: var(--blanco);
+    border-radius: 12px;
+    padding: 1.6rem;
+    box-shadow: var(--sombra);
+    margin-bottom: 2rem;
+  }
+  .ejercicio-num {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--turquesa);
+    margin-bottom: 0.3rem;
+  }
+  .ejercicio h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--azul);
+    margin-bottom: 0.4rem;
+  }
+  .ejercicio .instruccion {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1.4rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  /* EJ 1 — TARJETAS CLASIFICAR */
+  .clasificar-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+  }
+  .clas-item {
+    background: #fafafa;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0.9rem 1.1rem;
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+  .clas-item .clas-frase {
+    margin-bottom: 0.7rem;
+    font-style: italic;
+    color: var(--gris);
+  }
+  .clas-item .clas-frase span.clas-fuente {
+    display: block;
+    font-size: 0.78rem;
+    font-style: normal;
+    color: #999;
+    margin-top: 0.3rem;
+  }
+  .clas-botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .btn-clas {
+    padding: 0.38rem 0.9rem;
+    border-radius: 6px;
+    border: 2px solid var(--azul);
+    background: transparent;
+    color: var(--azul);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .btn-clas:hover { background: var(--azul); color: var(--blanco); }
+  .btn-clas.ok  { background: var(--verde-bg); border-color: var(--verde-ok); color: #2e7d32; }
+  .btn-clas.ko  { background: var(--rojo-bg);  border-color: var(--terracota); color: #7a1c0a; }
+  .clas-feedback {
+    display: none;
+    margin-top: 0.6rem;
+    padding: 0.6rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.87rem;
+    line-height: 1.5;
+  }
+  .clas-feedback.ok { background: var(--verde-bg); color: #2e7d32; border-left: 3px solid var(--verde-ok); }
+  .clas-feedback.ko { background: var(--rojo-bg);  color: #7a1c0a; border-left: 3px solid var(--terracota); }
+
+  /* EJ 2 — SELECTS */
+  .ej2-bloque {
+    margin-bottom: 1.4rem;
+    padding-bottom: 1.4rem;
+    border-bottom: 1px solid #eee;
+  }
+  .ej2-bloque:last-of-type { border-bottom: none; }
+  .ej2-cita {
+    font-size: 0.94rem;
+    font-style: italic;
+    color: var(--gris);
+    background: var(--azul-claro);
+    border-radius: 6px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.65;
+  }
+  .ej2-fuente {
+    font-size: 0.78rem;
+    color: #999;
+    font-style: normal;
+    display: block;
+    margin-top: 0.3rem;
+  }
+  .ej2-recurso {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--turquesa);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 0.5rem;
+  }
+  .ej2-pregunta {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: var(--gris);
+  }
+  .ej2-select {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.88rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    border: 2px solid var(--azul);
+    color: var(--azul);
+    background: var(--blanco);
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+  .ej2-select.correcto { border-color: var(--verde-ok); color: #2e7d32; background: var(--verde-bg); }
+  .ej2-select.incorrecto { border-color: var(--terracota); color: #7a1c0a; background: var(--rojo-bg); }
+  .ej2-feedback {
+    display: none;
+    padding: 0.6rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.87rem;
+    line-height: 1.5;
+  }
+  .ej2-feedback.ok { background: var(--verde-bg); color: #2e7d32; border-left: 3px solid var(--verde-ok); }
+  .ej2-feedback.ko { background: var(--rojo-bg);  color: #7a1c0a; border-left: 3px solid var(--terracota); }
+
+  /* EJ 3 — COMPLETA LA FÓRMULA */
+  .ej3-cita {
+    background: var(--azul-claro);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    font-size: 0.95rem;
+    font-style: italic;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+    color: var(--gris);
+  }
+  .ej3-fuente {
+    font-size: 0.78rem;
+    color: #999;
+    font-style: normal;
+    display: block;
+    margin-top: 0.3rem;
+  }
+  .ej3-formula {
+    margin-bottom: 1.2rem;
+  }
+  .ej3-fila {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 0.4rem 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    align-items: start;
+    font-size: 0.9rem;
+  }
+  .ej3-fila:last-child { border-bottom: none; }
+  .ej3-etiq {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--azul);
+    padding-top: 0.4rem;
+  }
+  .ej3-select {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.88rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    border: 2px solid var(--azul);
+    color: var(--azul);
+    background: var(--blanco);
+    cursor: pointer;
+    width: 100%;
+  }
+  .ej3-select.correcto { border-color: var(--verde-ok); color: #2e7d32; background: var(--verde-bg); }
+  .ej3-select.incorrecto { border-color: var(--terracota); color: #7a1c0a; background: var(--rojo-bg); }
+
+  /* BOTONES */
+  .btn-comprobar {
+    padding: 0.65rem 1.6rem;
+    background: var(--azul);
+    color: var(--blanco);
+    border: none;
+    border-radius: 7px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-right: 0.6rem;
+    margin-top: 0.4rem;
+  }
+  .btn-comprobar:hover { background: #0d3560; }
+  .btn-reset {
+    padding: 0.65rem 1.2rem;
+    background: transparent;
+    color: var(--gris);
+    border: 2px solid #ccc;
+    border-radius: 7px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-top: 0.4rem;
+  }
+  .btn-reset:hover { border-color: var(--azul); }
+
+  .resultado-global {
+    display: none;
+    margin-top: 1.2rem;
+    padding: 1rem 1.2rem;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+  .resultado-global.ok      { background: var(--verde-bg); color: #2e7d32; border-left: 3px solid var(--verde-ok); }
+  .resultado-global.parcial { background: #fff8e1; color: #7a5c00; border-left: 3px solid #f9a825; }
+
+  /* MENSAJE FINAL */
+  .mensaje-final {
+    background: var(--azul);
+    color: var(--blanco);
+    border-radius: 12px;
+    padding: 1.8rem 2rem;
+    text-align: center;
+    margin-top: 2rem;
+    display: none;
+  }
+  .mensaje-final p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .mensaje-final span {
+    font-size: 0.85rem;
+    opacity: 0.75;
+  }
+</style>
+</head>
+<body>
+
+<div class="cabecera">
+  <div class="etiqueta">Prueba 1 · Módulo 3</div>
+  <h1>Caja de herramientas: recursos discursivos</h1>
+  <p>Tono, registro, estructura y punto de vista: las decisiones que dan forma a la voz de un texto, más allá de las palabras concretas que usa.</p>
+</div>
+
+<nav class="tabs-nav" role="tablist">
+  <button class="tab-btn activo" onclick="cambiarTab(0)" role="tab">La caja de herramientas</button>
+  <button class="tab-btn" onclick="cambiarTab(1)" role="tab">Los ves en acción</button>
+  <button class="tab-btn" onclick="cambiarTab(2)" role="tab">Practica</button>
+</nav>
+
+<div class="contenido">
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- TAB 1 — LA CAJA DE HERRAMIENTAS   -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="tab-panel activo" id="panel-0">
+    <h2 class="seccion-titulo">Los recursos discursivos</h2>
+    <p class="seccion-subtitulo">Estos cuatro bloques no son recursos aislados como la metáfora o la ironía: son decisiones globales que afectan a todo el texto a la vez. Pulsa en cualquier tarjeta para ver su definición, un ejemplo real y el efecto que produce.</p>
+
+    <!-- TONO -->
+    <div class="nivel-separador">
+      <div class="linea"></div>
+      <div class="etiq-nivel n1">Categoría 1 · Tono</div>
+      <div class="linea"></div>
+    </div>
+    <div class="recursos-grid" id="grid-tono"></div>
+
+    <!-- REGISTRO -->
+    <div class="nivel-separador">
+      <div class="linea"></div>
+      <div class="etiq-nivel n2">Categoría 2 · Registro</div>
+      <div class="linea"></div>
+    </div>
+    <div class="recursos-grid" id="grid-registro"></div>
+
+    <!-- ESTRUCTURA -->
+    <div class="nivel-separador">
+      <div class="linea"></div>
+      <div class="etiq-nivel n3">Categoría 3 · Estructura</div>
+      <div class="linea"></div>
+    </div>
+    <div class="recursos-grid" id="grid-estructura"></div>
+
+    <!-- PUNTO DE VISTA -->
+    <div class="nivel-separador">
+      <div class="linea"></div>
+      <div class="etiq-nivel n4">Categoría 4 · Punto de vista</div>
+      <div class="linea"></div>
+    </div>
+    <div class="recursos-grid" id="grid-pdv"></div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- TAB 2 — LOS VES EN ACCIÓN         -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="tab-panel" id="panel-1">
+    <h2 class="seccion-titulo">Los ves en acción</h2>
+    <p class="seccion-subtitulo">Dos textos no literarios reales —los que sí pueden aparecer en Prueba 1— con cuatro recursos discursivos señalados en cada uno. Pulsa sobre cada marca para ver cómo funciona la fórmula completa.</p>
+
+    <div class="texto-titulo-bloque">Texto A · Discurso público</div>
+    <div class="texto-corpus">
+      <p>Queridos hermanos y hermanas, no debemos olvidar que millones de personas sufren la pobreza, la injusticia y la ignorancia. No debemos olvidar que millones de niños están fuera de las escuelas. No debemos olvidar que nuestros hermanos y hermanas están esperando un futuro pacífico y brillante.</p>
+      <p class="fuente">Malala Yousafzai · Discurso ante la ONU · 12 de julio de 2013 (fragmento)</p>
+    </div>
+
+    <div class="leyenda" id="leyenda-a"></div>
+    <div class="texto-anotado" id="texto-anotado-a"></div>
+    <div id="paneles-anotacion-a"></div>
+
+    <div class="texto-titulo-bloque">Texto B · Carta formal</div>
+    <div class="texto-corpus">
+      <p>Estimado señor alcalde: los vecinos de la calle Retamar llevamos más de dos años solicitando la instalación de un parque infantil en el solar abandonado de la esquina con la avenida del Mar. Hasta la fecha, no se ha recibido respuesta alguna por parte del Ayuntamiento. Cabe señalar que el barrio cuenta actualmente con más de doscientas familias con niños menores de diez años y ningún espacio verde habilitado en un radio de quinientos metros. Por consiguiente, se solicita que la corporación municipal estudie con carácter urgente la viabilidad del proyecto presentado hace dos años. Quedamos a la espera de una respuesta y agradecemos de antemano la atención prestada.</p>
+      <p class="fuente">Asociación de Vecinos de Retamar · carta al Ayuntamiento (texto de ejemplo elaborado para este módulo)</p>
+    </div>
+
+    <div class="leyenda" id="leyenda-b"></div>
+    <div class="texto-anotado" id="texto-anotado-b"></div>
+    <div id="paneles-anotacion-b"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- TAB 3 — PRACTICA                  -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="tab-panel" id="panel-2">
+    <h2 class="seccion-titulo">Practica</h2>
+    <p class="seccion-subtitulo">Tres ejercicios de dificultad creciente para afianzar lo aprendido.</p>
+
+    <!-- EJERCICIO 1 -->
+    <div class="ejercicio">
+      <div class="ejercicio-num">Ejercicio 1 · Identifica</div>
+      <h3>¿Qué categoría es?</h3>
+      <p class="instruccion">Lee cada fragmento y elige a qué categoría discursiva corresponde. Las cuatro opciones mezclan tono, registro, estructura y punto de vista: fíjate bien en cuál describe exactamente lo que ocurre en el fragmento.</p>
+      <div id="ej1-contenedor"></div>
+    </div>
+
+    <!-- EJERCICIO 2 -->
+    <div class="ejercicio">
+      <div class="ejercicio-num">Ejercicio 2 · Distingue</div>
+      <h3>¿Cuál es el efecto?</h3>
+      <p class="instruccion">Para cada fragmento, ya te damos identificado el recurso discursivo. Elige cuál es el efecto más preciso que produce en quien lee.</p>
+      <div id="ej2-contenedor"></div>
+      <button class="btn-comprobar" onclick="comprobarEj2()">Comprobar</button>
+      <button class="btn-reset" onclick="resetEj2()">Reiniciar</button>
+      <div class="resultado-global" id="ej2-resultado"></div>
+    </div>
+
+    <!-- EJERCICIO 3 -->
+    <div class="ejercicio">
+      <div class="ejercicio-num">Ejercicio 3 · Analiza</div>
+      <h3>Completa la fórmula</h3>
+      <p class="instruccion">Lee el fragmento y completa los cuatro pasos de la fórmula eligiendo la opción más precisa en cada casilla.</p>
+      <div id="ej3-contenedor"></div>
+      <button class="btn-comprobar" onclick="comprobarEj3()">Comprobar</button>
+      <button class="btn-reset" onclick="resetEj3()">Reiniciar</button>
+      <div class="resultado-global" id="ej3-resultado"></div>
+    </div>
+
+    <div class="mensaje-final" id="mensaje-final">
+      <p>"El tono, el registro, la estructura y el punto de vista no son adornos: son las decisiones que construyen la voz de quien escribe."</p>
+      <span>Módulo 3 completado · Prueba 1 · Español A</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+
+  // ═══════════════════════════════════════════════════════
+  // DATOS — RECURSOS (4 categorías)
+  // ═══════════════════════════════════════════════════════
+  var RECURSOS = {
+    tono: [
+      {
+        nombre: 'Solemne / grave',
+        definicion: 'Actitud seria y elevada, propia de ocasiones importantes. Se aleja de lo coloquial y transmite la gravedad del tema tratado.',
+        ejemplo: '<em>«Queridos hermanos y hermanas, no debemos olvidar que millones de personas sufren la pobreza, la injusticia y la ignorancia.»</em>',
+        efecto: 'El lector percibe la magnitud del problema y se siente convocado a una causa que trasciende lo personal.',
+        fuente: 'Malala Yousafzai · Discurso ante la ONU · 2013'
+      },
+      {
+        nombre: 'Mesurado / contenido',
+        definicion: 'Tono que controla la emoción mediante fórmulas indirectas y conectores lógicos, sin recurrir a la exclamación, aunque el desacuerdo sea evidente.',
+        ejemplo: '<em>«Cabe señalar que, hasta la fecha, no se ha recibido respuesta alguna por parte del Ayuntamiento.»</em>',
+        efecto: 'El lector percibe la firmeza de la queja precisamente por su contención: no grita, pero tampoco cede.',
+        fuente: 'Carta de la Asociación de Vecinos de Retamar (texto de ejemplo)'
+      },
+      {
+        nombre: 'Esperanzador',
+        definicion: 'Tono que, tras nombrar un problema o una dificultad, se orienta hacia una posibilidad positiva de futuro.',
+        ejemplo: '<em>«Nuestros hermanos y hermanas están esperando un futuro pacífico y brillante.»</em>',
+        efecto: 'El lector pasa de la inquietud por el problema descrito a la confianza en que existe una salida posible.',
+        fuente: 'Malala Yousafzai · Discurso ante la ONU · 2013'
+      },
+      {
+        nombre: 'Exaltado / apasionado',
+        definicion: 'Tono cargado de emoción intensa, con exclamaciones y un ritmo acelerado que refleja un estado de ánimo desbordado.',
+        ejemplo: '<em>«¡Es intolerable que, dos años después, sigamos esperando una simple respuesta!»</em>',
+        efecto: 'El lector siente la urgencia y la indignación de quien escribe casi como si la viviera en primera persona.',
+        fuente: 'Ejemplo neutro (registro de opinión digital)'
+      }
+    ],
+    registro: [
+      {
+        nombre: 'Formal / culto',
+        definicion: 'Vocabulario preciso, sintaxis cuidada y ausencia de coloquialismos. Propio de contextos institucionales, administrativos o solemnes.',
+        ejemplo: '<em>«Quedamos a la espera de una respuesta y agradecemos de antemano la atención prestada.»</em>',
+        efecto: 'Otorga autoridad y seriedad a quien escribe; el receptor percibe que la ocasión merece un lenguaje cuidado.',
+        fuente: 'Carta de la Asociación de Vecinos de Retamar (texto de ejemplo)'
+      },
+      {
+        nombre: 'Estándar / accesible',
+        definicion: 'Lenguaje correcto pero sencillo, sin tecnicismos ni coloquialismos marcados. Busca ser entendido por el mayor número posible de receptores.',
+        ejemplo: '<em>«Un niño, un profesor, un libro y una pluma pueden cambiar el mundo.»</em>',
+        efecto: 'El mensaje se vuelve memorable y accesible para públicos muy diversos, sin perder fuerza ni claridad.',
+        fuente: 'Malala Yousafzai · Discurso ante la ONU · 2013'
+      },
+      {
+        nombre: 'Coloquial / informal',
+        definicion: 'Expresiones cercanas al habla cotidiana. Reduce la distancia entre quien escribe y quien lee, y es propio de redes sociales, blogs o conversación.',
+        ejemplo: '<em>«Oye, que llevamos dos años esperando y aquí no se mueve nadie.»</em>',
+        efecto: 'El receptor siente cercanía y complicidad, como si le hablara un igual y no una institución.',
+        fuente: 'Ejemplo neutro (blog vecinal informal)'
+      },
+      {
+        nombre: 'Vulgar / brusco',
+        definicion: 'Registro que rompe deliberadamente las normas de cortesía o corrección, con un propósito expresivo concreto: choque, autenticidad o denuncia directa.',
+        ejemplo: '<em>«¡Cállate ya, que aquí tu opinión no pinta nada!»</em>',
+        efecto: 'Produce un choque en quien lee y subraya la brusquedad o la falta de respeto de quien habla.',
+        fuente: 'Ejemplo neutro'
+      }
+    ],
+    estructura: [
+      {
+        nombre: 'Climática / anafórica',
+        definicion: 'Organización que repite una misma fórmula al inicio de frases consecutivas, intensificando progresivamente la idea hasta un punto culminante.',
+        ejemplo: '<em>«No debemos olvidar que... No debemos olvidar que... No debemos olvidar que...»</em>',
+        efecto: 'El lector siente que la tensión aumenta a cada paso, lo que prepara y refuerza el clímax final del argumento.',
+        fuente: 'Adaptado de Malala Yousafzai · Discurso ante la ONU · 2013'
+      },
+      {
+        nombre: 'Lineal argumentativa',
+        definicion: 'Organiza el texto en bloques lógicos sucesivos: exposición del problema → datos que lo justifican → petición o conclusión concreta.',
+        ejemplo: 'La carta vecinal expone primero el problema (falta de parque), después los datos que lo justifican (doscientas familias) y por último la petición formal.',
+        efecto: 'El lector sigue el razonamiento paso a paso y llega a la petición ya convencido de su necesidad.',
+        fuente: 'Carta de la Asociación de Vecinos de Retamar (texto de ejemplo)'
+      },
+      {
+        nombre: 'Dialéctica / contrapuesta',
+        definicion: 'Presenta primero una expectativa o una postura, para después contradecirla o enfrentarla con un giro rotundo.',
+        ejemplo: '<em>«Los talibanes pensaron que las balas nos callarían, pero fracasaron.»</em>',
+        efecto: 'El lector percibe con claridad el enfrentamiento entre dos fuerzas, lo que hace más contundente el triunfo de una sobre la otra.',
+        fuente: 'Malala Yousafzai · Discurso ante la ONU · 2013'
+      },
+      {
+        nombre: 'Circular',
+        definicion: 'El texto vuelve, al final, a la misma idea, imagen o pregunta con la que comenzó, cerrando el sentido sobre sí mismo.',
+        ejemplo: 'Un artículo de opinión que abre con «¿De verdad necesitamos esperar otro año?» y cierra repitiendo la misma pregunta, ya sin respuesta.',
+        efecto: 'El lector siente que el problema sigue sin resolverse: la estructura misma reproduce esa sensación de estancamiento.',
+        fuente: 'Ejemplo neutro'
+      }
+    ],
+    pdv: [
+      {
+        nombre: 'Primera persona del plural inclusiva',
+        definicion: 'Quien habla se incluye junto al receptor en un mismo colectivo («nosotros»), borrando la distancia entre ambos.',
+        ejemplo: '<em>«No debemos olvidar que nuestros hermanos y hermanas están esperando un futuro pacífico y brillante.»</em>',
+        efecto: 'El lector no se siente un receptor externo, sino parte activa de la causa que se defiende.',
+        fuente: 'Malala Yousafzai · Discurso ante la ONU · 2013'
+      },
+      {
+        nombre: 'Apelación directa (vocativo)',
+        definicion: 'Quien escribe se dirige explícitamente al receptor, nombrándolo, para implicarlo emocionalmente desde el principio.',
+        ejemplo: '<em>«Queridos hermanos y hermanas...»</em>',
+        efecto: 'El receptor se siente nombrado y convocado personalmente, lo que aumenta su implicación con el mensaje.',
+        fuente: 'Malala Yousafzai · Discurso ante la ONU · 2013'
+      },
+      {
+        nombre: 'Distanciado / institucional',
+        definicion: 'Quien escribe se borra tras fórmulas impersonales o de tercera persona, propias del lenguaje administrativo, en lugar de hablar en primera persona.',
+        ejemplo: '<em>«Cabe señalar que... Por consiguiente, se solicita que la corporación municipal...»</em>',
+        efecto: 'El receptor percibe una comunicación oficial y razonada, no una queja personal o emocional.',
+        fuente: 'Carta de la Asociación de Vecinos de Retamar (texto de ejemplo)'
+      },
+      {
+        nombre: 'Primera persona individual asertiva',
+        definicion: 'Quien escribe se afirma como individuo concreto, en primera persona del singular, para reclamar algo de forma directa y personal.',
+        ejemplo: '<em>«Yo, como vecina de este barrio desde hace quince años, exijo una respuesta clara.»</em>',
+        efecto: 'El lector percibe una voz individual, con nombre y experiencia propia, que asume la responsabilidad de lo que dice.',
+        fuente: 'Ejemplo neutro'
+      }
+    ]
+  };
+
+  // ═══════════════════════════════════════════════════════
+  // DATOS — TEXTO A EN ACCIÓN (Malala)
+  // ═══════════════════════════════════════════════════════
+  var ANOTACIONES_A = [
+    {
+      id: 'a-apelacion',
+      color: 'azul',
+      nombre: 'Apelación directa (vocativo)',
+      recurso: 'Vocativo «Queridos hermanos y hermanas»',
+      decision: 'Abrir el fragmento dirigiéndose directamente al público con un vocativo afectuoso e inclusivo, en lugar de una fórmula distante',
+      efecto: 'El receptor se siente nombrado y convocado personalmente desde la primera palabra, no como un espectador externo',
+      significado: 'La causa que defiende Malala no es solo suya: pertenece a toda la comunidad a la que se dirige'
+    },
+    {
+      id: 'a-estructura',
+      color: 'rojo',
+      nombre: 'Estructura climática / anafórica',
+      recurso: 'Repetición de «No debemos olvidar que...» al inicio de tres frases consecutivas',
+      decision: 'Encadenar tres problemas (pobreza, falta de escolarización, falta de futuro) bajo la misma fórmula repetida',
+      efecto: 'La tensión crece con cada repetición: el receptor percibe que la lista de urgencias no ha terminado',
+      significado: 'La magnitud del problema es tan grande que exige ser recordada una y otra vez, sin descanso'
+    },
+    {
+      id: 'a-registro',
+      color: 'verde',
+      nombre: 'Registro estándar / accesible',
+      recurso: 'Vocabulario concreto y sin tecnicismos: «pobreza», «injusticia», «ignorancia»',
+      decision: 'Elegir palabras universales, comprensibles para cualquier oyente, en lugar de un lenguaje técnico o diplomático',
+      efecto: 'El mensaje llega con la misma claridad a públicos muy diversos, sin perder fuerza ni exigir conocimientos previos',
+      significado: 'Malala construye un discurso pensado para movilizar a la mayor audiencia posible, no solo a especialistas'
+    },
+    {
+      id: 'a-tono',
+      color: 'naranja',
+      nombre: 'Tono esperanzador',
+      recurso: 'Adjetivos «pacífico y brillante» aplicados al futuro que se espera',
+      decision: 'Cerrar la enumeración de problemas con una imagen positiva del futuro, en lugar de terminar en el problema',
+      efecto: 'El receptor pasa de la inquietud por los problemas descritos a la esperanza de que existe una solución posible',
+      significado: 'El discurso no busca solo denunciar: busca movilizar hacia un futuro concreto y deseable'
+    }
+  ];
+
+  // ═══════════════════════════════════════════════════════
+  // DATOS — TEXTO B EN ACCIÓN (carta vecinal)
+  // ═══════════════════════════════════════════════════════
+  var ANOTACIONES_B = [
+    {
+      id: 'b-pdv',
+      color: 'azul',
+      nombre: 'Apelación formal / institucional',
+      recurso: 'Fórmula de tratamiento «Estimado señor alcalde»',
+      decision: 'Abrir la carta con una fórmula de cortesía institucional dirigida a la autoridad competente, marcando desde el inicio la relación jerárquica emisor-receptor',
+      efecto: 'El lector percibe de inmediato que se trata de una comunicación oficial dirigida a quien tiene el poder de resolver el problema',
+      significado: 'La carta reconoce la autoridad del alcalde como condición necesaria para que la petición tenga efecto'
+    },
+    {
+      id: 'b-estructura',
+      color: 'rojo',
+      nombre: 'Estructura lineal argumentativa',
+      recurso: 'Organización en tres bloques: exposición del problema → datos que lo sustentan → petición concreta',
+      decision: 'Seguir el orden lógico propio de la argumentación institucional en lugar de empezar por la petición o por la emoción',
+      efecto: 'El lector puede seguir el razonamiento paso a paso y llega a la petición ya convencido de su necesidad',
+      significado: 'La estructura lineal refuerza la seriedad de la reclamación: no es un capricho, es una conclusión lógica'
+    },
+    {
+      id: 'b-registro',
+      color: 'verde',
+      nombre: 'Registro formal / culto',
+      recurso: 'Conectores lógico-argumentativos «cabe señalar que», «por consiguiente»',
+      decision: 'Emplear un registro formal y conectores propios del discurso administrativo para dar solidez argumentativa a la petición',
+      efecto: 'El lector percibe la reclamación como razonada y seria, no como una queja emocional o improvisada',
+      significado: 'El registro formal legitima la petición ante una institución que solo responde al lenguaje de su propio código'
+    },
+    {
+      id: 'b-tono',
+      color: 'naranja',
+      nombre: 'Tono mesurado / contenido',
+      recurso: 'Formulaciones indirectas «no se ha recibido respuesta alguna», «quedamos a la espera»',
+      decision: 'Evitar la acusación directa (por ejemplo, «ustedes nos han ignorado») y optar por construcciones que señalan el problema sin atacar frontalmente',
+      efecto: 'El lector siente la firmeza de la queja precisamente por su contención: la ausencia de agresividad no resta fuerza a la petición',
+      significado: 'El tono mesurado es también una estrategia retórica: mantiene abierta la vía del diálogo con la institución a la que se reclama'
+    }
+  ];
+
+  // ═══════════════════════════════════════════════════════
+  // DATOS — EJERCICIOS
+  // ═══════════════════════════════════════════════════════
+  var EJ1_ITEMS = [
+    {
+      id: 'd1a',
+      frase: '«Un niño, un profesor, un libro y una pluma pueden cambiar el mundo.»',
+      fuenteFrase: 'Malala Yousafzai · Discurso ante la ONU · 2013',
+      opciones: ['Registro estándar y accesible', 'Tono irónico', 'Estructura circular', 'Punto de vista distanciado'],
+      correcta: 'Registro estándar y accesible',
+      fb_ok: '✓ Correcto. Son palabras concretas y sin tecnicismos, comprensibles para cualquier persona: por eso hablamos de registro estándar, no de un registro culto o especializado.',
+      fb_ko: 'Fíjate en el vocabulario: son palabras cotidianas y concretas (niño, profesor, libro, pluma), no técnicas ni especializadas. Eso es propio del registro estándar.'
+    },
+    {
+      id: 'd1b',
+      frase: '«Cabe señalar que el barrio cuenta actualmente con más de doscientas familias con niños menores de diez años.»',
+      fuenteFrase: 'Carta de la Asociación de Vecinos de Retamar',
+      opciones: ['Tono exaltado', 'Registro formal / culto', 'Punto de vista en primera persona individual', 'Estructura circular'],
+      correcta: 'Registro formal / culto',
+      fb_ok: '✓ Correcto. El conector «cabe señalar que» y la precisión de los datos son marcas propias de un registro formal, típico del lenguaje administrativo o institucional.',
+      fb_ko: 'Observa el conector «cabe señalar que»: es propio del lenguaje administrativo formal, no del habla coloquial ni de un tono exaltado.'
+    },
+    {
+      id: 'd1c',
+      frase: '«No debemos olvidar que... No debemos olvidar que... No debemos olvidar que...»',
+      fuenteFrase: 'Malala Yousafzai · Discurso ante la ONU · 2013',
+      opciones: ['Estructura climática / anafórica', 'Registro vulgar', 'Tono mesurado', 'Punto de vista distanciado'],
+      correcta: 'Estructura climática / anafórica',
+      fb_ok: '✓ Correcto. La repetición de la misma fórmula al inicio de frases consecutivas, sumando problemas, es una estructura anafórica que construye un clímax.',
+      fb_ko: 'Fíjate en qué se repite y dónde: al principio de tres frases consecutivas, sumando ideas. Esa acumulación deliberada es una cuestión de estructura, no de registro ni de tono.'
+    },
+    {
+      id: 'd1d',
+      frase: '«Estimado señor alcalde:»',
+      fuenteFrase: 'Carta de la Asociación de Vecinos de Retamar',
+      opciones: ['Punto de vista con apelación formal / institucional', 'Tono coloquial', 'Estructura dialéctica', 'Registro vulgar'],
+      correcta: 'Punto de vista con apelación formal / institucional',
+      fb_ok: '✓ Correcto. La fórmula de tratamiento dirige el texto explícitamente a una autoridad, marcando la relación jerárquica emisor-receptor desde la primera línea.',
+      fb_ko: 'Piensa en a quién se dirige el texto y cómo lo nombra. Una fórmula de tratamiento como esta marca el punto de vista y la relación con el destinatario, no el tono ni el registro.'
+    }
+  ];
+
+  var EJ2_CONFIG = [
+    {
+      id: 'd2a',
+      cita: '«No debemos olvidar que millones de personas sufren la pobreza, la injusticia y la ignorancia. No debemos olvidar que millones de niños están fuera de las escuelas.»',
+      fuente: 'Malala Yousafzai · Discurso ante la ONU · 2013',
+      recurso: 'Estructura anafórica (repetición de «No debemos olvidar que...»)',
+      pregunta: '¿Cuál es el efecto más preciso que produce esta estructura en quien escucha?',
+      opciones: [
+        'El oyente memoriza fácilmente la lista de problemas mencionados',
+        'La repetición acumula urgencia: cada frase añade un problema más a una lista que parece no tener fin',
+        'El oyente se aburre por la repetición excesiva de la misma idea'
+      ],
+      correcta: 'La repetición acumula urgencia: cada frase añade un problema más a una lista que parece no tener fin',
+      fb_ok: '✓ Exacto. La estructura anafórica no repite por casualidad: acumula intensidad y urgencia con cada frase añadida.',
+      fb_ko: 'La repetición aquí no busca facilitar la memorización ni resulta simplemente monótona: su función es acumular urgencia emocional y argumentativa.'
+    },
+    {
+      id: 'd2b',
+      cita: '«Cabe señalar que el barrio cuenta con más de doscientas familias con niños... Por consiguiente, se solicita que la corporación municipal estudie con carácter urgente la viabilidad del proyecto.»',
+      fuente: 'Carta de la Asociación de Vecinos de Retamar',
+      recurso: 'Registro formal con conectores argumentativos («cabe señalar», «por consiguiente»)',
+      pregunta: '¿Qué efecto produce este registro en quien lee la carta?',
+      opciones: [
+        'Hace que la petición parezca fría y poco importante',
+        'Otorga solidez argumentativa a la queja: se percibe como una reclamación razonada, no como un simple enfado',
+        'Dificulta la comprensión del mensaje por el uso de palabras complicadas'
+      ],
+      correcta: 'Otorga solidez argumentativa a la queja: se percibe como una reclamación razonada, no como un simple enfado',
+      fb_ok: '✓ Correcto. El registro formal y los conectores lógicos convierten la queja en un argumento estructurado, lo que aumenta su credibilidad ante la institución receptora.',
+      fb_ko: 'El registro formal aquí no resta importancia ni dificulta la comprensión: su función es dar solidez argumentativa a la reclamación.'
+    }
+  ];
+
+  var EJ3_CITA = '«Los talibanes pensaron que las balas nos callarían, pero fracasaron. Y de ese silencio surgieron miles de voces.»';
+  var EJ3_FUENTE = 'Malala Yousafzai · Discurso ante la ONU · 2013';
+  var EJ3_CONFIG = [
+    {
+      id: 'ej3r',
+      etiq: 'RECURSO',
+      opciones: [
+        '— elige —',
+        'Una estructura dialéctica: se plantea la expectativa del adversario y después se contradice de forma tajante',
+        'Un registro coloquial que rompe la solemnidad del discurso',
+        'Una apelación directa al oyente mediante un vocativo'
+      ],
+      correcta: 'Una estructura dialéctica: se plantea la expectativa del adversario y después se contradice de forma tajante'
+    },
+    {
+      id: 'ej3d',
+      etiq: 'DECISIÓN DEL AUTOR',
+      opciones: [
+        '— elige —',
+        'Malala describe el atentado de forma neutra y objetiva, sin tomar partido',
+        'Malala expone primero lo que pensaban los talibanes para después derribar esa expectativa con un giro rotundo («pero fracasaron»)',
+        'Malala evita mencionar a los talibanes para no darles protagonismo'
+      ],
+      correcta: 'Malala expone primero lo que pensaban los talibanes para después derribar esa expectativa con un giro rotundo («pero fracasaron»)'
+    },
+    {
+      id: 'ej3e',
+      etiq: 'EFECTO EN EL OYENTE',
+      opciones: [
+        '— elige —',
+        'El oyente se confunde porque no entiende la relación entre silencio y voces',
+        'El oyente siente el contraste entre la expectativa del agresor y la realidad, lo que hace más contundente el triunfo de Malala',
+        'El oyente pierde interés porque la frase es demasiado larga'
+      ],
+      correcta: 'El oyente siente el contraste entre la expectativa del agresor y la realidad, lo que hace más contundente el triunfo de Malala'
+    },
+    {
+      id: 'ej3s',
+      etiq: 'SIGNIFICADO',
+      opciones: [
+        '— elige —',
+        'La violencia nunca logra el objetivo que busca: intentar silenciar una voz puede multiplicarla',
+        'Los talibanes tenían razón en pensar que el miedo funcionaría',
+        'El silencio es siempre la mejor respuesta ante la violencia'
+      ],
+      correcta: 'La violencia nunca logra el objetivo que busca: intentar silenciar una voz puede multiplicarla'
+    }
+  ];
+
+  // ═══════════════════════════════════════════════════════
+  // TABS
+  // ═══════════════════════════════════════════════════════
+  function cambiarTab(idx) {
+    var paneles = document.querySelectorAll('.tab-panel');
+    var botones = document.querySelectorAll('.tab-btn');
+    paneles.forEach(function (p, i) {
+      p.classList.toggle('activo', i === idx);
+    });
+    botones.forEach(function (b, i) {
+      b.classList.toggle('activo', i === idx);
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  window.cambiarTab = cambiarTab;
+
+  // ═══════════════════════════════════════════════════════
+  // TAB 1 — CONSTRUIR TARJETAS
+  // ═══════════════════════════════════════════════════════
+  function construirTarjetas(categoria, contenedorId) {
+    var contenedor = document.getElementById(contenedorId);
+    if (!contenedor) return;
+    RECURSOS[categoria].forEach(function (rec, i) {
+      var id = 'card-' + categoria + '-' + i;
+
+      var card = document.createElement('div');
+      card.className = 'recurso-card';
+      card.id = id;
+
+      var cab = document.createElement('div');
+      cab.className = 'recurso-cabecera';
+      cab.onclick = function () { toggleCard(id); };
+
+      var nom = document.createElement('div');
+      nom.className = 'recurso-nombre';
+      nom.textContent = rec.nombre;
+
+      var tog = document.createElement('div');
+      tog.className = 'recurso-toggle';
+      tog.textContent = '+';
+
+      cab.appendChild(nom);
+      cab.appendChild(tog);
+
+      var cuerpo = document.createElement('div');
+      cuerpo.className = 'recurso-cuerpo';
+
+      var def = document.createElement('p');
+      def.className = 'recurso-definicion';
+      def.textContent = rec.definicion;
+
+      var ficha = document.createElement('div');
+      ficha.className = 'recurso-ficha';
+
+      var filas = [
+        { etiq: 'Ejemplo', val: rec.ejemplo, esFuente: false },
+        { etiq: 'Efecto', val: rec.efecto, esFuente: false },
+        { etiq: 'Fuente', val: rec.fuente, esFuente: true }
+      ];
+
+      filas.forEach(function (fila) {
+        var f = document.createElement('div');
+        f.className = 'ficha-fila';
+        var e = document.createElement('div');
+        e.className = 'ficha-etiq';
+        e.textContent = fila.etiq;
+        var v = document.createElement('div');
+        v.className = 'ficha-val';
+        if (fila.esFuente) {
+          v.style.fontSize = '0.8rem';
+          v.style.color = '#888';
+          v.style.fontStyle = 'italic';
+          v.textContent = fila.val;
+        } else {
+          v.innerHTML = fila.val;
+        }
+        f.appendChild(e);
+        f.appendChild(v);
+        ficha.appendChild(f);
+      });
+
+      cuerpo.appendChild(def);
+      cuerpo.appendChild(ficha);
+      card.appendChild(cab);
+      card.appendChild(cuerpo);
+      contenedor.appendChild(card);
+    });
+  }
+
+  function toggleCard(id) {
+    var card = document.getElementById(id);
+    if (!card) return;
+    card.classList.toggle('abierta');
+  }
+  window.toggleCard = toggleCard;
+
+  // ═══════════════════════════════════════════════════════
+  // TAB 2 — TEXTO EN ACCIÓN
+  // ═══════════════════════════════════════════════════════
+  var COLORES_DOT = {
+    azul: 'dot-azul', rojo: 'dot-rojo', verde: 'dot-verde', naranja: 'dot-naranja'
+  };
+  var COLORES_MARCA = {
+    azul: 'marca-azul', rojo: 'marca-roja', verde: 'marca-verde', naranja: 'marca-naranja'
+  };
+  var COLORES_PANEL = {
+    azul: '', rojo: 'c-rojo', verde: 'c-verde', naranja: 'c-naranja'
+  };
+  var COLORES_TEXTO = {
+    azul: 'var(--azul)', rojo: 'var(--terracota)', verde: '#0a7a85', naranja: '#a04000'
+  };
+
+  function construirLeyenda(anotaciones, leyendaId, mostrarFn) {
+    var leyenda = document.getElementById(leyendaId);
+    if (!leyenda) return;
+    anotaciones.forEach(function (anot) {
+      var item = document.createElement('div');
+      item.className = 'leyenda-item';
+      item.style.color = COLORES_TEXTO[anot.color];
+      item.onclick = (function (aid) {
+        return function () { mostrarFn(aid); };
+      })(anot.id);
+
+      var dot = document.createElement('div');
+      dot.className = 'leyenda-dot ' + COLORES_DOT[anot.color];
+
+      var label = document.createElement('span');
+      label.textContent = anot.nombre;
+
+      item.appendChild(dot);
+      item.appendChild(label);
+      leyenda.appendChild(item);
+    });
+  }
+
+  function construirPaneles(anotaciones, panelesId) {
+    var panelesEl = document.getElementById(panelesId);
+    if (!panelesEl) return;
+    anotaciones.forEach(function (anot) {
+      var panel = document.createElement('div');
+      panel.className = 'anotacion-panel ' + COLORES_PANEL[anot.color];
+      panel.id = 'panel-anot-' + anot.id;
+
+      var h4 = document.createElement('h4');
+      h4.textContent = anot.nombre;
+      panel.appendChild(h4);
+
+      var filas = [
+        { etiq: 'Recurso', val: anot.recurso },
+        { etiq: 'Decisión del autor', val: anot.decision },
+        { etiq: 'Efecto en el receptor', val: anot.efecto },
+        { etiq: 'Significado', val: anot.significado }
+      ];
+      filas.forEach(function (fila) {
+        var f = document.createElement('div');
+        f.className = 'anotacion-fila';
+        var e = document.createElement('span');
+        e.className = 'etiq';
+        e.textContent = fila.etiq;
+        var v = document.createElement('span');
+        v.textContent = fila.val;
+        f.appendChild(e);
+        f.appendChild(v);
+        panel.appendChild(f);
+      });
+      panelesEl.appendChild(panel);
+    });
+  }
+
+  function mostrarAnotacionA(id) {
+    document.querySelectorAll('#paneles-anotacion-a .anotacion-panel').forEach(function (p) {
+      p.classList.remove('visible');
+    });
+    var target = document.getElementById('panel-anot-' + id);
+    if (target) target.classList.add('visible');
+  }
+  window.mostrarAnotacionA = mostrarAnotacionA;
+
+  function mostrarAnotacionB(id) {
+    document.querySelectorAll('#paneles-anotacion-b .anotacion-panel').forEach(function (p) {
+      p.classList.remove('visible');
+    });
+    var target = document.getElementById('panel-anot-' + id);
+    if (target) target.classList.add('visible');
+  }
+  window.mostrarAnotacionB = mostrarAnotacionB;
+
+  function txt(t) {
+    return document.createTextNode(t);
+  }
+  function marca(texto, anot_id, color, mostrarFn) {
+    var sp = document.createElement('span');
+    sp.className = 'marca ' + COLORES_MARCA[color];
+    sp.textContent = texto;
+    sp.onclick = (function (aid) {
+      return function () { mostrarFn(aid); };
+    })(anot_id);
+    return sp;
+  }
+
+  function construirTextoA() {
+    var textoEl = document.getElementById('texto-anotado-a');
+    if (!textoEl) return;
+
+    construirLeyenda(ANOTACIONES_A, 'leyenda-a', mostrarAnotacionA);
+    construirPaneles(ANOTACIONES_A, 'paneles-anotacion-a');
+
+    textoEl.appendChild(marca('Queridos hermanos y hermanas,', 'a-apelacion', 'azul', mostrarAnotacionA));
+    textoEl.appendChild(txt(' '));
+    textoEl.appendChild(marca('no debemos olvidar', 'a-estructura', 'rojo', mostrarAnotacionA));
+    textoEl.appendChild(txt(' que '));
+    textoEl.appendChild(marca('millones de personas sufren la pobreza, la injusticia y la ignorancia.', 'a-registro', 'verde', mostrarAnotacionA));
+    textoEl.appendChild(txt(' '));
+    textoEl.appendChild(marca('No debemos olvidar', 'a-estructura', 'rojo', mostrarAnotacionA));
+    textoEl.appendChild(txt(' que millones de niños están fuera de las escuelas. '));
+    textoEl.appendChild(marca('No debemos olvidar', 'a-estructura', 'rojo', mostrarAnotacionA));
+    textoEl.appendChild(txt(' que nuestros hermanos y hermanas están esperando '));
+    textoEl.appendChild(marca('un futuro pacífico y brillante.', 'a-tono', 'naranja', mostrarAnotacionA));
+  }
+
+  function construirTextoB() {
+    var textoEl = document.getElementById('texto-anotado-b');
+    if (!textoEl) return;
+
+    construirLeyenda(ANOTACIONES_B, 'leyenda-b', mostrarAnotacionB);
+    construirPaneles(ANOTACIONES_B, 'paneles-anotacion-b');
+
+    textoEl.appendChild(marca('Estimado señor alcalde:', 'b-pdv', 'azul', mostrarAnotacionB));
+    textoEl.appendChild(txt(' los vecinos de la calle Retamar llevamos más de dos años solicitando la instalación de un parque infantil en el solar abandonado de la esquina con la avenida del Mar. '));
+    textoEl.appendChild(marca('Hasta la fecha, no se ha recibido respuesta alguna por parte del Ayuntamiento.', 'b-tono', 'naranja', mostrarAnotacionB));
+    textoEl.appendChild(txt(' '));
+    textoEl.appendChild(marca('Cabe señalar que', 'b-registro', 'verde', mostrarAnotacionB));
+    textoEl.appendChild(txt(' el barrio cuenta actualmente con más de doscientas familias con niños menores de diez años y ningún espacio verde habilitado en un radio de quinientos metros. '));
+    textoEl.appendChild(marca('Por consiguiente, se solicita que la corporación municipal estudie con carácter urgente la viabilidad del proyecto presentado hace dos años.', 'b-estructura', 'rojo', mostrarAnotacionB));
+    textoEl.appendChild(txt(' '));
+    textoEl.appendChild(marca('Quedamos a la espera de una respuesta y agradecemos de antemano la atención prestada.', 'b-tono', 'naranja', mostrarAnotacionB));
+  }
+
+  // ═══════════════════════════════════════════════════════
+  // TAB 3 — EJERCICIO 1
+  // ═══════════════════════════════════════════════════════
+  var ej1Estado = {};
+
+  function construirEj1() {
+    var cont = document.getElementById('ej1-contenedor');
+    if (!cont) return;
+    cont.innerHTML = '';
+    EJ1_ITEMS.forEach(function (item) {
+      ej1Estado[item.id] = false;
+
+      var bloque = document.createElement('div');
+      bloque.className = 'clasificar-items';
+
+      var card = document.createElement('div');
+      card.className = 'clas-item';
+
+      var frase = document.createElement('div');
+      frase.className = 'clas-frase';
+      frase.textContent = item.frase;
+      var fuenteSpan = document.createElement('span');
+      fuenteSpan.className = 'clas-fuente';
+      fuenteSpan.textContent = item.fuenteFrase;
+      frase.appendChild(fuenteSpan);
+
+      var botones = document.createElement('div');
+      botones.className = 'clas-botones';
+
+      item.opciones.forEach(function (op) {
+        var btn = document.createElement('button');
+        btn.className = 'btn-clas';
+        btn.textContent = op;
+        btn.onclick = (function (opcion, itemId, btnRef) {
+          return function () {
+            if (ej1Estado[itemId]) return;
+            var fb = document.getElementById('fb-' + itemId);
+            if (opcion === item.correcta) {
+              btnRef.className = 'btn-clas ok';
+              fb.className = 'clas-feedback ok';
+              fb.textContent = item.fb_ok;
+              fb.style.display = 'block';
+              ej1Estado[itemId] = true;
+              verificarMensajeFinal();
+            } else {
+              btnRef.className = 'btn-clas ko';
+              fb.className = 'clas-feedback ko';
+              fb.textContent = item.fb_ko;
+              fb.style.display = 'block';
+              setTimeout(function () {
+                btnRef.className = 'btn-clas';
+                fb.style.display = 'none';
+              }, 2200);
+            }
+          };
+        })(op, item.id, btn);
+        botones.appendChild(btn);
+      });
+
+      var fb = document.createElement('div');
+      fb.className = 'clas-feedback';
+      fb.id = 'fb-' + item.id;
+
+      card.appendChild(frase);
+      card.appendChild(botones);
+      card.appendChild(fb);
+      bloque.appendChild(card);
+      cont.appendChild(bloque);
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════
+  // TAB 3 — EJERCICIO 2
+  // ═══════════════════════════════════════════════════════
+  function construirEj2() {
+    var cont = document.getElementById('ej2-contenedor');
+    if (!cont) return;
+    cont.innerHTML = '';
+    EJ2_CONFIG.forEach(function (cfg) {
+      var bloque = document.createElement('div');
+      bloque.className = 'ej2-bloque';
+
+      var cita = document.createElement('div');
+      cita.className = 'ej2-cita';
+      cita.textContent = cfg.cita;
+      var fuente = document.createElement('span');
+      fuente.className = 'ej2-fuente';
+      fuente.textContent = cfg.fuente;
+      cita.appendChild(fuente);
+
+      var recLabel = document.createElement('div');
+      recLabel.className = 'ej2-recurso';
+      recLabel.textContent = 'Recurso identificado: ' + cfg.recurso;
+
+      var preg = document.createElement('div');
+      preg.className = 'ej2-pregunta';
+      preg.textContent = cfg.pregunta;
+
+      var sel = document.createElement('select');
+      sel.className = 'ej2-select';
+      sel.id = 'sel-' + cfg.id;
+
+      var opt0 = document.createElement('option');
+      opt0.value = '';
+      opt0.textContent = '— elige —';
+      sel.appendChild(opt0);
+      cfg.opciones.forEach(function (op) {
+        var opt = document.createElement('option');
+        opt.value = op;
+        opt.textContent = op;
+        sel.appendChild(opt);
+      });
+
+      var fb = document.createElement('div');
+      fb.className = 'ej2-feedback';
+      fb.id = 'fb2-' + cfg.id;
+
+      bloque.appendChild(cita);
+      bloque.appendChild(recLabel);
+      bloque.appendChild(preg);
+      bloque.appendChild(sel);
+      bloque.appendChild(fb);
+      cont.appendChild(bloque);
+    });
+  }
+
+  function comprobarEj2() {
+    var aciertos = 0;
+    EJ2_CONFIG.forEach(function (cfg) {
+      var sel = document.getElementById('sel-' + cfg.id);
+      var fb = document.getElementById('fb2-' + cfg.id);
+      if (!sel || !fb) return;
+      if (sel.value === cfg.correcta) {
+        sel.className = 'ej2-select correcto';
+        fb.className = 'ej2-feedback ok';
+        fb.textContent = cfg.fb_ok;
+        fb.style.display = 'block';
+        aciertos++;
+      } else if (sel.value === '') {
+        fb.style.display = 'none';
+      } else {
+        sel.className = 'ej2-select incorrecto';
+        fb.className = 'ej2-feedback ko';
+        fb.textContent = cfg.fb_ko;
+        fb.style.display = 'block';
+      }
+    });
+    var res = document.getElementById('ej2-resultado');
+    res.style.display = 'block';
+    if (aciertos === EJ2_CONFIG.length) {
+      res.className = 'resultado-global ok';
+      res.textContent = '✓ Perfecto. Has identificado el efecto preciso en los dos casos. Recuerda: el efecto siempre se formula desde el punto de vista de quien recibe el texto, no desde el texto mismo.';
+      logros.ej2 = true;
+      verificarMensajeFinal();
+    } else {
+      res.className = 'resultado-global parcial';
+      res.textContent = aciertos + ' de ' + EJ2_CONFIG.length + ' correctas. Revisa las marcadas en rojo: el efecto debe ser específico para ese recurso en ese contexto, no una descripción general.';
+    }
+  }
+  window.comprobarEj2 = comprobarEj2;
+
+  function resetEj2() {
+    construirEj2();
+    var res = document.getElementById('ej2-resultado');
+    res.style.display = 'none';
+    logros.ej2 = false;
+  }
+  window.resetEj2 = resetEj2;
+
+  // ═══════════════════════════════════════════════════════
+  // TAB 3 — EJERCICIO 3
+  // ═══════════════════════════════════════════════════════
+  function construirEj3() {
+    var cont = document.getElementById('ej3-contenedor');
+    if (!cont) return;
+    cont.innerHTML = '';
+
+    var cita = document.createElement('div');
+    cita.className = 'ej3-cita';
+    cita.textContent = EJ3_CITA;
+    var fuente = document.createElement('span');
+    fuente.className = 'ej3-fuente';
+    fuente.textContent = EJ3_FUENTE;
+    cita.appendChild(fuente);
+    cont.appendChild(cita);
+
+    var formula = document.createElement('div');
+    formula.className = 'ej3-formula';
+
+    EJ3_CONFIG.forEach(function (cfg) {
+      var fila = document.createElement('div');
+      fila.className = 'ej3-fila';
+
+      var etiq = document.createElement('div');
+      etiq.className = 'ej3-etiq';
+      etiq.textContent = cfg.etiq;
+
+      var sel = document.createElement('select');
+      sel.className = 'ej3-select';
+      sel.id = cfg.id;
+      cfg.opciones.forEach(function (op) {
+        var opt = document.createElement('option');
+        opt.value = op === '— elige —' ? '' : op;
+        opt.textContent = op;
+        sel.appendChild(opt);
+      });
+
+      fila.appendChild(etiq);
+      fila.appendChild(sel);
+      formula.appendChild(fila);
+    });
+    cont.appendChild(formula);
+  }
+
+  function comprobarEj3() {
+    var aciertos = 0;
+    EJ3_CONFIG.forEach(function (cfg) {
+      var sel = document.getElementById(cfg.id);
+      if (!sel) return;
+      if (sel.value === cfg.correcta) {
+        sel.className = 'ej3-select correcto';
+        aciertos++;
+      } else {
+        sel.className = 'ej3-select incorrecto';
+      }
+    });
+    var res = document.getElementById('ej3-resultado');
+    res.style.display = 'block';
+    if (aciertos === EJ3_CONFIG.length) {
+      res.className = 'resultado-global ok';
+      res.textContent = '✓ Excelente. Has completado la fórmula de análisis en sus cuatro pasos aplicada a un texto real. Eso es exactamente lo que pide la Prueba 1.';
+      logros.ej3 = true;
+      verificarMensajeFinal();
+    } else {
+      res.className = 'resultado-global parcial';
+      res.textContent = aciertos + ' de ' + EJ3_CONFIG.length + ' pasos correctos. Los marcados en rojo necesitan revisión. Vuelve al Tab 2 si quieres repasar cómo funciona la fórmula en estos textos.';
+    }
+  }
+  window.comprobarEj3 = comprobarEj3;
+
+  function resetEj3() {
+    construirEj3();
+    var res = document.getElementById('ej3-resultado');
+    res.style.display = 'none';
+    logros.ej3 = false;
+  }
+  window.resetEj3 = resetEj3;
+
+  // ═══════════════════════════════════════════════════════
+  // MENSAJE FINAL
+  // ═══════════════════════════════════════════════════════
+  var logros = { ej1: false, ej2: false, ej3: false };
+
+  function verificarMensajeFinal() {
+    var todosEj1 = EJ1_ITEMS.every(function (item) { return ej1Estado[item.id]; });
+    if (todosEj1) logros.ej1 = true;
+    if (logros.ej1 && logros.ej2 && logros.ej3) {
+      var mf = document.getElementById('mensaje-final');
+      if (mf) mf.style.display = 'block';
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════
+  // INIT
+  // ═══════════════════════════════════════════════════════
+  construirTarjetas('tono', 'grid-tono');
+  construirTarjetas('registro', 'grid-registro');
+  construirTarjetas('estructura', 'grid-estructura');
+  construirTarjetas('pdv', 'grid-pdv');
+  construirTextoA();
+  construirTextoB();
+  construirEj1();
+  construirEj2();
+  construirEj3();
+
+})();
+</script>
+</body>
+</html>
