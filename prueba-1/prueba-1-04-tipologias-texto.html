@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 4 · Tipologías de texto · Prueba 1</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul:      #1a4a7a;
+    --azul-claro:#e8f0f8;
+    --terracota: #c64829;
+    --turquesa:  #0e9aa7;
+    --gris:      #3f3f3e;
+    --fondo:     #f9f7f4;
+    --blanco:    #ffffff;
+    --sombra:    0 2px 12px rgba(26,74,122,0.10);
+    --verde-ok:  #43a047;
+    --verde-bg:  #e8f5e9;
+    --rojo-bg:   #fdecea;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--fondo);
+    color: var(--gris);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /* CABECERA */
+  .cabecera {
+    background: var(--azul);
+    color: var(--blanco);
+    padding: 2.2rem 2rem 1.6rem;
+    border-bottom: 4px solid var(--terracota);
+  }
+  .cabecera .etiqueta {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--turquesa);
+    margin-bottom: 0.4rem;
+  }
+  .cabecera h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  .cabecera p {
+    font-size: 0.95rem;
+    opacity: 0.85;
+    max-width: 680px;
+  }
+
+  /* NAVEGACIÓN TABS */
+  .tabs-nav {
+    display: flex;
+    background: var(--azul);
+    padding: 0 2rem;
+    gap: 0.2rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs-nav::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.65);
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 0.85rem 1.1rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .tab-btn:hover { color: rgba(255,255,255,0.9); }
+  .tab-btn.activo {
+    color: var(--blanco);
+    border-bottom-color: var(--terracota);
+  }
+
+  /* CONTENIDO */
+  .contenido {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel.activo { display: block; }
+
+  /* TÍTULOS */
+  .seccion-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    color: var(--azul);
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+  }
+  .seccion-subtitulo {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 1.8rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 1rem;
+  }
+
+  /* TARJETAS DE RECURSOS */
+  .recursos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 600px) {
+    .recursos-grid { grid-template-columns: 1fr; }
+  }
+
+  .recurso-card {
+    background: var(--blanco);
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--sombra);
+    transition: box-shadow 0.2s, border-color 0.2s;
+    cursor: pointer;
+  }
+  .recurso-card:hover {
+    box-shadow: 0 4px 20px rgba(26,74,122,0.15);
+    border-color: var(--azul);
+  }
+  .recurso-card.abierta { border-color: var(--azul); }
+
+  .recurso-cabecera {
+    padding: 1rem 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    background: var(--azul-claro);
+  }
+  .recurso-nombre {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--azul);
+  }
+  .recurso-toggle {
+    font-size: 1.2rem;
+    color: var(--azul);
+    font-weight: 700;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .recurso-card.abierta .recurso-toggle { transform: rotate(45deg); }
+
+  .recurso-cuerpo {
+    display: none;
+    padding: 1.1rem 1.2rem;
+  }
+  .recurso-card.abierta .recurso-cuerpo { display: block; }
+
+  .recurso-definicion {
+    font-size: 0.92rem;
+    color: var(--gris);
+    margin-bottom: 1rem;
+    line-height: 1.65;
+  }
+
+  .recurso-ficha {
+    border-top: 1px solid #eee;
+    padding-top: 0.9rem;
+  }
+  .ficha-fila {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 0.3rem 0.8rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid #f3f3f3;
+    font-size: 0.88rem;
+  }
+  .ficha-fila:last-child { border-bottom: none; }
+  .ficha-etiq {
+    font-weight: 700;
+    color: var(--azul);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-top: 0.1rem;
+  }
+  .ficha-val { color: var(--gris); line-height: 1.5; }
+  .ficha-val em {
+    color: var(--terracota);
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  /* SEPARADOR DE CATEGORÍA */
+  .nivel-separador {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0 1.4rem;
+  }
+  .nivel-separador .linea {
+    flex: 1;
+    height: 1px;
+    background: #ddd;
+  }
+  .nivel-separador .etiq-nivel {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.9rem;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .etiq-nivel.n1 { background: #e3f2fd; color: #1565c0; }
+  .etiq-nivel.n2 { background: #fff3e0; color: #e65100; }
+
+  .nota-categoria {
+    background: var(--azul-claro);
+    border-radius: 8px;
+    padding: 0.9rem 1.1rem;
+    font-size: 0.86rem;
+    color: var(--azul);
+    margin-bottom: 1.2rem;
+    line-height: 1.6;
+  }
+
+  /* EJERCICIOS */
+  .ejercicio {
+    background: var(--blanco);
+    border-radius: 12px;
+    padding: 1.6rem;
+    box-shadow: var(--sombra);
+    margin-bottom: 2rem;
+  }
+  .ejercicio-num {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--turquesa);
+    margin-bottom: 0.3rem;
+  }
+  .ejercicio h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--azul);
+    margin-bottom: 0.4rem;
+  }
+  .ejercicio .instruccion {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1.4rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  /* EJ 1 — TARJETAS CLASIFICAR */
+  .clasificar-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+  }
+  .clas-item {
+    background: #fafafa;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0.9rem 1.1rem;
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+  .clas-item .clas-frase {
+    margin-bottom: 0.7rem;
+    font-style: italic;
+    color: var(--gris);
+  }
+  .clas-botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .btn-clas {
+    padding: 0.38rem 0.9rem;
+    border-radius: 6px;
+    border: 2px solid var(--azul);
+    background: transparent;
+    color: var(--azul);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .btn-clas:hover { background: var(--azul); color: var(--blanco); }
+  .btn-clas.ok  { background: var(--verde-bg); border-color: var(--verde-ok); color: #2e7d32; }
+  .btn-clas.ko  { background: var(--rojo-bg);  border-color: var(--terracota); color: #7a1c0a; }
+  .clas-feedback {
+    display: none;
+    margin-top: 0.6rem;
+    padding: 0.6rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.87rem;
+    line-height: 1.5;
+  }
+  .clas-feedback.ok { background: var(--verde-bg); color: #2e7d32; border-left: 3px solid var(--verde-ok); }
+  .clas-feedback.ko { background: var(--rojo-bg);  color: #7a1c0a; border-left: 3px solid var(--terracota); }
+
+  /* EJ 2 — SELECTS */
+  .ej2-bloque {
+    margin-bottom: 1.4rem;
+    padding-bottom: 1.4rem;
+    border-bottom: 1px solid #eee;
+  }
+  .ej2-bloque:last-of-type { border-bottom: none; }
+  .ej2-recurso {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--turquesa);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 0.5rem;
+  }
+  .ej2-pregunta {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: var(--gris);
+  }
+  .ej2-select {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.88rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    border: 2px solid var(--azul);
+    color: var(--azul);
+    background: var(--blanco);
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+  .ej2-select.correcto { border-color: var(--verde-ok); color: #2e7d32; background: var(--verde-bg); }
+  .ej2-select.incorrecto { border-color: var(--terracota); color: #7a1c0a; background: var(--rojo-bg); }
+  .ej2-feedback {
+    display: none;
+    padding: 0.6rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.87rem;
+    line-height: 1.5;
+  }
+  .ej2-feedback.ok { background: var(--verde-bg); color: #2e7d32; border-left: 3px solid var(--verde-ok); }
+  .ej2-feedback.ko { background: var(--rojo-bg);  color: #7a1c0a; border-left: 3px solid var(--terracota); }
+
+  /* EJ 3 — COMPLETA LA FICHA */
+  .ej3-cita {
+    background: var(--azul-claro);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    font-size: 0.95rem;
+    font-style: italic;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+    color: var(--gris);
+  }
+  .ej3-fuente {
+    font-size: 0.78rem;
+    color: #999;
+    font-style: normal;
+    display: block;
+    margin-top: 0.3rem;
+  }
+  .ej3-formula {
+    margin-bottom: 1.2rem;
+  }
+  .ej3-fila {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 0.4rem 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    align-items: start;
+    font-size: 0.9rem;
+  }
+  .ej3-fila:last-child { border-bottom: none; }
+  .ej3-etiq {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--azul);
+    padding-top: 0.4rem;
+  }
+  .ej3-select {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.88rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    border: 2px solid var(--azul);
+    color: var(--azul);
+    background: var(--blanco);
+    cursor: pointer;
+    width: 100%;
+  }
+  .ej3-select.correcto { border-color: var(--verde-ok); color: #2e7d32; background: var(--verde-bg); }
+  .ej3-select.incorrecto { border-color: var(--terracota); color: #7a1c0a; background: var(--rojo-bg); }
+
+  /* BOTONES */
+  .btn-comprobar {
+    padding: 0.65rem 1.6rem;
+    background: var(--azul);
+    color: var(--blanco);
+    border: none;
+    border-radius: 7px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-right: 0.6rem;
+    margin-top: 0.4rem;
+  }
+  .btn-comprobar:hover { background: #0d3560; }
+  .btn-reset {
+    padding: 0.65rem 1.2rem;
+    background: transparent;
+    color: var(--gris);
+    border: 2px solid #ccc;
+    border-radius: 7px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-top: 0.4rem;
+  }
+  .btn-reset:hover { border-color: var(--azul); }
+
+  .resultado-global {
+    display: none;
+    margin-top: 1.2rem;
+    padding: 1rem 1.2rem;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+  .resultado-global.ok      { background: var(--verde-bg); color: #2e7d32; border-left: 3px solid var(--verde-ok); }
+  .resultado-global.parcial { background: #fff8e1; color: #7a5c00; border-left: 3px solid #f9a825; }
+
+  /* MENSAJE FINAL */
+  .mensaje-final {
+    background: var(--azul);
+    color: var(--blanco);
+    border-radius: 12px;
+    padding: 1.8rem 2rem;
+    text-align: center;
+    margin-top: 2rem;
+    display: none;
+  }
+  .mensaje-final p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .mensaje-final span {
+    font-size: 0.85rem;
+    opacity: 0.75;
+  }
+</style>
+</head>
+<body>
+
+<div class="cabecera">
+  <div class="etiqueta">Prueba 1 · Módulo 4</div>
+  <h1>Tipologías de texto habituales en Prueba 1</h1>
+  <p>Los 32 tipos de texto no literario que reconoce la Guía del IB, organizados en sus dos categorías oficiales. Aprende a reconocer cada uno por sus rasgos, no solo por su nombre.</p>
+</div>
+
+<nav class="tabs-nav" role="tablist">
+  <button class="tab-btn activo" onclick="cambiarTab(0)" role="tab">La caja de herramientas</button>
+  <button class="tab-btn" onclick="cambiarTab(1)" role="tab">Los ves en acción</button>
+  <button class="tab-btn" onclick="cambiarTab(2)" role="tab">Practica</button>
+</nav>
+
+<div class="contenido">
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- TAB 1 — LA CAJA DE HERRAMIENTAS   -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="tab-panel activo" id="panel-0">
+    <h2 class="seccion-titulo">Los tipos de texto</h2>
+    <p class="seccion-subtitulo">Pulsa en cualquier tarjeta para ver sus rasgos típicos, la pista clave que lo delata y un ejemplo de apertura. No memorices el nombre: aprende a reconocer el tipo por cómo está construido.</p>
+
+    <div class="nivel-separador">
+      <div class="linea"></div>
+      <div class="etiq-nivel n1">Categoría 1 · Siempre no literarios</div>
+      <div class="linea"></div>
+    </div>
+    <div class="recursos-grid" id="grid-siempre"></div>
+
+    <div class="nivel-separador">
+      <div class="linea"></div>
+      <div class="etiq-nivel n2">Categoría 2 · Pueden ser literarios o no literarios</div>
+      <div class="linea"></div>
+    </div>
+    <div class="nota-categoria">Estos 20 tipos de texto pueden ser literarios o no literarios según el autor/a y el propósito concreto del texto. En Prueba 1 solo pueden aparecer en su versión <strong>no literaria</strong> (por ejemplo, un anuncio real, no una viñeta de autor literario reconocido).</div>
+    <div class="recursos-grid" id="grid-mixtos"></div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- TAB 2 — LOS VES EN ACCIÓN         -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="tab-panel" id="panel-1">
+    <h2 class="seccion-titulo">Los ves en acción</h2>
+    <p class="seccion-subtitulo">Seis aperturas de texto, inventadas para practicar. Antes de pulsar en cada tarjeta, intenta adivinar de qué tipo de texto se trata y qué rasgo te lo ha revelado.</p>
+    <div class="recursos-grid" id="grid-incipits"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- TAB 3 — PRACTICA                  -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="tab-panel" id="panel-2">
+    <h2 class="seccion-titulo">Practica</h2>
+    <p class="seccion-subtitulo">Tres ejercicios de dificultad creciente para afianzar lo aprendido.</p>
+
+    <!-- EJERCICIO 1 -->
+    <div class="ejercicio">
+      <div class="ejercicio-num">Ejercicio 1 · Identifica</div>
+      <h3>¿Qué tipo de texto es?</h3>
+      <p class="instruccion">Lee cada fragmento y elige el tipo de texto correcto. Las opciones incluyen tipos que se confunden fácilmente entre sí: fíjate en los rasgos formales, no solo en el tema.</p>
+      <div id="ej1-contenedor"></div>
+    </div>
+
+    <!-- EJERCICIO 2 -->
+    <div class="ejercicio">
+      <div class="ejercicio-num">Ejercicio 2 · Distingue</div>
+      <h3>¿Cuál es la pista clave?</h3>
+      <p class="instruccion">Para cada tipo de texto, elige cuál es la pista clave que lo confirma de forma más precisa.</p>
+      <div id="ej2-contenedor"></div>
+      <button class="btn-comprobar" onclick="comprobarEj2()">Comprobar</button>
+      <button class="btn-reset" onclick="resetEj2()">Reiniciar</button>
+      <div class="resultado-global" id="ej2-resultado"></div>
+    </div>
+
+    <!-- EJERCICIO 3 -->
+    <div class="ejercicio">
+      <div class="ejercicio-num">Ejercicio 3 · Analiza</div>
+      <h3>Completa la ficha de identificación</h3>
+      <p class="instruccion">Lee el fragmento y completa los cuatro pasos de identificación eligiendo la opción más precisa en cada casilla.</p>
+      <div id="ej3-contenedor"></div>
+      <button class="btn-comprobar" onclick="comprobarEj3()">Comprobar</button>
+      <button class="btn-reset" onclick="resetEj3()">Reiniciar</button>
+      <div class="resultado-global" id="ej3-resultado"></div>
+    </div>
+
+    <div class="mensaje-final" id="mensaje-final">
+      <p>"Reconocer el tipo de texto no es un trámite previo al análisis: es la primera decisión analítica, porque cada tipo crea expectativas distintas en quien lo lee."</p>
+      <span>Módulo 4 completado · Prueba 1 · Español A</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+
+  // ═══════════════════════════════════════════════════════
+  // DATOS — TIPOS DE TEXTO (2 categorías oficiales IB)
+  // ═══════════════════════════════════════════════════════
+  var TIPOS = {
+    siempre: [
+      {
+        nombre: 'Biografía y autobiografía',
+        definicion: 'Relato de la vida de una persona: la biografía la escribe otra persona; la autobiografía, el propio protagonista. Suele organizarse en orden cronológico.',
+        rasgos: 'Narración en tercera persona (biografía) o primera persona (autobiografía); hitos vitales fechados; tono evaluativo hacia los logros o dificultades del sujeto.',
+        pista: 'Hay fechas y etapas vitales ordenadas cronológicamente, con un narrador que valora o interpreta los hechos, no solo los enumera.',
+        ejemplo: '«Nació en una pequeña ciudad del norte en 1978. Desde muy joven mostró un talento excepcional para...»'
+      },
+      {
+        nombre: 'Memoria (memorias)',
+        definicion: 'Relato retrospectivo en primera persona centrado en los recuerdos y experiencias vividas por quien escribe, a menudo ligado a un periodo histórico o profesional concreto.',
+        rasgos: 'Primera persona; selección subjetiva de los recuerdos; frecuentes referencias a un contexto histórico o social compartido.',
+        pista: 'El «yo» recuerda selectivamente el pasado, mezclando lo personal con lo colectivo o histórico.',
+        ejemplo: '«Recuerdo aquellos años como si hubieran sido ayer. La ciudad olía a...»'
+      },
+      {
+        nombre: 'Entrada en un diario personal',
+        definicion: 'Registro íntimo y fechado de pensamientos, sucesos o emociones del día a día, escrito para uno mismo, sin destinatario externo previsto.',
+        rasgos: 'Fecha al inicio; primera persona; tono confesional e íntimo; sintaxis a veces fragmentada, como pensamiento en curso.',
+        pista: 'Hay un encabezado con fecha y ninguna fórmula de cortesía dirigida a un lector, como si el texto no esperara ser leído por nadie más.',
+        ejemplo: '«14 de marzo. Hoy no he sabido qué decir cuando...»'
+      },
+      {
+        nombre: 'Columna de opinión',
+        definicion: 'Texto periodístico breve en el que el autor/a expone y defiende su punto de vista personal sobre un tema de actualidad.',
+        rasgos: 'Voz autoral marcada, a menudo en primera persona; argumentación con ejemplos y conectores lógicos; tono crítico o irónico; firma del autor/a.',
+        pista: 'Defiende explícitamente una tesis personal sobre un tema de actualidad, a diferencia de una noticia, que informa sin opinar.',
+        ejemplo: '«Cada vez que oigo hablar de esta reforma, no puedo evitar preguntarme si...»'
+      },
+      {
+        nombre: 'Ensayo',
+        definicion: 'Texto reflexivo y argumentativo en prosa que explora una idea, tema o cuestión desde el punto de vista personal del autor/a, con voluntad de estilo.',
+        rasgos: 'Estructura argumentativa flexible, más libre que un informe; tono reflexivo; primera persona y ejemplos personales o culturales.',
+        pista: 'Explora una idea abierta más que informa sobre hechos concretos: el recorrido del pensamiento importa tanto como la conclusión.',
+        ejemplo: '«¿Qué significa realmente ser libre? Llevo años dándole vueltas a esta pregunta...»'
+      },
+      {
+        nombre: 'Parodia',
+        definicion: 'Imitación humorística o satírica del estilo de otro texto, autor/a o género, con intención cómica o crítica.',
+        rasgos: 'Exageración deliberada de rasgos característicos de un modelo reconocible; tono humorístico o irónico; distorsión intencionada.',
+        pista: 'Se reconoce un modelo o estilo original detrás del texto, pero exagerado o distorsionado con fines cómicos o críticos.',
+        ejemplo: 'Parodia de un discurso político: «Queridos compatriotas, hoy vengo a prometeros, una vez más, absolutamente nada.»'
+      },
+      {
+        nombre: 'Carta',
+        definicion: 'Comunicación escrita dirigida a un destinatario concreto, con fórmulas de apertura y cierre características.',
+        rasgos: 'Encabezado con fórmula de saludo («Estimado/a...», «Querido/a...»); despedida («Atentamente», «Un abrazo»); registro formal o informal según el caso.',
+        pista: 'Hay fórmulas de saludo y despedida dirigidas explícitamente a un destinatario nombrado o aludido.',
+        ejemplo: '«Estimada directora: le escribo para exponerle una situación que...»'
+      },
+      {
+        nombre: 'Pastiche',
+        definicion: 'Composición que imita el estilo de un autor/a o género sin intención humorística —a diferencia de la parodia—, como homenaje o ejercicio de estilo.',
+        rasgos: 'Reproduce fielmente marcas de estilo de un modelo reconocible; tono serio, no cómico.',
+        pista: 'Se parece mucho a un estilo o autor concreto, pero sin la exageración cómica de la parodia: es imitación seria, no burla.',
+        ejemplo: 'Un pastiche del estilo periodístico de una época imita su vocabulario y construcción de frase sin ironizar sobre ello.'
+      },
+      {
+        nombre: 'Artículo de revista',
+        definicion: 'Texto informativo o divulgativo publicado en una revista, sobre un tema específico, dirigido a un público determinado.',
+        rasgos: 'Título llamativo y subtítulos; combinación de información y, a veces, opinión; registro adaptado al público de la revista.',
+        pista: 'Se organiza en secciones con subtítulos y equilibra informar con entretener, adaptándose a un público lector específico.',
+        ejemplo: '«Todo lo que necesitas saber antes de tu primer maratón», seguido de un desarrollo con consejos prácticos.'
+      },
+      {
+        nombre: 'Discurso',
+        definicion: 'Texto oral, o escrito para ser pronunciado oralmente, dirigido a una audiencia, con intención persuasiva, conmemorativa o informativa.',
+        rasgos: 'Apelaciones directas al público («Señoras y señores...»); recursos retóricos (anáfora, pregunta retórica); estructura pensada para ser escuchada.',
+        pista: 'Está construido para ser oído: frases más cortas, repeticiones, apelaciones directas a quien escucha.',
+        ejemplo: '«Amigos, hoy estamos aquí reunidos para hablar de algo que nos afecta a todos...»'
+      },
+      {
+        nombre: 'Manifiesto',
+        definicion: 'Declaración pública y solemne de principios, intenciones o reivindicaciones de un grupo o movimiento.',
+        rasgos: 'Tono solemne y contundente; primera persona del plural; estructura en declaraciones o puntos; vocabulario de compromiso y ruptura.',
+        pista: 'Declara principios o exigencias en nombre de un colectivo, con voluntad de marcar una postura pública, no de narrar ni informar.',
+        ejemplo: '«Nosotros, los abajo firmantes, declaramos nuestro compromiso irrenunciable con...»'
+      },
+      {
+        nombre: 'Diario de viajes',
+        definicion: 'Relato en primera persona de las experiencias, observaciones e impresiones de quien viaja, organizado por orden cronológico o etapas.',
+        rasgos: 'Primera persona; referencias a lugares, fechas o etapas concretas; combinación de descripción del entorno y reflexión personal.',
+        pista: 'El relato avanza siguiendo el itinerario físico del viaje, con lugares y fechas como hilo conductor.',
+        ejemplo: '«Tercer día. Llegamos al pueblo después de ocho horas de autobús, y lo primero que...»'
+      }
+    ],
+    mixtos: [
+      {
+        nombre: 'Anuncio',
+        definicion: 'Texto, con o sin imagen, cuya función principal es persuadir al receptor para que compre un producto, use un servicio o adopte una conducta.',
+        rasgos: 'Eslogan breve y memorable; llamada a la acción; combinación de texto e imagen; lenguaje persuasivo y apelativo.',
+        pista: 'Incluye una llamada directa a la acción («Pruébalo ya», «Descúbrelo hoy») y un eslogan corto y repetible.',
+        ejemplo: '«Nuevo. Más ligero. Más tuyo. Descubre la diferencia.»'
+      },
+      {
+        nombre: 'Infografía',
+        definicion: 'Texto multimodal que combina datos, imágenes y texto breve para presentar información de forma visual y sintética.',
+        rasgos: 'Predominio de lo visual sobre el texto corrido; datos numéricos destacados; títulos y etiquetas breves; organización espacial, no lineal.',
+        pista: 'La información se organiza en el espacio, no en párrafos: números destacados, iconos, flechas, bloques visuales.',
+        ejemplo: 'Un titular «El agua en cifras» seguido de porcentajes y pequeños iconos ilustrativos.'
+      },
+      {
+        nombre: 'Reclamo publicitario',
+        definicion: 'Frase o elemento breve y llamativo diseñado para captar la atención del receptor, habitualmente asociado a publicidad o promoción.',
+        rasgos: 'Extrema brevedad; juego de palabras o ritmo pegadizo; función apelativa muy marcada.',
+        pista: 'Es muy breve y está pensado para memorizarse al instante, más que para transmitir información detallada.',
+        ejemplo: '«Porque tú lo vales.» (fórmula breve y memorable, tipo eslogan de marca)'
+      },
+      {
+        nombre: 'Entrevista',
+        definicion: 'Texto estructurado en forma de preguntas y respuestas entre quien entrevista y la persona entrevistada.',
+        rasgos: 'Alternancia clara de turnos (P:/R: o nombres); introducción que contextualiza al entrevistado/a; preguntas que guían el desarrollo.',
+        pista: 'Hay una estructura dialogada explícita, con preguntas y respuestas diferenciadas tipográficamente.',
+        ejemplo: '«—¿Cómo empezó todo? —Pues mira, fue casi por casualidad...»'
+      },
+      {
+        nombre: 'Blog (entrada de blog)',
+        definicion: 'Texto publicado en una plataforma digital personal o temática, de tono habitualmente cercano y subjetivo, actualizado periódicamente.',
+        rasgos: 'Registro informal o semiformal; primera persona; posible interacción con lectores; fecha de publicación visible.',
+        pista: 'Combina la cercanía de un diario personal con la voluntad de llegar a un público lector externo, a menudo con referencias digitales.',
+        ejemplo: '«Llevo unos días dándole vueltas a este tema y por fin me he decidido a escribir sobre ello...»'
+      },
+      {
+        nombre: 'Video musical',
+        definicion: 'Texto que describe, guioniza o comenta el contenido visual y narrativo de un video musical.',
+        rasgos: 'Combina descripción visual (escenas, planos) con referencias a la letra o el ritmo de la canción; vocabulario audiovisual.',
+        pista: 'Describe una secuencia de imágenes ligada a una canción, mezclando lenguaje visual y musical.',
+        ejemplo: '«El video abre con un plano cenital de la ciudad al amanecer, mientras suena el primer verso...»'
+      },
+      {
+        nombre: 'Folleto u hoja informativa',
+        definicion: 'Texto breve, habitualmente con apoyo visual, que informa sobre un producto, servicio, evento o institución de forma clara y organizada.',
+        rasgos: 'Apartados breves con subtítulos; lenguaje claro y directo; datos prácticos frecuentes (horarios, precios, contacto).',
+        pista: 'Se organiza en bloques informativos breves y prácticos, pensados para una lectura rápida y funcional.',
+        ejemplo: '«Horario: de 9:00 a 20:00h. Entrada gratuita. Más información en...»'
+      },
+      {
+        nombre: 'Fotografía',
+        definicion: 'En este contexto, el análisis se centra en una imagen fotográfica —sola o con pie de foto— como texto a interpretar.',
+        rasgos: 'Composición, encuadre, luz y punto de vista como elementos de significado; pie de foto breve que ancla o contextualiza la imagen.',
+        pista: 'El significado se construye visualmente (encuadre, luz, gesto) más que verbalmente; el texto que la acompaña, si existe, es breve.',
+        ejemplo: 'Pie de foto: «Una madre y su hija observan el horizonte desde la ventana de su nuevo hogar.»'
+      },
+      {
+        nombre: 'Viñeta o tira cómica',
+        definicion: 'Narración breve en formato de una o varias viñetas que combina imagen y texto (diálogos, onomatopeyas), a menudo con intención humorística o crítica.',
+        rasgos: 'Bocadillos de diálogo; onomatopeyas; secuencia visual de viñetas; humor o crítica social condensados en poco espacio.',
+        pista: 'Combina imagen secuenciada con bocadillos de texto, y condensa una idea o crítica en muy pocas viñetas.',
+        ejemplo: 'Una tira de tres viñetas plantea una situación cotidiana y la remata con un giro humorístico en la última.'
+      },
+      {
+        nombre: 'Transmisión de radio',
+        definicion: 'Texto pensado para ser emitido y escuchado por radio, o transcripción de dicha emisión.',
+        rasgos: 'Marcas de oralidad; indicaciones de sonido o música; presentador/a que se dirige directamente a la audiencia oyente.',
+        pista: 'Está construido exclusivamente para el oído: sin apoyo visual, con indicaciones de sonido y una voz que guía al oyente.',
+        ejemplo: '«Y volvemos después de la pausa con más música para acompañar esta tarde de...»'
+      },
+      {
+        nombre: 'Diagrama',
+        definicion: 'Representación visual esquemática de un proceso, sistema o relación entre elementos, con apoyo de texto breve (etiquetas, flechas).',
+        rasgos: 'Predominio absoluto de lo visual y espacial; texto reducido a etiquetas o leyendas; flechas o líneas que indican relación o secuencia.',
+        pista: 'Casi no hay prosa: la información se transmite mediante formas, flechas y etiquetas cortas.',
+        ejemplo: 'Un diagrama de flujo con cajas etiquetadas «Inicio → Proceso → Decisión → Fin».'
+      },
+      {
+        nombre: 'Informe',
+        definicion: 'Texto que expone de manera objetiva y estructurada los resultados de una investigación, estudio o análisis de una situación.',
+        rasgos: 'Estructura muy formalizada (introducción, metodología, resultados, conclusiones); registro formal e impersonal; datos y evidencias.',
+        pista: 'Tiene una estructura rígida en apartados numerados o titulados, con voluntad de objetividad y casi sin primera persona.',
+        ejemplo: '«El presente informe tiene como objetivo analizar el impacto de...»'
+      },
+      {
+        nombre: 'Texto en formato electrónico',
+        definicion: 'Publicación breve en una plataforma digital —red social, foro, mensajería—, caracterizada por su inmediatez y brevedad.',
+        rasgos: 'Extensión muy breve; posibles hashtags, emojis o abreviaturas; registro muy informal; interacción implícita (me gusta, comentarios).',
+        pista: 'Hay brevedad extrema y marcas propias del lenguaje digital (hashtags, menciones, emojis).',
+        ejemplo: '«No puedo creer lo que acabo de ver en las noticias... 😳 #necesitamoscambios»'
+      },
+      {
+        nombre: 'Guion de televisión o película',
+        definicion: 'Texto que organiza los diálogos, acciones y acotaciones técnicas de una producción audiovisual.',
+        rasgos: 'Acotaciones técnicas (planos, escenas); diálogos atribuidos a personajes; indicaciones de tiempo y espacio muy precisas.',
+        pista: 'Combina diálogo con indicaciones técnicas explícitas (INT./EXT., nombres de personajes en mayúscula, acotaciones de acción).',
+        ejemplo: '«INT. COCINA - DÍA. MARÍA entra apresurada y deja las llaves sobre la mesa.»'
+      },
+      {
+        nombre: 'Entrada de enciclopedia',
+        definicion: 'Texto informativo y objetivo que define y explica un concepto, persona o hecho, organizado para la consulta rápida.',
+        rasgos: 'Registro formal e impersonal; estructura definitoria (qué es, cuándo, dónde, por qué es relevante); ausencia de opinión personal.',
+        pista: 'Define de forma neutra y objetiva, sin voz personal, como si cualquiera pudiera haberlo escrito.',
+        ejemplo: '«El término se refiere a... Fue documentado por primera vez en...»'
+      },
+      {
+        nombre: 'Conjunto de instrucciones',
+        definicion: 'Texto que explica, paso a paso, cómo realizar una tarea o utilizar un objeto.',
+        rasgos: 'Verbos en imperativo o infinitivo; numeración o viñetas de pasos; lenguaje muy directo y funcional, sin adornos.',
+        pista: 'Hay una secuencia numerada de pasos con verbos de mandato, sin narración ni opinión.',
+        ejemplo: '«1. Retire el envoltorio. 2. Coloque el producto sobre una superficie plana. 3. Presione el botón tres segundos.»'
+      },
+      {
+        nombre: 'Película o programa de televisión',
+        definicion: 'En este contexto, el propio producto audiovisual —o un fragmento comentado de él— se analiza como texto multimodal.',
+        rasgos: 'Se analizan juntos el montaje, la banda sonora, los diálogos y la puesta en escena, no solo lo escrito.',
+        pista: 'El análisis debe atender a imagen, sonido y palabra a la vez, no solo a lo verbal.',
+        ejemplo: 'Un fragmento comentado describe cómo música y silencio alternan para generar tensión en una escena.'
+      },
+      {
+        nombre: 'Libro de texto',
+        definicion: 'Material didáctico organizado para la enseñanza de una materia, con estructura pedagógica clara (unidades, actividades, resúmenes).',
+        rasgos: 'Estructura en unidades o capítulos; recuadros de definiciones o actividades; registro claro y didáctico dirigido a quien aprende.',
+        pista: 'Tiene una organización pedagógica explícita: objetivos, actividades, resúmenes, a menudo con esquemas o recuadros.',
+        ejemplo: '«En esta unidad aprenderás a... Antes de empezar, responde a las siguientes preguntas:»'
+      },
+      {
+        nombre: 'Guía',
+        definicion: 'Texto práctico que orienta al lector sobre cómo actuar, desplazarse o proceder en un contexto determinado (turístico, de uso, de procedimiento).',
+        rasgos: 'Segunda persona o imperativo; recomendaciones prácticas; organización frecuente por apartados temáticos o geográficos.',
+        pista: 'Se dirige directamente al lector con consejos prácticos y recomendaciones de uso, más allá de solo datos objetivos.',
+        ejemplo: '«Si visitas la ciudad en verano, te recomendamos evitar las horas centrales del día y llevar siempre agua.»'
+      },
+      {
+        nombre: 'Obra de arte',
+        definicion: 'En este contexto, una obra visual —pintura, escultura, instalación— se analiza como texto, atendiendo a las decisiones formales que construyen su significado.',
+        rasgos: 'Análisis centrado en composición, color, técnica y contexto de creación; ausencia de texto verbal salvo el título.',
+        pista: 'Apenas hay palabras que analizar: el significado se construye mediante forma, color, composición y contexto.',
+        ejemplo: 'El título y una breve ficha técnica (autor, año, técnica) suelen ser el único texto verbal que la acompaña.'
+      }
+    ]
+  };
+
+  // ═══════════════════════════════════════════════════════
+  // DATOS — TAB 2: APERTURAS PARA RECONOCER
+  // ═══════════════════════════════════════════════════════
+  var INCIPITS = [
+    {
+      frase: '«1. Desenrolle el cable por completo antes de conectarlo. 2. Compruebe que el interruptor está en posición OFF. 3. Conecte a una toma de corriente con conexión a tierra.»',
+      tipo: 'Conjunto de instrucciones',
+      marcador: 'Numeración de pasos con verbos en imperativo, sin narración ni opinión.',
+      explicacion: 'No cuenta nada ni recomienda con matices: ordena una secuencia estricta de acciones, una por una.'
+    },
+    {
+      frase: '«Querida Elena: no sabes cuánto me alegró recibir tu carta. Aquí las cosas siguen igual, aunque el otoño ya se nota en...»',
+      tipo: 'Carta',
+      marcador: 'Fórmula de saludo dirigida a un destinatario nombrado y tono personal de correspondencia.',
+      explicacion: 'El «Querida Elena» y la referencia a una carta anterior recibida confirman que es una comunicación dirigida a alguien concreto.'
+    },
+    {
+      frase: '«El fenómeno fue documentado por primera vez a mediados del siglo XIX y desde entonces ha sido objeto de numerosos estudios en distintas disciplinas.»',
+      tipo: 'Entrada de enciclopedia',
+      marcador: 'Registro formal, impersonal, con voluntad definitoria y ausencia total de opinión.',
+      explicacion: 'No hay ningún «yo» ni valoración personal: el texto define y contextualiza de forma neutra, como si cualquiera pudiera haberlo escrito.'
+    },
+    {
+      frase: '«¡Última semana de rebajas! Hasta un 50% en toda la colección. No dejes pasar esta oportunidad.»',
+      tipo: 'Anuncio',
+      marcador: 'Llamada directa a la acción y lenguaje apelativo orientado a la compra inmediata.',
+      explicacion: '«No dejes pasar esta oportunidad» es una llamada a la acción típica del lenguaje publicitario, ausente en un texto meramente informativo.'
+    },
+    {
+      frase: '—Y cuando ganaste el premio, ¿qué fue lo primero que pensaste? —Sinceramente, pensé en mi madre. Ella siempre creyó que...',
+      tipo: 'Entrevista',
+      marcador: 'Alternancia de turnos de pregunta y respuesta entre dos voces diferenciadas.',
+      explicacion: 'La estructura de pregunta seguida de respuesta, con guiones que marcan el cambio de turno, es la marca formal más clara de la entrevista.'
+    },
+    {
+      frase: '«Llevo tres días sin dormir bien y hoy por fin he entendido por qué. Os cuento la movida completa en este post, que promete...»',
+      tipo: 'Blog (entrada de blog)',
+      marcador: 'Registro informal y cercano en primera persona, dirigido a un público lector externo.',
+      explicacion: 'El tono desenfadado y la conciencia de que hay lectores («os cuento») lo distinguen de un diario íntimo, que no espera lectores.'
+    }
+  ];
+
+  // ═══════════════════════════════════════════════════════
+  // DATOS — EJERCICIOS
+  // ═══════════════════════════════════════════════════════
+  var EJ1_ITEMS = [
+    {
+      id: 't1a',
+      frase: '«Estimado señor director: le escribo para expresar mi profundo desacuerdo con la decisión anunciada la semana pasada.»',
+      opciones: ['Carta', 'Entrada de enciclopedia', 'Informe', 'Diagrama'],
+      correcta: 'Carta',
+      fb_ok: '✓ Correcto. La fórmula de saludo dirigida a un destinatario concreto («Estimado señor director») es la marca característica de la carta.',
+      fb_ko: 'Fíjate en el saludo inicial dirigido a una persona concreta: esa fórmula de tratamiento es propia de la carta, no de un informe ni de una entrada de enciclopedia.'
+    },
+    {
+      id: 't1b',
+      frase: '«1. Retire el envoltorio. 2. Coloque el producto sobre una superficie plana. 3. Presione el botón durante tres segundos.»',
+      opciones: ['Conjunto de instrucciones', 'Guía', 'Informe', 'Manifiesto'],
+      correcta: 'Conjunto de instrucciones',
+      fb_ok: '✓ Correcto. Son pasos numerados con verbos de mandato puramente procedimentales: eso es un conjunto de instrucciones, no una guía (que da recomendaciones más abiertas).',
+      fb_ko: 'Compara con una guía: la guía aconseja y orienta con cierta libertad; aquí hay una secuencia estricta y numerada de acciones obligatorias. Eso es un conjunto de instrucciones.'
+    },
+    {
+      id: 't1c',
+      frase: '«El presente informe tiene como objetivo analizar el impacto de la nueva normativa en el sector energético durante el último año.»',
+      opciones: ['Informe', 'Columna de opinión', 'Discurso', 'Blog'],
+      correcta: 'Informe',
+      fb_ok: '✓ Correcto. La estructura formal, el propósito declarado explícitamente y la ausencia de una voz personal marcada son propios del informe.',
+      fb_ko: 'Fíjate en que el propio texto anuncia su «objetivo» de forma impersonal, sin opinión personal ni apelación a un oyente. Eso es un informe, no una columna de opinión ni un discurso.'
+    },
+    {
+      id: 't1d',
+      frase: '«No puedo creer lo que acabo de ver en las noticias... 😳 #necesitamoscambios»',
+      opciones: ['Texto en formato electrónico', 'Entrada de enciclopedia', 'Ensayo', 'Guion de televisión'],
+      correcta: 'Texto en formato electrónico',
+      fb_ok: '✓ Correcto. La brevedad extrema, el emoji y el hashtag son marcas propias del lenguaje digital en redes sociales.',
+      fb_ko: 'El emoji y el hashtag son marcas inequívocas del lenguaje digital de redes sociales, muy distintas del registro formal de una enciclopedia o un ensayo.'
+    }
+  ];
+
+  var EJ2_CONFIG = [
+    {
+      id: 't2a',
+      recurso: 'Discurso',
+      pregunta: '¿Cuál es la pista clave que confirma que un texto es un discurso?',
+      opciones: [
+        'Está construido para ser oído, con apelaciones directas a quien escucha y frases pensadas para el ritmo oral',
+        'Tiene fórmulas de saludo y despedida dirigidas a un destinatario nombrado',
+        'Se organiza en apartados numerados con metodología y resultados'
+      ],
+      correcta: 'Está construido para ser oído, con apelaciones directas a quien escucha y frases pensadas para el ritmo oral',
+      fb_ok: '✓ Correcto. El discurso se distingue precisamente porque está pensado para la voz y el oído, no para la lectura silenciosa.',
+      fb_ko: 'Esas otras dos pistas corresponden a la carta y al informe. La marca propia del discurso es que está construido para ser escuchado, con apelaciones directas al público.'
+    },
+    {
+      id: 't2b',
+      recurso: 'Informe',
+      pregunta: '¿Cuál es la pista clave que confirma que un texto es un informe?',
+      opciones: [
+        'Tiene una estructura formalizada en apartados, con voluntad de objetividad y casi sin primera persona',
+        'Usa emojis y hashtags para captar la atención',
+        'Se dirige al lector con recomendaciones prácticas de uso'
+      ],
+      correcta: 'Tiene una estructura formalizada en apartados, con voluntad de objetividad y casi sin primera persona',
+      fb_ok: '✓ Correcto. El informe se reconoce por su estructura rígida y su voluntad de objetividad, alejada de la primera persona.',
+      fb_ko: 'Esas otras pistas corresponden al texto en formato electrónico y a la guía. El informe se caracteriza por su estructura formal y su objetividad impersonal.'
+    }
+  ];
+
+  var EJ3_CITA = '«Queridos compañeros, hoy os pido que alcéis la voz por una causa que nos afecta a todos. No podemos permanecer en silencio.»';
+  var EJ3_FUENTE = 'Fragmento de ejemplo elaborado para este módulo';
+  var EJ3_CONFIG = [
+    {
+      id: 'ej3t',
+      etiq: 'TIPO DE TEXTO',
+      opciones: ['— elige —', 'Discurso', 'Carta', 'Informe'],
+      correcta: 'Discurso'
+    },
+    {
+      id: 'ej3m',
+      etiq: 'MARCADOR FORMAL',
+      opciones: [
+        '— elige —',
+        'Apelación directa a la audiencia («Queridos compañeros») y verbo de mandato colectivo («os pido»)',
+        'Fórmula de saludo dirigida a un destinatario individual',
+        'Estructura numerada en apartados'
+      ],
+      correcta: 'Apelación directa a la audiencia («Queridos compañeros») y verbo de mandato colectivo («os pido»)'
+    },
+    {
+      id: 'ej3f',
+      etiq: 'FUNCIÓN COMUNICATIVA',
+      opciones: [
+        '— elige —',
+        'Movilizar emocionalmente a una audiencia presente para la acción colectiva',
+        'Informar de forma neutra sobre un hecho',
+        'Registrar un pensamiento íntimo sin destinatario'
+      ],
+      correcta: 'Movilizar emocionalmente a una audiencia presente para la acción colectiva'
+    },
+    {
+      id: 'ej3p',
+      etiq: 'PISTA DEFINITIVA',
+      opciones: [
+        '— elige —',
+        'Está pensado para ser escuchado en voz alta ante un público, no leído en privado',
+        'Incluye una fórmula de despedida como «Atentamente»',
+        'Se organiza en pasos numerados'
+      ],
+      correcta: 'Está pensado para ser escuchado en voz alta ante un público, no leído en privado'
+    }
+  ];
+
+  // ═══════════════════════════════════════════════════════
+  // TABS
+  // ═══════════════════════════════════════════════════════
+  function cambiarTab(idx) {
+    var paneles = document.querySelectorAll('.tab-panel');
+    var botones = document.querySelectorAll('.tab-btn');
+    paneles.forEach(function (p, i) {
+      p.classList.toggle('activo', i === idx);
+    });
+    botones.forEach(function (b, i) {
+      b.classList.toggle('activo', i === idx);
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  window.cambiarTab = cambiarTab;
+
+  // ═══════════════════════════════════════════════════════
+  // TAB 1 — CONSTRUIR TARJETAS DE TIPOS
+  // ═══════════════════════════════════════════════════════
+  function construirTarjetas(categoria, contenedorId) {
+    var contenedor = document.getElementById(contenedorId);
+    if (!contenedor) return;
+    TIPOS[categoria].forEach(function (rec, i) {
+      var id = 'card-' + categoria + '-' + i;
+
+      var card = document.createElement('div');
+      card.className = 'recurso-card';
+      card.id = id;
+
+      var cab = document.createElement('div');
+      cab.className = 'recurso-cabecera';
+      cab.onclick = function () { toggleCard(id); };
+
+      var nom = document.createElement('div');
+      nom.className = 'recurso-nombre';
+      nom.textContent = rec.nombre;
+
+      var tog = document.createElement('div');
+      tog.className = 'recurso-toggle';
+      tog.textContent = '+';
+
+      cab.appendChild(nom);
+      cab.appendChild(tog);
+
+      var cuerpo = document.createElement('div');
+      cuerpo.className = 'recurso-cuerpo';
+
+      var def = document.createElement('p');
+      def.className = 'recurso-definicion';
+      def.textContent = rec.definicion;
+
+      var ficha = document.createElement('div');
+      ficha.className = 'recurso-ficha';
+
+      var filas = [
+        { etiq: 'Rasgos', val: rec.rasgos },
+        { etiq: 'Pista clave', val: rec.pista },
+        { etiq: 'Ejemplo', val: rec.ejemplo }
+      ];
+
+      filas.forEach(function (fila) {
+        var f = document.createElement('div');
+        f.className = 'ficha-fila';
+        var e = document.createElement('div');
+        e.className = 'ficha-etiq';
+        e.textContent = fila.etiq;
+        var v = document.createElement('div');
+        v.className = 'ficha-val';
+        v.textContent = fila.val;
+        f.appendChild(e);
+        f.appendChild(v);
+        ficha.appendChild(f);
+      });
+
+      cuerpo.appendChild(def);
+      cuerpo.appendChild(ficha);
+      card.appendChild(cab);
+      card.appendChild(cuerpo);
+      contenedor.appendChild(card);
+    });
+  }
+
+  function toggleCard(id) {
+    var card = document.getElementById(id);
+    if (!card) return;
+    card.classList.toggle('abierta');
+  }
+  window.toggleCard = toggleCard;
+
+  // ═══════════════════════════════════════════════════════
+  // TAB 2 — APERTURAS PARA RECONOCER
+  // ═══════════════════════════════════════════════════════
+  function construirIncipits() {
+    var contenedor = document.getElementById('grid-incipits');
+    if (!contenedor) return;
+    INCIPITS.forEach(function (item, i) {
+      var id = 'incipit-' + i;
+
+      var card = document.createElement('div');
+      card.className = 'recurso-card';
+      card.id = id;
+
+      var cab = document.createElement('div');
+      cab.className = 'recurso-cabecera';
+      cab.onclick = function () { toggleCard(id); };
+
+      var nom = document.createElement('div');
+      nom.className = 'recurso-nombre';
+      nom.style.fontSize = '0.95rem';
+      nom.style.fontStyle = 'italic';
+      nom.style.fontWeight = '600';
+      nom.textContent = item.frase;
+
+      var tog = document.createElement('div');
+      tog.className = 'recurso-toggle';
+      tog.textContent = '+';
+
+      cab.appendChild(nom);
+      cab.appendChild(tog);
+
+      var cuerpo = document.createElement('div');
+      cuerpo.className = 'recurso-cuerpo';
+
+      var ficha = document.createElement('div');
+      ficha.className = 'recurso-ficha';
+      ficha.style.borderTop = 'none';
+      ficha.style.paddingTop = '0';
+
+      var filas = [
+        { etiq: 'Tipo de texto', val: item.tipo },
+        { etiq: 'Marcador', val: item.marcador },
+        { etiq: 'Explicación', val: item.explicacion }
+      ];
+      filas.forEach(function (fila) {
+        var f = document.createElement('div');
+        f.className = 'ficha-fila';
+        var e = document.createElement('div');
+        e.className = 'ficha-etiq';
+        e.textContent = fila.etiq;
+        var v = document.createElement('div');
+        v.className = 'ficha-val';
+        v.textContent = fila.val;
+        f.appendChild(e);
+        f.appendChild(v);
+        ficha.appendChild(f);
+      });
+
+      cuerpo.appendChild(ficha);
+      card.appendChild(cab);
+      card.appendChild(cuerpo);
+      contenedor.appendChild(card);
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════
+  // TAB 3 — EJERCICIO 1
+  // ═══════════════════════════════════════════════════════
+  var ej1Estado = {};
+
+  function construirEj1() {
+    var cont = document.getElementById('ej1-contenedor');
+    if (!cont) return;
+    cont.innerHTML = '';
+    EJ1_ITEMS.forEach(function (item) {
+      ej1Estado[item.id] = false;
+
+      var bloque = document.createElement('div');
+      bloque.className = 'clasificar-items';
+
+      var card = document.createElement('div');
+      card.className = 'clas-item';
+
+      var frase = document.createElement('div');
+      frase.className = 'clas-frase';
+      frase.textContent = item.frase;
+
+      var botones = document.createElement('div');
+      botones.className = 'clas-botones';
+
+      item.opciones.forEach(function (op) {
+        var btn = document.createElement('button');
+        btn.className = 'btn-clas';
+        btn.textContent = op;
+        btn.onclick = (function (opcion, itemId, btnRef) {
+          return function () {
+            if (ej1Estado[itemId]) return;
+            var fb = document.getElementById('fb-' + itemId);
+            if (opcion === item.correcta) {
+              btnRef.className = 'btn-clas ok';
+              fb.className = 'clas-feedback ok';
+              fb.textContent = item.fb_ok;
+              fb.style.display = 'block';
+              ej1Estado[itemId] = true;
+              verificarMensajeFinal();
+            } else {
+              btnRef.className = 'btn-clas ko';
+              fb.className = 'clas-feedback ko';
+              fb.textContent = item.fb_ko;
+              fb.style.display = 'block';
+              setTimeout(function () {
+                btnRef.className = 'btn-clas';
+                fb.style.display = 'none';
+              }, 2200);
+            }
+          };
+        })(op, item.id, btn);
+        botones.appendChild(btn);
+      });
+
+      var fb = document.createElement('div');
+      fb.className = 'clas-feedback';
+      fb.id = 'fb-' + item.id;
+
+      card.appendChild(frase);
+      card.appendChild(botones);
+      card.appendChild(fb);
+      bloque.appendChild(card);
+      cont.appendChild(bloque);
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════
+  // TAB 3 — EJERCICIO 2
+  // ═══════════════════════════════════════════════════════
+  function construirEj2() {
+    var cont = document.getElementById('ej2-contenedor');
+    if (!cont) return;
+    cont.innerHTML = '';
+    EJ2_CONFIG.forEach(function (cfg) {
+      var bloque = document.createElement('div');
+      bloque.className = 'ej2-bloque';
+
+      var recLabel = document.createElement('div');
+      recLabel.className = 'ej2-recurso';
+      recLabel.textContent = 'Tipo de texto: ' + cfg.recurso;
+
+      var preg = document.createElement('div');
+      preg.className = 'ej2-pregunta';
+      preg.textContent = cfg.pregunta;
+
+      var sel = document.createElement('select');
+      sel.className = 'ej2-select';
+      sel.id = 'sel-' + cfg.id;
+
+      var opt0 = document.createElement('option');
+      opt0.value = '';
+      opt0.textContent = '— elige —';
+      sel.appendChild(opt0);
+      cfg.opciones.forEach(function (op) {
+        var opt = document.createElement('option');
+        opt.value = op;
+        opt.textContent = op;
+        sel.appendChild(opt);
+      });
+
+      var fb = document.createElement('div');
+      fb.className = 'ej2-feedback';
+      fb.id = 'fb2-' + cfg.id;
+
+      bloque.appendChild(recLabel);
+      bloque.appendChild(preg);
+      bloque.appendChild(sel);
+      bloque.appendChild(fb);
+      cont.appendChild(bloque);
+    });
+  }
+
+  function comprobarEj2() {
+    var aciertos = 0;
+    EJ2_CONFIG.forEach(function (cfg) {
+      var sel = document.getElementById('sel-' + cfg.id);
+      var fb = document.getElementById('fb2-' + cfg.id);
+      if (!sel || !fb) return;
+      if (sel.value === cfg.correcta) {
+        sel.className = 'ej2-select correcto';
+        fb.className = 'ej2-feedback ok';
+        fb.textContent = cfg.fb_ok;
+        fb.style.display = 'block';
+        aciertos++;
+      } else if (sel.value === '') {
+        fb.style.display = 'none';
+      } else {
+        sel.className = 'ej2-select incorrecto';
+        fb.className = 'ej2-feedback ko';
+        fb.textContent = cfg.fb_ko;
+        fb.style.display = 'block';
+      }
+    });
+    var res = document.getElementById('ej2-resultado');
+    res.style.display = 'block';
+    if (aciertos === EJ2_CONFIG.length) {
+      res.className = 'resultado-global ok';
+      res.textContent = '✓ Perfecto. Has identificado la pista clave precisa en los dos casos. Cada tipo de texto se delata por rasgos formales concretos, no por el tema del que habla.';
+      logros.ej2 = true;
+      verificarMensajeFinal();
+    } else {
+      res.className = 'resultado-global parcial';
+      res.textContent = aciertos + ' de ' + EJ2_CONFIG.length + ' correctas. Revisa las marcadas en rojo: la pista clave debe ser específica de ese tipo de texto, no una característica genérica.';
+    }
+  }
+  window.comprobarEj2 = comprobarEj2;
+
+  function resetEj2() {
+    construirEj2();
+    var res = document.getElementById('ej2-resultado');
+    res.style.display = 'none';
+    logros.ej2 = false;
+  }
+  window.resetEj2 = resetEj2;
+
+  // ═══════════════════════════════════════════════════════
+  // TAB 3 — EJERCICIO 3
+  // ═══════════════════════════════════════════════════════
+  function construirEj3() {
+    var cont = document.getElementById('ej3-contenedor');
+    if (!cont) return;
+    cont.innerHTML = '';
+
+    var cita = document.createElement('div');
+    cita.className = 'ej3-cita';
+    cita.textContent = EJ3_CITA;
+    var fuente = document.createElement('span');
+    fuente.className = 'ej3-fuente';
+    fuente.textContent = EJ3_FUENTE;
+    cita.appendChild(fuente);
+    cont.appendChild(cita);
+
+    var formula = document.createElement('div');
+    formula.className = 'ej3-formula';
+
+    EJ3_CONFIG.forEach(function (cfg) {
+      var fila = document.createElement('div');
+      fila.className = 'ej3-fila';
+
+      var etiq = document.createElement('div');
+      etiq.className = 'ej3-etiq';
+      etiq.textContent = cfg.etiq;
+
+      var sel = document.createElement('select');
+      sel.className = 'ej3-select';
+      sel.id = cfg.id;
+      cfg.opciones.forEach(function (op) {
+        var opt = document.createElement('option');
+        opt.value = op === '— elige —' ? '' : op;
+        opt.textContent = op;
+        sel.appendChild(opt);
+      });
+
+      fila.appendChild(etiq);
+      fila.appendChild(sel);
+      formula.appendChild(fila);
+    });
+    cont.appendChild(formula);
+  }
+
+  function comprobarEj3() {
+    var aciertos = 0;
+    EJ3_CONFIG.forEach(function (cfg) {
+      var sel = document.getElementById(cfg.id);
+      if (!sel) return;
+      if (sel.value === cfg.correcta) {
+        sel.className = 'ej3-select correcto';
+        aciertos++;
+      } else {
+        sel.className = 'ej3-select incorrecto';
+      }
+    });
+    var res = document.getElementById('ej3-resultado');
+    res.style.display = 'block';
+    if (aciertos === EJ3_CONFIG.length) {
+      res.className = 'resultado-global ok';
+      res.textContent = '✓ Excelente. Has completado la ficha de identificación completa sobre un texto real. Ese primer paso —saber qué tipo de texto tienes delante— condiciona todo el análisis posterior.';
+      logros.ej3 = true;
+      verificarMensajeFinal();
+    } else {
+      res.className = 'resultado-global parcial';
+      res.textContent = aciertos + ' de ' + EJ3_CONFIG.length + ' pasos correctos. Los marcados en rojo necesitan revisión. Vuelve al Tab 1 si quieres repasar los rasgos del discurso.';
+    }
+  }
+  window.comprobarEj3 = comprobarEj3;
+
+  function resetEj3() {
+    construirEj3();
+    var res = document.getElementById('ej3-resultado');
+    res.style.display = 'none';
+    logros.ej3 = false;
+  }
+  window.resetEj3 = resetEj3;
+
+  // ═══════════════════════════════════════════════════════
+  // MENSAJE FINAL
+  // ═══════════════════════════════════════════════════════
+  var logros = { ej1: false, ej2: false, ej3: false };
+
+  function verificarMensajeFinal() {
+    var todosEj1 = EJ1_ITEMS.every(function (item) { return ej1Estado[item.id]; });
+    if (todosEj1) logros.ej1 = true;
+    if (logros.ej1 && logros.ej2 && logros.ej3) {
+      var mf = document.getElementById('mensaje-final');
+      if (mf) mf.style.display = 'block';
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════
+  // INIT
+  // ═══════════════════════════════════════════════════════
+  construirTarjetas('siempre', 'grid-siempre');
+  construirTarjetas('mixtos', 'grid-mixtos');
+  construirIncipits();
+  construirEj1();
+  construirEj2();
+  construirEj3();
+
+})();
+</script>
+</body>
+</html>
