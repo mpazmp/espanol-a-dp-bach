@@ -174,6 +174,9 @@
   .ejercicio .ayuda{
     font-size:.82rem;color:var(--tinta-suave);margin-top:6px;font-style:italic;
   }
+  .guardado-aviso{
+    font-size:.8rem;color:var(--turquesa);font-style:italic;display:none;margin-top:4px;
+  }
 
   /* ---- MINI NAV ---- */
   .mini-nav{
@@ -312,14 +315,16 @@
     <div class="ejercicio">
       <span class="num">1</span><h4>Identificar y verbalizar</h4>
       <div class="consigna">Elige uno de los ejes que falta (tiempo narrativo o espacio) y completa la cadena completa RECURSO→DECISIÓN→EFECTO→SIGNIFICADO para "La noche boca arriba", sin mirar atrás en este módulo.</div>
-      <textarea placeholder="Escribe aquí tu cadena de análisis..."></textarea>
+      <textarea id="campo-t2-ej1" placeholder="Escribe aquí tu cadena de análisis..."></textarea>
+      <div class="guardado-aviso" id="aviso-campo-t2-ej1">Borrador guardado en este navegador</div>
       <div class="ayuda">Pista si te bloqueas: empieza por el EFECTO — qué sentiste al leerlo — y trabaja hacia atrás hasta encontrar qué decisión técnica lo provoca.</div>
     </div>
 
     <div class="ejercicio">
       <span class="num">2</span><h4>De la pregunta al eje</h4>
       <div class="consigna">Pregunta tipo de examen: <em>"Discuta las técnicas utilizadas para construir a los personajes en dos obras estudiadas."</em> ¿Qué eje (o combinación de ejes) de "La noche boca arriba" usarías para responder a esta pregunta si fuera una de tus dos obras? Justifica en 3-4 líneas por qué ese eje es pertinente para <em>esta</em> pregunta y no otro.</div>
-      <textarea placeholder="Escribe tu justificación..."></textarea>
+      <textarea id="campo-t2-ej2" placeholder="Escribe tu justificación..."></textarea>
+      <div class="guardado-aviso" id="aviso-campo-t2-ej2">Borrador guardado en este navegador</div>
       <div class="ayuda">Este ejercicio no evalúa el cuento, evalúa tu criterio para elegir qué análisis sirve a qué pregunta — la habilidad que marca la diferencia entre un ensayo Alto y uno Medio.</div>
     </div>
 
@@ -327,7 +332,8 @@
       <span class="num">3</span><h4>Detectar la descripción</h4>
       <div class="consigna">Lee esta respuesta de ejemplo y reescríbela para que deje de ser descriptiva y se convierta en análisis (añade el EFECTO y el SIGNIFICADO que le faltan):<br><br>
       <em>"En el cuento, Cortázar alterna entre la historia del hospital y la historia de la persecución. Esto pasa varias veces a lo largo del relato."</em></div>
-      <textarea placeholder="Reescribe la respuesta añadiendo efecto y significado..."></textarea>
+      <textarea id="campo-t2-ej3" placeholder="Reescribe la respuesta añadiendo efecto y significado..."></textarea>
+      <div class="guardado-aviso" id="aviso-campo-t2-ej3">Borrador guardado en este navegador</div>
       <div class="ayuda">Esto es exactamente el patrón que el simulacro detectó: identificar el recurso sin llegar al efecto ni al significado. Practicar a detectarlo en otros ayuda a evitarlo en lo propio.</div>
     </div>
   </section>
@@ -342,14 +348,16 @@
     <div class="ejercicio">
       <span class="num">1</span><h4>Dos ejes en un párrafo</h4>
       <div class="consigna">Escribe un párrafo breve (5-6 líneas) sobre "La noche boca arriba" que combine <strong>dos ejes a la vez</strong> (por ejemplo, estructura + espacio, o narrador + tiempo). No uses la fórmula como plantilla visible — intégrala en prosa fluida, como en un ensayo real.</div>
-      <textarea placeholder="Escribe tu párrafo integrando dos ejes..."></textarea>
+      <textarea id="campo-t3-ej1" placeholder="Escribe tu párrafo integrando dos ejes..."></textarea>
+      <div class="guardado-aviso" id="aviso-campo-t3-ej1">Borrador guardado en este navegador</div>
       <div class="ayuda">En el examen real nunca se analiza un eje aislado del resto: los cuatro trabajan juntos para construir el mismo significado. Aquí empiezas a tejerlos.</div>
     </div>
 
     <div class="ejercicio">
       <span class="num">2</span><h4>Transferencia: el mismo eje, otra obra</h4>
       <div class="consigna">Elige el mismo eje que trabajaste en el Ejercicio 1 de la Pestaña 2, pero aplícalo ahora a <strong>otra obra que ya hayas leído completa</strong> (de este curso o de cursos anteriores — elige tú cuál). ¿Cómo cambia el análisis al cambiar de obra? Completa la cadena completa, indicando primero qué obra has elegido.</div>
-      <textarea placeholder="Obra elegida: ...&#10;&#10;Escribe tu cadena de análisis..."></textarea>
+      <textarea id="campo-t3-ej2" placeholder="Obra elegida: ...&#10;&#10;Escribe tu cadena de análisis..."></textarea>
+      <div class="guardado-aviso" id="aviso-campo-t3-ej2">Borrador guardado en este navegador</div>
       <div class="ayuda">Esto comprueba si de verdad dominas el eje como herramienta transferible, o si solo lo memorizaste pegado a Cortázar — que es justo lo que el examen exige el día de la prueba.</div>
     </div>
 
@@ -364,7 +372,8 @@
         </ul>
         ¿Qué puntuación te darías, y qué cambiarías de tu propio párrafo para subir un nivel?
       </div>
-      <textarea placeholder="Tu autoevaluación y qué mejorarías..."></textarea>
+      <textarea id="campo-t3-ej3" placeholder="Tu autoevaluación y qué mejorarías..."></textarea>
+      <div class="guardado-aviso" id="aviso-campo-t3-ej3">Borrador guardado en este navegador</div>
       <div class="ayuda">Aprender a leer tu propio trabajo con el lenguaje exacto del examinador es una de las formas más rápidas de mejorar — así lo hace quien corrige tu examen.</div>
     </div>
   </section>
@@ -399,6 +408,44 @@
       ? 'Ocultar ejemplo'
       : 'Ver ejemplo con "La noche boca arriba"';
   }
+
+  // ---- Guardado automático en este navegador (localStorage) ----
+  // Cada respuesta se guarda solo en el dispositivo de la alumna: nadie más
+  // la ve ni se envía a ningún sitio. Sigue ahí aunque cierre la página.
+  (function initGuardadoAutomatico(){
+    var PREFIJO = 'p2-2dp-m0-';
+    var campos = document.querySelectorAll('.ejercicio textarea[id^="campo-"]');
+
+    campos.forEach(function(textarea){
+      var claveStorage = PREFIJO + textarea.id;
+      var aviso = document.getElementById('aviso-' + textarea.id);
+
+      try {
+        var guardado = window.localStorage.getItem(claveStorage);
+        if (guardado) {
+          textarea.value = guardado;
+        }
+      } catch (e) {
+        // localStorage no disponible: se sigue trabajando sin guardado automático
+      }
+
+      var guardarTimeout = null;
+      textarea.addEventListener('input', function(){
+        clearTimeout(guardarTimeout);
+        guardarTimeout = setTimeout(function(){
+          try {
+            window.localStorage.setItem(claveStorage, textarea.value);
+            if (aviso) {
+              aviso.style.display = 'inline';
+              setTimeout(function(){ aviso.style.display = 'none'; }, 2000);
+            }
+          } catch (e) {
+            // localStorage no disponible: no se puede guardar automáticamente
+          }
+        }, 600);
+      });
+    });
+  })();
 </script>
 
 </body>
