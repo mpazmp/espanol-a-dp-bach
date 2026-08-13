@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prueba 2 · 1º DP · Módulo 1 · Tres ejes más</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul:#1a4a7a;
+    --azul-osc:#0f2f4d;
+    --turquesa:#0e9aa7;
+    --terracota:#c64829;
+    --oro:#c9973a;
+    --crema:#faf7f1;
+    --papel:#ffffff;
+    --tinta:#22303c;
+    --tinta-suave:#5b6b78;
+    --borde:#e1dcd0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Source Sans 3',sans-serif;
+    background:var(--crema);
+    color:var(--tinta);
+    padding-bottom:84px;
+  }
+  h1,h2,h3,h4{font-family:'Playfair Display',serif;margin:0 0 .4em 0;}
+  a{color:var(--azul);}
+
+  /* ---- HERO ---- */
+  .hero{
+    background:var(--azul);
+    color:#fff;
+    padding:30px 20px 0;
+  }
+  .hero .eyebrow{
+    font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;
+    color:var(--turquesa);font-weight:600;margin-bottom:8px;
+  }
+  .hero h1{font-size:1.6rem;line-height:1.25;max-width:640px;}
+  .hero p{max-width:620px;font-size:.98rem;line-height:1.55;color:#dce6ef;margin-top:10px;}
+  .hero .formula{
+    margin-top:18px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+    font-size:.82rem;font-weight:600;letter-spacing:.02em;
+    padding-bottom:26px;
+  }
+  .hero .formula span{
+    background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.25);
+    padding:5px 10px;border-radius:5px;
+  }
+  .hero .formula .arrow{background:none;border:none;color:var(--turquesa);padding:0 2px;}
+
+  /* ---- TABS ---- */
+  .tabs-bar{
+    display:flex;
+    background:var(--azul);
+    border-bottom:3px solid var(--terracota);
+    position:sticky;top:0;z-index:10;
+    overflow-x:auto;
+  }
+  .tab-btn{
+    flex:1;min-width:150px;
+    background:none;border:none;
+    padding:14px 10px;
+    font-family:'Source Sans 3',sans-serif;
+    font-weight:600;font-size:.86rem;
+    color:rgba(255,255,255,.55);
+    cursor:pointer;
+    border-bottom:3px solid transparent;
+    margin-bottom:-3px;
+    transition:.15s;
+  }
+  .tab-btn:hover{color:#fff;}
+  .tab-btn.activa{color:#fff;border-bottom-color:var(--terracota);}
+
+  main{max-width:900px;margin:0 auto;padding:26px 20px 40px;}
+  .panel{display:none;}
+  .panel.activo{display:block;animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  .intro-caja{
+    background:#fff;border-left:4px solid var(--turquesa);
+    padding:16px 18px;border-radius:6px;margin-bottom:24px;
+    font-size:.94rem;line-height:1.55;color:var(--tinta-suave);
+  }
+  .intro-caja strong{color:var(--tinta);}
+
+  /* ---- TARJETAS ---- */
+  .grid-tarjetas{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:640px){.grid-tarjetas{grid-template-columns:1fr;}}
+  .tarjeta{
+    background:#fff;border:1px solid var(--borde);border-radius:10px;
+    padding:18px 18px 16px;
+    border-top:4px solid var(--azul);
+    transition:.2s;
+  }
+  .tarjeta:hover{box-shadow:0 6px 18px rgba(26,74,122,.1);transform:translateY(-2px);}
+  .tarjeta.turquesa{border-top-color:var(--turquesa);}
+  .tarjeta.terracota{border-top-color:var(--terracota);}
+  .tarjeta.oro{border-top-color:var(--oro);}
+  .tarjeta h3{font-size:1.15rem;color:var(--azul-osc);margin-bottom:6px;}
+  .tarjeta .pregunta-guia{
+    font-style:italic;color:var(--terracota);font-size:.9rem;
+    margin:8px 0;font-family:'Playfair Display',serif;
+  }
+  .tarjeta p{font-size:.9rem;line-height:1.5;color:var(--tinta-suave);margin:6px 0;}
+  .tarjeta .etiqueta{
+    display:inline-block;font-size:.72rem;font-weight:700;
+    text-transform:uppercase;letter-spacing:.06em;
+    color:#fff;background:var(--azul);padding:3px 8px;border-radius:4px;
+    margin-bottom:10px;
+  }
+  .tarjeta.turquesa .etiqueta{background:var(--turquesa);}
+  .tarjeta.terracota .etiqueta{background:var(--terracota);}
+  .tarjeta.oro .etiqueta{background:var(--oro);}
+
+  .toggle-detalle{
+    background:none;border:1px dashed var(--borde);color:var(--azul);
+    font-size:.82rem;font-weight:600;padding:6px 10px;border-radius:6px;
+    cursor:pointer;margin-top:8px;
+  }
+  .toggle-detalle:hover{background:var(--crema);}
+  .detalle-tarjeta{display:none;margin-top:10px;padding-top:10px;border-top:1px dashed var(--borde);}
+  .detalle-tarjeta.visible{display:block;}
+
+  /* ---- BLOQUE ANALISIS SIN TEXTO ---- */
+  .aviso-sin-red{
+    background:var(--turquesa);color:#fff;padding:14px 18px;border-radius:8px;
+    font-size:.9rem;line-height:1.5;margin-bottom:20px;
+    display:flex;gap:12px;align-items:flex-start;
+  }
+  .aviso-sin-red .icono{font-size:1.3rem;line-height:1;flex-shrink:0;}
+
+  .bloque-eje{
+    background:#fff;border:1px solid var(--borde);border-radius:10px;
+    padding:18px 20px;margin-bottom:16px;
+  }
+  .bloque-eje h4{color:var(--azul-osc);font-size:1.05rem;margin-bottom:10px;}
+  .cadena{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;}
+  .cadena .paso{
+    background:var(--crema);border:1px solid var(--borde);
+    border-radius:6px;padding:8px 12px;font-size:.85rem;flex:1;min-width:150px;
+  }
+  .cadena .paso .etq{font-weight:700;color:var(--terracota);font-size:.7rem;
+    text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:3px;}
+
+  .btn-revelar{
+    background:var(--terracota);color:#fff;border:none;padding:10px 18px;
+    border-radius:6px;font-weight:600;font-size:.9rem;cursor:pointer;margin-top:6px;
+  }
+  .btn-revelar:hover{background:#a83a20;}
+
+  /* ---- EJERCICIOS ---- */
+  .ejercicio{
+    background:#fff;border:1px solid var(--borde);border-radius:10px;
+    padding:18px 20px;margin-bottom:18px;
+  }
+  .ejercicio .num{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:26px;height:26px;border-radius:50%;background:var(--azul);color:#fff;
+    font-weight:700;font-size:.85rem;margin-right:8px;
+  }
+  .ejercicio h4{display:inline;font-size:1.05rem;color:var(--azul-osc);}
+  .ejercicio .consigna{margin-top:10px;font-size:.92rem;line-height:1.55;}
+  .ejercicio textarea{
+    width:100%;min-height:110px;margin-top:10px;padding:10px;
+    border:1px solid var(--borde);border-radius:6px;font-family:inherit;
+    font-size:.9rem;resize:vertical;
+  }
+  .ejercicio .ayuda{
+    font-size:.82rem;color:var(--tinta-suave);margin-top:6px;font-style:italic;
+  }
+  .guardado-aviso{
+    font-size:.8rem;color:var(--turquesa);font-style:italic;display:none;margin-top:4px;
+  }
+
+  /* ---- MINI NAV ---- */
+  .mini-nav{
+    position:fixed;bottom:0;left:0;right:0;
+    background:var(--azul-osc);color:#fff;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:10px 18px;font-size:.85rem;z-index:20;
+    box-shadow:0 -4px 14px rgba(0,0,0,.15);
+  }
+  .mini-nav select{
+    background:var(--azul);color:#fff;border:1px solid rgba(255,255,255,.3);
+    padding:6px 8px;border-radius:5px;font-size:.82rem;
+  }
+  .mini-nav .siguiente{
+    background:var(--terracota);color:#fff;border:none;padding:8px 14px;
+    border-radius:6px;font-weight:600;font-size:.85rem;cursor:pointer;
+    display:none;
+  }
+  .mini-nav .siguiente.mostrar{display:inline-block;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="eyebrow">Prueba 2 · 1º DP · Módulo 1</div>
+  <h1>Tres ejes más: voz y estilo, personajes y tema</h1>
+  <p>En el Módulo 0 aprendiste a analizar narrador, estructura, tiempo narrativo y espacio en "La noche boca arriba" — primero con el texto delante, luego de memoria. Ahora ampliamos la caja con tres ejes más, siguiendo el mismo camino: primero apoyándote en el cuento, después sin él.</p>
+  <div class="formula">
+    <span>RECURSO</span><span class="arrow">→</span>
+    <span>DECISIÓN DEL AUTOR</span><span class="arrow">→</span>
+    <span>EFECTO EN EL LECTOR</span><span class="arrow">→</span>
+    <span>SIGNIFICADO</span>
+  </div>
+</div>
+
+<div class="tabs-bar">
+  <button class="tab-btn activa" data-tab="t1">1 · Caja de herramientas</button>
+  <button class="tab-btn" data-tab="t2">2 · Con el texto delante</button>
+  <button class="tab-btn" data-tab="t3">3 · Sin el texto: un paso más</button>
+</div>
+
+<main>
+
+  <!-- PANEL 1 -->
+  <section class="panel activo" id="t1">
+    <div class="aviso-sin-red" style="margin-bottom:18px;">
+      <span class="icono">📖</span>
+      <div><strong>Antes de empezar:</strong> este módulo continúa el Módulo 0. Si hace tiempo que no repasas "La noche boca arriba", tenla localizada — la volverás a abrir en la Pestaña 2.</div>
+    </div>
+    <div class="intro-caja">
+      <strong>De qué hablamos aquí:</strong> narrador, estructura, tiempo y espacio explican cómo se cuenta y dónde ocurre. Voz y estilo, personajes y tema completan la caja: explican con qué sonido se cuenta, quién protagoniza esa historia y qué tensión de fondo la sostiene. Los siete ejes trabajan siempre juntos, nunca aislados.
+    </div>
+
+    <div class="grid-tarjetas">
+
+      <div class="tarjeta">
+        <span class="etiqueta">Decisión 5</span>
+        <h3>Voz y estilo</h3>
+        <p class="pregunta-guia">¿Qué rasgos de lenguaje —léxico, sintaxis, ritmo— sostienen el tono de la obra de principio a fin?</p>
+        <p>No es solo quién narra (eso ya lo viste con el narrador), sino cómo suena: frases cortas o largas, registro formal o coloquial, imágenes sensoriales que se repiten. Son decisiones que crean una atmósfera reconocible en toda la obra.</p>
+        <button class="toggle-detalle" onclick="toggleDetalle(this)">Ver ejemplo con "La noche boca arriba"</button>
+        <div class="detalle-tarjeta">
+          <p>Cortázar combina un lenguaje muy físico y sensorial (el motor vibrando, el olor a pantano) con un ritmo que se acelera en la persecución y se ralentiza en el hospital. Ese contraste de ritmo hace que el lector "sienta" la diferencia entre los dos mundos antes de entenderla racionalmente.</p>
+        </div>
+      </div>
+
+      <div class="tarjeta turquesa">
+        <span class="etiqueta">Decisión 6</span>
+        <h3>Personajes</h3>
+        <p class="pregunta-guia">¿Con qué grado de individualización construye el autor a sus personajes, y qué función cumplen más allá de la trama?</p>
+        <p>Un personaje puede estar dibujado con mucho detalle psicológico o, al contrario, deliberadamente desdibujado. Nombre, rasgos físicos, voz propia —o su ausencia— son decisiones que dicen algo sobre el papel que ese personaje cumple en el conjunto de la obra.</p>
+        <button class="toggle-detalle" onclick="toggleDetalle(this)">Ver ejemplo con "La noche boca arriba"</button>
+        <div class="detalle-tarjeta">
+          <p>El protagonista casi no tiene rasgos individualizadores: no sabemos su nombre hasta muy tarde y su interioridad se reduce casi por completo a sensaciones físicas. Esa falta de individualización lo convierte en una figura casi arquetípica —"el hombre"— que podría ser cualquiera.</p>
+        </div>
+      </div>
+
+      <div class="tarjeta terracota">
+        <span class="etiqueta">Decisión 7</span>
+        <h3>Tema</h3>
+        <p class="pregunta-guia">¿Qué tensión o pregunta central organiza la obra, y cómo la sostienen las demás decisiones formales?</p>
+        <p>El tema no es "de qué trata" la obra en una frase: es la tensión que atraviesa todas las decisiones formales. Narrador, estructura, tiempo, espacio, voz y personajes no ilustran el tema desde fuera, lo construyen desde dentro.</p>
+        <button class="toggle-detalle" onclick="toggleDetalle(this)">Ver ejemplo con "La noche boca arriba"</button>
+        <div class="detalle-tarjeta">
+          <p>El tema central —la inestabilidad de la frontera entre sueño y realidad— no se declara en ningún momento: se construye a través de todas las demás decisiones (narrador pegado a la conciencia, estructura alternante, tiempo desproporcionado, espacios opuestos). El tema no se cuenta, se hace sentir estructuralmente.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PANEL 2 -->
+  <section class="panel" id="t2">
+    <div class="aviso-sin-red">
+      <span class="icono">📖✅</span>
+      <div>Aquí trabajas <strong>con el cuento delante</strong>. Ábrelo en otra pestaña y consúltalo cuantas veces necesites — de hecho, cuanto más lo revises ahora, localizando tú misma los pasajes, mejor se te quedará después, cuando tengas que analizar sin él.</div>
+    </div>
+
+    <a class="btn-revelar" href="https://drive.google.com/file/d/14zdyxpp0jV_ZSmw-4a1MPxL9VvC7fp--/view?usp=drive_link" target="_blank" rel="noopener" style="display:inline-block;text-decoration:none;margin-bottom:20px;">Abrir el texto</a>
+
+    <div class="bloque-eje">
+      <h4>Eje: Voz y estilo</h4>
+      <div class="cadena">
+        <div class="paso"><span class="etq">Recurso</span>Ritmo sintáctico ágil y jadeante en la persecución, frente a frases más largas y reposadas en el hospital</div>
+        <div class="paso"><span class="etq">Decisión</span>Cortázar sincroniza el ritmo de la prosa con la experiencia física del personaje en cada plano</div>
+        <div class="paso"><span class="etq">Efecto</span>El lector experimenta corporalmente la diferencia entre los dos mundos, no solo la entiende argumentalmente</div>
+        <div class="paso"><span class="etq">Significado</span>El estilo mismo defiende la tesis del cuento: los dos planos no son igual de "reales" para el cuerpo del lector, aunque la trama los presente como equivalentes</div>
+      </div>
+    </div>
+
+    <div class="bloque-eje">
+      <h4>Eje: Personajes</h4>
+      <div class="cadena">
+        <div class="paso"><span class="etq">Recurso</span>El protagonista carece de nombre propio durante casi todo el relato; su interioridad se reduce a sensaciones físicas</div>
+        <div class="paso"><span class="etq">Decisión</span>Cortázar evita dotarlo de rasgos psicológicos individualizadores</div>
+        <div class="paso"><span class="etq">Efecto</span>El lector no puede aferrarse a una identidad estable del personaje, lo que aumenta su propia desorientación</div>
+        <div class="paso"><span class="etq">Significado</span>La despersonalización del protagonista lo convierte en un símbolo universal de la víctima, reforzando el tema del sacrificio como destino compartido</div>
+      </div>
+    </div>
+
+    <h4 style="margin-top:30px;color:var(--azul-osc);font-size:1.1rem;">Ahora te toca a ti</h4>
+    <p style="font-size:.9rem;color:var(--tinta-suave);margin-bottom:14px;">Los dos ejemplos de arriba los hice yo, apoyándome en el texto. Estos tres ejercicios los haces tú, con el cuento abierto delante y localizando en él lo que necesites.</p>
+
+    <div class="ejercicio">
+      <span class="num">1</span><h4>Identificar y localizar</h4>
+      <div class="consigna">Completa la cadena completa RECURSO→DECISIÓN→EFECTO→SIGNIFICADO para el eje <strong>Tema</strong> en "La noche boca arriba". Antes de escribir el RECURSO, localiza en el texto un pasaje concreto en el que se apoya tu ejemplo y anótalo.</div>
+      <textarea id="campo-t2-ej1" placeholder="Pasaje localizado: ...&#10;&#10;Escribe aquí tu cadena de análisis..."></textarea>
+      <div class="guardado-aviso" id="aviso-campo-t2-ej1">Borrador guardado en este navegador</div>
+      <div class="ayuda">Pista si te bloqueas: localiza primero el pasaje, anota literalmente qué hace el autor ahí, y sube desde ese dato concreto hasta el efecto y el significado.</div>
+    </div>
+
+    <div class="ejercicio">
+      <span class="num">2</span><h4>De la pregunta al eje</h4>
+      <div class="consigna">Pregunta tipo de examen: <em>"Analice el modo en que la voz narrativa contribuye a transmitir el tema central de una obra que ha estudiado."</em> Dentro de un tiempo, en tu examen de Prueba 2, tendrás que elegir qué eje de cada obra sirve para responder a preguntas así. ¿Qué eje (o combinación de ejes, entre los siete que ya conoces) de "La noche boca arriba" usarías para responder a esta pregunta? Justifica en 3-4 líneas, apoyándote en el texto, por qué esos ejes son pertinentes para <em>esta</em> pregunta y no otros.</div>
+      <textarea id="campo-t2-ej2" placeholder="Escribe tu justificación..."></textarea>
+      <div class="guardado-aviso" id="aviso-campo-t2-ej2">Borrador guardado en este navegador</div>
+      <div class="ayuda">Fíjate en que la pregunta menciona explícitamente "voz narrativa" y "tema" — parte de tu trabajo es reconocer esas palabras clave y traducirlas a los ejes que ya conoces.</div>
+    </div>
+
+    <div class="ejercicio">
+      <span class="num">3</span><h4>Detectar la descripción</h4>
+      <div class="consigna">Lee esta respuesta de ejemplo y reescríbela para que deje de ser descriptiva y se convierta en análisis (añade el EFECTO y el SIGNIFICADO que le faltan):<br><br>
+      <em>"En el cuento, el protagonista no tiene nombre durante casi todo el relato. Esto ocurre porque Cortázar quiere centrarse en sus sensaciones físicas."</em></div>
+      <textarea id="campo-t2-ej3" placeholder="Reescribe la respuesta añadiendo efecto y significado..."></textarea>
+      <div class="guardado-aviso" id="aviso-campo-t2-ej3">Borrador guardado en este navegador</div>
+      <div class="ayuda">Este es el patrón más habitual al empezar: nombrar el recurso sin llegar al efecto ni al significado. Aprender a detectarlo en otros ayuda a evitarlo en lo propio.</div>
+    </div>
+  </section>
+
+  <!-- PANEL 3 -->
+  <section class="panel" id="t3">
+    <div class="aviso-sin-red">
+      <span class="icono">🚫📖</span>
+      <div><strong>Cierra el texto.</strong> A partir de aquí trabajas de memoria, como en el examen real. Un paso más allá: no basta con nombrar la cadena, hay que <strong>integrarla en prosa</strong>, <strong>transferirla a otra obra</strong> y <strong>mirarla con ojos de examinador</strong>.</div>
+    </div>
+
+    <div class="ejercicio">
+      <span class="num">1</span><h4>Dos ejes en un párrafo (sin texto delante)</h4>
+      <div class="consigna">Sin volver a abrir el cuento, escribe un párrafo breve (5-6 líneas) sobre "La noche boca arriba" que combine <strong>dos de los tres ejes nuevos</strong> (voz y estilo, personajes, tema). No uses la fórmula como plantilla visible — intégrala en prosa fluida, como en un ensayo real.</div>
+      <textarea id="campo-t3-ej1" placeholder="Escribe tu párrafo integrando dos ejes..."></textarea>
+      <div class="guardado-aviso" id="aviso-campo-t3-ej1">Borrador guardado en este navegador</div>
+      <div class="ayuda">En el examen real nunca se analiza un eje aislado del resto: los siete trabajan juntos para construir el mismo significado. Aquí empiezas a tejerlos, ahora ya sin el apoyo del texto.</div>
+    </div>
+
+    <div class="ejercicio">
+      <span class="num">2</span><h4>Transferencia: el mismo eje, otra obra</h4>
+      <div class="consigna">Elige uno de los tres ejes nuevos que trabajaste en la Pestaña 2, pero aplícalo ahora a <strong>otra obra que ya hayas leído completa</strong> (de este curso o de cursos anteriores — elige tú cuál). ¿Cómo cambia el análisis al cambiar de obra? Completa la cadena completa, indicando primero qué obra has elegido.</div>
+      <textarea id="campo-t3-ej2" placeholder="Obra elegida: ...&#10;&#10;Escribe tu cadena de análisis..."></textarea>
+      <div class="guardado-aviso" id="aviso-campo-t3-ej2">Borrador guardado en este navegador</div>
+      <div class="ayuda">Esto comprueba si de verdad dominas el eje como herramienta transferible, o si solo lo memorizaste pegado a Cortázar — que es justo lo que el examen exige el día de la prueba.</div>
+    </div>
+
+    <div class="ejercicio">
+      <span class="num">3</span><h4>Autoevalúate como examinadora</h4>
+      <div class="consigna">
+        Relee tu respuesta del Ejercicio 1 de esta pestaña y puntúala tú misma con el descriptor real del Criterio B1 del IB:
+        <ul style="font-size:.88rem;line-height:1.6;margin:10px 0;padding-left:20px;">
+          <li><strong>1-2:</strong> descriptivo, se basa en nombrar el recurso sin explicar su efecto.</li>
+          <li><strong>3:</strong> análisis generalmente adecuado de las decisiones del autor.</li>
+          <li><strong>4-5:</strong> análisis perspicaz y convincente; evalúa con claridad cómo la decisión influye en el significado.</li>
+        </ul>
+        ¿Qué puntuación te darías, y qué cambiarías de tu propio párrafo para subir un nivel?
+      </div>
+      <textarea id="campo-t3-ej3" placeholder="Tu autoevaluación y qué mejorarías..."></textarea>
+      <div class="guardado-aviso" id="aviso-campo-t3-ej3">Borrador guardado en este navegador</div>
+      <div class="ayuda">Aprender a leer tu propio trabajo con el lenguaje exacto del examinador es una de las formas más rápidas de mejorar — así lo hace quien corrige tu examen.</div>
+    </div>
+  </section>
+
+</main>
+
+<div class="mini-nav">
+  <div></div>
+  <button class="siguiente" id="btn-siguiente">Siguiente módulo →</button>
+</div>
+
+<script>
+  const tabs = document.querySelectorAll('.tab-btn');
+  const panels = document.querySelectorAll('.panel');
+  const btnSiguiente = document.getElementById('btn-siguiente');
+
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){ t.classList.remove('activa'); });
+      panels.forEach(function(p){ p.classList.remove('activo'); });
+      tab.classList.add('activa');
+      document.getElementById(tab.dataset.tab).classList.add('activo');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      btnSiguiente.classList.toggle('mostrar', tab.dataset.tab === 't3');
+    });
+  });
+
+  function toggleDetalle(btn){
+    const detalle = btn.nextElementSibling;
+    detalle.classList.toggle('visible');
+    btn.textContent = detalle.classList.contains('visible')
+      ? 'Ocultar ejemplo'
+      : 'Ver ejemplo con "La noche boca arriba"';
+  }
+
+  // ---- Guardado automático en este navegador (localStorage) ----
+  // Cada respuesta se guarda solo en el dispositivo de la alumna: nadie más
+  // la ve ni se envía a ningún sitio. Sigue ahí aunque cierre la página.
+  (function initGuardadoAutomatico(){
+    var PREFIJO = 'p2-1dp-m1-';
+    var campos = document.querySelectorAll('.ejercicio textarea[id^="campo-"]');
+
+    campos.forEach(function(textarea){
+      var claveStorage = PREFIJO + textarea.id;
+      var aviso = document.getElementById('aviso-' + textarea.id);
+
+      try {
+        var guardado = window.localStorage.getItem(claveStorage);
+        if (guardado) {
+          textarea.value = guardado;
+        }
+      } catch (e) {
+        // localStorage no disponible: se sigue trabajando sin guardado automático
+      }
+
+      var guardarTimeout = null;
+      textarea.addEventListener('input', function(){
+        clearTimeout(guardarTimeout);
+        guardarTimeout = setTimeout(function(){
+          try {
+            window.localStorage.setItem(claveStorage, textarea.value);
+            if (aviso) {
+              aviso.style.display = 'inline';
+              setTimeout(function(){ aviso.style.display = 'none'; }, 2000);
+            }
+          } catch (e) {
+            // localStorage no disponible: no se puede guardar automáticamente
+          }
+        }, 600);
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
