@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prueba 2 · 2º DP · Módulo 3 · Comparación de dos obras completas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul:#1a4a7a;
+    --azul-osc:#0f2f4d;
+    --turquesa:#0e9aa7;
+    --terracota:#c64829;
+    --oro:#c9973a;
+    --crema:#faf7f1;
+    --papel:#ffffff;
+    --tinta:#22303c;
+    --tinta-suave:#5b6b78;
+    --borde:#e1dcd0;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Source Sans 3',sans-serif;background:var(--crema);color:var(--tinta);padding-bottom:84px;}
+  h1,h2,h3,h4{font-family:'Playfair Display',serif;margin:0 0 .4em 0;}
+  a{color:var(--azul);}
+
+  .hero{background:var(--azul);color:#fff;padding:30px 20px 0;}
+  .hero .eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--turquesa);font-weight:600;margin-bottom:8px;}
+  .hero h1{font-size:1.6rem;line-height:1.25;max-width:660px;}
+  .hero p{max-width:640px;font-size:.98rem;line-height:1.55;color:#dce6ef;margin-top:10px;}
+  .hero .formula{margin-top:18px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.82rem;font-weight:600;letter-spacing:.02em;padding-bottom:26px;}
+  .hero .formula span{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);padding:5px 10px;border-radius:5px;}
+  .hero .formula .arrow{background:none;border:none;color:var(--turquesa);padding:0 2px;}
+
+  .tabs-bar{display:flex;background:var(--azul);border-bottom:3px solid var(--terracota);position:sticky;top:0;z-index:10;overflow-x:auto;}
+  .tab-btn{flex:1;min-width:150px;background:none;border:none;padding:14px 10px;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:.86rem;color:rgba(255,255,255,.55);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-3px;transition:.15s;}
+  .tab-btn:hover{color:#fff;}
+  .tab-btn.activa{color:#fff;border-bottom-color:var(--terracota);}
+
+  main{max-width:900px;margin:0 auto;padding:26px 20px 40px;}
+  .panel{display:none;}
+  .panel.activo{display:block;animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  .intro-caja{background:#fff;border-left:4px solid var(--turquesa);padding:16px 18px;border-radius:6px;margin-bottom:20px;font-size:.94rem;line-height:1.55;color:var(--tinta-suave);}
+  .intro-caja strong{color:var(--tinta);}
+
+  .aviso-sin-red{background:var(--turquesa);color:#fff;padding:14px 18px;border-radius:8px;font-size:.9rem;line-height:1.5;margin-bottom:20px;display:flex;gap:12px;align-items:flex-start;}
+  .aviso-sin-red .icono{font-size:1.3rem;line-height:1;flex-shrink:0;}
+  .aviso-formato{background:var(--oro);color:#fff;padding:12px 16px;border-radius:8px;font-size:.86rem;line-height:1.5;margin-bottom:20px;display:flex;gap:10px;align-items:flex-start;}
+
+  .grid-obras{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+  @media(max-width:640px){.grid-obras{grid-template-columns:1fr;}}
+  .obra-mini{background:var(--crema);border:1px solid var(--borde);border-radius:8px;padding:10px 12px;font-size:.85rem;}
+  .obra-mini strong{display:block;color:var(--azul-osc);font-size:.92rem;margin-bottom:2px;}
+  .obra-mini span{color:var(--tinta-suave);font-size:.8rem;}
+
+  .bloque-eje{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:18px 20px;margin-bottom:16px;}
+  .bloque-eje h4{color:var(--azul-osc);font-size:1.05rem;margin-bottom:10px;}
+  .cadena{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;}
+  .cadena .paso{background:var(--crema);border:1px solid var(--borde);border-radius:6px;padding:8px 12px;font-size:.85rem;flex:1;min-width:150px;}
+  .cadena .paso .etq{font-weight:700;color:var(--terracota);font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:3px;}
+
+  .btn-revelar{background:var(--terracota);color:#fff;border:none;padding:10px 18px;border-radius:6px;font-weight:600;font-size:.9rem;cursor:pointer;margin-top:6px;display:inline-block;text-decoration:none;}
+  .btn-revelar:hover{background:#a83a20;}
+  .btn-revelar.secundario{background:var(--azul);}
+  .btn-revelar.secundario:hover{background:var(--azul-osc);}
+
+  .ejercicio{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:18px 20px;margin-bottom:18px;}
+  .ejercicio .num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--azul);color:#fff;font-weight:700;font-size:.85rem;margin-right:8px;}
+  .ejercicio h4{display:inline;font-size:1.05rem;color:var(--azul-osc);}
+  .ejercicio .etiqueta-pregunta{display:block;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--terracota);margin:8px 0 4px;}
+  .ejercicio .etiqueta-obras{display:inline-block;font-size:.75rem;font-weight:600;color:#fff;background:var(--azul);padding:2px 9px;border-radius:10px;margin:4px 6px 4px 0;}
+  .ejercicio .consigna{margin-top:8px;font-size:.92rem;line-height:1.55;}
+  .ejercicio textarea{width:100%;min-height:110px;margin-top:10px;padding:10px;border:1px solid var(--borde);border-radius:6px;font-family:inherit;font-size:.9rem;resize:vertical;}
+  .ejercicio .ayuda{font-size:.82rem;color:var(--tinta-suave);margin-top:6px;font-style:italic;}
+  .guardado-aviso{font-size:.8rem;color:var(--turquesa);font-style:italic;display:none;margin-top:4px;}
+
+  .mini-nav{position:fixed;bottom:0;left:0;right:0;background:var(--azul-osc);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:10px 18px;font-size:.85rem;z-index:20;box-shadow:0 -4px 14px rgba(0,0,0,.15);}
+  .mini-nav .siguiente{background:var(--terracota);color:#fff;border:none;padding:8px 14px;border-radius:6px;font-weight:600;font-size:.85rem;cursor:pointer;display:none;}
+  .mini-nav .siguiente.mostrar{display:inline-block;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="eyebrow">Prueba 2 · 2º DP · Módulo 3</div>
+  <h1>Comparación de dos obras completas</h1>
+  <p>Este es el objetivo final del bloque: aplicar todo lo trabajado —los siete ejes, y el método de "pregunta al eje"— directamente sobre <strong>obras reales de tu propio corpus</strong>, en lugar de Cortázar o Quiroga. Empezamos con las cuatro obras que todas habéis leído seguro, y terminamos con la combinación que tú elijas.</p>
+  <div class="formula">
+    <span>PREGUNTA</span><span class="arrow">→</span>
+    <span>EJE(S)</span><span class="arrow">→</span>
+    <span>EJEMPLO EN OBRA A</span><span class="arrow">→</span>
+    <span>EJEMPLO EN OBRA B</span>
+  </div>
+</div>
+
+<div class="tabs-bar">
+  <button class="tab-btn activa" data-tab="t1">1 · Modelo trabajado</button>
+  <button class="tab-btn" data-tab="t2">2 · Practica con las cuatro obras fijas</button>
+  <button class="tab-btn" data-tab="t3">3 · Tu propia combinación</button>
+</div>
+
+<main>
+
+  <!-- PANEL 1 -->
+  <section class="panel activo" id="t1">
+    <div class="aviso-formato">
+      <span class="icono">📌</span>
+      <div>Las preguntas oficiales siguen sin reproducirse aquí por derechos de autor. Consulta siempre el banco de preguntas del Módulo 2.</div>
+    </div>
+    <a class="btn-revelar" href="https://drive.google.com/file/d/12O47ufApm260kbKaPPL6jdToIERqXjnG/view?usp=drivesdk" target="_blank" rel="noopener">Abrir el banco de preguntas</a>
+
+    <div class="intro-caja" style="margin-top:20px;">
+      <strong>Las cuatro obras fijas — recordatorio rápido:</strong>
+      <div class="grid-obras">
+        <div class="obra-mini"><strong>La realidad y el deseo</strong><span>Luis Cernuda · poesía · exilio, deseo, memoria</span></div>
+        <div class="obra-mini"><strong>La casa de Bernarda Alba</strong><span>Federico García Lorca · teatro · represión, honor, espacio familiar</span></div>
+        <div class="obra-mini"><strong>El cuarto de atrás</strong><span>Carmen Martín Gaite · novela · memoria, identidad, ficción y realidad</span></div>
+        <div class="obra-mini"><strong>El árbol de la ciencia</strong><span>Pío Baroja · novela · desencanto, ciencia y sociedad, relación paterno-filial</span></div>
+      </div>
+    </div>
+
+    <h3 style="color:var(--azul-osc);margin-top:26px;">Ejemplo modelado</h3>
+    <p style="font-size:.9rem;color:var(--tinta-suave);">Localiza en el banco la <strong>Pregunta 4 de la convocatoria de noviembre de 2025</strong> — sobre el ambiente familiar y la caracterización de los personajes. Así razonaría yo, comparando <em>La casa de Bernarda Alba</em> con <em>El árbol de la ciencia</em>:</p>
+
+    <div class="bloque-eje">
+      <div class="cadena">
+        <div class="paso"><span class="etq">Eje(s) elegido(s)</span>Personajes + Espacio (el espacio familiar como fuerza que moldea a los personajes, no solo como escenario)</div>
+        <div class="paso"><span class="etq">Ejemplo en Bernarda Alba</span>La casa cerrada y el luto impuesto por Bernarda funcionan como un molde que fuerza a las hijas a definirse por la resistencia o la sumisión a ese encierro — el espacio no rodea a los personajes, los construye.</div>
+        <div class="paso"><span class="etq">Ejemplo en El árbol de la ciencia</span>El ambiente intelectual y desencantado del entorno familiar de Andrés (su tío Iturrioz, la atmósfera positivista) moldea su escepticismo y su desapego, de un modo menos físico que en Lorca pero igual de determinante.</div>
+        <div class="paso"><span class="etq">Comparación</span>En ambas obras el ambiente familiar actúa como fuerza determinante del carácter, pero de forma opuesta: en Lorca es un encierro físico y colectivo; en Baroja, un condicionamiento intelectual e individual. La pregunta permite mostrar cómo el mismo mecanismo —familia que moldea— produce resultados muy distintos según el género literario y el contexto histórico de cada obra.</div>
+      </div>
+    </div>
+
+    <div class="aviso-sin-red">
+      <span class="icono">➡️</span>
+      <div>Cuando lo tengas claro, pasa a la Pestaña 2 para practicar tú misma con otras combinaciones de las cuatro obras fijas.</div>
+    </div>
+  </section>
+
+  <!-- PANEL 2 -->
+  <section class="panel" id="t2">
+    <div class="aviso-sin-red">
+      <span class="icono">🎯</span>
+      <div>Cada ejercicio indica qué dos obras comparar. Sigue el mismo patrón del modelo: eje(s) elegido(s), un ejemplo concreto de cada obra, y una frase final que compare ambas.</div>
+    </div>
+    <a class="btn-revelar secundario" href="https://drive.google.com/file/d/12O47ufApm260kbKaPPL6jdToIERqXjnG/view?usp=drivesdk" target="_blank" rel="noopener">Abrir el banco de preguntas</a>
+
+    <div class="ejercicio" style="margin-top:20px;">
+      <span class="num">1</span><h4>De la pregunta a la comparación</h4>
+      <span class="etiqueta-pregunta">Convocatoria noviembre 2025 · Pregunta 3 (condicionamientos sociales)</span>
+      <span class="etiqueta-obras">La casa de Bernarda Alba</span><span class="etiqueta-obras">El árbol de la ciencia</span>
+      <div class="consigna">Localiza esta pregunta en el banco y completa el razonamiento comparativo entre estas dos obras.</div>
+      <textarea id="campo-t2-ej1" placeholder="Eje(s) elegido(s): ...&#10;&#10;Ejemplo en Bernarda Alba: ...&#10;&#10;Ejemplo en El árbol de la ciencia: ...&#10;&#10;Comparación: ..."></textarea>
+      <div class="guardado-aviso" id="aviso-campo-t2-ej1">Borrador guardado en este navegador</div>
+      <div class="ayuda">Piensa en qué "condiciona" a los personajes en cada obra: el honor y el qué dirán en una, el positivismo y el desencanto social en la otra.</div>
+    </div>
+
+    <div class="ejercicio">
+      <span class="num">2</span><h4>De la pregunta a la comparación</h4>
+      <span class="etiqueta-pregunta">Convocatoria mayo 2025 · Sesión 1 · Pregunta 1 (el paso del tiempo)</span>
+      <span class="etiqueta-obras">El cuarto de atrás</span><span class="etiqueta-obras">La realidad y el deseo</span>
+      <div class="consigna">Localiza esta pregunta en el banco y completa el razonamiento comparativo entre estas dos obras.</div>
+      <textarea id="campo-t2-ej2" placeholder="Eje(s) elegido(s): ...&#10;&#10;Ejemplo en El cuarto de atrás: ...&#10;&#10;Ejemplo en La realidad y el deseo: ...&#10;&#10;Comparación: ..."></textarea>
+      <div class="guardado-aviso" id="aviso-campo-t2-ej2">Borrador guardado en este navegador</div>
+      <div class="ayuda">Una es narrativa y la otra poética — el tiempo se puede tratar de formas muy distintas según el género. No fuerces la misma estructura de análisis en ambas.</div>
+    </div>
+
+    <div class="ejercicio">
+      <span class="num">3</span><h4>De la pregunta a la comparación</h4>
+      <span class="etiqueta-pregunta">Convocatoria mayo 2026 · Literatura · Pregunta 4 (raíces identitarias)</span>
+      <span class="etiqueta-obras">La realidad y el deseo</span><span class="etiqueta-obras">El cuarto de atrás</span>
+      <div class="consigna">Localiza esta pregunta en el banco y completa el razonamiento comparativo entre estas dos obras.</div>
+      <textarea id="campo-t2-ej3" placeholder="Eje(s) elegido(s): ...&#10;&#10;Ejemplo en La realidad y el deseo: ...&#10;&#10;Ejemplo en El cuarto de atrás: ...&#10;&#10;Comparación: ..."></textarea>
+      <div class="guardado-aviso" id="aviso-campo-t2-ej3">Borrador guardado en este navegador</div>
+      <div class="ayuda">"Raíces identitarias" no tiene por qué ser nacional — puede ser identidad de género, generacional, o vinculada a un lugar concreto de la memoria.</div>
+    </div>
+
+    <div class="ejercicio">
+      <span class="num">4</span><h4>De la pregunta a la comparación — tú eliges el segundo eje</h4>
+      <span class="etiqueta-pregunta">Convocatoria mayo 2026 · Lengua y Literatura · Pregunta 4 (lo extraño)</span>
+      <span class="etiqueta-obras">El cuarto de atrás</span><span class="etiqueta-obras">Elige tú la segunda obra entre las otras tres fijas</span>
+      <div class="consigna">Localiza esta pregunta en el banco. "El cuarto de atrás" ya es una elección clara para un eje —decide cuál—; elige tú la segunda obra entre las otras tres fijas y justifica por qué encaja mejor que las otras dos posibles.</div>
+      <textarea id="campo-t2-ej4" placeholder="Segunda obra elegida y por qué: ...&#10;&#10;Eje(s) elegido(s): ...&#10;&#10;Ejemplo en El cuarto de atrás: ...&#10;&#10;Ejemplo en la segunda obra: ...&#10;&#10;Comparación: ..."></textarea>
+      <div class="guardado-aviso" id="aviso-campo-t2-ej4">Borrador guardado en este navegador</div>
+      <div class="ayuda">Este es el paso que darás en el examen real: no solo encontrar el eje, sino decidir qué segunda obra combina mejor con la primera para esa pregunta concreta.</div>
+    </div>
+  </section>
+
+  <!-- PANEL 3 -->
+  <section class="panel" id="t3">
+    <div class="aviso-sin-red">
+      <span class="icono">🚀</span>
+      <div>Última parada del bloque: ya no te doy la pareja de obras. Elige tú la pregunta y las dos obras —de todo tu corpus leído, no solo las cuatro fijas— como harás en el examen real de abril.</div>
+    </div>
+    <a class="btn-revelar secundario" href="https://drive.google.com/file/d/12O47ufApm260kbKaPPL6jdToIERqXjnG/view?usp=drivesdk" target="_blank" rel="noopener">Abrir el banco de preguntas</a>
+
+    <div class="ejercicio" style="margin-top:20px;">
+      <span class="num">1</span><h4>Simulacro completo</h4>
+      <span class="etiqueta-pregunta">Elige una convocatoria completa del banco (las cuatro preguntas)</span>
+      <div class="consigna">Como en el examen real: lee las cuatro preguntas de la convocatoria que elijas y decide una, en no más de 5 minutos. Elige después las dos obras de tu corpus (las cuatro fijas u otras que hayas leído) que mejor respondan a esa pregunta. Completa el razonamiento comparativo completo, con un ejemplo concreto de cada obra.</div>
+      <textarea id="campo-t3-ej1" placeholder="Convocatoria y pregunta elegida: ...&#10;&#10;Obras elegidas: ...&#10;&#10;Eje(s) elegido(s): ...&#10;&#10;Ejemplo en la primera obra: ...&#10;&#10;Ejemplo en la segunda obra: ...&#10;&#10;Comparación: ..."></textarea>
+      <div class="guardado-aviso" id="aviso-campo-t3-ej1">Borrador guardado en este navegador</div>
+      <div class="ayuda">Si te resulta difícil encontrar una segunda obra distinta a las cuatro fijas, no pasa nada — usar dos de las fijas también es una elección legítima y realista para el examen.</div>
+    </div>
+
+    <div class="ejercicio">
+      <span class="num">2</span><h4>Autoevalúate como examinadora</h4>
+      <div class="consigna">
+        Relee tu respuesta del Ejercicio 1 y puntúala con el descriptor real del Criterio B1 del IB:
+        <ul style="font-size:.88rem;line-height:1.6;margin:10px 0;padding-left:20px;">
+          <li><strong>1-2:</strong> descriptivo, se basa en nombrar el recurso sin explicar su efecto.</li>
+          <li><strong>3:</strong> análisis generalmente adecuado de las decisiones del autor.</li>
+          <li><strong>4-5:</strong> análisis perspicaz y convincente; evalúa con claridad cómo la decisión influye en el significado, en ambas obras.</li>
+        </ul>
+        ¿Qué puntuación te darías, y qué cambiarías para subir un nivel?
+      </div>
+      <textarea id="campo-t3-ej2" placeholder="Tu autoevaluación y qué mejorarías..."></textarea>
+      <div class="guardado-aviso" id="aviso-campo-t3-ej2">Borrador guardado en este navegador</div>
+      <div class="ayuda">Con esto cierras el bloque completo de Prueba 2 — de los cuatro ejes iniciales sobre Cortázar hasta comparar tus propias obras bajo condiciones de examen real.</div>
+    </div>
+  </section>
+
+</main>
+
+<div class="mini-nav">
+  <div></div>
+  <button class="siguiente" id="btn-siguiente">Siguiente módulo →</button>
+</div>
+
+<script>
+  const tabs = document.querySelectorAll('.tab-btn');
+  const panels = document.querySelectorAll('.panel');
+  const btnSiguiente = document.getElementById('btn-siguiente');
+
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){ t.classList.remove('activa'); });
+      panels.forEach(function(p){ p.classList.remove('activo'); });
+      tab.classList.add('activa');
+      document.getElementById(tab.dataset.tab).classList.add('activo');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      btnSiguiente.classList.toggle('mostrar', tab.dataset.tab === 't3');
+    });
+  });
+
+  (function initGuardadoAutomatico(){
+    var PREFIJO = 'p2-2dp-m3-';
+    var campos = document.querySelectorAll('.ejercicio textarea[id^="campo-"]');
+
+    campos.forEach(function(textarea){
+      var claveStorage = PREFIJO + textarea.id;
+      var aviso = document.getElementById('aviso-' + textarea.id);
+
+      try {
+        var guardado = window.localStorage.getItem(claveStorage);
+        if (guardado) { textarea.value = guardado; }
+      } catch (e) {}
+
+      var guardarTimeout = null;
+      textarea.addEventListener('input', function(){
+        clearTimeout(guardarTimeout);
+        guardarTimeout = setTimeout(function(){
+          try {
+            window.localStorage.setItem(claveStorage, textarea.value);
+            if (aviso) {
+              aviso.style.display = 'inline';
+              setTimeout(function(){ aviso.style.display = 'none'; }, 2000);
+            }
+          } catch (e) {}
+        }, 600);
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
