@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Oración Compuesta · Guía de consulta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1B4F72;--blue:#2874A6;--amber:#D4860A;--green:#1A7A4A;
+  --text:#1C2833;--mid:#5D6D7E;--light:#EBF5FB;--rule:#AED6F1;
+  --amber-bg:#FEF9E7;--amber-border:#F0C040;
+  --f:'Carlito','Calibri',Arial,sans-serif;--max:800px;
+}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{font-family:var(--f);font-size:17px;line-height:1.65;color:var(--text);background:#F4F6F8}
+
+#topbar{position:sticky;top:0;z-index:100;background:var(--navy);color:#fff;
+  padding:0 24px;display:flex;align-items:center;justify-content:space-between;
+  height:52px;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+#topbar .title{font-size:.95em;font-weight:700;letter-spacing:.02em}
+#topbar button{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);
+  border-radius:5px;padding:5px 14px;font-size:.82em;cursor:pointer;font-family:var(--f);transition:background .15s}
+#topbar button:hover{background:rgba(255,255,255,.28)}
+
+#wrapper{max-width:var(--max);margin:0 auto;padding:0 20px 60px}
+
+#cover{background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 100%);color:#fff;
+  border-radius:0 0 8px 8px;padding:52px 44px 44px;margin-bottom:36px}
+#cover h1{font-size:2.1em;font-weight:700;line-height:1.15;margin-bottom:10px}
+#cover .sub{font-size:1em;opacity:.85;margin-bottom:6px}
+#cover .dept{font-size:.85em;opacity:.65;margin-top:16px;border-top:1px solid rgba(255,255,255,.25);padding-top:12px}
+
+#toc{background:#fff;border:1px solid var(--rule);border-radius:6px;
+  padding:24px 28px;margin-bottom:40px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+#toc h2{font-size:1em;font-weight:700;color:var(--navy);text-transform:uppercase;
+  letter-spacing:.07em;margin-bottom:14px}
+#toc ol{padding-left:20px;display:flex;flex-direction:column;gap:4px}
+#toc li{font-size:.93em}
+#toc a{color:var(--blue);text-decoration:none}
+#toc a:hover{text-decoration:underline}
+#toc .sub-list{padding-left:20px;margin-top:4px;display:flex;flex-direction:column;gap:3px}
+
+.section{background:#fff;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,.07);
+  padding:32px 36px;margin-bottom:24px}
+.section-num{display:inline-block;background:var(--blue);color:#fff;border-radius:4px;
+  padding:2px 10px;font-size:.75em;font-weight:700;letter-spacing:.04em;margin-bottom:10px}
+.section-num.amber{background:var(--amber)}.section-num.green{background:var(--green)}
+.section-num.navy{background:var(--navy)}
+
+h2.sec-title{font-size:1.35em;font-weight:700;color:var(--navy);padding-bottom:10px;
+  border-bottom:3px solid var(--rule);margin-bottom:20px;line-height:1.25}
+h3{font-size:.85em;font-weight:700;color:var(--blue);margin:22px 0 8px;
+  text-transform:uppercase;letter-spacing:.05em}
+h4{font-size:.9em;font-weight:700;color:var(--navy);margin:14px 0 6px}
+p{margin-bottom:12px;line-height:1.65}
+p:last-child{margin-bottom:0}
+strong{color:var(--navy)}
+
+ul.doc-list{padding-left:22px;margin-bottom:12px;display:flex;flex-direction:column;gap:7px}
+ul.doc-list li{line-height:1.55}
+ul.doc-list li::marker{color:var(--blue)}
+
+.example{background:#f8f9fa;border-left:4px solid var(--rule);border-radius:0 4px 4px 0;
+  padding:9px 16px;margin:8px 0;font-style:italic;font-size:.93em;color:var(--mid);line-height:1.5}
+.alert{background:var(--amber-bg);border:1px solid var(--amber-border);border-left:5px solid var(--amber);
+  border-radius:4px;padding:12px 16px;margin:14px 0;font-size:.93em;line-height:1.55}
+.info{background:var(--light);border:1px solid var(--rule);border-radius:4px;
+  padding:12px 16px;margin:0 0 16px;font-size:.95em;line-height:1.6}
+
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:10px 0}
+.col-block{background:var(--light);border:1px solid var(--rule);border-radius:4px;padding:14px 16px}
+.col-block h4{font-size:.82em;font-weight:700;color:var(--navy);text-transform:uppercase;
+  letter-spacing:.05em;margin-bottom:8px;padding-bottom:6px;border-bottom:2px solid var(--rule)}
+
+.tbl-wrap{overflow-x:auto;margin:10px 0;border-radius:4px}
+table{width:100%;border-collapse:collapse;font-size:.9em}
+th{background:var(--navy);color:#fff;padding:9px 13px;text-align:left;font-size:.9em}
+td{padding:9px 13px;border:1px solid var(--rule);vertical-align:top;line-height:1.45}
+tr:nth-child(odd) td{background:var(--light)}
+tr:nth-child(even) td{background:#fff}
+td strong{color:var(--navy)}
+td em{color:var(--mid)}
+
+/* construcción type badge */
+.tipo-badge{display:inline-block;font-size:.75em;font-weight:700;color:#fff;
+  padding:2px 9px;border-radius:3px;margin-bottom:6px}
+.tb-blue{background:var(--blue)}.tb-amber{background:var(--amber)}
+.tb-green{background:var(--green)}.tb-navy{background:var(--navy)}
+
+/* abreviaturas inline */
+abbr-tag{font-family:monospace;background:#eef;border:1px solid #ccd;
+  border-radius:3px;padding:1px 5px;font-size:.85em;color:var(--navy)}
+
+/* subordinación estructura */
+.sub-type-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:10px 0}
+.sub-type-card{border:1px solid var(--rule);border-radius:4px;overflow:hidden}
+.sub-type-head{padding:8px 12px;font-size:.82em;font-weight:700;color:#fff;text-align:center}
+.sub-type-body{padding:10px 12px;font-size:.88em;line-height:1.5;background:var(--light)}
+
+/* glossary */
+.glosario-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px}
+.glosario-col{background:var(--light);border:1px solid var(--rule);border-radius:4px;overflow:hidden}
+.glosario-col-head{background:var(--navy);color:#fff;font-size:.82em;font-weight:700;
+  padding:8px 12px;letter-spacing:.04em}
+.glosario-col-body{padding:10px 12px;font-size:.82em;line-height:1.9}
+.glosario-col-body span{color:var(--mid)}
+
+@media print{
+  body{background:#fff;font-size:11pt;color:#000}
+  #topbar{display:none}
+  html{scroll-padding-top:0}
+  #wrapper{max-width:100%;padding:0}
+  #cover{background:none !important;color:#000;border:2pt solid #000;border-radius:0;padding:20pt 24pt;margin-bottom:18pt}
+  #cover h1{font-size:18pt;color:#000}
+  #toc,#cover{break-inside:avoid}
+  .section{box-shadow:none;border:1px solid #ccc;break-inside:avoid;margin-bottom:12pt;padding:14pt 18pt}
+  h2.sec-title{border-bottom:2pt solid #000;color:#000}
+  h3,h4{color:#000}
+  .section-num,.glosario-col-head,.sub-type-head,.tipo-badge,.tb-blue,.tb-amber,.tb-green,.tb-navy{
+    background:#000 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  th{background:#000 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  a{color:#000;text-decoration:none}
+}
+@media(max-width:640px){
+  #cover{padding:32px 20px}
+  #cover h1{font-size:1.6em}
+  .section{padding:22px 16px}
+  .cols2,.sub-type-grid,.glosario-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div id="topbar">
+  <span class="title">La Oración Compuesta · Guía de consulta · NGLE</span>
+  <button onclick="window.print()">🖨 Imprimir</button>
+</div>
+
+<div id="wrapper">
+
+<!-- COVER -->
+<div id="cover">
+  <h1>La Oración Compuesta</h1>
+  <p class="sub">Guía de consulta: sintaxis moderna basada en la NGLE</p>
+  <p class="dept">Departamento de Lengua y Literatura · Lengua Castellana y Literatura · 2º BACHILLERATO</p>
+</div>
+
+<!-- ÍNDICE -->
+<div id="toc">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#s1">¿Qué es la oración compuesta? Definición y tipos</a></li>
+    <li>
+      <a href="#s2">La oración compuesta por coordinación</a>
+      <ol class="sub-list">
+        <li><a href="#s2-cop">Copulativa</a></li>
+        <li><a href="#s2-dis">Disyuntiva</a></li>
+        <li><a href="#s2-adv">Adversativa</a></li>
+        <li><a href="#s2-yux">Yuxtaposición</a></li>
+      </ol>
+    </li>
+    <li>
+      <a href="#s3">La oración compuesta por subordinación</a>
+      <ol class="sub-list">
+        <li><a href="#s3-sust">Subordinación sustantiva</a></li>
+        <li><a href="#s3-rel">Subordinación de relativo</a></li>
+        <li><a href="#s3-const">Las construcciones oracionales</a></li>
+      </ol>
+    </li>
+    <li><a href="#s4">Las construcciones oracionales: tipos</a>
+      <ol class="sub-list">
+        <li><a href="#s4-temp">Temporales</a></li>
+        <li><a href="#s4-caus">Causales</a></li>
+        <li><a href="#s4-fin">Finales</a></li>
+        <li><a href="#s4-ilat">Ilativas</a></li>
+        <li><a href="#s4-cond">Condicionales</a></li>
+        <li><a href="#s4-conc">Concesivas</a></li>
+        <li><a href="#s4-cons">Consecutivas</a></li>
+        <li><a href="#s4-comp">Comparativas</a></li>
+        <li><a href="#s4-sup">Superlativas</a></li>
+        <li><a href="#s4-fnp">Formas no personales</a></li>
+      </ol>
+    </li>
+    <li><a href="#s5">Tabla comparativa: Gramática Tradicional vs. NGLE</a></li>
+    <li><a href="#s6">Glosario rápido de abreviaturas</a></li>
+  </ol>
+</div>
+
+<!-- 1. DEFINICIÓN -->
+<div class="section" id="s1">
+  <span class="section-num">1</span>
+  <h2 class="sec-title">¿Qué es la oración compuesta? Definición y tipos</h2>
+  <p>Es compuesta la oración que presenta <strong>dos o más predicados</strong>, es decir, dos o más estructuras oracionales. En función de la relación que se establezca entre estas, se habla de oración compuesta por <strong>coordinación</strong> (con independencia) y por <strong>subordinación</strong> (con dependencia).</p>
+  <div class="cols2">
+    <div class="col-block">
+      <h4>Coordinación · Independencia</h4>
+      <p style="font-size:.9em">Las oraciones son sintácticamente autónomas. Se analizan como si fueran independientes, unidas por un nexo o por pausa.</p>
+      <div class="example">[O1] ↔ [O2]</div>
+    </div>
+    <div class="col-block">
+      <h4>Subordinación · Dependencia</h4>
+      <p style="font-size:.9em">Existe dependencia sintáctica. La subordinada se inserta dentro de la principal para cumplir una función específica.</p>
+      <div class="example">[OP [OSub]]</div>
+    </div>
+  </div>
+
+  <h3>Tabla de abreviaturas estructurales</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Estructura</th><th>Abreviatura</th><th>Estructura</th><th>Abreviatura</th></tr></thead>
+      <tbody>
+        <tr><td>Oración principal</td><td><strong>OP</strong></td><td>O. Sub. de relativo libre</td><td><strong>O Sub Rel Libre</strong></td></tr>
+        <tr><td>O. Comp. por coordinación</td><td><strong>O Comp Coord</strong></td><td>O. Sub. de relativo semilibre</td><td><strong>O Sub Rel Semilibre</strong></td></tr>
+        <tr><td>O. Comp. por subord. sustantiva</td><td><strong>O Comp Sub Sust</strong></td><td>Construcción temporal</td><td><strong>Const Temp</strong></td></tr>
+        <tr><td>O. Comp. por subord. de relativo</td><td><strong>O Comp Sub Rel</strong></td><td>Construcción causal</td><td><strong>Const Caus</strong></td></tr>
+        <tr><td>Oración subordinada sustantiva</td><td><strong>O Sub Sust</strong></td><td>Construcción final</td><td><strong>Const Fin</strong></td></tr>
+        <tr><td>Oración subordinada de relativo</td><td><strong>O Sub Rel</strong></td><td>Construcción condicional</td><td><strong>Const Cond</strong></td></tr>
+        <tr><td>—</td><td>—</td><td>Construcción concesiva</td><td><strong>Const Conc</strong></td></tr>
+        <tr><td>—</td><td>—</td><td>Construcción consecutiva</td><td><strong>Const Cons</strong></td></tr>
+        <tr><td>—</td><td>—</td><td>Construcción comparativa</td><td><strong>Const Comp</strong></td></tr>
+        <tr><td>—</td><td>—</td><td>Construcción superlativa</td><td><strong>Const Sup</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 2. COORDINACIÓN -->
+<div class="section" id="s2">
+  <span class="section-num green">2</span>
+  <h2 class="sec-title">La oración compuesta por coordinación</h2>
+  <p>La composición por coordinación presenta los siguientes rasgos:</p>
+  <ul class="doc-list">
+    <li>Se da entre oraciones sintácticamente <strong>independientes</strong>, por lo que se analizan como si fueran autónomas.</li>
+    <li>La unión puede producirse mediante un <strong>nexo</strong> (conjunción o locución conjuntiva) o mediante <strong>yuxtaposición</strong> (sin nexo, con pausa).</li>
+    <li>El nexo siempre aparece <strong>entre</strong> las oraciones y no pertenece sintácticamente a ninguna de ellas.</li>
+    <li>Si la conjunción abre el enunciado (<em>¡Y se sabía el tema!</em>), se interpreta como <strong>conector textual</strong>, no como nexo sintáctico.</li>
+  </ul>
+
+  <h3 id="s2-cop">Coordinación copulativa</h3>
+  <div class="info"><strong>Valor:</strong> expresa suma (O1 + O2)</div>
+  <p><strong>Nexos:</strong> <em>y (e), ni, tanto… como, tanto… cuanto, igual… que, lo mismo… que, ni… ni, no solo… sino también</em></p>
+  <div class="example">Piensa mal <strong>y</strong> acertarás. / No come <strong>ni</strong> bebe. / <strong>No solo</strong> es inteligente <strong>sino que</strong> además ayuda a sus compañeros.</div>
+  <div class="alert">No hay coordinación copulativa cuando interviene un conector textual aditivo. En <em>He aprobado todos los exámenes; incluso, voy a presentarme a subir nota</em>, existe yuxtaposición. — Cuando el conjunto está formado por más de dos oraciones, lo habitual es que el nexo aparezca solo entre las dos últimas.</div>
+
+  <h3 id="s2-dis">Coordinación disyuntiva</h3>
+  <div class="info"><strong>Valor:</strong> exclusión, elección, alternancia (O1 … O2)</div>
+  <p><strong>Nexos:</strong> conjunción <em>o (u)</em>. Puede añadirse <em>bien</em> como refuerzo enfático. Conjunciones discontinuas (distributivas): <em>bien… bien, ya… ya, ora… ora, sea… sea, tan pronto… como</em></p>
+  <div class="example">¿Vienes <strong>o</strong> te quedas? / En vacaciones <strong>bien</strong> salimos al extranjero <strong>bien</strong> nos vamos al pueblo.</div>
+  <div class="alert">La NGLE integra la coordinación distributiva dentro de la disyuntiva (no es un tipo independiente). Las correlativas tipo <em>unos… otros</em> no son conjunciones: habría que hablar de coordinación yuxtapuesta.</div>
+
+  <h3 id="s2-adv">Coordinación adversativa</h3>
+  <div class="info"><strong>Valor:</strong> contraposición, rectificación (O1 / O2)</div>
+  <p><strong>Nexos:</strong> <em>pero, mas, sino (que)</em>. También <em>aunque</em> cuando se pueda conmutar por <em>pero</em>.</p>
+  <div class="example">Es barato, <strong>pero</strong> no lo compraré. / Le escribí, <strong>mas</strong> no obtuve respuesta. / No lo hago por capricho <strong>sino que</strong> es una necesidad.</div>
+  <div class="alert">No existe coordinación adversativa cuando aparece un conector textual contraargumentativo (<em>sin embargo, no obstante, ahora bien</em>). En <em>Fui a la reunión; sin embargo, no acudió nadie</em>, hay yuxtaposición. <em>Sin embargo</em> pertenece a la segunda oración y funciona como complemento externo o periférico.</div>
+
+  <h3 id="s2-yux">Yuxtaposición</h3>
+  <div class="info">La NGLE la considera hoy un tipo de coordinación: concretamente, <strong>coordinación sin nexo</strong>. Es la pausa (coma, punto y coma, dos puntos) la que conecta las oraciones.</div>
+  <div class="example">Enciende el ordenador, conecta el cañón, apaga la luz.</div>
+</div>
+
+<!-- 3. SUBORDINACIÓN: PANORAMA -->
+<div class="section" id="s3">
+  <span class="section-num amber">3</span>
+  <h2 class="sec-title">La oración compuesta por subordinación</h2>
+  <p>Se habla de subordinación cuando la oración compuesta está formada por dos o más oraciones entre las que existe <strong>dependencia sintáctica</strong>. Se reconocen tres grupos según la semejanza con ciertas clases de palabras:</p>
+
+  <div class="sub-type-grid">
+    <div class="sub-type-card">
+      <div class="sub-type-head" style="background:var(--blue)">SUSTANTIVA</div>
+      <div class="sub-type-body">
+        <p>La subordinada se comporta como cualquier <strong>sustantivo o grupo nominal</strong>.</p>
+        <div class="example">Me recordó <em>[que habíamos quedado]</em> → Me recordó <em>eso / la cita</em>.</div>
+      </div>
+    </div>
+    <div class="sub-type-card">
+      <div class="sub-type-head" style="background:var(--green)">DE RELATIVO</div>
+      <div class="sub-type-body">
+        <p>La subordinada funciona como cualquier <strong>adjetivo o grupo adjetival</strong>.</p>
+        <div class="example">La cita <em>[que tengo mañana]</em> es importante → La cita <em>próxima</em> es importante.</div>
+      </div>
+    </div>
+    <div class="sub-type-card">
+      <div class="sub-type-head" style="background:var(--amber)">CONSTRUCCIONES</div>
+      <div class="sub-type-body">
+        <p>Antes llamadas adverbiales. Expresan <strong>relaciones lógicas o cuantitativas</strong>.</p>
+        <div class="example">Nos veremos <em>[donde quedamos]</em> → Nos veremos <em>allí</em>.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3.1 SUSTANTIVA -->
+  <h3 id="s3-sust">3.1 La subordinación sustantiva</h3>
+  <p>Son sustantivas las oraciones que desempeñan las funciones propias de los sustantivos o grupos nominales. La <strong>prueba del «eso»</strong> permite identificarlas de inmediato: si toda la cláusula se puede sustituir por <em>eso</em>, es sustantiva.</p>
+  <div class="example">Me dijo <em>[que la esperáramos]</em> → Me dijo <em>eso</em>. ✓ Sustantiva (CD).</div>
+
+  <h4>Nexos con nexo</h4>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Tipo de nexo</th><th>Nexos</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Conjunciones</strong></td><td><em>que, si</em></td><td><em>Anunciaron <strong>que</strong> se retrasaba. / Me preguntó <strong>si</strong> me habían dado el recado.</em></td></tr>
+      <tr><td><strong>Pron./Det. interrogativos</strong></td><td><em>qué, cuál/cuáles, cuánto/a/os/as</em></td><td><em>No sé <strong>qué</strong> hay que analizar. / Te confieso <strong>cuál</strong> me gusta más.</em></td></tr>
+      <tr><td><strong>Adverbios interrogativos</strong></td><td><em>cuándo, dónde, cómo, cuánto</em></td><td><em>Recuérdame <strong>cuándo</strong> nos vemos. / Ignoro <strong>cómo</strong> lo hizo.</em></td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>Sin nexo</h4>
+  <ul class="doc-list">
+    <li><strong>Discurso directo</strong> con verbo introductor, pospuesto o en posición medial.</li>
+    <li><strong>Construcción de infinitivo:</strong> <em>Prefiero cenar en casa.</em></li>
+  </ul>
+
+  <h4>Funciones sintácticas de la subordinada sustantiva</h4>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Función</th><th>Ejemplo</th><th>Sustitución por «eso»</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Sujeto</strong></td><td><em>Me gusta [que me llames].</em></td><td>Me gusta eso.</td></tr>
+      <tr><td><strong>CD</strong></td><td><em>Repitieron [que quedaban 5 min.].</em></td><td>Repitieron eso.</td></tr>
+      <tr><td><strong>Atributo</strong></td><td><em>Ayunar es [dejar de comer].</em></td><td>Ayunar es eso.</td></tr>
+      <tr><td><strong>Dentro del CR</strong></td><td><em>No me olvido <strong>de</strong> [que me ayudaste].</em></td><td>No me olvido de eso.</td></tr>
+      <tr><td><strong>Dentro del CI</strong></td><td><em>No des importancia <strong>a</strong> [que no te llamó].</em></td><td>No des importancia a eso.</td></tr>
+      <tr><td><strong>Dentro del CC</strong></td><td><em>Entraron <strong>sin</strong> [que nadie se percatara].</em></td><td>Entraron sin eso.</td></tr>
+      <tr><td><strong>Dentro del CN</strong></td><td><em>La idea <strong>de</strong> [que sea en Granada].</em></td><td>La idea de eso.</td></tr>
+      <tr><td><strong>Dentro del CAdj</strong></td><td><em>Estoy segura <strong>de</strong> [que lo ha hecho bien].</em></td><td>Estoy segura de eso.</td></tr>
+      <tr><td><strong>Dentro del CAdv</strong></td><td><em>Se fue antes <strong>de</strong> [que empezara].</em></td><td>Se fue antes de eso.</td></tr>
+    </tbody>
+  </table></div>
+
+  <!-- 3.2 RELATIVO -->
+  <h3 id="s3-rel">3.2 La subordinación de relativo</h3>
+  <p>Son relativas las oraciones introducidas por un <strong>pronombre, adverbio o determinante relativo</strong>. El nexo tiene <strong>doble función</strong>: (1) une las oraciones; (2) desempeña una función sintáctica dentro de la subordinada.</p>
+  <div class="example">La fotógrafa [<strong>que</strong> diseñará la orla] es una antigua alumna. → <em>que</em> = sujeto de «diseñará».</div>
+
+  <h4>Nexos de las oraciones de relativo</h4>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Tipo</th><th>Nexos</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Pronombres relativos</strong></td><td><em>que, quien/quienes, el cual/la cual, cuanto</em></td><td><em>El amigo <strong>en quien</strong> más confío. / Todo <strong>cuanto</strong> estuvo en su mano.</em></td></tr>
+      <tr><td><strong>Adverbios relativos</strong></td><td><em>donde, cuando, como</em></td><td><em>La casa <strong>donde</strong> vivió. / El día <strong>cuando</strong> lo conocí.</em></td></tr>
+      <tr><td><strong>Determinantes relativos</strong></td><td><em>cuyo/a, cuyos/as</em></td><td><em>Las personas <strong>cuyas</strong> solicitudes han sido desestimadas.</em></td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>Función del nexo dentro de la subordinada</h4>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Nexo</th><th>Función en la subordinada</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><td><em>que</em></td><td>Sujeto</td><td><em>La fotógrafa (<strong>que</strong> diseñará la orla) → que = S</em></td></tr>
+      <tr><td><em>que</em></td><td>CD</td><td><em>La fotógrafa (<strong>que</strong> hemos contratado) → que = CD</em></td></tr>
+      <tr><td><em>a la que / a quien</em></td><td>CI o CR</td><td><em>La fotógrafa (<strong>a la que</strong> hemos avisado) → CI</em></td></tr>
+      <tr><td><em>de la que / de quien</em></td><td>CR o CN</td><td><em>Una fotógrafa (<strong>de la que</strong> nos fiamos) → CR</em></td></tr>
+      <tr><td><em>donde</em></td><td>CCL</td><td><em>La mesa (<strong>donde</strong> hay un ordenador) → CCL</em></td></tr>
+      <tr><td><em>cuando</em></td><td>CCT</td><td><em>Esa primavera (<strong>cuando</strong> nos casamos) → CCT</em></td></tr>
+      <tr><td><em>cuyo</em></td><td>Determinante</td><td><em>El futbolista (<strong>cuyo</strong> empujón captó el VAR) → Det.</em></td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>Tipos de oraciones de relativo</h4>
+  <div class="cols2">
+    <div class="col-block">
+      <h4>Con antecedente expreso</h4>
+      <p style="font-size:.88em;margin-bottom:8px"><strong style="color:var(--blue)">Especificativas</strong> — Sin comas. Delimitan el significado del antecedente (solo algunas).</p>
+      <div class="example">Las habitaciones <strong>que dan al exterior</strong> son luminosas.</div>
+      <p style="font-size:.88em;margin:10px 0 8px"><strong style="color:var(--green)">Explicativas</strong> — Entre comas. Añaden información sobre todo el conjunto (todas).</p>
+      <div class="example">Las habitaciones<strong>, que dan al exterior,</strong> son luminosas.</div>
+    </div>
+    <div class="col-block">
+      <h4>Sin antecedente expreso</h4>
+      <p style="font-size:.88em;margin-bottom:8px"><strong style="color:var(--amber)">Relativas libres</strong> — Incorporan semánticamente el antecedente (<em>quien, cuanto</em>).</p>
+      <div class="example">Elige a <strong>quien</strong> quieras. (= a la persona que)</div>
+      <p style="font-size:.88em;margin:10px 0 8px"><strong style="color:var(--amber)">Relativas semilibres</strong> — Antecedente recuperable por el contexto (art. + que).</p>
+      <div class="example"><strong>Las</strong> que más me gustan son las del oeste. (= las películas)</div>
+    </div>
+  </div>
+
+  <!-- 3.3 CONSTRUCCIONES: introducción -->
+  <h3 id="s3-const">3.3 Las construcciones oracionales (antes: «adverbiales»)</h3>
+  <p>La NGLE abandona el término <em>subordinadas adverbiales</em> por tres razones:</p>
+  <ul class="doc-list">
+    <li><strong>Falsa equivalencia:</strong> solo algunas pueden sustituirse por un adverbio (tiempo, lugar y modo).</li>
+    <li><strong>Reubicación:</strong> las que sí equivalen a un adverbio son en realidad relativas libres con <em>donde, cuando, como</em>.</li>
+    <li><strong>Arquitectura bimembre:</strong> las condicionales y concesivas no están integradas en el predicado, sino que forman con él estructuras bimembres (prótasis + apódosis). Por ello, su función es siempre <strong>complemento periférico (CPer)</strong>.</li>
+  </ul>
+  <p>La NGLE reconoce <strong>cuatro grandes grupos</strong> de construcciones: <em>temporales</em>, <em>de causa-efecto</em> (causales, finales, ilativas), <em>de condición-concesión</em> (condicionales, concesivas) y <em>cuantitativas</em> (consecutivas, comparativas, superlativas).</p>
+</div>
+
+<!-- 4. CONSTRUCCIONES: DESARROLLO -->
+<div class="section" id="s4">
+  <span class="section-num navy">4</span>
+  <h2 class="sec-title">Las construcciones oracionales: tipos</h2>
+
+  <!-- 4.1 TEMPORALES -->
+  <h3 id="s4-temp">4.1 Construcciones temporales</h3>
+  <p>Indican la circunstancia temporal en que ocurre lo expresado por el verbo principal o por toda la oración principal.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th style="width:35%">Nexos y locuciones</th><th>Ejemplos</th><th style="width:20%">Función</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><em>mientras, según, conforme, a medida que, cada vez que, una vez que, tan pronto como, a la par que, luego que…</em></td>
+        <td><em>Mientras tú planchas, yo cocinaré. / Los detuvieron según iban saliendo.</em></td>
+        <td>CCT o CPer</td>
+      </tr>
+      <tr>
+        <td>Al + infinitivo</td>
+        <td><em>Al subir al escenario, se quedó bloqueado.</em></td>
+        <td>CPer temporal</td>
+      </tr>
+      <tr>
+        <td>Antes (de) que / después (de) que</td>
+        <td><em>Discutieron antes de que comenzara la reunión.</em></td>
+        <td>Grupo adverbial + oración sustantiva</td>
+      </tr>
+      <tr>
+        <td>Desde que</td>
+        <td><em>Desde que se fue a Huelva, no lo hemos visto.</em></td>
+        <td>GP + oración sustantiva</td>
+      </tr>
+      <tr>
+        <td>Construcción absoluta (sin nexo)</td>
+        <td><em>Resuelta la reunión, nos fuimos a casa.</em> → <em>resuelta</em>: atributo; <em>la reunión</em>: sujeto.</td>
+        <td>CPer temporal</td>
+      </tr>
+    </tbody>
+  </table></div>
+  <div class="alert">La NGLE trata las oraciones con <em>cuando</em> como relativas libres, no como construcciones temporales.</div>
+
+  <!-- 4.2 CAUSALES -->
+  <h3 id="s4-caus">4.2 Construcciones causales</h3>
+  <p>Expresan la causa de lo que ocurre en la oración principal. Se distinguen dos tipos:</p>
+  <ul class="doc-list">
+    <li><strong>Causales internas al predicado:</strong> integradas en el predicado; especifican la causa del verbo principal. Función: <strong>CCCau</strong>.
+      <div class="example">Se fue <strong>porque le dolía la cabeza.</strong></div>
+    </li>
+    <li><strong>Causales externas al predicado:</strong> van separadas del predicado por pausas; justifican lo afirmado o son la causa de la enunciación. Función: <strong>CPer</strong>.
+      <div class="example"><strong>Como es joven,</strong> todo le parece muy romántico. / Déjame en paz, <strong>que me estás molestando.</strong></div>
+    </li>
+  </ul>
+  <p><strong>Nexos:</strong> <em>porque, ya que, como, pues, que, a causa de (que), dado que, puesto que, supuesto que, habida cuenta de que, por culpa de (que), gracias a (que), comoquiera que…</em></p>
+  <p><strong>Grupos preposicionales causales:</strong> <em>por / de + infinitivo</em>.</p>
+  <div class="example">Por ser tan pesado, la reunión se alargó. / Se puso malo de correr después de la comida.</div>
+
+  <!-- 4.3 FINALES -->
+  <h3 id="s4-fin">4.3 Construcciones finales</h3>
+  <p>Expresan el propósito de las acciones. También se distinguen dos tipos:</p>
+  <ul class="doc-list">
+    <li><strong>Finales internas:</strong> integradas en el predicado; especifican el propósito del verbo. Función: <strong>CCFinalidad</strong>.
+      <div class="example">Copio la oración <strong>para que veáis</strong> mejor su análisis.</div>
+    </li>
+    <li><strong>Finales externas:</strong> separadas del predicado; alcanzan valores que afectan a toda la oración. Función: <strong>CPer</strong>.
+      <div class="example"><strong>Para que lo hagan ellos,</strong> lo hago yo. (valor contrastivo)</div>
+    </li>
+  </ul>
+  <p><strong>Nexos:</strong> <em>para que, a que, a fin de que, al objeto de que, con la finalidad de que, con vistas a que, con tal de que…</em></p>
+
+  <!-- 4.4 ILATIVAS -->
+  <h3 id="s4-ilat">4.4 Construcciones ilativas</h3>
+  <p>Son construcciones <strong>bimembres</strong> en las que el segundo miembro aporta una consecuencia de lo expresado en el primero. Función: siempre <strong>CPer</strong>.</p>
+  <p><strong>Nexos:</strong> <em>conque, luego, así que, de forma que, de manera/modo que, de ahí que</em></p>
+  <div class="example">Mañana debes madrugar, <strong>conque</strong> vete a la cama ya. / El proyecto es defectuoso, <strong>de manera que</strong> habrá que empezar de nuevo.</div>
+  <div class="alert">Los conectores discursivos consecutivos (<em>en consecuencia, por tanto, por ende, por consiguiente, entonces…</em>) <strong>no son nexos sintácticos</strong>: son conectores textuales móviles que no crean subordinación. Las oraciones implicadas son sintácticamente independientes (coordinación yuxtapuesta). Compruébalo con la movilidad: <em>debemos cambiar, <strong>por tanto</strong>, la fecha</em>.</div>
+
+  <!-- 4.5 CONDICIONALES -->
+  <h3 id="s4-cond">4.5 Construcciones condicionales</h3>
+  <p>Son construcciones <strong>bimembres</strong> formadas por una <strong>prótasis</strong> (subordinada, expresa el requisito) y una <strong>apódosis</strong> (principal, expresa el resultado o conclusión). Función: siempre <strong>CPer</strong>.</p>
+  <div class="cols2">
+    <div class="col-block" style="background:var(--light)">
+      <h4>Prótasis (requisito)</h4>
+      <div class="example">Si ganamos el partido…</div>
+    </div>
+    <div class="col-block" style="background:#f0faf5">
+      <h4>Apódosis (resultado)</h4>
+      <div class="example">…pasaremos a la final.</div>
+    </div>
+  </div>
+  <p style="margin-top:10px"><strong>Nexos:</strong> <em>si, como, mientras, cuando</em> (en contexto condicional), <em>con tal (de) que, siempre que, siempre y cuando, a menos que, a no ser que, a condición de (que), en caso de (que), en el supuesto de (que)…</em></p>
+  <p><strong>Otros esquemas:</strong> preposición + infinitivo (<em>De haberlo sabido, te habríamos llamado</em>), construcciones absolutas de participio (<em>Recuperado el delantero, no tendrían problemas</em>) o de gerundio (<em>Viniendo Juan, seríamos cinco</em>).</p>
+
+  <!-- 4.6 CONCESIVAS -->
+  <h3 id="s4-conc">4.6 Construcciones concesivas</h3>
+  <p>También son estructuras <strong>bimembres</strong> (prótasis + apódosis). La prótasis plantea un <strong>obstáculo</strong> que no logra impedir lo expresado en la apódosis. Función: siempre <strong>CPer</strong>.</p>
+  <div class="example"><strong>Aunque hable mucho</strong> [prótasis/obstáculo], es muy tímido [apódosis/se cumple igual].</div>
+  <p><strong>Nexos:</strong> <em>aunque, por más que, pese a que, a pesar de que, por mucho que, aun cuando, si bien…</em></p>
+  <p><strong>Otros esquemas:</strong> construcciones condicionales o temporales modificadas por <em>aun, incluso</em> o <em>ni siquiera</em>; grupos preposicionales con infinitivo (<em>Para ser tan joven, demuestra mucha madurez</em>); construcciones absolutas de participio o gerundio (<em>Aun lesionada, terminó el partido</em>).</p>
+  <div class="alert"><strong>¡Atención!</strong> Tanto las condicionales como las concesivas son <strong>siempre CPer</strong>: nunca se analizan como CC, ya que no están integradas en el predicado sino que forman con él una estructura bimembre que opera desde fuera.</div>
+
+  <!-- 4.7 CONSECUTIVAS -->
+  <h3 id="s4-cons">4.7 Construcciones consecutivas</h3>
+  <p>Expresan el <strong>efecto o consecuencia</strong> de un segmento anterior que ha sido <strong>intensificado</strong>. La estructura básica consta de:</p>
+  <ul class="doc-list">
+    <li>Un <strong>grupo cuantificativo</strong> (con <em>tan/tanto/tanta/tantos/tantas</em> y <em>tal/tales</em>), ubicado en la oración principal.</li>
+    <li>La <strong>oración subordinada</strong> introducida por la conjunción <em>que</em>.</li>
+  </ul>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>G. cuantificativo</th><th>Complemento (oración subordinada)</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><td><em>tanto ruido</em></td><td><em>que despertaron a los vecinos</em></td><td>Hacían tanto ruido que despertaron a los vecinos.</td></tr>
+      <tr><td><em>tan rápida</em></td><td><em>que fue seleccionada</em></td><td>Era tan rápida que fue seleccionada para las olimpiadas.</td></tr>
+      <tr><td><em>tal</em></td><td><em>que deslumbraba a todos</em></td><td>Su inteligencia era tal que deslumbraba a todos.</td></tr>
+      <tr><td><em>un + sustantivo</em></td><td><em>que pela</em></td><td>Hace un frío que pela.</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Función sintáctica:</strong> complemento del grupo cuantificativo (<em>tanto, tal, tan…</em>).</p>
+
+  <!-- 4.8 COMPARATIVAS -->
+  <h3 id="s4-comp">4.8 Construcciones comparativas</h3>
+  <p>Establecen una relación de <strong>superioridad, inferioridad o igualdad</strong> entre dos elementos. La oración subordinada es introducida con <em>que</em> (desigualdad) o con <em>como</em> (igualdad). El verbo de la segunda parte suele estar tácito.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Primera parte</th><th>Cuantificativo</th><th>Segunda parte (subordinada)</th></tr></thead>
+    <tbody>
+      <tr><td>Ahora hay</td><td><em>más</em></td><td>tensión <strong>que</strong> antes (había)</td></tr>
+      <tr><td>Han llegado</td><td><em>menos</em></td><td>turistas <strong>que</strong> el año pasado (llegaron)</td></tr>
+      <tr><td>Se encuentran</td><td><em>tan</em></td><td>felices <strong>como</strong> siempre (se han encontrado)</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Comparativos sintéticos</strong> (llevan el grado incorporado): <em>mejor</em> (más bueno), <em>peor</em> (más malo), <em>mayor</em> (más grande), <em>menor</em> (más pequeño), <em>antes</em> (más pronto), <em>después</em> (más tarde).</p>
+
+  <!-- 4.9 SUPERLATIVAS -->
+  <h3 id="s4-sup">4.9 Construcciones superlativas</h3>
+  <p>Expresan una propiedad poseída por uno o varios individuos en un grado más alto que los demás miembros de un conjunto.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Primera parte</th><th>G. cuantificativo</th><th>Complemento restrictivo</th></tr></thead>
+    <tbody>
+      <tr><td>Ese edificio es el</td><td><em>más alto</em></td><td><strong>que</strong> se ha construido (relativa)</td></tr>
+      <tr><td>He elegido la opción</td><td><em>menos cara</em></td><td><strong>que</strong> había en el mercado (relativa)</td></tr>
+      <tr><td>He oído los</td><td><em>mayores</em></td><td>disparates <strong>que</strong> se han pronunciado nunca (relativa)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="alert"><strong>Diferencia clave con las consecutivas:</strong> en las superlativas, la segunda parte es una <strong>oración de relativo</strong> (restrictiva), no el complemento de un grupo cuantificativo.</div>
+
+  <!-- 4.10 FORMAS NO PERSONALES -->
+  <h3 id="s4-fnp">4.10 Construcciones con formas no personales del verbo</h3>
+  <p>Las formas no personales (infinitivo, gerundio y participio) pueden desempeñar funciones propias del sustantivo, el adjetivo o el adverbio, y también pueden recibir los complementos propios de esas clases de palabras.</p>
+
+  <h4>Construcciones de infinitivo</h4>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Función</th><th>Tipo de construcción</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><td>Sujeto</td><td>O Sub Sust</td><td><em>Me encantará <strong>visitar tu pueblo</strong>.</em></td></tr>
+      <tr><td>Atributo</td><td>O Sub Sust</td><td><em>Ser paciente es <strong>esperar el tiempo necesario</strong>.</em></td></tr>
+      <tr><td>CPred</td><td>O Sub Sust</td><td><em>Vi a Luis <strong>salir de su casa</strong>.</em></td></tr>
+      <tr><td>CD</td><td>O Sub Sust</td><td><em>Espero <strong>aprobar la PEvAU</strong>.</em></td></tr>
+      <tr><td>CR</td><td>O Sub Sust</td><td><em>Confiaban en <strong>tener bien todas las preguntas</strong>.</em></td></tr>
+      <tr><td>CN</td><td>O Sub Sust</td><td><em>La idea de <strong>votar por WhatsApp</strong> es una locura.</em></td></tr>
+      <tr><td>CPer temporal</td><td>Const Temp</td><td><em><strong>Al verme</strong>, miró para otro lado.</em></td></tr>
+      <tr><td>CPer causal</td><td>Const Caus</td><td><em><strong>Al doblarse el dedo</strong>, perdió precisión en el lanzamiento.</em></td></tr>
+      <tr><td>CPer condicional</td><td>Const Cond</td><td><em><strong>De ser él</strong>, llamará otra vez.</em></td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>Construcciones de gerundio</h4>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Valor</th><th>Función</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><td>—</td><td>CPred</td><td><em>Llegó <strong>llorando</strong>.</em></td></tr>
+      <tr><td>Modal</td><td>CC Modal</td><td><em>Le desinfectó la herida <strong>aplicándole agua oxigenada</strong>.</em></td></tr>
+      <tr><td>Temporal</td><td>CPer</td><td><em><strong>Viniendo del campo</strong>, me encontré con mis amigos.</em></td></tr>
+      <tr><td>Causal</td><td>CPer</td><td><em><strong>Viendo el número de solicitudes irregulares</strong>, se suspendió el concurso.</em></td></tr>
+      <tr><td>Concesivo</td><td>CPer</td><td><em><strong>Aun esforzándose</strong>, no consiguió nada.</em></td></tr>
+      <tr><td>Tópico</td><td>CPer</td><td><em><strong>Cambiando de tema</strong>, ¿quién cocina hoy?</em></td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>Construcciones de participio (construcciones absolutas)</h4>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Valor</th><th>Función</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><td>Temporal</td><td>CPer</td><td><em><strong>Leídas las instrucciones</strong>, los concursantes comenzaron.</em></td></tr>
+      <tr><td>Causal</td><td>CPer</td><td><em><strong>Suspendido el partido</strong>, los aficionados abandonaron el estadio.</em></td></tr>
+      <tr><td>Condicional</td><td>CPer</td><td><em><strong>Empleadas correctamente</strong>, las palabras son un instrumento muy útil.</em></td></tr>
+      <tr><td>Concesivo</td><td>CPer</td><td><em><strong>Aun derrotado dos veces</strong>, volvió a presentarse como candidato.</em></td></tr>
+    </tbody>
+  </table></div>
+</div>
+
+<!-- 5. TABLA COMPARATIVA -->
+<div class="section" id="s5">
+  <span class="section-num amber">5</span>
+  <h2 class="sec-title">Tabla comparativa: Gramática Tradicional vs. NGLE</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr>
+      <th style="width:32%">Gramática Tradicional</th>
+      <th style="width:20%;text-align:center">Cambio</th>
+      <th>NGLE</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td>Coordinación copulativa</td>
+        <td style="text-align:center;color:var(--mid)">Sin cambios</td>
+        <td>Coordinación copulativa</td>
+      </tr>
+      <tr>
+        <td>Coordinación adversativa</td>
+        <td style="text-align:center;color:var(--mid)">Sin cambios</td>
+        <td>Coordinación adversativa</td>
+      </tr>
+      <tr>
+        <td>Coordinación disyuntiva</td>
+        <td style="text-align:center;color:var(--mid)">Sin cambios</td>
+        <td>Coordinación disyuntiva</td>
+      </tr>
+      <tr>
+        <td><strong>Coordinación distributiva</strong></td>
+        <td style="text-align:center;font-weight:700;color:var(--amber)">Eliminada</td>
+        <td>Es un tipo de coordinación disyuntiva.</td>
+      </tr>
+      <tr>
+        <td><strong>Coordinación ilativa</strong></td>
+        <td style="text-align:center;font-weight:700;color:var(--amber)">Reubicada</td>
+        <td>Es una construcción subordinada (siempre CPer).</td>
+      </tr>
+      <tr>
+        <td><strong>Coordinación explicativa</strong></td>
+        <td style="text-align:center;font-weight:700;color:var(--amber)">Eliminada</td>
+        <td>No hay nexo sintáctico: se analiza como yuxtaposición.</td>
+      </tr>
+      <tr>
+        <td><strong>Yuxtaposición</strong></td>
+        <td style="text-align:center;font-weight:700;color:var(--blue)">Renombrada</td>
+        <td>Coordinación sin nexo (tipo de coordinación, no categoría aparte).</td>
+      </tr>
+      <tr>
+        <td>Subordinada sustantiva</td>
+        <td style="text-align:center;color:var(--mid)">Prácticamente sin cambios</td>
+        <td>Subordinada sustantiva (mismo análisis, salvo que el atributo y el predicativo solo los cumple la construcción de infinitivo).</td>
+      </tr>
+      <tr>
+        <td><strong>Subordinada adjetiva sustantivada</strong></td>
+        <td style="text-align:center;font-weight:700;color:var(--blue)">Reubicada</td>
+        <td>Relativa libre (con <em>quien</em>) o semilibre (con art. + <em>que</em>).</td>
+      </tr>
+      <tr>
+        <td>Subordinada adjetiva o de relativo (CN)</td>
+        <td style="text-align:center;color:var(--mid)">Sin cambios</td>
+        <td>Relativa con antecedente expreso (CN).</td>
+      </tr>
+      <tr>
+        <td><strong>Adverbiales propias de tiempo, lugar y modo (CC/CPer)</strong></td>
+        <td style="text-align:center;font-weight:700;color:var(--blue)">Reubicadas</td>
+        <td>Relativas libres con <em>donde, cuando, como, cuanto</em> (CC y CPer). No se consideran adverbiales.</td>
+      </tr>
+      <tr>
+        <td><strong>Adverbial causal (CCCau)</strong></td>
+        <td style="text-align:center;font-weight:700;color:var(--blue)">Reestructurada</td>
+        <td>Construcción causal interna (CCCau) o externa (CPer). Algunas responden a esquemas con oraciones sustantivas.</td>
+      </tr>
+      <tr>
+        <td><strong>Adverbial final (CCFin)</strong></td>
+        <td style="text-align:center;font-weight:700;color:var(--blue)">Reestructurada</td>
+        <td>Construcción final interna (CCFin) o externa (CPer). Algunas responden a esquemas con oraciones sustantivas.</td>
+      </tr>
+      <tr>
+        <td><strong>Adverbial condicional (CC)</strong></td>
+        <td style="text-align:center;font-weight:700;color:var(--navy)">Extraída del predicado</td>
+        <td>Construcción condicional (CPer siempre). No está integrada en el predicado; forma estructura bimembre.</td>
+      </tr>
+      <tr>
+        <td><strong>Adverbial concesiva (CC)</strong></td>
+        <td style="text-align:center;font-weight:700;color:var(--navy)">Extraída del predicado</td>
+        <td>Construcción concesiva (CPer siempre). No está integrada en el predicado; forma estructura bimembre.</td>
+      </tr>
+      <tr>
+        <td><strong>Adverbial consecutiva intensiva</strong></td>
+        <td style="text-align:center;font-weight:700;color:var(--blue)">Reestructurada</td>
+        <td>Construcción consecutiva: complemento del grupo cuantificativo (<em>tanto, tan, tal…</em>). Integrada en la oración principal.</td>
+      </tr>
+      <tr>
+        <td><strong>Adverbial comparativa</strong></td>
+        <td style="text-align:center;font-weight:700;color:var(--blue)">Reestructurada</td>
+        <td>Construcción comparativa: complemento del grupo cuantificativo. Forma parte de un grupo con cuantificador.</td>
+      </tr>
+    </tbody>
+  </table></div>
+</div>
+
+<!-- 6. GLOSARIO -->
+<div class="section" id="s6">
+  <span class="section-num green">6</span>
+  <h2 class="sec-title">Glosario rápido de abreviaturas</h2>
+  <div class="glosario-grid">
+    <div class="glosario-col">
+      <div class="glosario-col-head">Funciones sintácticas</div>
+      <div class="glosario-col-body">
+        <strong>OP</strong> <span>· Oración principal</span><br>
+        <strong>OSub</strong> <span>· Oración subordinada</span><br>
+        <strong>O Sub Sust</strong> <span>· O. sub. sustantiva</span><br>
+        <strong>O Sub Rel</strong> <span>· O. sub. de relativo</span><br>
+        <strong>CCCau</strong> <span>· CC de causa</span><br>
+        <strong>CCFin</strong> <span>· CC de finalidad</span><br>
+        <strong>CCT</strong> <span>· CC de tiempo</span><br>
+        <strong>CPer</strong> <span>· Complemento periférico</span><br>
+        <strong>CPred</strong> <span>· Complemento predicativo</span>
+      </div>
+    </div>
+    <div class="glosario-col">
+      <div class="glosario-col-head">Construcciones oracionales</div>
+      <div class="glosario-col-body">
+        <strong>Const Temp</strong> <span>· Construcción temporal</span><br>
+        <strong>Const Caus</strong> <span>· Construcción causal</span><br>
+        <strong>Const Fin</strong> <span>· Construcción final</span><br>
+        <strong>Const Ilat</strong> <span>· Construcción ilativa</span><br>
+        <strong>Const Cond</strong> <span>· Construcción condicional</span><br>
+        <strong>Const Conc</strong> <span>· Construcción concesiva</span><br>
+        <strong>Const Cons</strong> <span>· Construcción consecutiva</span><br>
+        <strong>Const Comp</strong> <span>· Construcción comparativa</span><br>
+        <strong>Const Sup</strong> <span>· Construcción superlativa</span>
+      </div>
+    </div>
+    <div class="glosario-col">
+      <div class="glosario-col-head">Coordinación</div>
+      <div class="glosario-col-body">
+        <strong>O Comp Coord</strong> <span>· O. comp. coordinada</span><br>
+        <strong>O Comp Coord Cop</strong> <span>· Copulativa</span><br>
+        <strong>O Comp Coord Adv</strong> <span>· Adversativa</span><br>
+        <strong>O Comp Coord Dis</strong> <span>· Disyuntiva</span><br>
+        <strong>O Comp Coord Yux</strong> <span>· Yuxtapuesta</span>
+      </div>
+    </div>
+    <div class="glosario-col">
+      <div class="glosario-col-head">Relativas</div>
+      <div class="glosario-col-body">
+        <strong>O Sub Rel</strong> <span>· O. sub. de relativo</span><br>
+        <strong>O Sub Rel Libre</strong> <span>· Relativa libre</span><br>
+        <strong>O Sub Rel Semilibre</strong> <span>· Relativa semilibre</span><br>
+        <strong>CN</strong> <span>· Complemento del nombre</span><br>
+        <strong>CAdj</strong> <span>· Complemento del adjetivo</span><br>
+        <strong>CAdv</strong> <span>· Complemento del adverbio</span><br>
+        <strong>CR</strong> <span>· Complemento de régimen</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrapper -->
+</body>
+</html>
