@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La Oración Simple · Guía de consulta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1B4F72;--blue:#2874A6;--amber:#D4860A;--green:#1A7A4A;
+  --text:#1C2833;--mid:#5D6D7E;--light:#EBF5FB;--rule:#AED6F1;
+  --amber-bg:#FEF9E7;--amber-border:#F0C040;
+  --f:'Carlito','Calibri',Arial,sans-serif;
+}
+html,body{background:#2C3E50;font-family:var(--f);color:var(--text);font-size:20px}
+#shell{display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:16px 12px 12px;gap:12px}
+.slide{display:none;width:100%;max-width:1000px;background:#fff;border-radius:6px;
+  box-shadow:0 8px 40px rgba(0,0,0,.45);padding:36px 44px 32px;flex-direction:column;gap:14px}
+.slide.active{display:flex}
+.slide-tag{align-self:flex-end;font-size:.7em;color:var(--mid);margin-top:-20px;margin-bottom:-6px}
+.slide-title{font-size:1.5em;font-weight:700;color:var(--navy);padding-bottom:10px;
+  border-bottom:3px solid var(--rule);line-height:1.2}
+.info-box{background:var(--light);border:1px solid var(--rule);border-radius:4px;
+  padding:12px 16px;font-size:.93em;line-height:1.55}
+.alert-box{background:var(--amber-bg);border:1px solid var(--amber-border);
+  border-left:5px solid var(--amber);border-radius:4px;padding:11px 16px;
+  font-size:.9em;line-height:1.5}
+.example-box{background:#f8f9fa;border:1px solid var(--rule);border-radius:4px;
+  padding:8px 12px;font-style:italic;font-size:.88em;color:var(--mid);line-height:1.45;margin-top:7px}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cols3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.card{border:1px solid var(--rule);border-radius:4px;overflow:hidden;display:flex;flex-direction:column}
+.card-header{padding:9px 14px;font-size:.92em;font-weight:700;color:#fff;text-align:center;letter-spacing:.03em}
+.ch-blue{background:var(--blue)}.ch-navy{background:var(--navy)}
+.ch-amber{background:var(--amber)}.ch-green{background:var(--green)}
+.card-body{padding:12px 14px;font-size:.88em;line-height:1.5;flex:1;background:var(--light)}
+.tbl{width:100%;border-collapse:collapse;font-size:.88em}
+.tbl th{background:var(--navy);color:#fff;font-weight:700;padding:9px 13px;text-align:left}
+.tbl td{padding:9px 13px;border:1px solid var(--rule);vertical-align:top;line-height:1.45}
+.tbl tr:nth-child(odd) td{background:var(--light)}
+.tbl tr:nth-child(even) td{background:#fff}
+.tbl td strong{color:var(--navy)}
+.step-row{display:flex;align-items:flex-start;gap:12px}
+.step-num{background:var(--blue);color:#fff;border-radius:50%;width:40px;height:40px;min-width:40px;
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1em}
+.step-box{border:1px solid var(--rule);border-radius:4px;background:var(--light);padding:11px 14px;flex:1;font-size:.9em}
+.step-title{font-weight:700;color:var(--navy);font-size:.95em}
+.step-desc{margin-top:5px;line-height:1.45}
+/* PORTADA */
+#s01{padding:0;flex-direction:row}
+.cover-left{flex:1.7;padding:44px 48px;display:flex;flex-direction:column;justify-content:center;border-right:6px solid var(--blue)}
+.cover-left h1{font-size:2.3em;font-weight:700;color:var(--navy);line-height:1.15;margin-bottom:14px}
+.cover-left .sub{font-size:.98em;color:var(--mid);margin-bottom:8px}
+.cover-left .tag{font-size:.88em;color:var(--blue)}
+.cover-right{width:30%;background:var(--light);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:40px 20px}
+.cover-right .unit{font-size:.82em;font-weight:700;color:var(--blue);letter-spacing:.06em}
+.cover-right .topics{font-size:1em;color:var(--navy);line-height:2;text-align:center}
+/* nivel badge */
+.nivel-badge{display:inline-block;background:var(--blue);color:#fff;border-radius:12px;
+  padding:2px 10px;font-size:.78em;font-weight:700;margin-bottom:4px}
+.nivel-badge.amber{background:var(--amber)}
+.nivel-badge.green{background:var(--green)}
+.nivel-badge.navy{background:var(--navy)}
+/* footer */
+.footer-bar{background:var(--navy);color:#fff;padding:12px 20px;text-align:center;
+  font-size:.9em;line-height:1.4;border-radius:4px}
+/* controls */
+#controls{display:flex;align-items:center;gap:14px}
+button.nav{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);
+  border-radius:6px;padding:8px 22px;font-size:1em;cursor:pointer;transition:background .15s;font-family:var(--f)}
+button.nav:hover{background:rgba(255,255,255,.28)}
+button.nav:disabled{opacity:.3;cursor:default}
+#counter{color:rgba(255,255,255,.8);font-size:.92em;min-width:80px;text-align:center}
+@media(max-width:700px){
+  html,body{font-size:16px}
+  .slide{padding:22px 18px 20px}
+  .cols2,.cols3{grid-template-columns:1fr}
+  .cover-right{display:none}
+  .cover-left{padding:28px}
+  .cover-left h1{font-size:1.7em}
+}
+</style>
+</head>
+<body>
+<div id="shell">
+<div id="viewport" style="width:100%;max-width:1000px">
+
+<!-- D.01 PORTADA -->
+<div class="slide active" id="s01">
+  <div class="cover-left">
+    <h1>La Oración Simple</h1>
+    <p class="sub">Guía de consulta: de la palabra al análisis sintáctico</p>
+    <p class="tag">Lengua Castellana y Literatura – 2º BACHILLERATO</p>
+  </div>
+  <div class="cover-right">
+    <div class="unit">CONTENIDOS</div>
+    <div class="topics">
+      Clases de palabras<br>
+      Grupos sintácticos<br>
+      Funciones sintácticas<br>
+      Modalidad<br>
+      Análisis resuelto
+    </div>
+  </div>
+</div>
+
+<!-- D.02 LOS NIVELES -->
+<div class="slide" id="s02">
+  <div class="slide-tag">D.02</div>
+  <h2 class="slide-title">1. Los niveles del análisis sintáctico</h2>
+  <div class="info-box">
+    Analizar una oración simple consiste en observarla desde <strong>cuatro niveles</strong> que se construyen uno sobre otro, como los pisos de un edificio.
+  </div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div style="display:flex;align-items:flex-start;gap:12px">
+      <span class="nivel-badge">Nivel 1</span>
+      <div style="flex:1;font-size:.93em;line-height:1.5">
+        <strong style="color:var(--navy)">Unidades sintácticas</strong> — Los materiales básicos: <em>palabras</em> y <em>locuciones</em> (grupos que funcionan como una sola pieza: <em>a pesar de, sin embargo</em>…).
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:12px">
+      <span class="nivel-badge green">Nivel 2</span>
+      <div style="flex:1;font-size:.93em;line-height:1.5">
+        <strong style="color:var(--navy)">Grupos sintácticos</strong> — Bloques modulares: GN, GV, GAdj, GAdv, GP. Cada uno se organiza en torno a un <strong>núcleo</strong>.
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:12px">
+      <span class="nivel-badge amber">Nivel 3</span>
+      <div style="flex:1;font-size:.93em;line-height:1.5">
+        <strong style="color:var(--navy)">Funciones sintácticas</strong> — El papel estructural de cada grupo: sujeto, complemento directo, atributo, adjuntos…
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:12px">
+      <span class="nivel-badge navy">Nivel 4</span>
+      <div style="flex:1;font-size:.93em;line-height:1.5">
+        <strong style="color:var(--navy)">La oración simple</strong> — El edificio terminado: clasificación según la <strong>modalidad</strong> (intención comunicativa) y la <strong>naturaleza del predicado</strong>.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- D.03 CLASES DE PALABRAS -->
+<div class="slide" id="s03">
+  <div class="slide-tag">D.03</div>
+  <h2 class="slide-title">2. Catálogo de clases de palabras</h2>
+  <div class="cols3">
+    <div class="card">
+      <div class="card-header ch-blue">Palabras variables</div>
+      <div class="card-body" style="font-size:.87em">
+        <p style="color:var(--mid);font-size:.88em;margin-bottom:8px">Admiten flexión de género, número o persona</p>
+        <p style="margin-bottom:5px"><strong style="color:var(--navy)">Sustantivo</strong> — núcleo de entidades y conceptos.</p>
+        <p style="margin-bottom:5px"><strong style="color:var(--navy)">Adjetivo</strong> — aporta cualidades y propiedades.</p>
+        <p style="margin-bottom:5px"><strong style="color:var(--navy)">Determinante</strong> — otorga capacidad referencial al sustantivo.</p>
+        <p style="margin-bottom:5px"><strong style="color:var(--navy)">Pronombre</strong> — sustituye al sustantivo y toma su referente.</p>
+        <p><strong style="color:var(--navy)">Verbo</strong> — motor de la oración; persona, número, tiempo, modo y aspecto.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header ch-green">Palabras invariables</div>
+      <div class="card-body" style="font-size:.87em">
+        <p style="color:var(--mid);font-size:.88em;margin-bottom:8px">Sin flexión: bloques rígidos</p>
+        <p style="margin-bottom:5px"><strong style="color:var(--navy)">Adverbio</strong> — expresa tiempo, lugar, modo o cantidad.</p>
+        <p style="margin-bottom:5px"><strong style="color:var(--navy)">Preposición</strong> — establece un enlace relacional.</p>
+        <p style="margin-bottom:5px"><strong style="color:var(--navy)">Conjunción</strong> — conecta elementos coordinada o subordinadamente.</p>
+        <p><strong style="color:var(--navy)">Interjección</strong> — forma enunciados exclamativos autónomos.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header ch-amber">Palabras transversales</div>
+      <div class="card-body" style="font-size:.87em">
+        <p style="color:var(--mid);font-size:.88em;margin-bottom:8px">Cruzan las dos clasificaciones</p>
+        <p style="margin-bottom:8px">Pueden funcionar como <strong>determinantes</strong> o como <strong>pronombres</strong> según el contexto:</p>
+        <p style="margin-bottom:4px">· Cuantificadores</p>
+        <p style="margin-bottom:4px">· Demostrativos</p>
+        <p style="margin-bottom:4px">· Posesivos</p>
+        <p style="margin-bottom:4px">· Relativos</p>
+        <p>· Interrogativos</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- D.04 EL VERBO -->
+<div class="slide" id="s04">
+  <div class="slide-tag">D.04</div>
+  <h2 class="slide-title">3. El verbo: motor del predicado</h2>
+  <div class="cols3">
+    <div class="card">
+      <div class="card-header ch-blue">Formas verbales</div>
+      <div class="card-body" style="font-size:.88em">
+        <p style="margin-bottom:6px"><strong style="color:var(--navy)">Simples</strong><br><em>hablo, hablé</em></p>
+        <p style="margin-bottom:6px"><strong style="color:var(--navy)">Compuestas</strong><br><em>he hablado, había hablado</em></p>
+        <p><strong style="color:var(--navy)">No personales</strong> (sin flexión de persona)<br>
+          <em>infinitivo (hablar)<br>gerundio (hablando)<br>participio (hablado)</em></p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header ch-green">Tipos según significado</div>
+      <div class="card-body" style="font-size:.88em">
+        <p style="margin-bottom:6px"><strong style="color:var(--navy)">Plenos</strong> — significado léxico propio.<br><em>saltar, vender</em></p>
+        <p style="margin-bottom:6px"><strong style="color:var(--navy)">Copulativos</strong> — unen sujeto y atributo; sin significado pleno.<br><em>ser, estar, parecer</em></p>
+        <p><strong style="color:var(--navy)">Semicopulativos</strong> — verbos plenos usados como copulativos.<br><em>volverse loco, andar pensativo</em></p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header ch-amber">Usos impersonales (sin sujeto sintáctico)</div>
+      <div class="card-body" style="font-size:.88em">
+        <p style="margin-bottom:6px"><strong style="color:var(--navy)">Fenómenos atmosféricos</strong><br><em>Llovió toda la noche.</em></p>
+        <p style="margin-bottom:6px"><strong style="color:var(--navy)">Haber existencial</strong><br><em>Habrá elecciones.</em></p>
+        <p style="margin-bottom:6px"><strong style="color:var(--navy)">Hacer / ser</strong> (clima/tiempo)<br><em>Hace frío. Es de noche.</em></p>
+        <p><strong style="color:var(--navy)">Impersonales reflejas</strong><br><em>Se vive bien.</em></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- D.05 PERÍFRASIS VERBALES -->
+<div class="slide" id="s05">
+  <div class="slide-tag">D.05</div>
+  <h2 class="slide-title">4. Las perífrasis verbales</h2>
+  <div class="info-box">
+    Una <strong>perífrasis verbal</strong> es una unidad formada por dos verbos (a veces con nexo) que funciona como un solo núcleo verbal. Se verifica con tres preguntas en orden.
+  </div>
+  <div style="display:flex;flex-direction:column;gap:9px">
+    <div class="step-row">
+      <div class="step-num">1</div>
+      <div class="step-box">
+        <div class="step-title">¿El primer verbo pierde su significado original?</div>
+        <div class="step-desc">Si <strong>no</strong> lo pierde → dos verbos independientes. Si <strong>sí</strong> lo pierde → seguir comprobando.</div>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">2</div>
+      <div class="step-box">
+        <div class="step-title">¿El segundo verbo se puede sustituir por «lo»?</div>
+        <div class="step-desc"><em>Quiero comer manzanas → lo quiero</em> ✓ → verbos independientes. Si <strong>no</strong> funciona → seguir comprobando.</div>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">3</div>
+      <div class="step-box">
+        <div class="step-title">¿El segundo verbo se puede sustituir por «que + verbo conjugado»?</div>
+        <div class="step-desc">Si es posible → verbos independientes. Si <strong>no</strong> es posible → <strong>perífrasis verbal confirmada</strong>.</div>
+      </div>
+    </div>
+  </div>
+  <div class="cols2">
+    <div class="card">
+      <div class="card-header ch-blue">Tipos según valor</div>
+      <div class="card-body" style="font-size:.88em;line-height:1.7">
+        <strong style="color:var(--navy)">Incoativas</strong> (inicio) · <em>voy a llamar</em><br>
+        <strong style="color:var(--navy)">Durativas</strong> (desarrollo) · <em>sigue contando</em><br>
+        <strong style="color:var(--navy)">Perfectivas</strong> (fin) · <em>acabó de leer</em><br>
+        <strong style="color:var(--navy)">Frecuentativas</strong> (repetición) · <em>vuelve a subir</em>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header ch-amber">Tipos modales</div>
+      <div class="card-body" style="font-size:.88em;line-height:1.7">
+        <strong style="color:var(--navy)">De obligación</strong> · <em>tengo que ir</em><br>
+        <strong style="color:var(--navy)">De posibilidad</strong> · <em>debe de costar</em>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- D.06 PRONOMBRE SE -->
+<div class="slide" id="s06">
+  <div class="slide-tag">D.06</div>
+  <h2 class="slide-title">5. Los valores del pronombre <em>se</em></h2>
+  <div class="cols2">
+    <div>
+      <div class="card" style="margin-bottom:12px">
+        <div class="card-header ch-navy">Variante de <em>le</em></div>
+        <div class="card-body" style="font-size:.88em">
+          Sustituye a <em>le</em> cuando el CD adopta la forma <em>lo/la/los/las</em>, para evitar la secuencia <em>le lo</em>.
+          <div class="example-box">Se lo pedí ayer. (← le lo pedí)</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header ch-blue">Se paradigmático (alterna con me, te, nos, os)</div>
+        <div class="card-body" style="font-size:.88em">
+          <p style="margin-bottom:5px"><strong style="color:var(--navy)">Reflexivo</strong> — la acción recae sobre el sujeto agente.<br><em>Se lava.</em></p>
+          <p style="margin-bottom:5px"><strong style="color:var(--navy)">Recíproco</strong> — acción mutua entre sujetos.<br><em>Se abrazan.</em></p>
+          <p style="margin-bottom:5px"><strong style="color:var(--navy)">Dativo enfático</strong> — eliminable sin afectar la gramaticalidad.<br><em>Se comió todo.</em></p>
+          <p><strong style="color:var(--navy)">Morfema verbal</strong> — parte inseparable del verbo, sin valor propio.<br><em>Se arrepintió.</em></p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header ch-amber">Se no paradigmático (solo 3ª persona)</div>
+      <div class="card-body" style="font-size:.88em">
+        <p style="margin-bottom:10px"><strong style="color:var(--navy)">Pasiva refleja</strong> — convierte la oración en pasiva; el verbo concuerda con el sujeto paciente.</p>
+        <div class="example-box" style="margin-bottom:12px">Se leyó la novela.</div>
+        <p style="margin-bottom:10px"><strong style="color:var(--navy)">Impersonal refleja</strong> — bloquea la presencia de sujeto sintáctico; el verbo va siempre en singular.</p>
+        <div class="example-box">Se vive bien en Andalucía.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- D.07 GRUPOS SINTÁCTICOS -->
+<div class="slide" id="s07">
+  <div class="slide-tag">D.07</div>
+  <h2 class="slide-title">6. Los grupos sintácticos</h2>
+  <div class="info-box">
+    Cada grupo sintáctico se organiza en torno a un <strong>núcleo</strong>, que puede ir acompañado de <strong>modificadores</strong> (antes del núcleo) y <strong>complementos</strong> (después del núcleo).
+  </div>
+  <table class="tbl">
+    <thead><tr>
+      <th style="width:18%">Grupo</th>
+      <th style="width:32%">Estructura</th>
+      <th>Ejemplo</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>GN</strong><br><span style="color:var(--mid);font-size:.88em">Grupo nominal</span></td>
+        <td>Determinante + Núcleo (sust./pron.) + CN o aposición</td>
+        <td><em>Todos los libros de tu compañera</em> → <em>todos los</em> (Det.), <em>libros</em> (N.), <em>de tu compañera</em> (CN)</td>
+      </tr>
+      <tr>
+        <td><strong>GAdj</strong><br><span style="color:var(--mid);font-size:.88em">Grupo adjetival</span></td>
+        <td>Modificador + Núcleo (adj.) + Complemento del adjetivo</td>
+        <td><em>Muy satisfecho con el resultado</em> → <em>muy</em> (Mod.), <em>satisfecho</em> (N.), <em>con el resultado</em> (CAdj)</td>
+      </tr>
+      <tr>
+        <td><strong>GAdv</strong><br><span style="color:var(--mid);font-size:.88em">Grupo adverbial</span></td>
+        <td>Modificador + Núcleo (adv.) + Complemento del adverbio</td>
+        <td><em>Mucho más cerca de la cena</em> → <em>mucho más</em> (Mod.), <em>cerca</em> (N.), <em>de la cena</em> (CAdv)</td>
+      </tr>
+      <tr>
+        <td><strong>GP</strong><br><span style="color:var(--mid);font-size:.88em">Grupo preposicional</span></td>
+        <td>Enlace (preposición) + Término (GN, GAdj, GAdv u oración)</td>
+        <td><em>Hacia la derecha</em> → <em>hacia</em> (E.), <em>la derecha</em> (T.)</td>
+      </tr>
+      <tr>
+        <td><strong>GV</strong><br><span style="color:var(--mid);font-size:.88em">Grupo verbal</span></td>
+        <td>Modificador + Núcleo (verbo/perífrasis) + Complementos</td>
+        <td><em>No llegamos hoy</em> → <em>no</em> (Mod.), <em>llegamos</em> (N.), <em>hoy</em> (CC)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- D.08 FUNCIONES: MODELO POR NIVELES -->
+<div class="slide" id="s08">
+  <div class="slide-tag">D.08</div>
+  <h2 class="slide-title">7. Las funciones sintácticas: modelo por niveles</h2>
+  <div class="info-box">
+    Todas las funciones giran en torno al <strong>verbo</strong>, pero no todas mantienen la misma relación de dependencia con él. Se distinguen tres niveles según su grado de exigencia.
+  </div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="card" style="flex-direction:row;align-items:stretch">
+      <div style="background:var(--blue);color:#fff;writing-mode:vertical-rl;transform:rotate(180deg);
+        padding:8px 10px;font-weight:700;font-size:.82em;display:flex;align-items:center;
+        letter-spacing:.05em;flex-shrink:0;border-radius:4px 0 0 4px">NIVEL 1</div>
+      <div style="flex:1;padding:12px 16px;font-size:.91em;line-height:1.5;background:var(--light)">
+        <strong style="color:var(--blue)">Argumentos</strong> — Complementos cuya presencia <em>exige</em> el significado del verbo; sin ellos la oración resulta incompleta.<br>
+        <span style="color:var(--mid)">Incluyen: sujeto, CD, CI, CR, atributo, CPred.</span>
+      </div>
+    </div>
+    <div class="card" style="flex-direction:row;align-items:stretch">
+      <div style="background:var(--green);color:#fff;writing-mode:vertical-rl;transform:rotate(180deg);
+        padding:8px 10px;font-weight:700;font-size:.82em;display:flex;align-items:center;
+        letter-spacing:.05em;flex-shrink:0;border-radius:4px 0 0 4px">NIVEL 2</div>
+      <div style="flex:1;padding:12px 16px;font-size:.91em;line-height:1.5;background:#f0faf5">
+        <strong style="color:var(--green)">Adjuntos</strong> — Aportan información de contexto (lugar, tiempo, modo, causa…), pero el verbo <em>no los exige</em>.<br>
+        <span style="color:var(--mid)">Incluyen: CC, complemento agente, dativo.</span>
+      </div>
+    </div>
+    <div class="card" style="flex-direction:row;align-items:stretch">
+      <div style="background:var(--amber);color:#fff;writing-mode:vertical-rl;transform:rotate(180deg);
+        padding:8px 10px;font-weight:700;font-size:.82em;display:flex;align-items:center;
+        letter-spacing:.05em;flex-shrink:0;border-radius:4px 0 0 4px">NIVEL 3</div>
+      <div style="flex:1;padding:12px 16px;font-size:.91em;line-height:1.5;background:var(--amber-bg)">
+        <strong style="color:var(--amber)">Periféricos</strong> — <em>Quedan fuera del predicado</em>; modifican toda la oración y suelen ir aislados por comas.<br>
+        <span style="color:var(--mid)">Incluyen: tópicos, modificadores del enunciado y de la enunciación, vocativos.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- D.09 COMPLEMENTOS ARGUMENTALES -->
+<div class="slide" id="s09">
+  <div class="slide-tag">D.09</div>
+  <h2 class="slide-title">8. Los complementos argumentales (nivel 1)</h2>
+  <table class="tbl">
+    <thead><tr>
+      <th style="width:16%">Función</th>
+      <th style="width:40%">Prueba de identificación</th>
+      <th>Regla clave</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Sujeto (S)</strong></td>
+        <td>Concuerda en número y persona con el verbo.</td>
+        <td>Nunca lleva preposición.</td>
+      </tr>
+      <tr>
+        <td><strong>Comp. directo (CD)</strong></td>
+        <td>Sustituible por <em>lo, la, los, las</em>.</td>
+        <td>Pasa a ser sujeto paciente en la construcción pasiva.</td>
+      </tr>
+      <tr>
+        <td><strong>Comp. indirecto (CI)</strong></td>
+        <td>Sustituible por <em>le, les</em>.</td>
+        <td>Si va antepuesto al verbo, se duplica con el pronombre. No cambia en la pasiva.</td>
+      </tr>
+      <tr>
+        <td><strong>Comp. de régimen (CR)</strong></td>
+        <td>El verbo exige una preposición fija.</td>
+        <td>Responde a ¿<em>de / a / con / en + qué o quién?</em></td>
+      </tr>
+      <tr>
+        <td><strong>Atributo (Atr)</strong></td>
+        <td>Sustituible por <em>lo</em> (<em>Lo es</em>). Concuerda con el sujeto.</td>
+        <td>Solo con verbos copulativos o semicopulativos.</td>
+      </tr>
+      <tr>
+        <td><strong>Comp. predicativo (CPred)</strong></td>
+        <td>Concuerda en género y número con el S o con el CD.</td>
+        <td>Aparece con verbos plenos. <strong>No</strong> es sustituible por <em>lo</em>.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- D.10 ADJUNTOS Y PERIFÉRICOS -->
+<div class="slide" id="s10">
+  <div class="slide-tag">D.10</div>
+  <h2 class="slide-title">9. Los adjuntos y los complementos periféricos</h2>
+  <div class="cols2">
+    <div>
+      <div style="background:var(--blue);color:#fff;font-weight:700;padding:9px 14px;border-radius:4px 4px 0 0;font-size:.92em">
+        Adjuntos (nivel 2) · modifican al verbo
+      </div>
+      <div style="border:1px solid var(--rule);border-top:none;border-radius:0 0 4px 4px;padding:12px 14px;font-size:.88em;line-height:1.55;background:var(--light)">
+        <p style="margin-bottom:8px"><strong style="color:var(--navy)">Complemento circunstancial (CC)</strong><br>
+          Expresa lugar, tiempo, modo, causa, compañía, instrumento, finalidad o cantidad.</p>
+        <p style="margin-bottom:8px"><strong style="color:var(--navy)">Complemento agente (CAg)</strong><br>
+          Solo en oraciones pasivas; GP introducido por <em>por</em>.</p>
+        <p><strong style="color:var(--navy)">Dativo (Dat)</strong><br>
+          Pronombre átono de interés o énfasis; su supresión no afecta a la referencia.</p>
+      </div>
+    </div>
+    <div>
+      <div style="background:var(--amber);color:#fff;font-weight:700;padding:9px 14px;border-radius:4px 4px 0 0;font-size:.92em">
+        Periféricos (nivel 3) · modifican toda la oración
+      </div>
+      <div style="border:1px solid var(--amber-border);border-top:none;border-radius:0 0 4px 4px;padding:12px 14px;font-size:.88em;line-height:1.55;background:var(--amber-bg)">
+        <p style="margin-bottom:8px"><strong style="color:var(--navy)">Tópicos</strong> — marcos de referencia para lo que se va a decir.<br>
+          <em>Éticamente, su actitud es lamentable.</em></p>
+        <p style="margin-bottom:8px"><strong style="color:var(--navy)">Modificadores del enunciado</strong> — actitud del hablante ante lo dicho.<br>
+          <em>Afortunadamente, todo salió bien.</em></p>
+        <p style="margin-bottom:8px"><strong style="color:var(--navy)">Modificadores de la enunciación</strong> — afectan al propio acto de decir.<br>
+          <em>Sinceramente, no iré.</em></p>
+        <p><strong style="color:var(--navy)">Vocativos</strong> — llamadas de atención al interlocutor.<br>
+          <em>Profesora, ¿qué ejercicio es?</em></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- D.11 MODALIDAD ORACIONAL -->
+<div class="slide" id="s11">
+  <div class="slide-tag">D.11</div>
+  <h2 class="slide-title">10. La modalidad oracional</h2>
+  <div class="info-box">
+    La modalidad expresa la <strong>actitud del hablante</strong> y la finalidad comunicativa que persigue al construir la oración. Se distinguen seis tipos.
+  </div>
+  <table class="tbl">
+    <thead><tr>
+      <th style="width:20%">Modalidad</th>
+      <th style="width:42%">Descripción</th>
+      <th>Ejemplo</th>
+    </tr></thead>
+    <tbody>
+      <tr><td><strong>Enunciativas</strong></td><td>Informan de manera objetiva.</td><td><em>Entregó la solicitud.</em></td></tr>
+      <tr><td><strong>Interrogativas</strong></td><td>Buscan información; directas o indirectas, totales o parciales.</td><td><em>¿Cuándo llega?</em></td></tr>
+      <tr><td><strong>Exclamativas</strong></td><td>Expresan emoción o sorpresa.</td><td><em>¡Qué alegría!</em></td></tr>
+      <tr><td><strong>Desiderativas</strong></td><td>Expresan un deseo.</td><td><em>Ojalá podamos ir.</em></td></tr>
+      <tr><td><strong>Imperativas</strong></td><td>Expresan ruego, mandato o prohibición.</td><td><em>Coge ese libro.</em></td></tr>
+      <tr><td><strong>Dubitativas</strong></td><td>Expresan duda o probabilidad.</td><td><em>Quizá lleguen ya.</em></td></tr>
+    </tbody>
+  </table>
+  <div class="alert-box">
+    <strong>Atención:</strong> la forma lingüística no siempre coincide con el valor comunicativo real. <em>¿Me pasas el lápiz?</em> es formalmente interrogativa, pero funcionalmente <strong>imperativa</strong>.
+  </div>
+</div>
+
+<!-- D.12 CLASIFICACIÓN DEL PREDICADO -->
+<div class="slide" id="s12">
+  <div class="slide-tag">D.12</div>
+  <h2 class="slide-title">11. La clasificación del predicado</h2>
+  <div class="cols2">
+    <div class="card">
+      <div class="card-header ch-blue">Atributivas</div>
+      <div class="card-body" style="font-size:.9em">
+        Llevan un <strong>verbo copulativo o semicopulativo</strong> seguido de un atributo.<br><br>
+        <em>ser, estar, parecer; volverse, quedar, ponerse…</em>
+        <div class="example-box">María es muy estudiosa. / Se quedó pensativa.</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header ch-navy">Predicativas (verbo pleno)</div>
+      <div class="card-body" style="font-size:.88em">
+        <p style="margin-bottom:8px"><strong style="color:var(--navy)">Activas (sujeto agente)</strong></p>
+        <p style="margin-bottom:3px">· <strong>Transitivas</strong> — exigen CD.</p>
+        <p style="margin-bottom:3px">· <strong>Intransitivas</strong> — no llevan CD.</p>
+        <p style="margin-bottom:3px">· <strong>Reflexivas</strong> — sujeto realiza y recibe la acción.</p>
+        <p style="margin-bottom:3px">· <strong>Recíprocas</strong> — acción mutua.</p>
+        <p style="margin-bottom:10px">· <strong>Seudorreflejas</strong> — SE sin reflexividad real.</p>
+        <p style="margin-bottom:8px"><strong style="color:var(--navy)">Pasivas (sujeto paciente)</strong></p>
+        <p style="margin-bottom:3px">· <strong>Perifrástica</strong> — <em>ser + participio</em>.</p>
+        <p style="margin-bottom:10px">· <strong>Refleja</strong> — <em>se + verbo activo</em>.</p>
+        <p style="margin-bottom:6px"><strong style="color:var(--navy)">Impersonales (sin sujeto sintáctico)</strong></p>
+        <p>Atmosféricas, haber existencial, hacer/ser climáticos, impersonales reflejas.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- D.13 PASOS PARA EL ANÁLISIS -->
+<div class="slide" id="s13">
+  <div class="slide-tag">D.13</div>
+  <h2 class="slide-title">12. Pasos para el análisis sintáctico</h2>
+  <div style="display:flex;flex-direction:column;gap:9px">
+    <div class="step-row">
+      <div class="step-num">1</div>
+      <div class="step-box">
+        <div class="step-title">Buscar el verbo</div>
+        <div class="step-desc">Identificar si es simple, compuesto, locución o perífrasis. Es el motor de la oración.</div>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">2</div>
+      <div class="step-box">
+        <div class="step-title">Buscar el sujeto</div>
+        <div class="step-desc">Aplicar la prueba de concordancia (cambiar número o persona del verbo) para aislar sujeto y predicado.</div>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">3</div>
+      <div class="step-box">
+        <div class="step-title">Analizar el sujeto</div>
+        <div class="step-desc">Desglosar el GN en núcleo, determinantes y complemento del nombre.</div>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">4</div>
+      <div class="step-box">
+        <div class="step-title">Analizar el predicado</div>
+        <div class="step-desc">Identificar las funciones argumentales y los adjuntos: CD, CI, CC, atributo, CR…</div>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">5</div>
+      <div class="step-box">
+        <div class="step-title">Analizar el interior de los grupos</div>
+        <div class="step-desc">Bajar al último nivel de cada grupo sintáctico: enlace, término, modificador, núcleo.</div>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">6</div>
+      <div class="step-box">
+        <div class="step-title">Redactar la clasificación final</div>
+        <div class="step-desc">Indicar la <strong>modalidad</strong> y la <strong>naturaleza del predicado</strong>.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- D.14 ANÁLISIS RESUELTO -->
+<div class="slide" id="s14">
+  <div class="slide-tag">D.14</div>
+  <h2 class="slide-title">13. Un análisis resuelto</h2>
+  <div style="background:var(--navy);color:#fff;padding:12px 20px;border-radius:4px;font-size:1.05em;font-style:italic;text-align:center;font-weight:700">
+    ¿Este parque fue proyectado por diversos artistas?
+  </div>
+  <table class="tbl">
+    <thead><tr>
+      <th style="width:28%">Función</th>
+      <th style="width:30%">Elemento</th>
+      <th>Análisis interno</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Sujeto paciente (GN)</strong></td>
+        <td><em>este parque</em></td>
+        <td><em>este</em> (determinante) · <em>parque</em> (núcleo)</td>
+      </tr>
+      <tr>
+        <td><strong>Predicado verbal</strong></td>
+        <td colspan="2"><em>fue proyectado por diversos artistas</em></td>
+      </tr>
+      <tr>
+        <td><strong>Núcleo verbal</strong></td>
+        <td colspan="2"><em>fue proyectado</em> → pasiva perifrástica (<em>ser</em> + participio)</td>
+      </tr>
+      <tr>
+        <td><strong>Complemento agente (GP)</strong></td>
+        <td><em>por diversos artistas</em></td>
+        <td><em>por</em> (enlace) · <em>diversos artistas</em> (término: GN → <em>diversos</em>, Det.; <em>artistas</em>, N.)</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="alert-box">
+    <strong>Clasificación final:</strong> oración simple, predicativa, personal, <strong>pasiva perifrástica</strong>. Modalidad <strong>interrogativa, afirmativa, total y directa</strong>.
+  </div>
+</div>
+
+<!-- D.15 GLOSARIO -->
+<div class="slide" id="s15">
+  <div class="slide-tag">D.15</div>
+  <h2 class="slide-title">14. Glosario rápido de abreviaturas</h2>
+  <div class="cols3">
+    <div class="card">
+      <div class="card-header ch-navy">Funciones principales</div>
+      <div class="card-body" style="font-size:.83em;line-height:1.7">
+        <strong>S</strong> · Sujeto<br>
+        <strong>SO</strong> · Sujeto omitido<br>
+        <strong>P</strong> · Predicado<br>
+        <strong>CD</strong> · Comp. directo<br>
+        <strong>CI</strong> · Comp. indirecto<br>
+        <strong>CR</strong> · Comp. de régimen<br>
+        <strong>Atr</strong> · Atributo<br>
+        <strong>CPred</strong> · Comp. predicativo<br>
+        <strong>CC</strong> · Comp. circunstancial<br>
+        <strong>CAg</strong> · Comp. agente<br>
+        <strong>CPer</strong> · Comp. periférico<br>
+        <strong>Dat</strong> · Dativo
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header ch-blue">Estructura de grupos</div>
+      <div class="card-body" style="font-size:.83em;line-height:1.7">
+        <strong>GN</strong> · Grupo nominal<br>
+        <strong>GV</strong> · Grupo verbal<br>
+        <strong>GAdj</strong> · Grupo adjetival<br>
+        <strong>GAdv</strong> · Grupo adverbial<br>
+        <strong>GP</strong> · Grupo preposicional<br>
+        <strong>N</strong> · Núcleo<br>
+        <strong>Dt</strong> · Determinante<br>
+        <strong>CN / CAdj / CAdv</strong> · Complementos<br>
+        <strong>Apos</strong> · Aposición<br>
+        <strong>E</strong> · Enlace<br>
+        <strong>T</strong> · Término<br>
+        <strong>Mod</strong> · Modificador<br>
+        <strong>Nx</strong> · Nexo
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header ch-amber">Marcas específicas</div>
+      <div class="card-body" style="font-size:.83em;line-height:1.7">
+        <strong>M Imp</strong> · Marca de impersonalidad<br>
+        <strong>M Pas R</strong> · Marca de pasiva refleja<br>
+        <strong>Morf</strong> · Morfema<br>
+        <strong>Mod Afi</strong> · Modificador de afirmación<br>
+        <strong>Mod Neg</strong> · Modificador de negación<br>
+        <strong>Ø</strong> · Elemento omitido
+      </div>
+    </div>
+  </div>
+  <div class="footer-bar">Departamento de Lengua y Literatura · La Oración Simple · Guía de consulta</div>
+</div>
+
+</div><!-- /viewport -->
+<div id="controls">
+  <button class="nav" id="btnPrev" onclick="go(-1)" disabled>◀ Anterior</button>
+  <span id="counter">1 / 15</span>
+  <button class="nav" id="btnNext" onclick="go(1)">Siguiente ▶</button>
+</div>
+</div><!-- /shell -->
+<script>
+const slides=document.querySelectorAll('.slide');
+let cur=0;
+function go(d){
+  slides[cur].classList.remove('active');
+  cur=Math.max(0,Math.min(slides.length-1,cur+d));
+  slides[cur].classList.add('active');
+  document.getElementById('counter').textContent=(cur+1)+' / '+slides.length;
+  document.getElementById('btnPrev').disabled=cur===0;
+  document.getElementById('btnNext').disabled=cur===slides.length-1;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){e.preventDefault();go(1);}
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();go(-1);}
+});
+let tx=0;
+document.getElementById('viewport').addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+document.getElementById('viewport').addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-tx;
+  if(Math.abs(dx)>40)go(dx<0?1:-1);
+},{passive:true});
+</script>
+</body>
+</html>
