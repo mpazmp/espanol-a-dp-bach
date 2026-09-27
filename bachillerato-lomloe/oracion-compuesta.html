@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La Arquitectura de la Oración Compuesta · NGLE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1B4F72;
+  --blue:#2874A6;
+  --amber:#D4860A;
+  --green:#1A7A4A;
+  --text:#1C2833;
+  --mid:#5D6D7E;
+  --light:#EBF5FB;
+  --rule:#AED6F1;
+  --amber-bg:#FEF9E7;
+  --amber-border:#F0C040;
+  --f:'Carlito','Calibri',Arial,sans-serif;
+}
+
+html,body{
+  height:100%;
+  background:#2C3E50;
+  font-family:var(--f);
+  color:var(--text);
+  font-size:20px;
+}
+
+/* ── SHELL ── */
+#shell{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-height:100vh;
+  padding:16px 12px 12px;
+  gap:12px;
+}
+
+/* ── SLIDE ── */
+.slide{
+  display:none;
+  width:100%;
+  max-width:1000px;
+  background:#fff;
+  border-radius:6px;
+  box-shadow:0 8px 40px rgba(0,0,0,.45);
+  padding:36px 44px 32px;
+  flex-direction:column;
+  gap:16px;
+}
+.slide.active{display:flex}
+
+.slide-tag{
+  align-self:flex-end;
+  font-size:.7em;
+  color:var(--mid);
+  margin-top:-20px;
+  margin-bottom:-8px;
+}
+
+/* ── TITLE ── */
+.slide-title{
+  font-size:1.55em;
+  font-weight:700;
+  color:var(--navy);
+  padding-bottom:10px;
+  border-bottom:3px solid var(--rule);
+  line-height:1.2;
+}
+
+/* ── BOXES ── */
+.info-box{
+  background:var(--light);
+  border:1px solid var(--rule);
+  border-radius:4px;
+  padding:12px 16px;
+  font-size:.95em;
+  line-height:1.55;
+}
+.alert-box{
+  background:var(--amber-bg);
+  border:1px solid var(--amber-border);
+  border-left:5px solid var(--amber);
+  border-radius:4px;
+  padding:11px 16px;
+  font-size:.9em;
+  line-height:1.5;
+}
+.example-box{
+  background:#f8f9fa;
+  border:1px solid var(--rule);
+  border-radius:4px;
+  padding:8px 12px;
+  font-style:italic;
+  font-size:.9em;
+  color:var(--mid);
+  line-height:1.45;
+  margin-top:8px;
+}
+
+/* ── GRID ── */
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cols3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+
+/* ── CARD ── */
+.card{border:1px solid var(--rule);border-radius:4px;overflow:hidden;display:flex;flex-direction:column}
+.card-header{padding:10px 14px;font-size:.95em;font-weight:700;color:#fff;text-align:center;letter-spacing:.03em}
+.card-header.blue{background:var(--blue)}
+.card-header.navy{background:var(--navy)}
+.card-header.amber{background:var(--amber)}
+.card-header.green{background:var(--green)}
+.card-body{padding:12px 14px;font-size:.9em;line-height:1.5;flex:1;background:var(--light)}
+.card-sub{font-weight:700;font-size:.9em;text-align:center;padding:4px 0 8px}
+.card-sub.blue{color:var(--blue)}
+.card-sub.amber{color:var(--amber)}
+.card-sub.green{color:var(--green)}
+
+/* ── TABLE ── */
+.tbl{width:100%;border-collapse:collapse;font-size:.92em}
+.tbl th{background:var(--navy);color:#fff;font-weight:700;padding:10px 14px;text-align:left;font-size:.95em}
+.tbl td{padding:11px 14px;border:1px solid var(--rule);vertical-align:top;line-height:1.45}
+.tbl tr:nth-child(odd) td{background:var(--light)}
+.tbl tr:nth-child(even) td{background:#fff}
+.tbl td strong{color:var(--navy)}
+.tbl td.fn{color:var(--blue);font-size:.9em}
+.tbl td.note{color:var(--amber);font-style:italic}
+
+/* ── STEP ── */
+.step-row{display:flex;align-items:flex-start;gap:14px}
+.step-num{
+  background:var(--blue);color:#fff;border-radius:50%;
+  width:44px;height:44px;min-width:44px;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:1.1em;
+}
+.step-box{border:1px solid var(--rule);border-radius:4px;background:var(--light);padding:12px 16px;flex:1}
+.step-title{font-weight:700;color:var(--navy);font-size:1em}
+.step-hint{color:var(--mid);font-style:italic;font-size:.88em;float:right}
+.step-desc{margin-top:6px;font-size:.9em;line-height:1.5}
+
+/* ── PORTADA ── */
+#s01{padding:0;flex-direction:row}
+.cover-left{flex:1.7;padding:44px 48px;display:flex;flex-direction:column;justify-content:center;border-right:6px solid var(--blue)}
+.cover-left h1{font-size:2.4em;font-weight:700;color:var(--navy);line-height:1.15;margin-bottom:16px}
+.cover-left .sub{font-size:1em;color:var(--mid);margin-bottom:8px}
+.cover-left .tag{font-size:.9em;color:var(--blue)}
+.cover-right{width:30%;background:var(--light);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:40px 20px}
+.cover-right .unit{font-size:.85em;font-weight:700;color:var(--blue);letter-spacing:.06em}
+.cover-right .topics{font-size:1.15em;color:var(--navy);line-height:2.2;text-align:center}
+
+/* ── FOOTER BAR ── */
+.footer-bar{
+  background:var(--navy);color:#fff;
+  padding:13px 20px;text-align:center;
+  font-size:.92em;line-height:1.4;border-radius:4px;
+}
+
+/* ── STRIKE HERO ── */
+.strike-hero{
+  text-align:center;font-size:1.8em;font-weight:700;
+  color:#AAAAAA;text-decoration:line-through;
+  text-decoration-color:#CC0000;text-decoration-thickness:4px;
+  padding:4px 0;
+}
+.arrow-down{text-align:center;font-size:1.6em;color:var(--navy);padding:4px 0}
+.big-label{text-align:center;font-size:1.4em;font-weight:700;color:var(--navy);letter-spacing:.04em;padding:4px 0}
+
+/* ── CONTROLS ── */
+#controls{display:flex;align-items:center;gap:14px}
+button.nav{
+  background:rgba(255,255,255,.15);color:#fff;
+  border:1px solid rgba(255,255,255,.3);border-radius:6px;
+  padding:8px 22px;font-size:1em;cursor:pointer;
+  transition:background .15s;font-family:var(--f);
+}
+button.nav:hover{background:rgba(255,255,255,.28)}
+button.nav:disabled{opacity:.3;cursor:default}
+#counter{color:rgba(255,255,255,.8);font-size:.92em;min-width:80px;text-align:center}
+
+@media(max-width:700px){
+  html,body{font-size:16px}
+  .slide{padding:24px 20px 20px}
+  .cols2,.cols3{grid-template-columns:1fr}
+  .cover-right{display:none}
+  .cover-left{padding:28px}
+  .cover-left h1{font-size:1.8em}
+}
+</style>
+</head>
+<body>
+<div id="shell">
+<div id="viewport" style="width:100%;max-width:1000px">
+
+<!-- D.01 PORTADA -->
+<div class="slide active" id="s01">
+  <div class="cover-left">
+    <h1>La Arquitectura<br>de la Oración Compuesta</h1>
+    <p class="sub">Guía de sintaxis moderna · NGLE</p>
+    <p class="tag">Lengua Castellana y Literatura – 2º BACHILLERATO</p>
+  </div>
+  <div class="cover-right">
+    <div class="unit">UNIDAD 3</div>
+    <div class="topics">Coordinación<br>Subordinación<br>Construcciones</div>
+  </div>
+</div>
+
+<!-- D.02 QUÉ ES LA ORACIÓN COMPUESTA -->
+<div class="slide" id="s02">
+  <div class="slide-tag">D.02</div>
+  <h2 class="slide-title">¿Qué es la oración compuesta?</h2>
+  <div class="info-box">
+    Una oración es compuesta cuando presenta <strong>dos o más predicados</strong> (estructuras oracionales).
+    La relación entre ellos determina el tipo de composición.
+  </div>
+  <div class="cols2">
+    <div class="card">
+      <div class="card-header blue">COORDINACIÓN</div>
+      <div class="card-body" style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
+        <div style="color:var(--mid);font-size:.95em;font-weight:600">Independencia</div>
+        <div style="display:flex;align-items:center;gap:10px;margin:8px 0">
+          <div style="background:var(--blue);color:#fff;font-weight:700;padding:8px 18px;border-radius:4px;font-size:1.05em">O.P.</div>
+          <div style="font-size:1.5em;color:var(--navy)">↔</div>
+          <div style="background:var(--blue);color:#fff;font-weight:700;padding:8px 18px;border-radius:4px;font-size:1.05em">O.P.</div>
+        </div>
+        <p>Las oraciones son sintácticamente autónomas. Se analizan como si fueran independientes, unidas por un nexo o por pausa.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header amber">SUBORDINACIÓN</div>
+      <div class="card-body" style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
+        <div style="color:var(--mid);font-size:.95em;font-weight:600">Dependencia</div>
+        <div style="display:flex;align-items:center;gap:8px;margin:8px 0">
+          <div style="background:var(--amber);color:#fff;font-weight:700;padding:8px 18px;border-radius:4px;font-size:1.05em">O.P.</div>
+          <div style="border:2px solid var(--amber);color:var(--amber);font-weight:700;padding:8px 14px;border-radius:4px;font-size:.95em">[OSub]</div>
+        </div>
+        <p>Existe dependencia sintáctica. La subordinada se inserta en la principal para cumplir una función específica.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- D.03 COORDINACIÓN -->
+<div class="slide" id="s03">
+  <div class="slide-tag">D.03</div>
+  <h2 class="slide-title">La Oración Compuesta por Coordinación</h2>
+  <table class="tbl">
+    <thead><tr>
+      <th style="width:18%">Tipo</th>
+      <th style="width:44%">Nexos y valor</th>
+      <th style="width:38%">Ejemplo</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Copulativa</strong></td>
+        <td>Suma · <em>y (e), ni, tanto… como, no solo… sino también</em></td>
+        <td><em>Piensa mal <strong>y</strong> acertarás.</em></td>
+      </tr>
+      <tr>
+        <td><strong>Disyuntiva</strong></td>
+        <td>Alternancia · <em>o (u), bien… bien, ya… ya, ora… ora</em></td>
+        <td><em>¿Vienes <strong>o</strong> te quedas?</em></td>
+      </tr>
+      <tr>
+        <td><strong>Adversativa</strong></td>
+        <td>Contraposición · <em>pero, mas, sino (que)</em></td>
+        <td><em>Es barato, <strong>pero</strong> no lo compraré.</em></td>
+      </tr>
+      <tr>
+        <td><strong>Yuxtaposición</strong></td>
+        <td>Sin nexo · coma, punto y coma, dos puntos</td>
+        <td><em>Enciende el ordenador, apaga la luz.</em></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="alert-box">
+    <strong>NGLE:</strong> La coordinación distributiva pasa a ser una variedad de la disyuntiva. La yuxtaposición es coordinación sin nexo, no un tipo independiente.
+  </div>
+</div>
+
+<!-- D.04 SUBORDINACIÓN -->
+<div class="slide" id="s04">
+  <div class="slide-tag">D.04</div>
+  <h2 class="slide-title">La Oración Compuesta por Subordinación</h2>
+  <p style="font-size:.95em;line-height:1.5">Existe dependencia sintáctica: la subordinada se inserta en la principal para cumplir una función específica. Hay tres grupos:</p>
+  <div class="cols3">
+    <div class="card">
+      <div class="card-header blue">SUSTANTIVA</div>
+      <div class="card-body">
+        <div class="card-sub blue">= sustantivo</div>
+        <p>Se comporta como un sustantivo o grupo nominal. Prueba: se puede sustituir por <strong>«eso»</strong>.</p>
+        <div class="example-box">«Me recordó eso» (que habíamos quedado)</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header green">DE RELATIVO</div>
+      <div class="card-body">
+        <div class="card-sub green">= adjetivo</div>
+        <p>Funciona como un adjetivo o grupo adjetival. Introducida por un pronombre, adverbio o determinante relativo.</p>
+        <div class="example-box">«La cita próxima» (que tengo mañana)</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header amber">CONSTRUCCIONES</div>
+      <div class="card-body">
+        <div class="card-sub amber">= relación lógica</div>
+        <p>Antes llamadas adverbiales. Expresan causa, condición, concesión, finalidad, consecuencia…</p>
+        <div class="example-box">«Nos veremos allí» (donde quedamos)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- D.05 REGLA DEL ESO -->
+<div class="slide" id="s05">
+  <div class="slide-tag">D.05</div>
+  <h2 class="slide-title">Subordinada Sustantiva · La Regla del «eso»</h2>
+  <div style="text-align:center">
+    <div style="display:inline-block;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:6px;padding:10px 28px">
+      <strong style="color:var(--amber);font-size:1.05em">Prueba del «eso»</strong><br>
+      <span style="font-size:.95em">Si se puede sustituir por «eso», es sustantiva.</span>
+    </div>
+  </div>
+  <div class="cols2">
+    <div class="card">
+      <div class="card-header navy">CON NEXO</div>
+      <div class="card-body">
+        <table style="width:100%;border-collapse:collapse;font-size:.92em">
+          <tr>
+            <td style="padding:8px 4px;border-bottom:1px solid var(--rule);vertical-align:top;width:48%">
+              <strong style="color:var(--navy)">Conjunciones</strong><br><span style="color:var(--blue)">que, si</span>
+            </td>
+            <td style="padding:8px 4px;border-bottom:1px solid var(--rule);vertical-align:top;font-style:italic;color:var(--mid)">
+              Anunciaron que se retrasaba el concierto.
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:8px 4px;border-bottom:1px solid var(--rule);vertical-align:top">
+              <strong style="color:var(--navy)">Pron./Det. interrogativos</strong><br><span style="color:var(--blue)">qué, cuál, cuánto</span>
+            </td>
+            <td style="padding:8px 4px;border-bottom:1px solid var(--rule);vertical-align:top;font-style:italic;color:var(--mid)">
+              No sé qué hay que analizar.
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:8px 4px;vertical-align:top">
+              <strong style="color:var(--navy)">Adverbios interrogativos</strong><br><span style="color:var(--blue)">cuándo, dónde, cómo</span>
+            </td>
+            <td style="padding:8px 4px;vertical-align:top;font-style:italic;color:var(--mid)">
+              Ignoro cómo lo hizo.
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header navy">SIN NEXO</div>
+      <div class="card-body">
+        <table style="width:100%;border-collapse:collapse;font-size:.92em">
+          <tr>
+            <td style="padding:8px 4px;border-bottom:1px solid var(--rule);vertical-align:top;width:48%">
+              <strong style="color:var(--navy)">Discurso directo<br>(verbo introductor)</strong>
+            </td>
+            <td style="padding:8px 4px;border-bottom:1px solid var(--rule);vertical-align:top;font-style:italic;color:var(--mid)">
+              Él respondió: «Me marcho ahora mismo.»
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:8px 4px;border-bottom:1px solid var(--rule);vertical-align:top">
+              <strong style="color:var(--navy)">Discurso directo<br>(verbo pospuesto)</strong>
+            </td>
+            <td style="padding:8px 4px;border-bottom:1px solid var(--rule);vertical-align:top;font-style:italic;color:var(--mid)">
+              «Me gustaría estudiar Matemáticas», respondió su hija.
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:8px 4px;vertical-align:top">
+              <strong style="color:var(--navy)">Construcción de infinitivo</strong>
+            </td>
+            <td style="padding:8px 4px;vertical-align:top;font-style:italic;color:var(--mid)">
+              Prefiero cenar en casa.
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- D.06 FUNCIONES SUSTANTIVA -->
+<div class="slide" id="s06">
+  <div class="slide-tag">D.06</div>
+  <h2 class="slide-title">Subordinada Sustantiva · Funciones Sintácticas</h2>
+  <p style="font-size:.95em;line-height:1.5">La oración subordinada sustantiva puede desempeñar cualquier función propia del sustantivo:</p>
+  <div class="cols3">
+    <div class="card">
+      <div class="card-header navy">Sin preposición</div>
+      <div class="card-body" style="font-size:.9em">
+        <p style="margin-bottom:4px"><strong style="color:var(--blue)">Sujeto</strong></p>
+        <p style="font-style:italic;color:var(--mid);margin-bottom:12px">Me gusta [que me llames].</p>
+        <p style="margin-bottom:4px"><strong style="color:var(--blue)">Comp. directo</strong></p>
+        <p style="font-style:italic;color:var(--mid);margin-bottom:12px">Repitieron [que quedaban 5 min.].</p>
+        <p style="margin-bottom:4px"><strong style="color:var(--blue)">Atributo</strong></p>
+        <p style="font-style:italic;color:var(--mid)">Ayunar es [dejar de comer].</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header navy">Con preposición (candado)</div>
+      <div class="card-body" style="font-size:.9em">
+        <p style="margin-bottom:4px"><strong style="color:var(--blue)">CR</strong></p>
+        <p style="font-style:italic;color:var(--mid);margin-bottom:10px">No me olvido de [que me ayudaste].</p>
+        <p style="margin-bottom:4px"><strong style="color:var(--blue)">CN</strong></p>
+        <p style="font-style:italic;color:var(--mid);margin-bottom:10px">La idea de [que sea en Granada].</p>
+        <p style="margin-bottom:4px"><strong style="color:var(--blue)">CAdj</strong></p>
+        <p style="font-style:italic;color:var(--mid);margin-bottom:10px">Estoy segura de [que lo hizo bien].</p>
+        <p style="margin-bottom:4px"><strong style="color:var(--blue)">CAdv</strong></p>
+        <p style="font-style:italic;color:var(--mid)">Se fue antes de [que empezara].</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header amber">El candado</div>
+      <div class="card-body" style="font-size:.9em;background:var(--amber-bg)">
+        <p style="margin-bottom:10px">Cuando la subordinada sustantiva va dentro de un grupo preposicional, la preposición la «encierra».</p>
+        <p style="margin-bottom:10px">Hay que indicar <strong>PREPOSICIÓN + OSub</strong> en el análisis:</p>
+        <p style="margin:4px 0">CR → de [eso]</p>
+        <p style="margin:4px 0">CN → de [eso]</p>
+        <p style="margin:4px 0 12px">CAdj → de [eso]</p>
+        <p>La preposición forma parte del sintagma, <strong>NO</strong> es el nexo de la subordinada.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- D.07 RELATIVA: DOBLE FUNCIÓN -->
+<div class="slide" id="s07">
+  <div class="slide-tag">D.07</div>
+  <h2 class="slide-title">Subordinada de Relativo · Doble Función del Nexo</h2>
+  <div class="info-box">
+    El nexo relativo tiene <strong>DOBLE FUNCIÓN</strong>: (1) une las oraciones como nexo; (2) desempeña una función sintáctica dentro de la subordinada.
+  </div>
+  <div style="background:#fff;border:1px solid var(--rule);border-radius:4px;padding:12px 16px;font-size:1em;line-height:1.55">
+    La fotógrafa <strong style="color:var(--blue)">[que diseñará la orla]</strong> es una antigua alumna.
+    &nbsp;→&nbsp; <strong style="color:var(--amber)">«que» = sujeto de «diseñará»</strong>
+  </div>
+  <div class="cols3">
+    <div class="card">
+      <div class="card-header blue">Pronombres</div>
+      <div class="card-body" style="font-size:.93em;line-height:1.9">
+        que<br>quien / quienes<br>el cual / la cual<br>cuanto
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header blue">Adverbios</div>
+      <div class="card-body" style="font-size:.93em;line-height:1.9">
+        donde<br>cuando<br>como
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header blue">Determinantes</div>
+      <div class="card-body" style="font-size:.93em;line-height:1.9">
+        cuyo / cuya<br>cuyos / cuyas<br>→ función: Det.
+      </div>
+    </div>
+  </div>
+  <div class="alert-box">
+    Para identificar la función del relativo: pregúntate qué papel tendría el antecedente si ocupara su lugar en la subordinada.<br>
+    «A la que hemos avisado» → «hemos avisado a la fotógrafa» → la fotógrafa = CI → a la que = CI
+  </div>
+</div>
+
+<!-- D.08 TIPOS DE RELATIVAS -->
+<div class="slide" id="s08">
+  <div class="slide-tag">D.08</div>
+  <h2 class="slide-title">Tipos de Oraciones de Relativo</h2>
+  <p style="font-size:1.05em;font-weight:700;color:var(--navy);text-align:center">¿Tiene antecedente expreso?</p>
+  <div class="cols2">
+    <div>
+      <div style="display:flex;align-items:stretch;gap:10px;margin-bottom:12px">
+        <div style="background:var(--blue);color:#fff;font-weight:700;padding:8px 12px;border-radius:4px;display:flex;align-items:center;font-size:.95em">SÍ</div>
+        <div class="card" style="flex:1">
+          <div class="card-header blue">Especificativas</div>
+          <div class="card-body" style="font-size:.9em">
+            Sin comas · Delimita el significado del antecedente.
+            <div class="example-box">«Las habitaciones que dan al exterior son luminosas.» (solo algunas)</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:stretch;gap:10px">
+        <div style="background:var(--amber);color:#fff;font-weight:700;padding:8px 12px;border-radius:4px;display:flex;align-items:center;font-size:.95em">NO</div>
+        <div class="card" style="flex:1">
+          <div class="card-header amber">Relativas libres</div>
+          <div class="card-body" style="font-size:.9em">
+            Incorporan semánticamente el antecedente (quien, cuanto).
+            <div class="example-box">«Elige a quien quieras.» (= a la persona que quieras)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div style="margin-bottom:12px">
+        <div class="card">
+          <div class="card-header green">Explicativas</div>
+          <div class="card-body" style="font-size:.9em">
+            Con comas · Añade información sobre todo el conjunto.
+            <div class="example-box">«Las habitaciones, que dan al exterior, son luminosas.» (todas)</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header amber">Relativas semilibres</div>
+        <div class="card-body" style="font-size:.9em">
+          Antecedente recuperable por el contexto (art. + que).
+          <div class="example-box">«Las que más me gustan son las del oeste.» (= las películas que)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- D.09 CONSTRUCCIONES -->
+<div class="slide" id="s09">
+  <div class="slide-tag">D.09</div>
+  <h2 class="slide-title">De «Subordinadas Adverbiales» a Construcciones Oracionales</h2>
+  <div class="strike-hero">Subordinadas Adverbiales</div>
+  <div class="arrow-down">↓</div>
+  <div class="big-label">CONSTRUCCIONES ORACIONALES</div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="alert-box" style="background:var(--light);border-color:var(--rule);border-left-color:var(--blue)">
+      <strong style="color:var(--navy)">1. Falsa equivalencia</strong><br>
+      Causales, finales y condicionales NO equivalen a ningún adverbio. Prueba: «Llegué tarde porque había tráfico» → no se puede sustituir por un solo adverbio.
+    </div>
+    <div class="alert-box" style="background:var(--light);border-color:var(--rule);border-left-color:var(--blue)">
+      <strong style="color:var(--navy)">2. Reubicación</strong><br>
+      Las que sí equivalen a un adverbio (tiempo, lugar, modo) son en realidad relativas libres con «donde», «cuando», «como». Ya se estudian en ese bloque.
+    </div>
+    <div class="alert-box">
+      <strong style="color:var(--navy)">3. Arquitectura bimembre</strong><br>
+      Condicionales y concesivas NO están integradas en el predicado. Forman estructuras de dos miembros que operan desde fuera. Función: siempre CPer.
+    </div>
+  </div>
+</div>
+
+<!-- D.10 CONSTRUCCIONES I -->
+<div class="slide" id="s10">
+  <div class="slide-tag">D.10</div>
+  <h2 class="slide-title">Construcciones Oracionales · I</h2>
+  <table class="tbl">
+    <thead><tr>
+      <th style="width:14%">Tipo</th>
+      <th style="width:18%">Función</th>
+      <th style="width:30%">Nexos principales</th>
+      <th>Ejemplo / Nota</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Temporales</strong></td>
+        <td class="fn">CCT / CPer</td>
+        <td>mientras, según, conforme, cada vez que, a medida que…</td>
+        <td><em>Mientras tú planchas, yo cocinaré.</em></td>
+      </tr>
+      <tr>
+        <td><strong>Causales</strong></td>
+        <td class="fn">CCCau (interna)<br>CPer (externa)</td>
+        <td>porque, ya que, como, pues, a causa de que, dado que…</td>
+        <td><em>Se fue porque le dolía la cabeza.</em> (interna)<br><em>Como es joven, todo le parece romántico.</em> (externa)</td>
+      </tr>
+      <tr>
+        <td><strong>Finales</strong></td>
+        <td class="fn">CCFin (interna)<br>CPer (externa)</td>
+        <td>para que, a fin de que, a que, con la intención de que…</td>
+        <td><em>He abierto las ventanas para que se ventile la casa.</em></td>
+      </tr>
+      <tr>
+        <td><strong>Ilativas</strong></td>
+        <td class="fn">Siempre CPer</td>
+        <td>conque, así que, de manera que, luego…</td>
+        <td class="note">OJO: «por tanto», «en consecuencia» son conectores textuales, NO nexos.</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="alert-box">
+    <strong>IMPORTANTE:</strong> Las causales y finales pueden ser internas (CCCau / CCFin) o externas (CPer) según si afectan solo al verbo o a toda la oración.
+  </div>
+</div>
+
+<!-- D.11 CONSTRUCCIONES II -->
+<div class="slide" id="s11">
+  <div class="slide-tag">D.11</div>
+  <h2 class="slide-title">Construcciones Oracionales · II · Estructuras Bimembres</h2>
+  <p style="font-size:.95em;line-height:1.5">Son construcciones de dos miembros inseparables: <strong>PRÓTASIS</strong> (subordinada) + <strong>APÓDOSIS</strong> (principal).</p>
+  <div class="cols2">
+    <div class="card">
+      <div class="card-header blue">CONDICIONALES</div>
+      <div class="card-body">
+        <p style="color:var(--blue);font-size:.92em;margin-bottom:10px">Prótasis = requisito · Apódosis = resultado</p>
+        <p style="font-size:.9em;margin-bottom:10px">Nexos: <em>si, como, mientras (cond.), siempre que, con tal de que, en caso de que, a menos que…</em></p>
+        <div class="example-box">«Si ganamos el partido [prótasis], pasaremos a la final [apódosis].»</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header green">CONCESIVAS</div>
+      <div class="card-body">
+        <p style="color:var(--green);font-size:.92em;margin-bottom:10px">Prótasis = obstáculo · Apódosis = se cumple igual</p>
+        <p style="font-size:.9em;margin-bottom:10px">Nexos: <em>aunque, por más que, a pesar de que, pese a que, aun cuando, si bien…</em></p>
+        <div class="example-box">«Aunque hable mucho [prótasis], es muy tímido [apódosis].»</div>
+      </div>
+    </div>
+  </div>
+  <div class="alert-box">
+    <strong>¡¡¡NUNCA son CC!!!</strong> Al ser estructuras bimembres, modifican desde fuera a toda la oración principal. Su función es siempre <strong>COMPLEMENTO PERIFÉRICO (CPer)</strong>.
+  </div>
+</div>
+
+<!-- D.12 CONSTRUCCIONES III -->
+<div class="slide" id="s12">
+  <div class="slide-tag">D.12</div>
+  <h2 class="slide-title">Construcciones Oracionales · III · Cuantitativas</h2>
+  <p style="font-size:.95em;line-height:1.5">Estas construcciones llevan siempre un elemento de grado o medida (grupo cuantificativo).</p>
+  <div class="cols3">
+    <div class="card">
+      <div class="card-header blue">CONSECUTIVAS</div>
+      <div class="card-body" style="font-size:.9em">
+        <div class="card-sub blue" style="text-align:left">Efecto de una intensificación</div>
+        <p style="border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:10px">
+          <strong>G. cuantificativo (tan / tanto / tal) + que…</strong>
+        </p>
+        <div class="example-box">«Hacían tanto ruido que despertaron a los vecinos.»<br>→ La subordinada es complemento del G. cuantificativo.</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header green">COMPARATIVAS</div>
+      <div class="card-body" style="font-size:.9em">
+        <div class="card-sub green" style="text-align:left">Superioridad, inferioridad o igualdad</div>
+        <p style="border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:10px">
+          <strong>más/menos… que · tan… como (verbo tácito)</strong>
+        </p>
+        <div class="example-box">«Ahora hay más tensión que antes (había).»<br>Comparativos sintéticos: mejor, peor, mayor, menor.</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header amber">SUPERLATIVAS</div>
+      <div class="card-body" style="font-size:.9em">
+        <div class="card-sub amber" style="text-align:left">Grado máximo dentro de un conjunto</div>
+        <p style="border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:10px">
+          <strong>Art. + más/menos + relativa restrictiva</strong>
+        </p>
+        <div class="example-box">«Ese edificio es el más alto que se ha construido.»<br>→ La 2ª parte es una RELATIVA, no el compl. de un cuantificativo.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- D.13 FORMAS NO PERSONALES -->
+<div class="slide" id="s13">
+  <div class="slide-tag">D.13</div>
+  <h2 class="slide-title">Construcciones con Formas No Personales del Verbo</h2>
+  <div class="cols3">
+    <div class="card">
+      <div class="card-header blue">INFINITIVO</div>
+      <div class="card-body" style="font-size:.9em">
+        <div class="card-sub blue" style="text-align:left">El imitador del sustantivo</div>
+        <p style="border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:10px">
+          Crea O. Sub. Sustantivas:<br>Sujeto · CD · CR · CN · CAdj · CAdv…
+        </p>
+        <div class="example-box">«Ser paciente es esperar el tiempo necesario.» (Sujeto)<br>«Al verme, miró para otro lado.» (CPer temporal)</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header green">GERUNDIO</div>
+      <div class="card-body" style="font-size:.9em">
+        <div class="card-sub green" style="text-align:left">El imitador del adverbio</div>
+        <p style="border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:10px">
+          Crea complementos modales o periféricos:<br>CCMod · CPer temporal, causal, concesivo…
+        </p>
+        <div class="example-box">«Le desinfectó la herida aplicándole agua oxigenada.» (CCMod)<br>«Viendo el número de solicitudes, se suspendió el concurso.» (CPer caus.)</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header amber">PARTICIPIO</div>
+      <div class="card-body" style="font-size:.9em">
+        <div class="card-sub amber" style="text-align:left">El Periférico Absoluto</div>
+        <p style="border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:10px">
+          Construcciones absolutas (CPer):<br>Atributo + sujeto propio.<br>Valor: temporal, causal, cond., concesivo.
+        </p>
+        <div class="example-box">«Suspendido el partido, los aficionados abandonaron el estadio.»<br>→ «suspendido» = atributo · «el partido» = sujeto propio</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- D.14 TABLA COMPARATIVA -->
+<div class="slide" id="s14">
+  <div class="slide-tag">D.14</div>
+  <h2 class="slide-title">Gramática Tradicional vs. NGLE · Tabla Comparativa</h2>
+  <table class="tbl">
+    <thead><tr>
+      <th style="width:36%">Gramática Tradicional</th>
+      <th style="width:22%;text-align:center">Cambio</th>
+      <th>NGLE</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td>Coordinación distributiva</td>
+        <td style="text-align:center;font-weight:700;color:var(--mid)">Eliminada</td>
+        <td>Es un tipo de coordinación disyuntiva</td>
+      </tr>
+      <tr>
+        <td>Yuxtaposición</td>
+        <td style="text-align:center;font-weight:700;color:var(--mid)">Renombrada</td>
+        <td>Coordinación sin nexo (no tipo independiente)</td>
+      </tr>
+      <tr>
+        <td>Adverbiales propias (tiempo, lugar, modo)</td>
+        <td style="text-align:center;font-weight:700;color:var(--blue)">Reubicadas</td>
+        <td>Ahora son relativas libres (donde, cuando, como)</td>
+      </tr>
+      <tr>
+        <td>Adverbial causal / final</td>
+        <td style="text-align:center;font-weight:700;color:var(--amber)">Reestructuradas</td>
+        <td>Internas = CC · Externas = CPer</td>
+      </tr>
+      <tr>
+        <td>Adverbial cond. / concesiva</td>
+        <td style="text-align:center;font-weight:700;color:var(--amber)">Extraídas del predicado</td>
+        <td>Nunca CC · Siempre CPer · Bimembres</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- D.15 KIT SINTÁCTICO -->
+<div class="slide" id="s15">
+  <div class="slide-tag">D.15</div>
+  <h2 class="slide-title">El Kit Sintáctico · Protocolo de Análisis</h2>
+  <div style="display:flex;flex-direction:column;gap:14px">
+    <div class="step-row">
+      <div class="step-num">1</div>
+      <div class="step-box">
+        <span class="step-hint">Los cimientos</span>
+        <div class="step-title">Localiza los verbos</div>
+        <div class="step-desc">¿Cuántos predicados hay? Eso define el número de proposiciones y sus límites. Sin este paso, el análisis no puede comenzar.</div>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">2</div>
+      <div class="step-box">
+        <span class="step-hint">El puente</span>
+        <div class="step-title">Aísla el nexo</div>
+        <div class="step-desc">
+          ¿Está en medio, entre ambas oraciones? → <strong>Coordinación.</strong><br>
+          ¿Pertenece estructuralmente a una de ellas? → <strong>Subordinación / Construcción.</strong>
+        </div>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">3</div>
+      <div class="step-box">
+        <span class="step-hint">El diagnóstico</span>
+        <div class="step-title">Aplica las pruebas</div>
+        <div class="step-desc">
+          ¿La cláusula → «eso»? → <strong>Sustantiva.</strong><br>
+          ¿El nexo tiene antecedente expreso o implícito? → <strong>De relativo.</strong><br>
+          ¿Expresa relación lógica o cuantitativa? → <strong>Construcción.</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bar">
+    Con la NGLE, la sintaxis deja de ser pura memorización y pasa a ser la lógica estructural del pensamiento.
+  </div>
+</div>
+
+</div><!-- /viewport -->
+
+<div id="controls">
+  <button class="nav" id="btnPrev" onclick="go(-1)" disabled>◀ Anterior</button>
+  <span id="counter">1 / 15</span>
+  <button class="nav" id="btnNext" onclick="go(1)">Siguiente ▶</button>
+</div>
+</div><!-- /shell -->
+
+<script>
+const slides=document.querySelectorAll('.slide');
+let cur=0;
+function go(d){
+  slides[cur].classList.remove('active');
+  cur=Math.max(0,Math.min(slides.length-1,cur+d));
+  slides[cur].classList.add('active');
+  document.getElementById('counter').textContent=(cur+1)+' / '+slides.length;
+  document.getElementById('btnPrev').disabled=cur===0;
+  document.getElementById('btnNext').disabled=cur===slides.length-1;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){e.preventDefault();go(1);}
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();go(-1);}
+});
+let tx=0;
+document.getElementById('viewport').addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+document.getElementById('viewport').addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-tx;
+  if(Math.abs(dx)>40)go(dx<0?1:-1);
+},{passive:true});
+</script>
+</body>
+</html>
