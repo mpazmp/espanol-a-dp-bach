@@ -1,0 +1,1264 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>M0 · El examen por dentro · 1º Bachillerato</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --azul: #1a4a7a;
+  --azul-osc: #0f2f4d;
+  --turquesa: #0e9aa7;
+  --terracota: #c64829;
+  --oro: #c9973a;
+  --crema: #faf7f1;
+  --tinta: #1f2a36;
+  --tinta-suave: #4a5866;
+  --linea: #e4ddd0;
+  --blanco: #ffffff;
+  --ok: #2e7d4f;
+  --no: #b3261e;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--crema);
+  color: var(--tinta);
+  font-family: 'Source Sans 3', 'Source Sans Pro', system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  padding-bottom: 72px;
+}
+h1, h2, h3, .titulo, .panel-titulo { font-family: 'Playfair Display', Georgia, serif; }
+
+/* Cabecera */
+.cabecera { background: var(--azul); color: var(--blanco); }
+.cabecera-in { max-width: 920px; margin: 0 auto; padding: 28px 16px 0; }
+.eyebrow { color: #7fdce4; text-transform: uppercase; letter-spacing: .08em; font-size: 13px; font-weight: 600; margin: 0 0 6px; }
+.titulo { font-size: clamp(26px, 5vw, 38px); line-height: 1.15; margin: 0 0 8px; font-weight: 700; }
+.subtitulo { margin: 0 0 18px; color: rgba(255,255,255,.85); max-width: 680px; }
+.pestanas { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; margin: 0 -16px; padding: 0 16px; }
+.pestanas::-webkit-scrollbar { display: none; }
+.pestana {
+  flex: 0 0 auto; background: none; border: 0; border-bottom: 3px solid transparent;
+  color: rgba(255,255,255,.55); font: inherit; font-size: 15px; font-weight: 600;
+  padding: 12px 12px 10px; cursor: pointer; white-space: nowrap;
+}
+.pestana:hover { color: rgba(255,255,255,.85); }
+.pestana.activa { color: var(--blanco); border-bottom-color: var(--terracota); }
+.divisor { height: 3px; background: var(--terracota); }
+
+/* Contenido */
+.contenido { max-width: 920px; margin: 0 auto; padding: 24px 16px 32px; }
+.panel-eyebrow { color: var(--turquesa); text-transform: uppercase; letter-spacing: .08em; font-size: 12px; font-weight: 700; margin: 8px 0 2px; }
+.panel-titulo { font-size: clamp(24px, 4vw, 30px); color: var(--azul); margin: 0 0 16px; }
+h2 { color: var(--azul); font-size: 23px; margin: 32px 0 10px; }
+h3 { color: var(--azul-osc); font-size: 19px; margin: 22px 0 8px; }
+p { margin: 0 0 12px; }
+.lead { font-size: 18.5px; color: var(--tinta); }
+strong { font-weight: 700; }
+mark.marcador { background: #f6e6c4; color: inherit; padding: 0 2px; border-radius: 2px; }
+
+.badge { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 3px 9px; border-radius: 3px; margin: 4px 0 10px; }
+.badge-oficial { background: var(--azul-osc); color: var(--blanco); }
+.badge-dep { background: transparent; color: var(--oro); border: 1.5px solid var(--oro); }
+
+.aviso { background: var(--turquesa); color: var(--blanco); padding: 14px 18px; border-radius: 4px; margin: 18px 0; }
+.aviso p { margin: 0; }
+.aviso .aviso-titulo { font-weight: 700; margin-bottom: 4px; }
+.aviso strong { color: var(--blanco); }
+
+.lista { padding-left: 1.3em; margin: 0 0 14px; }
+.lista li { margin-bottom: 6px; }
+
+.tabla-wrap { overflow-x: auto; margin: 10px 0 18px; }
+.tabla { width: 100%; border-collapse: collapse; background: var(--blanco); font-size: 15.5px; min-width: 480px; }
+.tabla th { background: var(--azul-osc); color: var(--blanco); text-align: left; padding: 9px 10px; font-weight: 600; }
+.tabla td { padding: 9px 10px; border-bottom: 1px solid var(--linea); vertical-align: top; }
+
+.card { background: var(--blanco); border: 1px solid var(--linea); border-top: 4px solid var(--azul); border-radius: 4px; padding: 18px 20px 8px; margin: 18px 0; }
+.card-terracota { border-top-color: var(--terracota); }
+.card-oro { border-top-color: var(--oro); }
+.card-turquesa { border-top-color: var(--turquesa); }
+.card-eyebrow { color: var(--turquesa); text-transform: uppercase; letter-spacing: .08em; font-size: 12px; font-weight: 700; margin: 0 0 2px; }
+.card-titulo { margin-top: 0; }
+
+.esquema { background: var(--blanco); border-left: 4px solid var(--oro); padding: 14px 16px; margin: 12px 0 18px; font-size: 16px; }
+.esquema-titulo { font-weight: 700; color: var(--azul-osc); margin-bottom: 8px; }
+.esquema-linea { margin: 3px 0; }
+
+.enlace-wrap { margin: 12px 0 18px; }
+.enlace-nota { font-size: 14px; color: var(--tinta-suave); margin-top: 6px; }
+
+.boton {
+  display: inline-block; background: var(--terracota); color: var(--blanco); border: 0; border-radius: 4px;
+  padding: 10px 16px; font: inherit; font-size: 15.5px; font-weight: 600; cursor: pointer; text-decoration: none;
+}
+.boton:hover { filter: brightness(1.08); }
+.boton-sec { background: transparent; color: var(--terracota); border: 1.5px solid var(--terracota); }
+.boton-externo::after { content: ' ↗'; }
+.boton-inactivo { background: #b9b2a6; cursor: default; }
+.boton-inactivo:hover { filter: none; }
+
+.desplegable { background: var(--blanco); border: 1px solid var(--linea); border-radius: 4px; margin: 12px 0 18px; }
+.desplegable summary { cursor: pointer; padding: 12px 16px; font-weight: 600; color: var(--azul); }
+.desplegable-cuerpo { padding: 0 16px 8px; }
+
+/* Modelos */
+.modelo { background: var(--blanco); border: 1px solid var(--linea); border-radius: 4px; padding: 16px 18px; margin: 12px 0 18px; }
+.modelo-titulo { font-weight: 700; color: var(--azul-osc); margin-bottom: 10px; }
+.modelo-fila { margin-bottom: 10px; }
+.modelo-fila.con-notas { display: grid; grid-template-columns: minmax(0, 1fr) 240px; gap: 16px; align-items: start; }
+.modelo-texto { margin: 0; }
+.modelo-nota { margin: 0; font-size: 14.5px; color: var(--azul-osc); background: #eef4f8; border-left: 3px solid var(--turquesa); padding: 8px 10px; }
+.modelo-recuento { font-size: 14px; color: var(--tinta-suave); text-align: right; margin: 6px 0 0; }
+@media (max-width: 680px) {
+  .modelo-fila.con-notas { grid-template-columns: 1fr; gap: 6px; }
+}
+
+/* Ejercicios */
+.ejercicio { background: var(--blanco); border: 1px solid var(--linea); border-left: 4px solid var(--terracota); border-radius: 4px; padding: 16px 18px; margin: 18px 0; }
+.ejercicio-titulo { font-weight: 700; color: var(--terracota); margin-bottom: 6px; }
+.ejercicio-intro { color: var(--tinta-suave); }
+.item { padding: 10px 0; border-top: 1px solid var(--linea); }
+.item:first-of-type { border-top: 0; }
+.item-pregunta { font-weight: 600; margin-bottom: 8px; }
+.item-cita { font-style: italic; margin-bottom: 8px; }
+.opciones { display: flex; flex-direction: column; gap: 6px; }
+.opciones-fila { flex-direction: row; flex-wrap: wrap; }
+.opcion {
+  text-align: left; background: var(--crema); border: 1.5px solid var(--linea); border-radius: 4px;
+  padding: 8px 12px; font: inherit; font-size: 15.5px; cursor: pointer; color: var(--tinta);
+}
+.opcion:hover { border-color: var(--azul); }
+.opcion.correcta { border-color: var(--ok); background: #e8f4ec; }
+.opcion.incorrecta { border-color: var(--no); background: #fbeceb; }
+.feedback { display: none; margin: 8px 0 0; font-size: 15.5px; padding: 8px 10px; border-radius: 4px; }
+.feedback.visible { display: block; }
+.fb-ok { background: #e8f4ec; color: #1d5234; }
+.fb-no { background: #fbeceb; color: #7d1c16; }
+.selector { font: inherit; font-size: 15.5px; padding: 6px 8px; border: 1.5px solid var(--linea); border-radius: 4px; background: var(--crema); color: var(--tinta); max-width: 100%; }
+
+/* Escritura */
+.escritura { margin: 16px 0 20px; }
+.escritura-label { display: block; font-weight: 700; color: var(--azul-osc); margin-bottom: 4px; }
+.escritura-pista { font-size: 15px; color: var(--tinta-suave); margin-bottom: 6px; }
+.escritura-area {
+  width: 100%; font: inherit; font-size: 16.5px; line-height: 1.55; padding: 12px; border: 1.5px solid var(--linea);
+  border-radius: 4px; background: var(--blanco); color: var(--tinta); resize: vertical;
+}
+.escritura-area:focus { outline: none; border-color: var(--azul); }
+.escritura-meta { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: 14px; color: var(--tinta-suave); margin-top: 4px; }
+.contador { font-weight: 600; }
+.contador-bajo { color: var(--oro); }
+.contador-alto { color: var(--no); }
+.contador-ok { color: var(--ok); }
+
+.reloj { background: var(--azul-osc); color: var(--blanco); border-radius: 4px; padding: 14px 18px; margin: 16px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.reloj p { margin: 0; }
+.reloj-label { font-weight: 600; flex: 1 1 200px; }
+.reloj-display { font-family: 'Playfair Display', Georgia, serif; font-size: 30px; font-variant-numeric: tabular-nums; }
+.reloj-botones { display: flex; gap: 6px; flex-wrap: wrap; }
+.reloj .boton-sec { color: var(--blanco); border-color: rgba(255,255,255,.6); }
+.reloj-msg { flex-basis: 100%; color: #ffd9cf; font-weight: 600; }
+.reloj-msg:empty { display: none; }
+.reloj-fin { background: var(--terracota); }
+
+.checklist { list-style: none; padding: 0; margin: 0; }
+.checklist li { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; }
+.checklist input { margin-top: 5px; width: 18px; height: 18px; flex: 0 0 auto; accent-color: var(--terracota); }
+
+.autoeval-fila { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 0; border-top: 1px solid var(--linea); flex-wrap: wrap; }
+.autoeval-label { flex: 1 1 260px; }
+.autoeval-total { font-weight: 700; color: var(--azul); text-align: right; margin: 10px 0 0; font-size: 18px; }
+
+.muestra { background: var(--crema); border: 1px dashed var(--oro); padding: 12px 14px; margin: 10px 0; font-size: 15.5px; }
+.muestra p { margin-bottom: 8px; }
+.comparacion { margin-top: 12px; }
+.comparacion-fila { font-size: 15.5px; }
+.comparacion-total { font-weight: 700; color: var(--azul); }
+.comparacion-moral { background: var(--turquesa); color: var(--blanco); padding: 10px 14px; border-radius: 4px; }
+
+.copiar { margin: 20px 0; }
+.copiar-nota { font-size: 15px; color: var(--tinta-suave); }
+.copiar-msg { margin-left: 10px; font-size: 14.5px; color: var(--ok); }
+
+.siguiente { margin: 32px 0 8px; text-align: right; }
+
+.pie { font-size: 13.5px; color: var(--tinta-suave); border-top: 1px solid var(--linea); padding-top: 12px; margin-top: 36px; }
+
+/* Mini-navegación inferior */
+.mininav {
+  position: fixed; left: 0; right: 0; bottom: 0; background: var(--azul-osc); color: var(--blanco);
+  display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 16px; z-index: 10;
+}
+.mininav-btn { background: none; border: 1px solid rgba(255,255,255,.35); color: var(--blanco); border-radius: 4px; padding: 7px 12px; font: inherit; font-size: 14.5px; cursor: pointer; }
+.mininav-btn:disabled { opacity: .35; cursor: default; }
+.mininav-pos { font-size: 14px; color: rgba(255,255,255,.8); text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+@media (max-width: 520px) {
+  body { font-size: 16.5px; }
+  .card, .ejercicio { padding: 14px 14px 6px; }
+  .mininav-pos { font-size: 12.5px; }
+}
+
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+/* Contenidos compartidos del M0 (1º y 2º de Bachillerato) */
+window.M0C = (function () {
+  var DRIVE_VICENT = 'https://drive.google.com/file/d/1h-aHT408nHhy5UzaUhe7Feo1OuAIVTNJ/view';
+
+  var C = {};
+
+  C.linkVicent = {
+    t: 'link',
+    href: DRIVE_VICENT,
+    x: 'Abrir el examen: Manuel Vicent, «Las buenas maneras»',
+    note: 'PEvAU Andalucía 2025-26, convocatoria ordinaria. Es también el **modelo oficial** de las orientaciones 2026-27. Se abre en Drive con tu cuenta del colegio.'
+  };
+
+  /* ---------------- Pestaña 1: la prueba ---------------- */
+  C.prueba = [
+    { t: 'badge', kind: 'oficial', x: 'Oficial · Orientaciones PEvAU 2026-27' },
+    { t: 'table', head: ['Pregunta', 'Qué pide', 'Puntos', 'Tiempo orientativo'], rows: [
+      ['**1**', 'Identificar las ideas del texto, exponer de forma concisa su organización e indicar razonadamente su estructura', '1,5', '10-12 min'],
+      ['2', 'Explicar la intención comunicativa del autor o de la autora', '0,5', '3-5 min'],
+      ['**3**', 'Dada una idea, elaborar un discurso argumentativo de entre 200 y 250 palabras, eligiendo la estructura', '2', '20-25 min']
+    ] },
+    { t: 'p', x: 'El examen completo dura **90 minutos** y tiene además sintaxis, léxico, lengua y hablantes y literatura. Por eso el tiempo del bloque de comunicación no puede estirarse: unos 40 minutos para las tres preguntas.' },
+
+    { t: 'h2', x: 'Cómo se corrige la pregunta 1' },
+    { t: 'table', head: ['Tramo', 'Qué se valora', 'Puntos'], rows: [
+      ['Ideas', 'La identificación de las ideas del texto', '0,5'],
+      ['Organización', 'La explicación breve de la **relación o jerarquía** entre las ideas', '0,5'],
+      ['Estructura', 'La determinación del tipo de estructura **y su justificación**', '0,5']
+    ] },
+    { t: 'p', x: 'Son tres tramos independientes: puedes tener 0,5 en uno y 0 en otro. Nombrar la estructura sin justificarla no alcanza el máximo del tercer tramo.' },
+
+    { t: 'h2', x: 'Cómo se corrige la pregunta 3' },
+    { t: 'table', head: ['Criterio', 'Puntos'], rows: [
+      ['Idoneidad de la estructura', '0,5'],
+      ['Argumentación y su desarrollo', '1'],
+      ['Empleo adecuado de los marcadores discursivos', '0,5'],
+      ['Extensión significativamente fuera de 200-250 palabras', '−0,25']
+    ] },
+    { t: 'p', x: 'Para la nota máxima, las orientaciones piden un discurso bien organizado, ideas precisas y ordenadas, destreza en los argumentos y **una posición personal, crítica y fundamentada**.' },
+
+    { t: 'h2', x: 'La expresión cuenta en todo el examen' },
+    { t: 'table', head: ['Motivo', 'Descuento máximo'], rows: [
+      ['Ortografía: −0,2 por grafía y hasta −0,1 por tilde', '2 puntos'],
+      ['Expresión (la puntuación se incluye aquí)', '1 punto'],
+      ['Presentación', '0,5 puntos']
+    ] },
+    { t: 'p', x: 'El descuento total por forma no puede superar los 2 puntos. Se cuenta desde la primera falta, pero una falta repetida no se penaliza dos veces. Todas las notas se ponen en tramos de 0,25.' },
+    { t: 'aviso', title: 'La regla de oro', x: 'Breve y preciso. Los correctores no premian la extensión en la pregunta 1: premian que se vea que has entendido el texto. Lo que te sobra en la 1 te falta en la 3.' }
+  ];
+
+  C.quizPrueba = {
+    t: 'tf', title: 'Comprueba que lo tienes claro',
+    items: [
+      { q: 'Si nombro correctamente el tipo de estructura pero no lo justifico, obtengo los 0,5 puntos de ese tramo.', v: false, fb: 'El criterio pide «indicar razonadamente» la estructura: el tipo sin justificación se queda por debajo del máximo.' },
+      { q: 'En la organización puedo presentar un esquema.', v: true, fb: 'El esquema es rápido y muestra bien la jerarquía. Una explicación breve en prosa tampoco se penaliza.' },
+      { q: 'Si mi texto argumentativo tiene 290 palabras no pasa nada: cuanto más largo, mejor.', v: false, fb: 'Si te sales significativamente de 200-250, pierdes 0,25. Y además le robas tiempo al resto del examen.' },
+      { q: 'Cada tilde puede restar hasta 0,1 puntos.', v: true, fb: 'Y cada error de grafía, 0,2. Revisar dos minutos al final compensa.' },
+      { q: 'Si escribo mal la misma palabra tres veces, me penalizan tres veces.', v: false, fb: 'Las faltas repetidas no se penalizan de nuevo. Pero la primera sí cuenta.' },
+      { q: 'En la pregunta 3 basta con dar argumentos a favor y en contra; no hace falta tomar partido.', v: false, fb: 'Se pide una posición personal, crítica y fundamentada. Un texto que acaba en «depende» no la tiene.' }
+    ]
+  };
+
+  /* ---------------- Pestaña 2: pregunta 1 ---------------- */
+  C.p1Teoria = [
+    { t: 'lead', x: 'La pregunta 1 encierra tres operaciones distintas. Confundirlas es la forma más común de perder puntos que ya tenías.' },
+    { t: 'card', eyebrow: 'Tramo 1 · 0,5', title: 'Las ideas', body: [
+      { t: 'p', x: '**El tema** se enuncia en un **enunciado nominal**: sin verbo conjugado, concreto y breve. «La educación» no dice nada; «Manuel Vicent recuerda su escuela» es un resumen, no un tema.' },
+      { t: 'p', x: '**La tesis** es la idea principal: lo que el autor defiende. **Las ideas secundarias** la preparan, la explican, la apoyan o la matizan.' },
+      { t: 'p', x: 'Los **ejemplos, datos y anécdotas no son ideas**: están al servicio de las ideas. Redacta siempre con tus palabras; copiar frases del texto no demuestra comprensión.' }
+    ] },
+    { t: 'card', eyebrow: 'Tramo 2 · 0,5', title: 'La organización: relación y jerarquía', accent: 'turquesa', body: [
+      { t: 'p', x: 'Aquí no se repiten las ideas: se muestra **qué idea manda y cómo dependen de ella las demás** (causa, consecuencia, ejemplo, contraste, concesión, conclusión). Conviene indicar las partes del texto (primer párrafo, líneas 1-8…).' },
+      { t: 'p', x: 'Lo más rápido y claro es un **esquema** con flechas y sangrías. Una explicación breve en prosa también es válida.' },
+      { t: 'scheme', title: 'Así se ve una jerarquía (ejemplo genérico)', lines: [
+        '**Tesis**: …',
+        '> ↳ Idea 1 (causa de la tesis): …',
+        '>> · ejemplo / dato que la apoya',
+        '> ↳ Idea 2 (contraste): …',
+        '> ⇒ Conclusión: …'
+      ] }
+    ] },
+    { t: 'card', eyebrow: 'Tramo 3 · 0,5', title: 'La estructura y su justificación', accent: 'terracota', body: [
+      { t: 'p', x: 'La estructura clasifica el texto según **dónde aparece la tesis**. No basta con nombrarla: hay que justificarla en dos o tres líneas.' },
+      { t: 'table', head: ['Tipo', 'Posición de la tesis', 'Movimiento'], rows: [
+        ['**Analizante** (deductiva)', 'Al principio', 'De la idea general a los argumentos y ejemplos'],
+        ['**Sintetizante** (inductiva)', 'Al final', 'De los ejemplos, datos o anécdotas a la idea general'],
+        ['**Encuadrada**', 'Al principio y reafirmada al final', 'Tesis → desarrollo → tesis'],
+        ['**Paralela**', 'Sin una idea que domine', 'Varias ideas del mismo rango, una tras otra']
+      ] },
+      { t: 'p', cls: 'nota', x: '*Esta nomenclatura es la convención didáctica habitual; las orientaciones no la fijan. Lo que sí exigen es el razonamiento.*' },
+      { t: 'p', x: 'Una justificación completa responde a tres preguntas: **qué tipo** es, **dónde está la tesis** y **qué hace el resto del texto** respecto a ella.' }
+    ] },
+    { t: 'aviso', x: 'La **organización** describe *este* texto: sus partes y cómo se relacionan. La **estructura** lo clasifica en un modelo y razona por qué.' }
+  ];
+
+  C.p1Tema = {
+    t: 'quiz', title: 'Ejercicio 1 · ¿Cuál es el mejor enunciado del tema?',
+    intro: 'Texto: «Las buenas maneras», de Manuel Vicent.',
+    items: [{
+      q: 'Elige la formulación que obtendría la máxima valoración.',
+      opts: [
+        'La buena educación.',
+        'El olvido de las normas de urbanidad aprendidas en la escuela como causa del deterioro de la convivencia pública.',
+        'Manuel Vicent recuerda cómo le enseñaban urbanidad en la escuela de posguerra.',
+        'Que los políticos insultan en el Congreso y hay odio en las redes.'
+      ],
+      ok: 1,
+      fb: [
+        'Demasiado general: vale para cualquier texto sobre educación. El tema debe ser concreto.',
+        'Enunciado nominal, concreto y completo: recoge el asunto (las buenas maneras olvidadas) y el enfoque del autor (causa del deterioro público).',
+        'Tiene verbo conjugado y resume solo el principio: es el punto de partida, no el tema.',
+        'Es un ejemplo del texto, no su tema, y no es un enunciado nominal.'
+      ]
+    }]
+  };
+
+  C.p1Clasificar = {
+    t: 'classify', title: 'Ejercicio 2 · ¿Idea o ejemplo?',
+    intro: 'Clasifica cada fragmento de «Las buenas maneras».',
+    cats: ['Idea principal (tesis)', 'Idea secundaria', 'Ejemplo, anécdota o dato'],
+    items: [
+      { x: '«nos obligaban a leer un cuaderno con dibujos titulado: reglas de urbanidad y buenas maneras»', c: 2, fb: 'Es un recuerdo concreto: ilustra cómo se enseñaba la urbanidad.' },
+      { x: '«Era puntual, saludaba con afecto al maestro, nunca hablaba mal de nadie»', c: 2, fb: 'Enumera rasgos del niño modelo: son ejemplos de buenas maneras.' },
+      { x: '«Imagino que aquel niño al hacerse mayor se ha convertido en esa persona corriente […] o diputado»', c: 1, fb: 'Es la idea que conecta el pasado con el presente: aquel niño es el adulto de hoy.' },
+      { x: '«El albañal político […] o el nivel de basura social que nos ahoga se debe en gran parte a que aquel chico ha olvidado las reglas de urbanidad»', c: 0, fb: 'Es la tesis: la opinión que el autor defiende y a la que conduce todo lo anterior.' },
+      { x: '«ese diputado que insulta con un lenguaje muy sucio al adversario político en el Congreso»', c: 2, fb: 'Es un ejemplo del deterioro que denuncia la tesis.' },
+      { x: '«Solo con la mitad de sus buenas maneras, este país tendría resueltos más de la mitad de sus problemas»', c: 1, fb: 'Es la conclusión que se deriva de la tesis: una idea secundaria de cierre.' }
+    ]
+  };
+
+  C.p1Estructura = {
+    t: 'quiz', title: 'Ejercicio 3 · ¿Qué estructura es?',
+    intro: 'Cuatro textos imaginarios descritos en una línea.',
+    opts: ['Analizante', 'Sintetizante', 'Encuadrada', 'Paralela'],
+    items: [
+      { q: 'Un artículo afirma de entrada que la semana laboral de cuatro días mejora la productividad; después aporta tres estudios y termina con el ejemplo de una empresa.', ok: 0,
+        fb: ['Tesis al principio y después argumentos y ejemplos, sin volver sobre ella.', 'La tesis no está al final, sino al principio.', 'No se reafirma la tesis al final: el texto termina con un ejemplo.', 'Hay una idea que domina: la tesis inicial.'] },
+      { q: 'Una columna narra una mañana en un centro de salud colapsado, aporta cifras de listas de espera y solo en la última línea sostiene que la sanidad pública necesita más inversión.', ok: 1,
+        fb: ['La tesis no aparece al principio.', 'De la anécdota y los datos a la tesis final.', 'La tesis solo aparece al final, no al principio.', 'Todo conduce a una tesis final que domina el texto.'] },
+      { q: 'Un editorial abre defendiendo el comercio de barrio, lo argumenta con datos y ejemplos y cierra repitiendo esa misma idea con otras palabras.', ok: 2,
+        fb: ['Casi: la tesis está al principio, pero fíjate en el cierre.', 'La tesis no aparece solo al final.', 'Tesis al principio y reafirmada al final.', 'Hay una idea dominante.'] },
+      { q: 'Un texto expone uno tras otro los efectos del turismo masivo en la vivienda, en el empleo y en el medio ambiente, sin que ninguno se imponga ni haya una tesis que los agrupe.', ok: 3,
+        fb: ['No hay tesis inicial que domine.', 'No hay tesis final.', 'No hay tesis que se repita.', 'Ideas del mismo rango sin jerarquía entre ellas.'] }
+    ]
+  };
+
+  C.p1Justificacion = {
+    t: 'quiz', title: 'Ejercicio 4 · ¿Qué justificación obtiene el 0,5?',
+    intro: 'Tres alumnas justifican la estructura de «Las buenas maneras».',
+    items: [{
+      q: 'Elige la justificación completa.',
+      opts: [
+        '«La estructura es sintetizante porque el autor expone sus ideas de forma muy ordenada.»',
+        '«Estructura sintetizante (inductiva): la tesis —el deterioro de la vida pública se debe al olvido de las buenas maneras— no aparece hasta el final, tras el recuerdo escolar y su proyección al presente, que la preparan. El texto va de lo particular a lo general.»',
+        '«Es inductiva porque tiene introducción, desarrollo y conclusión.»'
+      ],
+      ok: 1,
+      fb: [
+        'Nombra el tipo, pero «ordenado» no justifica nada: todo texto lo es.',
+        'Responde a las tres preguntas: qué tipo, dónde está la tesis y qué hace el resto del texto.',
+        'Introducción, desarrollo y conclusión describen casi cualquier texto: no justifican la estructura.'
+      ]
+    }]
+  };
+
+  /* ---------------- Pestaña 3: pregunta 3 ---------------- */
+  C.p3Teoria = [
+    { t: 'lead', x: 'En la pregunta 3 te dan una idea, casi siempre en forma de pregunta, relacionada con el tema del texto. Tienes que responderla con un texto argumentativo propio.' },
+    { t: 'card', eyebrow: 'Lo que buscan los correctores', title: 'Cinco rasgos de un 2', body: [
+      { t: 'list', items: [
+        '**Una tesis clara** desde las primeras líneas: tu respuesta a la pregunta, matizada si hace falta, pero sin «depende».',
+        '**Argumentos desarrollados** y de tipos distintos, no una lista de opiniones.',
+        '**Una objeción respondida**: reconoces lo que diría quien piensa lo contrario y lo rebates.',
+        '**Una estructura reconocible** y adecuada a lo que quieres conseguir.',
+        '**Marcadores precisos y variados**, cada uno con la relación lógica que le corresponde.'
+      ] }
+    ] },
+    { t: 'card', eyebrow: 'Elegir estructura', title: 'Tres estructuras para tu texto', accent: 'turquesa', body: [
+      { t: 'table', head: ['Estructura', 'Cómo se construye', 'Cuándo conviene'], rows: [
+        ['Analizante', 'Tesis → argumentos → cierre', 'Siempre funciona: es la más segura con poco tiempo'],
+        ['Encuadrada', 'Tesis → argumentos → tesis reafirmada y ampliada', 'La más recomendable: el corrector ve la tesis dos veces'],
+        ['Sintetizante', 'Argumentos → tesis al final', 'Cuando quieres crear expectativa; exige mucho control']
+      ] }
+    ] },
+    { t: 'card', eyebrow: 'Repertorio', title: 'Marcadores por función', accent: 'oro', body: [
+      { t: 'table', head: ['Función', 'Marcadores'], rows: [
+        ['Ordenar', 'En primer lugar, para empezar, en segundo lugar, por último'],
+        ['Añadir', 'Además, asimismo, por otra parte, a esto se suma'],
+        ['Oponer', 'Sin embargo, no obstante, en cambio, por el contrario'],
+        ['Conceder', 'Es cierto que…, aunque, si bien, a pesar de que'],
+        ['Causa', 'Ya que, puesto que, dado que'],
+        ['Consecuencia', 'Por tanto, por consiguiente, de ahí que, así pues'],
+        ['Ejemplificar', 'Por ejemplo, así, como muestra'],
+        ['Concluir', 'En definitiva, en conclusión, en suma']
+      ] },
+      { t: 'p', x: 'Un marcador promete una relación lógica. Si escribes «por tanto», lo que sigue tiene que ser una consecuencia de lo anterior.' }
+    ] },
+    { t: 'card', eyebrow: 'Antes de escribir', title: 'Planificar en cinco minutos', accent: 'terracota', body: [
+      { t: 'list', ordered: true, items: [
+        '**Postura**: responde a la pregunta en una frase.',
+        '**Tres argumentos** de tipos distintos (un dato o hecho, un ejemplo, una causa o consecuencia…).',
+        '**La objeción** más probable y cómo la rebates.',
+        '**La estructura**: dónde irá la tesis.',
+        '**El cierre**: qué idea quieres que se lleve el lector.'
+      ] }
+    ] }
+  ];
+
+  C.p3Fallos = {
+    t: 'quiz', title: 'Ejercicio 5 · ¿Qué falla?',
+    intro: 'Cuatro fragmentos de textos de alumnado. Diagnostica el problema principal de cada uno.',
+    opts: ['No toma postura', 'Argumento anecdótico o sin fundamento', 'Marcador que no corresponde a la relación lógica', 'Marcadores repetidos y mecánicos'],
+    items: [
+      { q: '«Yo creo que las redes sociales son malas porque a mí no me gustan y mi prima opina lo mismo.»', ok: 1,
+        fb: ['Sí hay postura: las redes son malas.', 'El gusto personal y la opinión de un familiar no fundamentan nada.', 'El «porque» es formalmente correcto; el problema es lo que viene detrás.', 'Solo hay un marcador.'] },
+      { q: '«Además, los jóvenes leen poco. Además, pasan muchas horas con el móvil. Además, no hacen deporte.»', ok: 3,
+        fb: ['Hay una postura implícita.', 'Los hechos pueden ser discutibles, pero el problema más visible es otro.', 'La relación de adición es correcta; el problema es cómo se expresa.', 'El mismo marcador tres veces: suena a lista, no a argumentación. Usa además, asimismo, a esto se suma…'] },
+      { q: '«Los videojuegos desarrollan los reflejos. Por lo tanto, muchos padres se preocupan por ellos.»', ok: 2,
+        fb: ['La postura no es el problema.', 'La primera afirmación es razonable.', 'La preocupación de los padres no es consecuencia de los reflejos: haría falta un «sin embargo».', 'Solo hay un marcador.'] },
+      { q: '«Hay argumentos a favor y en contra, y cada persona tiene su opinión, así que depende de cada caso.»', ok: 0,
+        fb: ['Es un texto que no responde a la pregunta: sin posición personal no hay 2 posible.', 'El problema es anterior a los argumentos.', 'El «así que» expresa bien la consecuencia; lo que falla es otra cosa.', 'No hay repetición de marcadores.'] }
+    ]
+  };
+
+  C.contador = {
+    t: 'write', id: 'contador', label: 'Contador de palabras', counter: true, rows: 6,
+    hint: 'Pega o escribe aquí cualquier texto para comprobar su extensión. Recuerda: 200-250.'
+  };
+
+  /* ---------------- Pestaña 4: el modelo resuelto ---------------- */
+  C.modeloP1Ideas = {
+    t: 'model', title: 'Pregunta 1 · Ideas', notes: false,
+    paras: [
+      { x: '**Tema**: el olvido de las normas de urbanidad aprendidas en la escuela como causa del deterioro de la convivencia pública.',
+        note: 'Enunciado nominal: sin verbo conjugado, concreto, con el enfoque del autor.' },
+      { x: '**Tesis**: la degradación de la vida política y social se debe en gran parte a que los adultos de hoy han olvidado las buenas maneras que aprendieron de niños.',
+        note: 'Con palabras propias. La tesis no se copia: se reformula.' },
+      { x: '**Ideas secundarias**: (1) en la escuela de posguerra se enseñaba la urbanidad a través de un modelo ideal de niño educado; (2) aquel niño es hoy el ciudadano corriente o quien ocupa puestos de poder e influencia; (3) resulta incomprensible el contraste entre aquel modelo y los insultos, el odio y el fanatismo actuales; (4) recuperar solo una parte de aquella educación resolvería buena parte de los problemas del país.',
+        note: 'Solo ideas: los ejemplos (el jersey de pico, el diputado que insulta) no aparecen.' }
+    ]
+  };
+
+  C.modeloP1Esquema = {
+    t: 'scheme', title: 'Pregunta 1 · Organización (esquema)',
+    lines: [
+      '**Parte 1** (desde el inicio hasta «Era el modelo al que había que imitar»): recuerdo de la escuela de posguerra',
+      '> · el niño modelo de las buenas maneras → *ejemplo que prepara la tesis*',
+      '**Parte 2** («Imagino que aquel niño…» hasta «…o diputado»): paso del pasado al presente',
+      '> · aquel niño = el adulto de hoy, ciudadano o dirigente',
+      '**Parte 3** («El albañal político…» hasta el final):',
+      '> **TESIS**: el deterioro público se debe al olvido de las buenas maneras',
+      '>> ↳ contraste pasado / presente (pregunta retórica): insultos, odio en redes, fanatismo → *ejemplos*',
+      '>> ⇒ conclusión: con la mitad de aquellas maneras se resolverían la mitad de los problemas'
+    ]
+  };
+
+  C.modeloP1Estructura = {
+    t: 'model', title: 'Pregunta 1 · Estructura', notes: false,
+    paras: [
+      { x: 'Estructura **sintetizante** (inductiva): la tesis no aparece hasta la parte final, después del recuerdo escolar y de su proyección al presente, que la preparan. El texto avanza de lo particular (la experiencia del autor) a lo general (el estado del país).',
+        note: 'Tipo + posición de la tesis + función del resto del texto. Tres líneas.' }
+    ]
+  };
+
+  C.modeloP3Paras = [
+    { x: 'No creo que la buena educación se haya perdido en España; más bien ha cambiado de forma y se ha refugiado en espacios donde apenas la miramos.',
+      note: '**Introducción con tesis** matizada: responde a la pregunta desde la primera línea.' },
+    { x: '==En primer lugar==, conviene distinguir entre la vida pública y la cotidiana. ==Es cierto que== en el Congreso y en las redes sociales abundan los insultos, y que esas imágenes se difunden con enorme rapidez. ==Sin embargo==, lo que se hace viral no es necesariamente lo más frecuente: el vecino que sujeta la puerta o la alumna que da las gracias al terminar la clase no ocupan titulares, pero siguen existiendo.',
+      note: '**Argumento 1** con **concesión y refutación**: reconoce la objeción («es cierto que…») y la rebate («sin embargo…»). Ejemplos de experiencia compartida.' },
+    { x: '==Además==, las normas de cortesía se han transformado, no han desaparecido. Hoy tutear a un profesor no se interpreta como una falta de respeto, ==mientras que== otras conductas antes toleradas, como burlarse de quien es diferente, resultan ahora inaceptables. ==Por tanto==, más que una pérdida, lo que se ha producido es un cambio en lo que entendemos por educación.',
+      note: '**Argumento 2**: comparación entre épocas. «Por tanto» introduce una consecuencia real de lo anterior.' },
+    { x: '==Por otra parte==, buena parte de la agresividad que percibimos nace del anonimato. Quien insulta desde un perfil sin nombre rara vez lo haría cara a cara, lo que demuestra que el problema no reside tanto en la falta de educación como en la ausencia de consecuencias.',
+      note: '**Argumento 3**: causa. Explica el fenómeno en lugar de solo lamentarlo.' },
+    { x: '==En definitiva==, la buena educación sigue viva, aunque necesita defenderse en el espacio público, empezando por quienes deberían dar ejemplo. Recuperarla allí no depende de ningún cuaderno escolar, sino de que dejemos de premiar con nuestra atención a quienes la desprecian.',
+      note: '**Conclusión** que reafirma la tesis y la amplía: estructura **encuadrada**. El guiño al cuaderno enlaza con el texto de Vicent.' }
+  ];
+
+  C.errores = {
+    t: 'card', eyebrow: 'Lo que resta', title: 'Errores frecuentes', accent: 'terracota', body: [
+      { t: 'h3', x: 'En la pregunta 1' },
+      { t: 'list', items: [
+        'Resumir el texto párrafo a párrafo en lugar de identificar las ideas.',
+        'Copiar frases literales del texto.',
+        'Incluir ejemplos y datos como si fueran ideas.',
+        'Repetir las ideas en la organización en vez de mostrar su jerarquía.',
+        'Nombrar la estructura sin justificarla, o justificarla con «tiene introducción, desarrollo y conclusión».'
+      ] },
+      { t: 'h3', x: 'En la pregunta 3' },
+      { t: 'list', items: [
+        'No tomar postura o tomarla solo al final sin haberla anunciado.',
+        'Argumentar con gustos personales o con anécdotas de la propia familia.',
+        'Repetir el mismo marcador o usar uno que no corresponde a la relación lógica.',
+        'Salir de 200-250 palabras.',
+        'Olvidar la objeción: un texto que solo da la razón a su autor convence menos.'
+      ] }
+    ]
+  };
+
+  C.pie = 'Criterios de corrección: *Directrices y orientaciones PEvAU Andalucía, Lengua Castellana y Literatura II, curso 2026-27* (oficial). Explicaciones, respuestas modelo y ejercicios: material del Departamento de Lengua Castellana y Literatura, Colegio Las Chapas (no oficial). Los textos de examen se consultan en Drive y no se reproducen aquí.';
+
+  return C;
+})();
+
+/* M0 · 1º de Bachillerato: andamiaje visible */
+window.MODULO = (function () {
+  var C = window.M0C;
+  var DRIVE_PALACIOS = 'https://drive.google.com/file/d/1i0lgD81B03ZDOOxxnS80KN9m1w5KbIZo/view';
+  function withNotes(b) { return Object.assign({}, b, { notes: true }); }
+
+  return {
+    prefix: 'arg-1b-m0-',
+    course: '1º de Bachillerato',
+    eyebrow: 'Selectividad · Preguntas 1 y 3 · 1º de Bachillerato',
+    title: 'M0 · El examen por dentro',
+    subtitle: 'Qué te pedirán en las preguntas 1 y 3, cómo se corrigen y desde dónde partes. Todo lo que aprendas este curso es exactamente lo que te pedirán en 2º.',
+    footer: C.pie,
+    tabs: [
+      {
+        label: 'La prueba', title: 'Qué te vas a encontrar',
+        blocks: [
+          { t: 'lead', x: 'En la PEvAU de Lengua Castellana y Literatura II, el bloque de comunicación (4 de los 10 puntos) parte de un texto periodístico o ensayístico y plantea tres preguntas. Este itinerario trabaja la **1** y la **3**, que suman **3,5 puntos**: más de un tercio del examen.' },
+          { t: 'p', x: 'En 1º no te examinas de Selectividad, pero vas a entrenar exactamente esas dos preguntas, paso a paso. La meta: que al terminar el curso las resuelvas con soltura y en tiempo.' }
+        ].concat(C.prueba, [C.quizPrueba])
+      },
+      {
+        label: 'Pregunta 1', title: 'Pregunta 1: ideas, organización y estructura',
+        blocks: [C.linkVicent,
+          { t: 'aviso', x: 'Lee el texto de Vicent antes de empezar: los ejercicios de esta pestaña y la siguiente trabajan sobre él.' }
+        ].concat(C.p1Teoria, [
+          { t: 'h2', x: 'Practica' },
+          C.p1Tema, C.p1Clasificar, C.p1Estructura, C.p1Justificacion,
+          { t: 'card', eyebrow: 'Apoyo', title: 'Plantilla para empezar', accent: 'oro', body: [
+            { t: 'p', x: 'Úsala en tus primeras respuestas. Poco a poco dejarás de necesitarla.' },
+            { t: 'list', items: [
+              '**Tema**: *El/La [asunto concreto] como / y [enfoque del autor].*',
+              '**Tesis**: *El autor defiende que…*',
+              '**Ideas secundarias**: *Para sostenerlo, (1)…; (2)…; (3)…*',
+              '**Organización**: esquema con la tesis arriba, las ideas que dependen de ella debajo y la relación de cada una (causa, ejemplo, contraste…).',
+              '**Estructura**: *La estructura es [tipo], porque la tesis («…») aparece [al principio / al final / al principio y al final] y el resto del texto [la prepara / la desarrolla / la demuestra].*'
+            ] }
+          ] }
+        ])
+      },
+      {
+        label: 'Pregunta 3', title: 'Pregunta 3: el texto argumentativo',
+        blocks: C.p3Teoria.concat([
+          { t: 'h2', x: 'Practica' },
+          C.p3Fallos,
+          { t: 'card', eyebrow: 'Apoyo', title: 'Tu plan, paso a paso', accent: 'oro', body: [
+            { t: 'p', x: 'Practica la planificación con la pregunta del examen de Vicent: **¿Cree que en España actualmente se ha perdido la buena educación?** No escribas el texto todavía: solo el plan.' },
+            { t: 'write', id: 'plan-postura', label: '1. Mi postura en una frase', rows: 2 },
+            { t: 'write', id: 'plan-args', label: '2. Tres argumentos de tipos distintos', rows: 4, hint: 'Por ejemplo: un hecho que todos conocemos, una causa, una comparación con otra época.' },
+            { t: 'write', id: 'plan-objecion', label: '3. La objeción más probable y mi respuesta', rows: 3 },
+            { t: 'write', id: 'plan-estructura', label: '4. Estructura elegida y cierre', rows: 2 }
+          ] },
+          C.contador
+        ])
+      },
+      {
+        label: 'El modelo', title: 'El modelo resuelto y comentado',
+        blocks: [
+          C.linkVicent,
+          { t: 'badge', kind: 'dep', x: 'Respuesta modelo del departamento · no oficial' },
+          { t: 'p', x: 'Compara el modelo con tus respuestas a los ejercicios. Las notas de la derecha explican por qué cada parte obtendría la máxima puntuación.' },
+          withNotes(C.modeloP1Ideas),
+          C.modeloP1Esquema,
+          withNotes(C.modeloP1Estructura),
+          { t: 'aviso', x: 'Toda la pregunta 1 ocupa unas quince líneas. Es suficiente: lo que puntúa es la precisión.' },
+          { t: 'h2', x: 'Pregunta 3 · ¿Cree que en España actualmente se ha perdido la buena educación?' },
+          { t: 'p', x: 'Los marcadores discursivos aparecen resaltados.' },
+          { t: 'model', notes: true, count: true, paras: C.modeloP3Paras },
+          C.errores
+        ]
+      },
+      {
+        label: 'Diagnóstico', title: 'Tu punto de partida',
+        blocks: [
+          { t: 'lead', x: 'Ahora te toca a ti con un texto de examen real. No importa si no te sale perfecto: este diagnóstico sirve para saber desde dónde empiezas.' },
+          { t: 'link', href: DRIVE_PALACIOS, x: 'Abrir el examen: César-Javier Palacios, «La dieta mediterránea no existe»', note: 'PEvAU Andalucía 2023-24, convocatoria ordinaria, **texto A**. Responde solo a las preguntas 1 y 3.' },
+          { t: 'aviso', x: 'Lo que escribes se guarda automáticamente **solo en este navegador**, para que no lo pierdas si cierras la página. Nadie más lo ve.' },
+          { t: 'timer', mode: 'up', label: 'Cronómetro: anota cuánto tardas. En 2º tendrás unos 35 minutos para las dos preguntas.' },
+          { t: 'h2', x: 'Pregunta 1 (1,5 puntos)' },
+          { t: 'write', id: 'diag-ideas', label: 'Ideas', rows: 6, hint: 'Tema en enunciado nominal; después la tesis y las ideas secundarias, con tus palabras.' },
+          { t: 'write', id: 'diag-organizacion', label: 'Organización', rows: 6, hint: '¿Qué idea manda y cómo se relacionan las demás con ella? Puedes hacer un esquema con flechas (→) y guiones.' },
+          { t: 'write', id: 'diag-estructura', label: 'Estructura', rows: 3, hint: 'Tipo y justificación en dos o tres líneas: ¿dónde está la tesis y qué hace el resto del texto?' },
+          { t: 'h2', x: 'Pregunta 3 (2 puntos)' },
+          { t: 'p', x: '**¿Cree que en España actualmente se tienen unos hábitos alimentarios saludables?** Elabore un discurso argumentativo, de entre 200 y 250 palabras, en respuesta a esta pregunta, eligiendo el tipo de estructura que considere adecuado.' },
+          { t: 'write', id: 'diag-p3', label: 'Tu texto', rows: 14, counter: true, hint: 'Planifica primero (postura, tres argumentos, objeción, estructura). Luego escribe.' },
+          { t: 'checklist', id: 'diag', title: 'Antes de dar por terminado: revisa', items: [
+            'He escrito el tema como enunciado nominal, sin verbo conjugado.',
+            'He distinguido la tesis de las ideas secundarias.',
+            'No he copiado frases del texto ni he puesto ejemplos como si fueran ideas.',
+            'Mi esquema muestra qué idea manda y cómo se relacionan las demás.',
+            'He nombrado el tipo de estructura y lo he justificado por la posición de la tesis.',
+            'Mi texto de la pregunta 3 toma una postura clara desde el principio.',
+            'He usado al menos tres argumentos de tipos distintos.',
+            'He respondido a alguna objeción.',
+            'He variado los marcadores y cada uno expresa la relación correcta.',
+            'Mi texto tiene entre 200 y 250 palabras.',
+            'He revisado tildes, puntuación y ortografía.'
+          ] },
+          { t: 'copy', ids: ['diag-ideas', 'diag-organizacion', 'diag-estructura', 'diag-p3'], x: 'Copiar mis respuestas', note: 'Si tu profesora te pide entregar el diagnóstico, copia tus respuestas y pégalas donde te indique.' },
+          { t: 'next', href: '', x: 'Siguiente módulo · M1 Tema, tesis e ideas (próximamente)' }
+        ]
+      }
+    ]
+  };
+})();
+
+(function () {
+  'use strict';
+
+  var D = window.MODULO;
+  var PFX = D.prefix;
+  var writeFields = [];
+
+  /* ---------- almacenamiento local (solo comodidad de la alumna) ---------- */
+  function save(key, value) {
+    try { localStorage.setItem(PFX + key, value); } catch (e) { /* sin almacenamiento */ }
+  }
+  function load(key) {
+    try { return localStorage.getItem(PFX + key); } catch (e) { return null; }
+  }
+  function debounce(fn, ms) {
+    var t = null;
+    return function () {
+      var args = arguments;
+      if (t) { clearTimeout(t); }
+      t = setTimeout(function () { fn.apply(null, args); }, ms);
+    };
+  }
+
+  /* ---------- utilidades DOM ---------- */
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) { n.className = cls; }
+    if (text !== undefined && text !== null) { n.textContent = text; }
+    return n;
+  }
+  function add(parent) {
+    for (var i = 1; i < arguments.length; i++) {
+      if (arguments[i]) { parent.appendChild(arguments[i]); }
+    }
+    return parent;
+  }
+  /* Marcado mínimo: **negrita**, *cursiva*, ==resaltado== */
+  function inline(parent, s) {
+    var parts = String(s).split(/(\*\*[^*]+\*\*|==[^=]+==|\*[^*]+\*)/g);
+    for (var i = 0; i < parts.length; i++) {
+      var p = parts[i];
+      if (!p) { continue; }
+      if (p.indexOf('**') === 0 && p.length > 4) {
+        parent.appendChild(el('strong', null, p.slice(2, -2)));
+      } else if (p.indexOf('==') === 0 && p.length > 4) {
+        parent.appendChild(el('mark', 'marcador', p.slice(2, -2)));
+      } else if (p.charAt(0) === '*' && p.length > 2) {
+        parent.appendChild(el('em', null, p.slice(1, -1)));
+      } else {
+        parent.appendChild(document.createTextNode(p));
+      }
+    }
+    return parent;
+  }
+  function plain(s) {
+    return String(s).replace(/\*\*|==|\*/g, '');
+  }
+  function countWords(s) {
+    var t = String(s).trim();
+    if (!t) { return 0; }
+    return t.split(/\s+/).filter(function (w) { return /[0-9A-Za-zÁÉÍÓÚÜÑáéíóúüñ]/.test(w); }).length;
+  }
+  function fmtScore(n) {
+    return n.toFixed(2).replace('.', ',');
+  }
+  function scoreOptions(max) {
+    var out = [];
+    for (var v = 0; v <= max + 0.0001; v += 0.25) { out.push(Math.round(v * 100) / 100); }
+    return out;
+  }
+
+  /* ---------- bloques ---------- */
+  var R = {};
+
+  R.h2 = function (b) { return inline(el('h2'), b.x); };
+  R.h3 = function (b) { return inline(el('h3'), b.x); };
+  R.p = function (b) { return inline(el('p', b.cls || null), b.x); };
+
+  R.lead = function (b) { return inline(el('p', 'lead'), b.x); };
+
+  R.aviso = function (b) {
+    var box = el('div', 'aviso');
+    if (b.title) { add(box, el('p', 'aviso-titulo', b.title)); }
+    add(box, inline(el('p'), b.x));
+    return box;
+  };
+
+  R.badge = function (b) {
+    var cls = b.kind === 'oficial' ? 'badge badge-oficial' : 'badge badge-dep';
+    return el('span', cls, b.x);
+  };
+
+  R.list = function (b) {
+    var ul = el(b.ordered ? 'ol' : 'ul', 'lista');
+    b.items.forEach(function (it) { add(ul, inline(el('li'), it)); });
+    return ul;
+  };
+
+  R.table = function (b) {
+    var wrap = el('div', 'tabla-wrap');
+    var t = el('table', 'tabla');
+    if (b.head) {
+      var thead = el('thead');
+      var tr = el('tr');
+      b.head.forEach(function (h) { add(tr, inline(el('th'), h)); });
+      add(thead, tr);
+      add(t, thead);
+    }
+    var tb = el('tbody');
+    b.rows.forEach(function (r) {
+      var tr2 = el('tr');
+      r.forEach(function (c) { add(tr2, inline(el('td'), c)); });
+      add(tb, tr2);
+    });
+    add(t, tb);
+    return add(wrap, t);
+  };
+
+  R.card = function (b) {
+    var c = el('section', 'card' + (b.accent ? ' card-' + b.accent : ''));
+    if (b.eyebrow) { add(c, el('p', 'card-eyebrow', b.eyebrow)); }
+    if (b.title) { add(c, inline(el('h3', 'card-titulo'), b.title)); }
+    renderBlocks(c, b.body || []);
+    return c;
+  };
+
+  R.scheme = function (b) {
+    var box = el('div', 'esquema');
+    if (b.title) { add(box, el('p', 'esquema-titulo', b.title)); }
+    b.lines.forEach(function (ln) {
+      var depth = 0;
+      while (ln.charAt(depth) === '>') { depth++; }
+      var row = el('div', 'esquema-linea');
+      row.style.paddingLeft = (depth * 1.4) + 'em';
+      inline(row, ln.slice(depth).trim());
+      add(box, row);
+    });
+    return box;
+  };
+
+  R.link = function (b) {
+    var wrap = el('div', 'enlace-wrap');
+    var a = el('a', 'boton boton-externo');
+    a.href = b.href;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.textContent = b.x;
+    add(wrap, a);
+    if (b.note) { add(wrap, inline(el('p', 'enlace-nota'), b.note)); }
+    return wrap;
+  };
+
+  R.details = function (b) {
+    var d = el('details', 'desplegable');
+    add(d, el('summary', null, b.summary));
+    var inner = el('div', 'desplegable-cuerpo');
+    renderBlocks(inner, b.body || []);
+    return add(d, inner);
+  };
+
+  /* Respuesta modelo anotada */
+  R.model = function (b) {
+    var box = el('div', 'modelo');
+    if (b.title) { add(box, el('p', 'modelo-titulo', b.title)); }
+    var total = 0;
+    b.paras.forEach(function (pa) {
+      var row = el('div', 'modelo-fila' + (b.notes ? ' con-notas' : ''));
+      var txt = inline(el('p', 'modelo-texto'), pa.x);
+      add(row, txt);
+      if (b.notes && pa.note) {
+        add(row, inline(el('p', 'modelo-nota'), pa.note));
+      }
+      total += countWords(plain(pa.x));
+      add(box, row);
+    });
+    if (b.count) {
+      add(box, el('p', 'modelo-recuento', total + ' palabras'));
+    }
+    return box;
+  };
+
+  /* Test de opción múltiple con retroalimentación por opción */
+  R.quiz = function (b) {
+    var box = el('div', 'ejercicio');
+    if (b.title) { add(box, el('p', 'ejercicio-titulo', b.title)); }
+    if (b.intro) { add(box, inline(el('p', 'ejercicio-intro'), b.intro)); }
+    b.items.forEach(function (it, idx) {
+      var item = el('div', 'item');
+      add(item, inline(el('p', 'item-pregunta'), (b.items.length > 1 ? (idx + 1) + '. ' : '') + it.q));
+      var opts = el('div', 'opciones');
+      var fb = el('p', 'feedback');
+      var opciones = it.opts || b.opts;
+      opciones.forEach(function (o, i) {
+        var btn = el('button', 'opcion');
+        btn.type = 'button';
+        inline(btn, o);
+        btn.addEventListener('click', function () {
+          var all = opts.querySelectorAll('.opcion');
+          for (var k = 0; k < all.length; k++) { all[k].classList.remove('correcta', 'incorrecta'); }
+          var ok = i === it.ok;
+          btn.classList.add(ok ? 'correcta' : 'incorrecta');
+          fb.className = 'feedback visible ' + (ok ? 'fb-ok' : 'fb-no');
+          fb.textContent = '';
+          var msg = it.fb && it.fb[i] ? it.fb[i] : (ok ? 'Correcto.' : 'Revisa tu elección.');
+          inline(fb, (ok ? '✓ ' : '✗ ') + msg);
+        });
+        add(opts, btn);
+      });
+      add(item, opts, fb);
+      add(box, item);
+    });
+    return box;
+  };
+
+  /* Verdadero / falso */
+  R.tf = function (b) {
+    var box = el('div', 'ejercicio');
+    if (b.title) { add(box, el('p', 'ejercicio-titulo', b.title)); }
+    b.items.forEach(function (it, idx) {
+      var item = el('div', 'item');
+      add(item, inline(el('p', 'item-pregunta'), (idx + 1) + '. ' + it.q));
+      var opts = el('div', 'opciones opciones-fila');
+      var fb = el('p', 'feedback');
+      [['Verdadero', true], ['Falso', false]].forEach(function (pair) {
+        var btn = el('button', 'opcion', pair[0]);
+        btn.type = 'button';
+        btn.addEventListener('click', function () {
+          var all = opts.querySelectorAll('.opcion');
+          for (var k = 0; k < all.length; k++) { all[k].classList.remove('correcta', 'incorrecta'); }
+          var ok = pair[1] === it.v;
+          btn.classList.add(ok ? 'correcta' : 'incorrecta');
+          fb.className = 'feedback visible ' + (ok ? 'fb-ok' : 'fb-no');
+          fb.textContent = '';
+          inline(fb, (ok ? '✓ ' : '✗ ') + it.fb);
+        });
+        add(opts, btn);
+      });
+      add(item, opts, fb);
+      add(box, item);
+    });
+    return box;
+  };
+
+  /* Clasificar fragmentos en categorías */
+  R.classify = function (b) {
+    var box = el('div', 'ejercicio');
+    if (b.title) { add(box, el('p', 'ejercicio-titulo', b.title)); }
+    if (b.intro) { add(box, inline(el('p', 'ejercicio-intro'), b.intro)); }
+    b.items.forEach(function (it) {
+      var item = el('div', 'item');
+      add(item, inline(el('p', 'item-cita'), it.x));
+      var sel = el('select', 'selector');
+      var ph = el('option', null, 'Elige…');
+      ph.value = '';
+      add(sel, ph);
+      b.cats.forEach(function (c, i) {
+        var o = el('option', null, c);
+        o.value = String(i);
+        add(sel, o);
+      });
+      var fb = el('p', 'feedback');
+      sel.addEventListener('change', function () {
+        if (sel.value === '') { fb.className = 'feedback'; return; }
+        var ok = Number(sel.value) === it.c;
+        fb.className = 'feedback visible ' + (ok ? 'fb-ok' : 'fb-no');
+        fb.textContent = '';
+        inline(fb, (ok ? '✓ ' : '✗ No exactamente. ') + it.fb);
+      });
+      add(item, sel, fb);
+      add(box, item);
+    });
+    return box;
+  };
+
+  /* Campo de escritura con autoguardado y contador opcional */
+  R.write = function (b) {
+    var box = el('div', 'escritura');
+    var lab = el('label', 'escritura-label');
+    lab.htmlFor = 'w-' + b.id;
+    inline(lab, b.label);
+    add(box, lab);
+    if (b.hint) { add(box, inline(el('p', 'escritura-pista'), b.hint)); }
+    var ta = el('textarea', 'escritura-area');
+    ta.id = 'w-' + b.id;
+    ta.rows = b.rows || 6;
+    ta.spellcheck = false;
+    if (b.placeholder) { ta.placeholder = b.placeholder; }
+    var prev = load('w-' + b.id);
+    if (prev) { ta.value = prev; }
+    add(box, ta);
+    var meta = el('div', 'escritura-meta');
+    var status = el('span', 'guardado', '');
+    var counter = null;
+    if (b.counter) {
+      counter = el('span', 'contador');
+      add(meta, counter);
+    }
+    add(meta, status);
+    add(box, meta);
+
+    function updateCount() {
+      if (!counter) { return; }
+      var n = countWords(ta.value);
+      var min = b.min || 200;
+      var max = b.max || 250;
+      var msg = n + ' palabras';
+      counter.className = 'contador';
+      if (n === 0) {
+        msg += ' · objetivo: ' + min + '-' + max;
+      } else if (n < min) {
+        msg += ' · faltan ' + (min - n);
+        counter.classList.add('contador-bajo');
+      } else if (n > max) {
+        msg += ' · sobran ' + (n - max);
+        counter.classList.add('contador-alto');
+      } else {
+        msg += ' · extensión correcta';
+        counter.classList.add('contador-ok');
+      }
+      counter.textContent = msg;
+    }
+    var persist = debounce(function () {
+      save('w-' + b.id, ta.value);
+      status.textContent = 'Guardado en este navegador';
+    }, 600);
+    ta.addEventListener('input', function () {
+      status.textContent = '…';
+      updateCount();
+      persist();
+    });
+    updateCount();
+    writeFields.push({ id: b.id, label: plain(b.label), node: ta });
+    return box;
+  };
+
+  /* Cronómetro (cuenta atrás o hacia delante) */
+  R.timer = function (b) {
+    var box = el('div', 'reloj');
+    var label = el('p', 'reloj-label', b.label);
+    var disp = el('p', 'reloj-display');
+    var msg = el('p', 'reloj-msg');
+    var down = b.mode !== 'up';
+    var total = (b.minutes || 0) * 60;
+    var secs = down ? total : 0;
+    var h = null;
+    function show() {
+      var m = Math.floor(secs / 60);
+      var s = secs % 60;
+      disp.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+    }
+    function tick() {
+      if (down) {
+        secs--;
+        if (secs <= 0) {
+          secs = 0;
+          stop();
+          msg.textContent = 'Tiempo. Termina la frase que estás escribiendo y revisa.';
+          box.classList.add('reloj-fin');
+        }
+      } else {
+        secs++;
+      }
+      show();
+    }
+    function start() {
+      if (h) { return; }
+      msg.textContent = '';
+      box.classList.remove('reloj-fin');
+      h = setInterval(tick, 1000);
+      bStart.textContent = 'En marcha';
+    }
+    function stop() {
+      if (h) { clearInterval(h); h = null; }
+      bStart.textContent = 'Reanudar';
+    }
+    function reset() {
+      stop();
+      secs = down ? total : 0;
+      bStart.textContent = 'Iniciar';
+      msg.textContent = '';
+      box.classList.remove('reloj-fin');
+      show();
+    }
+    var btns = el('div', 'reloj-botones');
+    var bStart = el('button', 'boton', 'Iniciar');
+    bStart.type = 'button';
+    bStart.addEventListener('click', start);
+    var bPause = el('button', 'boton boton-sec', 'Pausar');
+    bPause.type = 'button';
+    bPause.addEventListener('click', stop);
+    var bReset = el('button', 'boton boton-sec', 'Reiniciar');
+    bReset.type = 'button';
+    bReset.addEventListener('click', reset);
+    add(btns, bStart, bPause, bReset);
+    show();
+    return add(box, label, disp, btns, msg);
+  };
+
+  /* Lista de comprobación con autoguardado */
+  R.checklist = function (b) {
+    var box = el('div', 'ejercicio');
+    if (b.title) { add(box, el('p', 'ejercicio-titulo', b.title)); }
+    var ul = el('ul', 'checklist');
+    b.items.forEach(function (it, i) {
+      var li = el('li');
+      var cb = el('input');
+      cb.type = 'checkbox';
+      cb.id = 'c-' + b.id + '-' + i;
+      if (load('c-' + b.id + '-' + i) === '1') { cb.checked = true; }
+      cb.addEventListener('change', function () { save('c-' + b.id + '-' + i, cb.checked ? '1' : '0'); });
+      var lab = el('label');
+      lab.htmlFor = cb.id;
+      inline(lab, it);
+      add(li, cb, lab);
+      add(ul, li);
+    });
+    return add(box, ul);
+  };
+
+  /* Autocalificación con los criterios oficiales */
+  R.selfscore = function (b) {
+    var box = el('div', 'ejercicio autoeval');
+    if (b.title) { add(box, el('p', 'ejercicio-titulo', b.title)); }
+    if (b.intro) { add(box, inline(el('p', 'ejercicio-intro'), b.intro)); }
+    var totalEl = el('p', 'autoeval-total');
+    var sels = [];
+    function recalc() {
+      var t = 0;
+      sels.forEach(function (s) { t += Number(s.value || 0); });
+      if (t < 0) { t = 0; }
+      totalEl.textContent = 'Total: ' + fmtScore(t) + ' / ' + fmtScore(b.max);
+    }
+    b.groups.forEach(function (g, i) {
+      var row = el('div', 'autoeval-fila');
+      var lab = el('label', 'autoeval-label');
+      lab.htmlFor = 's-' + b.id + '-' + i;
+      inline(lab, g.label);
+      var sel = el('select', 'selector');
+      sel.id = 's-' + b.id + '-' + i;
+      var vals = g.values || scoreOptions(g.max);
+      vals.forEach(function (v) {
+        var o = el('option', null, (v > 0 && g.negative ? '−' : '') + fmtScore(Math.abs(v)));
+        o.value = String(g.negative ? -Math.abs(v) : v);
+        add(sel, o);
+      });
+      var prev = load('s-' + b.id + '-' + i);
+      if (prev !== null) { sel.value = prev; }
+      sel.addEventListener('change', function () {
+        save('s-' + b.id + '-' + i, sel.value);
+        recalc();
+      });
+      sels.push(sel);
+      add(row, lab, sel);
+      add(box, row);
+    });
+    add(box, totalEl);
+    recalc();
+    return box;
+  };
+
+  /* Calibración: corregir una respuesta y compararla con la del departamento */
+  R.grade = function (b) {
+    var box = el('div', 'ejercicio');
+    if (b.title) { add(box, el('p', 'ejercicio-titulo', b.title)); }
+    if (b.intro) { add(box, inline(el('p', 'ejercicio-intro'), b.intro)); }
+    var sample = el('div', 'muestra');
+    b.sample.forEach(function (s) { add(sample, inline(el('p'), s)); });
+    add(box, sample);
+    var sels = [];
+    b.tramos.forEach(function (t) {
+      var row = el('div', 'autoeval-fila');
+      add(row, inline(el('span', 'autoeval-label'), t.label));
+      var sel = el('select', 'selector');
+      var ph = el('option', null, 'Tu nota');
+      ph.value = '';
+      add(sel, ph);
+      scoreOptions(t.max).forEach(function (v) {
+        var o = el('option', null, fmtScore(v));
+        o.value = String(v);
+        add(sel, o);
+      });
+      sels.push(sel);
+      add(row, sel);
+      add(box, row);
+    });
+    var btn = el('button', 'boton', 'Comparar con la corrección del departamento');
+    btn.type = 'button';
+    var out = el('div', 'comparacion');
+    btn.addEventListener('click', function () {
+      out.textContent = '';
+      var mine = 0;
+      var ours = 0;
+      b.tramos.forEach(function (t, i) {
+        var v = sels[i].value === '' ? null : Number(sels[i].value);
+        if (v !== null) { mine += v; }
+        ours += t.ok;
+        var p = el('p', 'comparacion-fila');
+        add(p, el('strong', null, plain(t.label) + ': '));
+        add(p, document.createTextNode('tu nota ' + (v === null ? '—' : fmtScore(v)) + ' · departamento ' + fmtScore(t.ok) + '. '));
+        inline(p, t.fb);
+        add(out, p);
+      });
+      add(out, el('p', 'comparacion-total', 'Total del departamento: ' + fmtScore(ours) + ' · el tuyo: ' + fmtScore(mine)));
+      if (b.moral) { add(out, inline(el('p', 'comparacion-moral'), b.moral)); }
+    });
+    add(box, btn, out);
+    return box;
+  };
+
+  /* Copiar todas las respuestas escritas del módulo */
+  R.copy = function (b) {
+    var wrap = el('div', 'copiar');
+    var btn = el('button', 'boton', b.x || 'Copiar mis respuestas');
+    btn.type = 'button';
+    var msg = el('span', 'copiar-msg');
+    btn.addEventListener('click', function () {
+      var lines = [D.title + ' · ' + D.course, ''];
+      writeFields.forEach(function (f) {
+        if (b.ids && b.ids.indexOf(f.id) === -1) { return; }
+        lines.push('## ' + f.label);
+        lines.push(f.node.value.trim() || '(sin respuesta)');
+        lines.push('');
+      });
+      var text = lines.join('\n');
+      function fallback() {
+        var ta = el('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); msg.textContent = 'Copiado.'; } catch (e) { msg.textContent = 'No se pudo copiar.'; }
+        document.body.removeChild(ta);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { msg.textContent = 'Copiado. Pégalo donde te indique tu profesora.'; }, fallback);
+      } else {
+        fallback();
+      }
+    });
+    if (b.note) { add(wrap, inline(el('p', 'copiar-nota'), b.note)); }
+    return add(wrap, btn, msg);
+  };
+
+  R.next = function (b) {
+    var wrap = el('div', 'siguiente');
+    if (b.href) {
+      var a = el('a', 'boton boton-siguiente', b.x);
+      a.href = b.href;
+      add(wrap, a);
+    } else {
+      var s = el('span', 'boton boton-siguiente boton-inactivo', b.x);
+      s.setAttribute('aria-disabled', 'true');
+      add(wrap, s);
+    }
+    return wrap;
+  };
+
+  function renderBlocks(parent, blocks) {
+    blocks.forEach(function (b) {
+      var fn = R[b.t];
+      if (fn) { parent.appendChild(fn(b)); }
+    });
+  }
+
+  /* ---------- página ---------- */
+  function build() {
+    var root = document.getElementById('app');
+    var header = el('header', 'cabecera');
+    var hin = el('div', 'cabecera-in');
+    add(hin, el('p', 'eyebrow', D.eyebrow));
+    add(hin, el('h1', 'titulo', D.title));
+    if (D.subtitle) { add(hin, inline(el('p', 'subtitulo'), D.subtitle)); }
+    var nav = el('nav', 'pestanas');
+    nav.setAttribute('role', 'tablist');
+    add(hin, nav);
+    add(header, hin);
+    add(root, header, el('div', 'divisor'));
+
+    var main = el('main', 'contenido');
+    add(root, main);
+
+    var tabBtns = [];
+    var panels = [];
+    D.tabs.forEach(function (tab, i) {
+      var btn = el('button', 'pestana', tab.label);
+      btn.type = 'button';
+      btn.setAttribute('role', 'tab');
+      btn.addEventListener('click', function () { show(i); });
+      tabBtns.push(btn);
+      add(nav, btn);
+      var panel = el('section', 'panel');
+      panel.setAttribute('role', 'tabpanel');
+      add(panel, el('p', 'panel-eyebrow', 'Pestaña ' + (i + 1) + ' de ' + D.tabs.length));
+      add(panel, el('h2', 'panel-titulo', tab.title || tab.label));
+      renderBlocks(panel, tab.blocks);
+      panels.push(panel);
+      add(main, panel);
+    });
+    if (D.footer) { add(main, inline(el('p', 'pie'), D.footer)); }
+
+    var bar = el('div', 'mininav');
+    var bPrev = el('button', 'mininav-btn', '← Anterior');
+    bPrev.type = 'button';
+    var pos = el('span', 'mininav-pos');
+    var bNext = el('button', 'mininav-btn', 'Siguiente →');
+    bNext.type = 'button';
+    add(bar, bPrev, pos, bNext);
+    add(root, bar);
+
+    var current = 0;
+    function show(i, noScroll) {
+      current = i;
+      panels.forEach(function (p, k) { p.hidden = k !== i; });
+      tabBtns.forEach(function (b, k) {
+        b.classList.toggle('activa', k === i);
+        b.setAttribute('aria-selected', k === i ? 'true' : 'false');
+      });
+      pos.textContent = (i + 1) + ' / ' + panels.length + ' · ' + D.tabs[i].label;
+      bPrev.disabled = i === 0;
+      bNext.disabled = i === panels.length - 1;
+      save('tab', String(i));
+      if (!noScroll) { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    }
+    bPrev.addEventListener('click', function () { if (current > 0) { show(current - 1); } });
+    bNext.addEventListener('click', function () { if (current < panels.length - 1) { show(current + 1); } });
+
+    var start = Number(load('tab'));
+    if (!(start >= 0 && start < panels.length)) { start = 0; }
+    show(start, true);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', build);
+  } else {
+    build();
+  }
+})();
+
+</script>
+</body>
+</html>
