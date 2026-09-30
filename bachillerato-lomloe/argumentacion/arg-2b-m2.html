@@ -1,0 +1,1072 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>M2 · Argumentos y contraargumentos · 2º Bachillerato</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --azul: #1a4a7a;
+  --azul-osc: #0f2f4d;
+  --turquesa: #0e9aa7;
+  --terracota: #c64829;
+  --oro: #c9973a;
+  --crema: #faf7f1;
+  --tinta: #1f2a36;
+  --tinta-suave: #4a5866;
+  --linea: #e4ddd0;
+  --blanco: #ffffff;
+  --ok: #2e7d4f;
+  --no: #b3261e;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--crema);
+  color: var(--tinta);
+  font-family: 'Source Sans 3', 'Source Sans Pro', system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  padding-bottom: 72px;
+}
+h1, h2, h3, .titulo, .panel-titulo { font-family: 'Playfair Display', Georgia, serif; }
+
+/* Cabecera */
+.cabecera { background: var(--azul); color: var(--blanco); }
+.cabecera-in { max-width: 920px; margin: 0 auto; padding: 28px 16px 0; }
+.eyebrow { color: #7fdce4; text-transform: uppercase; letter-spacing: .08em; font-size: 13px; font-weight: 600; margin: 0 0 6px; }
+.titulo { font-size: clamp(26px, 5vw, 38px); line-height: 1.15; margin: 0 0 8px; font-weight: 700; }
+.subtitulo { margin: 0 0 18px; color: rgba(255,255,255,.85); max-width: 680px; }
+.pestanas { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; margin: 0 -16px; padding: 0 16px; }
+.pestanas::-webkit-scrollbar { display: none; }
+.pestana {
+  flex: 0 0 auto; background: none; border: 0; border-bottom: 3px solid transparent;
+  color: rgba(255,255,255,.55); font: inherit; font-size: 15px; font-weight: 600;
+  padding: 12px 12px 10px; cursor: pointer; white-space: nowrap;
+}
+.pestana:hover { color: rgba(255,255,255,.85); }
+.pestana.activa { color: var(--blanco); border-bottom-color: var(--terracota); }
+.divisor { height: 3px; background: var(--terracota); }
+
+/* Contenido */
+.contenido { max-width: 920px; margin: 0 auto; padding: 24px 16px 32px; }
+.panel-eyebrow { color: var(--turquesa); text-transform: uppercase; letter-spacing: .08em; font-size: 12px; font-weight: 700; margin: 8px 0 2px; }
+.panel-titulo { font-size: clamp(24px, 4vw, 30px); color: var(--azul); margin: 0 0 16px; }
+h2 { color: var(--azul); font-size: 23px; margin: 32px 0 10px; }
+h3 { color: var(--azul-osc); font-size: 19px; margin: 22px 0 8px; }
+p { margin: 0 0 12px; }
+.lead { font-size: 18.5px; color: var(--tinta); }
+strong { font-weight: 700; }
+mark.marcador { background: #f6e6c4; color: inherit; padding: 0 2px; border-radius: 2px; }
+
+.badge { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 3px 9px; border-radius: 3px; margin: 4px 0 10px; }
+.badge-oficial { background: var(--azul-osc); color: var(--blanco); }
+.badge-dep { background: transparent; color: var(--oro); border: 1.5px solid var(--oro); }
+
+.aviso { background: var(--turquesa); color: var(--blanco); padding: 14px 18px; border-radius: 4px; margin: 18px 0; }
+.aviso p { margin: 0; }
+.aviso .aviso-titulo { font-weight: 700; margin-bottom: 4px; }
+.aviso strong { color: var(--blanco); }
+
+.lista { padding-left: 1.3em; margin: 0 0 14px; }
+.lista li { margin-bottom: 6px; }
+
+.tabla-wrap { overflow-x: auto; margin: 10px 0 18px; }
+.tabla { width: 100%; border-collapse: collapse; background: var(--blanco); font-size: 15.5px; min-width: 480px; }
+.tabla th { background: var(--azul-osc); color: var(--blanco); text-align: left; padding: 9px 10px; font-weight: 600; }
+.tabla td { padding: 9px 10px; border-bottom: 1px solid var(--linea); vertical-align: top; }
+
+.card { background: var(--blanco); border: 1px solid var(--linea); border-top: 4px solid var(--azul); border-radius: 4px; padding: 18px 20px 8px; margin: 18px 0; }
+.card-terracota { border-top-color: var(--terracota); }
+.card-oro { border-top-color: var(--oro); }
+.card-turquesa { border-top-color: var(--turquesa); }
+.card-eyebrow { color: var(--turquesa); text-transform: uppercase; letter-spacing: .08em; font-size: 12px; font-weight: 700; margin: 0 0 2px; }
+.card-titulo { margin-top: 0; }
+
+.esquema { background: var(--blanco); border-left: 4px solid var(--oro); padding: 14px 16px; margin: 12px 0 18px; font-size: 16px; }
+.esquema-titulo { font-weight: 700; color: var(--azul-osc); margin-bottom: 8px; }
+.esquema-linea { margin: 3px 0; }
+
+.enlace-wrap { margin: 12px 0 18px; }
+.enlace-nota { font-size: 14px; color: var(--tinta-suave); margin-top: 6px; }
+
+.boton {
+  display: inline-block; background: var(--terracota); color: var(--blanco); border: 0; border-radius: 4px;
+  padding: 10px 16px; font: inherit; font-size: 15.5px; font-weight: 600; cursor: pointer; text-decoration: none;
+}
+.boton:hover { filter: brightness(1.08); }
+.boton-sec { background: transparent; color: var(--terracota); border: 1.5px solid var(--terracota); }
+.boton-externo::after { content: ' ↗'; }
+.boton-inactivo { background: #b9b2a6; cursor: default; }
+.boton-inactivo:hover { filter: none; }
+
+.desplegable { background: var(--blanco); border: 1px solid var(--linea); border-radius: 4px; margin: 12px 0 18px; }
+.desplegable summary { cursor: pointer; padding: 12px 16px; font-weight: 600; color: var(--azul); }
+.desplegable-cuerpo { padding: 0 16px 8px; }
+
+/* Modelos */
+.modelo { background: var(--blanco); border: 1px solid var(--linea); border-radius: 4px; padding: 16px 18px; margin: 12px 0 18px; }
+.modelo-titulo { font-weight: 700; color: var(--azul-osc); margin-bottom: 10px; }
+.modelo-fila { margin-bottom: 10px; }
+.modelo-fila.con-notas { display: grid; grid-template-columns: minmax(0, 1fr) 240px; gap: 16px; align-items: start; }
+.modelo-texto { margin: 0; }
+.modelo-nota { margin: 0; font-size: 14.5px; color: var(--azul-osc); background: #eef4f8; border-left: 3px solid var(--turquesa); padding: 8px 10px; }
+.modelo-recuento { font-size: 14px; color: var(--tinta-suave); text-align: right; margin: 6px 0 0; }
+@media (max-width: 680px) {
+  .modelo-fila.con-notas { grid-template-columns: 1fr; gap: 6px; }
+}
+
+/* Ejercicios */
+.ejercicio { background: var(--blanco); border: 1px solid var(--linea); border-left: 4px solid var(--terracota); border-radius: 4px; padding: 16px 18px; margin: 18px 0; }
+.ejercicio-titulo { font-weight: 700; color: var(--terracota); margin-bottom: 6px; }
+.ejercicio-intro { color: var(--tinta-suave); }
+.item { padding: 10px 0; border-top: 1px solid var(--linea); }
+.item:first-of-type { border-top: 0; }
+.item-pregunta { font-weight: 600; margin-bottom: 8px; }
+.item-cita { font-style: italic; margin-bottom: 8px; }
+.opciones { display: flex; flex-direction: column; gap: 6px; }
+.opciones-fila { flex-direction: row; flex-wrap: wrap; }
+.opcion {
+  text-align: left; background: var(--crema); border: 1.5px solid var(--linea); border-radius: 4px;
+  padding: 8px 12px; font: inherit; font-size: 15.5px; cursor: pointer; color: var(--tinta);
+}
+.opcion:hover { border-color: var(--azul); }
+.opcion.correcta { border-color: var(--ok); background: #e8f4ec; }
+.opcion.incorrecta { border-color: var(--no); background: #fbeceb; }
+.feedback { display: none; margin: 8px 0 0; font-size: 15.5px; padding: 8px 10px; border-radius: 4px; }
+.feedback.visible { display: block; }
+.fb-ok { background: #e8f4ec; color: #1d5234; }
+.fb-no { background: #fbeceb; color: #7d1c16; }
+.selector { font: inherit; font-size: 15.5px; padding: 6px 8px; border: 1.5px solid var(--linea); border-radius: 4px; background: var(--crema); color: var(--tinta); max-width: 100%; }
+
+/* Escritura */
+.escritura { margin: 16px 0 20px; }
+.escritura-label { display: block; font-weight: 700; color: var(--azul-osc); margin-bottom: 4px; }
+.escritura-pista { font-size: 15px; color: var(--tinta-suave); margin-bottom: 6px; }
+.escritura-area {
+  width: 100%; font: inherit; font-size: 16.5px; line-height: 1.55; padding: 12px; border: 1.5px solid var(--linea);
+  border-radius: 4px; background: var(--blanco); color: var(--tinta); resize: vertical;
+}
+.escritura-area:focus { outline: none; border-color: var(--azul); }
+.escritura-meta { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: 14px; color: var(--tinta-suave); margin-top: 4px; }
+.contador { font-weight: 600; }
+.contador-bajo { color: var(--oro); }
+.contador-alto { color: var(--no); }
+.contador-ok { color: var(--ok); }
+
+.reloj { background: var(--azul-osc); color: var(--blanco); border-radius: 4px; padding: 14px 18px; margin: 16px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.reloj p { margin: 0; }
+.reloj-label { font-weight: 600; flex: 1 1 200px; }
+.reloj-display { font-family: 'Playfair Display', Georgia, serif; font-size: 30px; font-variant-numeric: tabular-nums; }
+.reloj-botones { display: flex; gap: 6px; flex-wrap: wrap; }
+.reloj .boton-sec { color: var(--blanco); border-color: rgba(255,255,255,.6); }
+.reloj-msg { flex-basis: 100%; color: #ffd9cf; font-weight: 600; }
+.reloj-msg:empty { display: none; }
+.reloj-fin { background: var(--terracota); }
+
+.checklist { list-style: none; padding: 0; margin: 0; }
+.checklist li { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; }
+.checklist input { margin-top: 5px; width: 18px; height: 18px; flex: 0 0 auto; accent-color: var(--terracota); }
+
+.autoeval-fila { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 0; border-top: 1px solid var(--linea); flex-wrap: wrap; }
+.autoeval-label { flex: 1 1 260px; }
+.autoeval-total { font-weight: 700; color: var(--azul); text-align: right; margin: 10px 0 0; font-size: 18px; }
+
+.muestra { background: var(--crema); border: 1px dashed var(--oro); padding: 12px 14px; margin: 10px 0; font-size: 15.5px; }
+.muestra p { margin-bottom: 8px; }
+.comparacion { margin-top: 12px; }
+.comparacion-fila { font-size: 15.5px; }
+.comparacion-total { font-weight: 700; color: var(--azul); }
+.comparacion-moral { background: var(--turquesa); color: var(--blanco); padding: 10px 14px; border-radius: 4px; }
+
+.copiar { margin: 20px 0; }
+.copiar-nota { font-size: 15px; color: var(--tinta-suave); }
+.copiar-msg { margin-left: 10px; font-size: 14.5px; color: var(--ok); }
+
+.siguiente { margin: 32px 0 8px; text-align: right; }
+
+.pie { font-size: 13.5px; color: var(--tinta-suave); border-top: 1px solid var(--linea); padding-top: 12px; margin-top: 36px; }
+
+/* Mini-navegación inferior */
+.mininav {
+  position: fixed; left: 0; right: 0; bottom: 0; background: var(--azul-osc); color: var(--blanco);
+  display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 16px; z-index: 10;
+}
+.mininav-btn { background: none; border: 1px solid rgba(255,255,255,.35); color: var(--blanco); border-radius: 4px; padding: 7px 12px; font: inherit; font-size: 14.5px; cursor: pointer; }
+.mininav-btn:disabled { opacity: .35; cursor: default; }
+.mininav-pos { font-size: 14px; color: rgba(255,255,255,.8); text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+@media (max-width: 520px) {
+  body { font-size: 16.5px; }
+  .card, .ejercicio { padding: 14px 14px 6px; }
+  .mininav-pos { font-size: 12.5px; }
+}
+
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+/* Contenidos compartidos del M2 · Argumentos y contraargumentos */
+window.M2C = (function () {
+  var C = {};
+
+  C.pie = 'Criterios de corrección: *Directrices y orientaciones PEvAU Andalucía, Lengua Castellana y Literatura II, curso 2026-27* (oficial). Explicaciones, respuestas modelo y ejercicios: material del Departamento de Lengua Castellana y Literatura, Colegio Las Chapas (no oficial). Los textos de examen se consultan en Drive y no se reproducen aquí.';
+
+  C.queEs = {
+    t: 'card', eyebrow: 'Punto de partida', title: 'Un argumento es una razón, no una opinión', body: [
+      { t: 'p', x: 'La tesis dice **qué** piensas; los argumentos dicen **por qué** debería pensarlo también el lector. «Los móviles distraen» es una afirmación; se convierte en argumento cuando la apoyas en algo que el lector pueda comprobar o compartir: un dato, un ejemplo, una causa, una autoridad.' },
+      { t: 'p', x: 'En la pregunta 3, **la argumentación vale 1 punto**: el doble que la estructura o los marcadores. Los correctores premian argumentos **de tipos distintos** y **desarrollados**, no una lista de opiniones.' }
+    ]
+  };
+
+  C.tipos = {
+    t: 'card', eyebrow: 'Repertorio', title: 'Tipos de argumentos', accent: 'turquesa', body: [
+      { t: 'table', head: ['Tipo', 'En qué consiste', 'Cómo suena'], rows: [
+        ['**Datos o hechos**', 'Cifras, estadísticas, hechos comprobables', '*Según…, el 30 %…* · *Desde 2008…*'],
+        ['**Autoridad**', 'La opinión de un experto o de una institución solvente', '*Como explica el psicólogo…*'],
+        ['**Ejemplo**', 'Un caso concreto que ilustra la idea', '*Así ocurre con…* · *Pensemos en…*'],
+        ['**Comparación o analogía**', 'Relaciona el asunto con otro más conocido', '*Del mismo modo que…*'],
+        ['**Causa-consecuencia**', 'Explica por qué ocurre algo o qué provoca', '*Como…, …* · *Por eso…* · *Esto provoca…*'],
+        ['**Experiencia compartida**', 'Algo que el lector reconoce por sí mismo', '*Todos hemos comprobado que…*'],
+        ['**Concesión y refutación**', 'Reconoce una objeción y la rebate', '*Es cierto que…; sin embargo,…*']
+      ] },
+      { t: 'p', x: 'Cuidado con los argumentos más débiles: los **gustos personales** («a mí no me gusta») y las **anécdotas familiares** («mi primo…»). No se pueden generalizar.' }
+    ]
+  };
+
+  C.parrafo = {
+    t: 'card', eyebrow: 'El párrafo argumentativo', title: 'Afirmación → razón → apoyo → cierre', accent: 'terracota', body: [
+      { t: 'list', ordered: true, items: [
+        '**Afirmación**: la idea del párrafo, en una frase, con su marcador (*En primer lugar,…*).',
+        '**Razón**: por qué es así.',
+        '**Apoyo**: el dato, el ejemplo, la autoridad o la experiencia que lo demuestra.',
+        '**Cierre**: una frase que conecta el párrafo con tu tesis (*Por tanto,…*).'
+      ] },
+      { t: 'p', x: 'Un párrafo, un argumento. Si en un párrafo caben tres ideas, ninguna está desarrollada.' }
+    ]
+  };
+
+  C.refutar = {
+    t: 'card', eyebrow: 'Contraargumentar', title: 'Conceder para ganar', accent: 'oro', body: [
+      { t: 'p', x: 'Un texto que solo da la razón a su autor convence menos. Anticipar lo que diría quien piensa lo contrario, y responderle, demuestra **pensamiento crítico**, que es lo que piden las orientaciones.' },
+      { t: 'p', x: 'Fórmula básica: **Es cierto que [objeción]. Sin embargo, [tu respuesta], porque [razón].**' },
+      { t: 'p', x: 'Otras formas: *Se dirá que…; pero…* · *Aunque…, …* · *Si bien…, no es menos cierto que…*' }
+    ]
+  };
+
+  return C;
+})();
+
+/* M2 · 2º de Bachillerato · Texto: Editorial, «Tener trabajo y ser pobre» · Ejercicio más: Millás, «Los libros y la vida» */
+window.MODULO = (function () {
+  var C = window.M2C;
+  var DRIVE = 'https://drive.google.com/file/d/11tsIqdCQe_omEVMCVm2JDV7qK84fNiPO/view';
+  var DRIVE_MILLAS = 'https://drive.google.com/file/d/1VKyHyLlLWN58UOgghTZj2WjgCsit1gnn/view';
+  var link = {
+    t: 'link', href: DRIVE,
+    x: 'Abrir el examen: Editorial, «Tener trabajo y ser pobre»',
+    note: 'PEvAU Andalucía 2024-25, convocatoria ordinaria (titular). Se abre en Drive con tu cuenta del colegio.'
+  };
+  var scoreP3 = [
+    { label: 'Idoneidad de la estructura (máx. 0,5)', max: 0.5 },
+    { label: 'Argumentación y su desarrollo (máx. 1)', max: 1 },
+    { label: 'Marcadores discursivos (máx. 0,5)', max: 0.5 },
+    { label: 'Extensión fuera de 200-250 (descuento)', values: [0, 0.25], negative: true }
+  ];
+
+  return {
+    prefix: 'arg-2b-m2-',
+    course: '2º de Bachillerato',
+    eyebrow: 'Selectividad · Preguntas 1 y 3 · 2º de Bachillerato',
+    title: 'M2 · Argumentos y contraargumentos',
+    subtitle: 'Analizar la fuerza de los argumentos ajenos, evitar las falacias propias y refutar con eficacia: el punto que más pesa en la pregunta 3.',
+    footer: C.pie,
+    tabs: [
+      {
+        label: 'Aprende', title: 'Argumentos fuertes y argumentos falaces',
+        blocks: [
+          C.queEs,
+          C.tipos,
+          { t: 'card', eyebrow: 'Fuerza de un argumento', title: 'Tres preguntas antes de usarlo', accent: 'oro', body: [
+            { t: 'list', items: [
+              '**¿Es pertinente?** ¿Demuestra de verdad tu tesis o solo habla del mismo tema?',
+              '**¿Es suficiente?** ¿Un caso aislado basta para generalizar?',
+              '**¿Es fiable?** ¿De dónde sale el dato? ¿El experto lo es en esto?'
+            ] }
+          ] },
+          { t: 'quiz', title: 'Ejercicio 1 · Detecta la falacia',
+            intro: 'Frases inventadas con los errores de razonamiento más frecuentes en los textos de alumnado.',
+            opts: ['Generalización apresurada', 'Ataque a la persona', 'Falsa causa', 'Falso dilema', 'Apelación a la mayoría'],
+            items: [
+              { q: '«Mi primo dejó los estudios y le va muy bien, así que estudiar no sirve para nada.»', ok: 0,
+                fb: ['Un solo caso no permite una conclusión general.', 'No ataca a nadie.', 'No confunde causa y coincidencia; generaliza desde un caso.', 'No plantea dos opciones.', 'No invoca lo que piensa la mayoría.'] },
+              { q: '«No hay que hacer caso a ese economista: se nota que nunca ha trabajado de verdad.»', ok: 1,
+                fb: ['No generaliza desde un caso.', 'Desacredita a quien habla en lugar de rebatir lo que dice.', 'No hay relación causal.', 'No hay dilema.', 'No apela a la mayoría.'] },
+              { q: '«Desde que hay patinetes eléctricos han subido los suspensos: los patinetes perjudican el rendimiento.»', ok: 2,
+                fb: ['No parte de un caso aislado.', 'No ataca a nadie.', 'Que dos cosas coincidan en el tiempo no significa que una cause la otra.', 'No hay dos opciones.', 'No apela a la mayoría.'] },
+              { q: '«O prohibimos las redes sociales a los menores o aceptamos que se destruya su salud mental.»', ok: 3,
+                fb: ['No generaliza desde un caso.', 'No ataca a nadie.', 'El problema no es la causa.', 'Presenta solo dos salidas extremas cuando hay muchas intermedias.', 'No apela a la mayoría.'] },
+              { q: '«Todo el mundo sabe que la selectividad es más difícil que nunca.»', ok: 4,
+                fb: ['No parte de un caso.', 'No ataca a nadie.', 'No hay causa.', 'No hay dilema.', 'Que muchos lo crean no lo demuestra.'] }
+            ] },
+          C.parrafo,
+          C.refutar
+        ]
+      },
+      {
+        label: 'Practica', title: 'Practica con «Tener trabajo y ser pobre»',
+        blocks: [
+          link,
+          { t: 'write', id: 'analisis', label: 'Ejercicio 2 · Tesis y argumentos del editorial', rows: 10,
+            hint: 'Formula la tesis. Después identifica cuatro argumentos: tipo, qué dicen y qué demuestran.' },
+          { t: 'details', summary: 'Comparar con el departamento', body: [
+            { t: 'badge', kind: 'dep', x: 'Respuesta modelo del departamento · no oficial' },
+            { t: 'p', x: '**Tesis**: la pobreza de quienes trabajan es un problema estructural en España que no se resolverá solo creando empleo: exige que los poderes públicos redistribuyan la riqueza.' },
+            { t: 'list', ordered: true, items: [
+              '**Datos y autoridad**: los informes de Oxfam Intermón y de la Red Europea de Lucha contra la Pobreza (casi un tercio de las personas en riesgo de pobreza tiene trabajo; 2,5 millones de trabajadores pobres) prueban que el empleo ya no protege.',
+              '**Concesión y causa-consecuencia**: el crecimiento y las medidas de la pandemia han evitado que el problema sea más grave, *pero* su carácter estructural exige medidas fiscales, no solo empleo.',
+              '**Comparación**: las diferencias entre el norte y el sur, y entre el campo y la ciudad, revelan el fracaso de la redistribución territorial.',
+              '**Refutación con datos**: la diferencia entre nacidos en España (9,8 %) y extranjeros no comunitarios (29,5 %) «desmiente los bulos xenófobos»: los inmigrantes trabajan, pero en empleos peor pagados.',
+              '**Causa-consecuencia**: la carestía de la vivienda y la inflación empobrecen sobre todo a quien vive de alquiler.'
+            ] }
+          ] },
+          { t: 'quiz', title: 'Ejercicio 3 · Función de dos fragmentos',
+            items: [
+              { q: '«España padece un problema estructural de pobreza que no es más grave gracias al crecimiento económico […]. Pero ese mismo carácter sistémico implica que…»',
+                opts: ['Es una contradicción del editorial.', 'Es una concesión: reconoce lo que ha funcionado para, a continuación, sostener que no basta.', 'Es un dato que apoya la tesis.'], ok: 1,
+                fb: ['No se contradice: primero concede y luego matiza.', 'Exacto: «no es más grave gracias a…» concede; «Pero…» introduce el argumento principal.', 'No aporta cifras: valora.'] },
+              { q: '«Una vez más, los datos desmienten los bulos xenófobos.»',
+                opts: ['Es una opinión sin fundamento.', 'Es una refutación: usa los datos anteriores para rebatir una creencia extendida.', 'Es una cita de autoridad.'], ok: 1,
+                fb: ['Se apoya en las cifras que acaba de dar.', 'Correcto: el editorial rebate con datos, no con opiniones.', 'No cita a nadie.'] }
+            ] },
+          { t: 'write', id: 'debil', label: 'Ejercicio 4 · Busca el punto débil', rows: 5,
+            hint: 'Si tuvieras que discutir este editorial, ¿qué objeción le harías? Formúlala y di qué tendría que responder el editorialista.' },
+          { t: 'details', summary: 'Una respuesta posible', body: [
+            { t: 'p', x: 'El editorial pide «medidas» a los poderes públicos, pero apenas las concreta (solo menciona las fiscales). Un lector podría objetar que subir impuestos puede frenar la creación de empleo. El editorialista tendría que explicar qué medidas redistributivas propone y por qué no destruirían empleo.' },
+            { t: 'p', x: 'Buscar el punto débil de un texto ajeno es el mejor entrenamiento para prever las objeciones a tu propio texto.' }
+          ] }
+        ]
+      },
+      {
+        label: 'Refutar', title: 'Técnicas de refutación',
+        blocks: [
+          { t: 'table', head: ['Técnica', 'Cómo funciona'], rows: [
+            ['**Conceder y rebatir**', 'Reconoces lo que tiene de cierto la objeción y muestras que no basta: *Es cierto que…; sin embargo,…*'],
+            ['**Contraejemplo**', 'Un caso que contradice la generalización del contrario.'],
+            ['**Reducción al absurdo**', 'Llevas la objeción hasta sus últimas consecuencias para mostrar que no se sostiene (Garrocho lo hace en el M1: «todos seríamos hijos de egoístas»).'],
+            ['**Dar la vuelta a la objeción**', 'Muestras que el dato del contrario apoya, en realidad, tu tesis.']
+          ] },
+          { t: 'p', x: 'Refuta en tres frases: la objeción formulada con justicia, tu respuesta y la razón. Una refutación que caricaturiza al contrario no convence.' },
+          { t: 'h2', x: 'Refuta estas tres objeciones' },
+          { t: 'write', id: 'ref-1', label: 'Tesis: «Los deberes escolares deberían limitarse». Objeción: «Sin deberes no se consolida lo aprendido».', rows: 4 },
+          { t: 'details', summary: 'Una refutación posible (conceder y rebatir)', body: [
+            { t: 'p', x: '«Es cierto que la práctica fuera del aula ayuda a consolidar lo aprendido. Sin embargo, no consolida la cantidad de deberes, sino su calidad: una tarea breve y bien pensada enseña más que dos horas de ejercicios repetitivos, que solo generan cansancio y copia.»' }
+          ] },
+          { t: 'write', id: 'ref-2', label: 'Tesis: «Las ciudades deberían cerrar el centro al tráfico». Objeción: «Eso arruinaría el comercio».', rows: 4 },
+          { t: 'details', summary: 'Una refutación posible (contraejemplo)', body: [
+            { t: 'p', x: '«Se dice que cerrar el centro al tráfico arruina el comercio. Pero el peatón que pasea se detiene ante los escaparates, mientras que el conductor solo busca aparcamiento; por eso, muchas calles comerciales peatonales están hoy entre las más concurridas de su ciudad.»' }
+          ] },
+          { t: 'write', id: 'ref-3', label: 'Tesis: «La lectura en papel sigue siendo imprescindible en la escuela». Objeción: «Los jóvenes ya leen muchísimo en pantalla».', rows: 4 },
+          { t: 'details', summary: 'Una refutación posible (dar la vuelta a la objeción)', body: [
+            { t: 'p', x: '«Es verdad que los jóvenes pasan horas leyendo en pantalla. Pero leer mucho no es leer bien: la pantalla invita a saltar de un enlace a otro, mientras que el papel favorece la lectura lenta que exige un texto complejo. Precisamente porque leen tanto en pantalla, la escuela debe enseñarles la otra lectura.»' }
+          ] }
+        ]
+      },
+      {
+        label: 'Tarea', title: 'Tarea del módulo',
+        blocks: [
+          link,
+          { t: 'aviso', x: 'Lo que escribes se guarda automáticamente **solo en este navegador**. Escribe sin consultar las pestañas anteriores.' },
+          { t: 'h2', x: 'Pregunta 3 completa' },
+          { t: 'p', x: 'Pregunta del mismo examen: **¿Cree que la actual situación económica y social de España es precaria?** Elabore un discurso argumentativo, de entre 200 y 250 palabras, en respuesta a esta pregunta, eligiendo el tipo de estructura que considere adecuado.' },
+          { t: 'p', x: 'Requisito del módulo: **al menos tres argumentos de tipos distintos y una refutación**. Puedes usar los datos del editorial: citarlos es un argumento legítimo.' },
+          { t: 'timer', minutes: 25, label: 'Pregunta 3: 25 minutos' },
+          { t: 'write', id: 'tarea-p3', label: 'Tu texto', rows: 14, counter: true },
+          { t: 'selfscore', id: 'tarea-p3', title: 'Autocorrección con los criterios oficiales', max: 2, groups: scoreP3 },
+          { t: 'details', summary: 'Ver el modelo del departamento', body: [
+            { t: 'badge', kind: 'dep', x: 'Respuesta modelo del departamento · no oficial' },
+            { t: 'model', notes: true, count: true, paras: [
+              { x: 'España no es un país pobre, pero sí un país en el que la precariedad se ha vuelto normal, y eso es precisamente lo que la hace preocupante.', note: 'Tesis matizada.' },
+              { x: '==Es cierto que== la economía crece y que hoy hay más empleo que hace una década. ==Sin embargo==, tener trabajo ya no garantiza salir de la pobreza: casi una de cada tres personas en riesgo de pobreza tiene empleo, un dato que desmiente la idea de que basta con trabajar para vivir con dignidad.', note: '**Concesión y refutación** apoyada en un **dato** del propio texto.' },
+              { x: '==Además==, la vivienda se ha convertido en el gran motor de la desigualdad. Cuando un joven debe destinar la mayor parte de su sueldo al alquiler, no puede ahorrar, ni independizarse, ni planear un futuro. ==Por consiguiente==, la precariedad no solo reduce los ingresos, sino que condiciona las decisiones vitales de toda una generación.', note: '**Causa-consecuencia**.' },
+              { x: '==Por otra parte==, la precariedad no se reparte por igual. Quien vive en Andalucía o Extremadura, o quien llega de fuera de la Unión Europea, tiene muchas más probabilidades de ser pobre aunque trabaje; ==es decir==, el origen pesa a menudo más que el esfuerzo.', note: '**Comparación** territorial y de origen.' },
+              { x: '==En definitiva==, la situación de España es precaria no porque falte riqueza, sino porque está mal repartida. Mientras el crecimiento no llegue a los salarios y a la vivienda, hablar de recuperación será, para muchos, una frase vacía.', note: 'Conclusión que reafirma y amplía la tesis: estructura **encuadrada**.' }
+            ] }
+          ] },
+
+          { t: 'h2', x: 'Un ejercicio más' },
+          { t: 'card', eyebrow: 'Condiciones de examen', title: 'Texto nuevo: argumentos en 6 minutos y refutación en 6', accent: 'terracota', body: [
+            { t: 'link', href: DRIVE_MILLAS, x: 'Abrir el examen: Juan José Millás, «Los libros y la vida»', note: 'PEvAU Andalucía 2020-21, convocatoria ordinaria (reserva), **texto A**.' },
+            { t: 'timer', minutes: 6, label: 'Análisis: 6 minutos, lectura incluida' },
+            { t: 'write', id: 'extra-analisis', label: 'Tesis y dos recursos argumentativos: qué son y qué demuestran', rows: 7 },
+            { t: 'details', summary: 'Ver el modelo del departamento', body: [
+              { t: 'badge', kind: 'dep', x: 'Respuesta modelo del departamento · no oficial' },
+              { t: 'list', items: [
+                '**Tesis**: teorizar sobre la pobreza no basta; hay que pasar de los libros a la vida, porque la aparente prosperidad agranda la desigualdad.',
+                '**Analogía del retrorunning** (correr hacia atrás): el crecimiento económico aparente nos hace retroceder hacia la ruina.',
+                '**Metáfora de la radiografía**: la covid ha dejado al descubierto un «esqueleto social» con los huesos fuera de su sitio, es decir, desigualdades que ya existían.',
+                'También: la metáfora del **edificio sin cimientos morales** que las ONG solo apuntalan, y la **autoridad** de Ferlosio.'
+              ] }
+            ] },
+            { t: 'timer', minutes: 6, label: 'Párrafo de refutación: 6 minutos' },
+            { t: 'p', x: 'Pregunta del mismo examen: **¿Cree que la sociedad actual hace todo lo posible para erradicar la pobreza?** Retoma la tesis que formulaste en el M1 y refuta esta objeción: *«Nunca ha habido tantas ONG ni tantas ayudas sociales».*' },
+            { t: 'write', id: 'extra-ref', label: 'Párrafo de refutación', rows: 6, counter: true, min: 40, max: 90 },
+            { t: 'details', summary: 'Ver una refutación modelo (dar la vuelta a la objeción)', body: [
+              { t: 'p', x: '«Se dirá que nunca ha habido tantas ONG ni tantas ayudas públicas contra la pobreza. Es cierto, pero ese mismo dato es la prueba del problema: si cada año hacen falta más bancos de alimentos, es porque las ayudas alivian la pobreza sin atacar sus causas, que son los salarios bajos y el precio de la vivienda.»' }
+            ] }
+          ] },
+          { t: 'copy', ids: ['analisis', 'tarea-p3', 'extra-analisis', 'extra-ref'], x: 'Copiar mis respuestas', note: 'Si tu profesora te pide entregar la tarea, copia tus respuestas y pégalas donde te indique.' },
+          { t: 'next', href: 'arg-2b-m3.html', x: 'Siguiente módulo · M3 Jerarquía de ideas y marcadores →' }
+        ]
+      }
+    ]
+  };
+})();
+
+(function () {
+  'use strict';
+
+  var D = window.MODULO;
+  var PFX = D.prefix;
+  var writeFields = [];
+
+  /* ---------- almacenamiento local (solo comodidad de la alumna) ---------- */
+  function save(key, value) {
+    try { localStorage.setItem(PFX + key, value); } catch (e) { /* sin almacenamiento */ }
+  }
+  function load(key) {
+    try { return localStorage.getItem(PFX + key); } catch (e) { return null; }
+  }
+  function debounce(fn, ms) {
+    var t = null;
+    return function () {
+      var args = arguments;
+      if (t) { clearTimeout(t); }
+      t = setTimeout(function () { fn.apply(null, args); }, ms);
+    };
+  }
+
+  /* ---------- utilidades DOM ---------- */
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) { n.className = cls; }
+    if (text !== undefined && text !== null) { n.textContent = text; }
+    return n;
+  }
+  function add(parent) {
+    for (var i = 1; i < arguments.length; i++) {
+      if (arguments[i]) { parent.appendChild(arguments[i]); }
+    }
+    return parent;
+  }
+  /* Marcado mínimo: **negrita**, *cursiva*, ==resaltado== */
+  function inline(parent, s) {
+    var parts = String(s).split(/(\*\*[^*]+\*\*|==[^=]+==|\*[^*]+\*)/g);
+    for (var i = 0; i < parts.length; i++) {
+      var p = parts[i];
+      if (!p) { continue; }
+      if (p.indexOf('**') === 0 && p.length > 4) {
+        parent.appendChild(el('strong', null, p.slice(2, -2)));
+      } else if (p.indexOf('==') === 0 && p.length > 4) {
+        parent.appendChild(el('mark', 'marcador', p.slice(2, -2)));
+      } else if (p.charAt(0) === '*' && p.length > 2) {
+        parent.appendChild(el('em', null, p.slice(1, -1)));
+      } else {
+        parent.appendChild(document.createTextNode(p));
+      }
+    }
+    return parent;
+  }
+  function plain(s) {
+    return String(s).replace(/\*\*|==|\*/g, '');
+  }
+  function countWords(s) {
+    var t = String(s).trim();
+    if (!t) { return 0; }
+    return t.split(/\s+/).filter(function (w) { return /[0-9A-Za-zÁÉÍÓÚÜÑáéíóúüñ]/.test(w); }).length;
+  }
+  function fmtScore(n) {
+    return n.toFixed(2).replace('.', ',');
+  }
+  function scoreOptions(max) {
+    var out = [];
+    for (var v = 0; v <= max + 0.0001; v += 0.25) { out.push(Math.round(v * 100) / 100); }
+    return out;
+  }
+
+  /* ---------- bloques ---------- */
+  var R = {};
+
+  R.h2 = function (b) { return inline(el('h2'), b.x); };
+  R.h3 = function (b) { return inline(el('h3'), b.x); };
+  R.p = function (b) { return inline(el('p', b.cls || null), b.x); };
+
+  R.lead = function (b) { return inline(el('p', 'lead'), b.x); };
+
+  R.aviso = function (b) {
+    var box = el('div', 'aviso');
+    if (b.title) { add(box, el('p', 'aviso-titulo', b.title)); }
+    add(box, inline(el('p'), b.x));
+    return box;
+  };
+
+  R.badge = function (b) {
+    var cls = b.kind === 'oficial' ? 'badge badge-oficial' : 'badge badge-dep';
+    return el('span', cls, b.x);
+  };
+
+  R.list = function (b) {
+    var ul = el(b.ordered ? 'ol' : 'ul', 'lista');
+    b.items.forEach(function (it) { add(ul, inline(el('li'), it)); });
+    return ul;
+  };
+
+  R.table = function (b) {
+    var wrap = el('div', 'tabla-wrap');
+    var t = el('table', 'tabla');
+    if (b.head) {
+      var thead = el('thead');
+      var tr = el('tr');
+      b.head.forEach(function (h) { add(tr, inline(el('th'), h)); });
+      add(thead, tr);
+      add(t, thead);
+    }
+    var tb = el('tbody');
+    b.rows.forEach(function (r) {
+      var tr2 = el('tr');
+      r.forEach(function (c) { add(tr2, inline(el('td'), c)); });
+      add(tb, tr2);
+    });
+    add(t, tb);
+    return add(wrap, t);
+  };
+
+  R.card = function (b) {
+    var c = el('section', 'card' + (b.accent ? ' card-' + b.accent : ''));
+    if (b.eyebrow) { add(c, el('p', 'card-eyebrow', b.eyebrow)); }
+    if (b.title) { add(c, inline(el('h3', 'card-titulo'), b.title)); }
+    renderBlocks(c, b.body || []);
+    return c;
+  };
+
+  R.scheme = function (b) {
+    var box = el('div', 'esquema');
+    if (b.title) { add(box, el('p', 'esquema-titulo', b.title)); }
+    b.lines.forEach(function (ln) {
+      var depth = 0;
+      while (ln.charAt(depth) === '>') { depth++; }
+      var row = el('div', 'esquema-linea');
+      row.style.paddingLeft = (depth * 1.4) + 'em';
+      inline(row, ln.slice(depth).trim());
+      add(box, row);
+    });
+    return box;
+  };
+
+  R.link = function (b) {
+    var wrap = el('div', 'enlace-wrap');
+    var a = el('a', 'boton boton-externo');
+    a.href = b.href;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.textContent = b.x;
+    add(wrap, a);
+    if (b.note) { add(wrap, inline(el('p', 'enlace-nota'), b.note)); }
+    return wrap;
+  };
+
+  R.details = function (b) {
+    var d = el('details', 'desplegable');
+    add(d, el('summary', null, b.summary));
+    var inner = el('div', 'desplegable-cuerpo');
+    renderBlocks(inner, b.body || []);
+    return add(d, inner);
+  };
+
+  /* Respuesta modelo anotada */
+  R.model = function (b) {
+    var box = el('div', 'modelo');
+    if (b.title) { add(box, el('p', 'modelo-titulo', b.title)); }
+    var total = 0;
+    b.paras.forEach(function (pa) {
+      var row = el('div', 'modelo-fila' + (b.notes ? ' con-notas' : ''));
+      var txt = inline(el('p', 'modelo-texto'), pa.x);
+      add(row, txt);
+      if (b.notes && pa.note) {
+        add(row, inline(el('p', 'modelo-nota'), pa.note));
+      }
+      total += countWords(plain(pa.x));
+      add(box, row);
+    });
+    if (b.count) {
+      add(box, el('p', 'modelo-recuento', total + ' palabras'));
+    }
+    return box;
+  };
+
+  /* Test de opción múltiple con retroalimentación por opción */
+  R.quiz = function (b) {
+    var box = el('div', 'ejercicio');
+    if (b.title) { add(box, el('p', 'ejercicio-titulo', b.title)); }
+    if (b.intro) { add(box, inline(el('p', 'ejercicio-intro'), b.intro)); }
+    b.items.forEach(function (it, idx) {
+      var item = el('div', 'item');
+      add(item, inline(el('p', 'item-pregunta'), (b.items.length > 1 ? (idx + 1) + '. ' : '') + it.q));
+      var opts = el('div', 'opciones');
+      var fb = el('p', 'feedback');
+      var opciones = it.opts || b.opts;
+      opciones.forEach(function (o, i) {
+        var btn = el('button', 'opcion');
+        btn.type = 'button';
+        inline(btn, o);
+        btn.addEventListener('click', function () {
+          var all = opts.querySelectorAll('.opcion');
+          for (var k = 0; k < all.length; k++) { all[k].classList.remove('correcta', 'incorrecta'); }
+          var ok = i === it.ok;
+          btn.classList.add(ok ? 'correcta' : 'incorrecta');
+          fb.className = 'feedback visible ' + (ok ? 'fb-ok' : 'fb-no');
+          fb.textContent = '';
+          var msg = it.fb && it.fb[i] ? it.fb[i] : (ok ? 'Correcto.' : 'Revisa tu elección.');
+          inline(fb, (ok ? '✓ ' : '✗ ') + msg);
+        });
+        add(opts, btn);
+      });
+      add(item, opts, fb);
+      add(box, item);
+    });
+    return box;
+  };
+
+  /* Verdadero / falso */
+  R.tf = function (b) {
+    var box = el('div', 'ejercicio');
+    if (b.title) { add(box, el('p', 'ejercicio-titulo', b.title)); }
+    b.items.forEach(function (it, idx) {
+      var item = el('div', 'item');
+      add(item, inline(el('p', 'item-pregunta'), (idx + 1) + '. ' + it.q));
+      var opts = el('div', 'opciones opciones-fila');
+      var fb = el('p', 'feedback');
+      [['Verdadero', true], ['Falso', false]].forEach(function (pair) {
+        var btn = el('button', 'opcion', pair[0]);
+        btn.type = 'button';
+        btn.addEventListener('click', function () {
+          var all = opts.querySelectorAll('.opcion');
+          for (var k = 0; k < all.length; k++) { all[k].classList.remove('correcta', 'incorrecta'); }
+          var ok = pair[1] === it.v;
+          btn.classList.add(ok ? 'correcta' : 'incorrecta');
+          fb.className = 'feedback visible ' + (ok ? 'fb-ok' : 'fb-no');
+          fb.textContent = '';
+          inline(fb, (ok ? '✓ ' : '✗ ') + it.fb);
+        });
+        add(opts, btn);
+      });
+      add(item, opts, fb);
+      add(box, item);
+    });
+    return box;
+  };
+
+  /* Clasificar fragmentos en categorías */
+  R.classify = function (b) {
+    var box = el('div', 'ejercicio');
+    if (b.title) { add(box, el('p', 'ejercicio-titulo', b.title)); }
+    if (b.intro) { add(box, inline(el('p', 'ejercicio-intro'), b.intro)); }
+    b.items.forEach(function (it) {
+      var item = el('div', 'item');
+      add(item, inline(el('p', 'item-cita'), it.x));
+      var sel = el('select', 'selector');
+      var ph = el('option', null, 'Elige…');
+      ph.value = '';
+      add(sel, ph);
+      b.cats.forEach(function (c, i) {
+        var o = el('option', null, c);
+        o.value = String(i);
+        add(sel, o);
+      });
+      var fb = el('p', 'feedback');
+      sel.addEventListener('change', function () {
+        if (sel.value === '') { fb.className = 'feedback'; return; }
+        var ok = Number(sel.value) === it.c;
+        fb.className = 'feedback visible ' + (ok ? 'fb-ok' : 'fb-no');
+        fb.textContent = '';
+        inline(fb, (ok ? '✓ ' : '✗ No exactamente. ') + it.fb);
+      });
+      add(item, sel, fb);
+      add(box, item);
+    });
+    return box;
+  };
+
+  /* Campo de escritura con autoguardado y contador opcional */
+  R.write = function (b) {
+    var box = el('div', 'escritura');
+    var lab = el('label', 'escritura-label');
+    lab.htmlFor = 'w-' + b.id;
+    inline(lab, b.label);
+    add(box, lab);
+    if (b.hint) { add(box, inline(el('p', 'escritura-pista'), b.hint)); }
+    var ta = el('textarea', 'escritura-area');
+    ta.id = 'w-' + b.id;
+    ta.rows = b.rows || 6;
+    ta.spellcheck = false;
+    if (b.placeholder) { ta.placeholder = b.placeholder; }
+    var prev = load('w-' + b.id);
+    if (prev) { ta.value = prev; }
+    add(box, ta);
+    var meta = el('div', 'escritura-meta');
+    var status = el('span', 'guardado', '');
+    var counter = null;
+    if (b.counter) {
+      counter = el('span', 'contador');
+      add(meta, counter);
+    }
+    add(meta, status);
+    add(box, meta);
+
+    function updateCount() {
+      if (!counter) { return; }
+      var n = countWords(ta.value);
+      var min = b.min || 200;
+      var max = b.max || 250;
+      var msg = n + ' palabras';
+      counter.className = 'contador';
+      if (n === 0) {
+        msg += ' · objetivo: ' + min + '-' + max;
+      } else if (n < min) {
+        msg += ' · faltan ' + (min - n);
+        counter.classList.add('contador-bajo');
+      } else if (n > max) {
+        msg += ' · sobran ' + (n - max);
+        counter.classList.add('contador-alto');
+      } else {
+        msg += ' · extensión correcta';
+        counter.classList.add('contador-ok');
+      }
+      counter.textContent = msg;
+    }
+    var persist = debounce(function () {
+      save('w-' + b.id, ta.value);
+      status.textContent = 'Guardado en este navegador';
+    }, 600);
+    ta.addEventListener('input', function () {
+      status.textContent = '…';
+      updateCount();
+      persist();
+    });
+    updateCount();
+    writeFields.push({ id: b.id, label: plain(b.label), node: ta });
+    return box;
+  };
+
+  /* Cronómetro (cuenta atrás o hacia delante) */
+  R.timer = function (b) {
+    var box = el('div', 'reloj');
+    var label = el('p', 'reloj-label', b.label);
+    var disp = el('p', 'reloj-display');
+    var msg = el('p', 'reloj-msg');
+    var down = b.mode !== 'up';
+    var total = (b.minutes || 0) * 60;
+    var secs = down ? total : 0;
+    var h = null;
+    function show() {
+      var m = Math.floor(secs / 60);
+      var s = secs % 60;
+      disp.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+    }
+    function tick() {
+      if (down) {
+        secs--;
+        if (secs <= 0) {
+          secs = 0;
+          stop();
+          msg.textContent = 'Tiempo. Termina la frase que estás escribiendo y revisa.';
+          box.classList.add('reloj-fin');
+        }
+      } else {
+        secs++;
+      }
+      show();
+    }
+    function start() {
+      if (h) { return; }
+      msg.textContent = '';
+      box.classList.remove('reloj-fin');
+      h = setInterval(tick, 1000);
+      bStart.textContent = 'En marcha';
+    }
+    function stop() {
+      if (h) { clearInterval(h); h = null; }
+      bStart.textContent = 'Reanudar';
+    }
+    function reset() {
+      stop();
+      secs = down ? total : 0;
+      bStart.textContent = 'Iniciar';
+      msg.textContent = '';
+      box.classList.remove('reloj-fin');
+      show();
+    }
+    var btns = el('div', 'reloj-botones');
+    var bStart = el('button', 'boton', 'Iniciar');
+    bStart.type = 'button';
+    bStart.addEventListener('click', start);
+    var bPause = el('button', 'boton boton-sec', 'Pausar');
+    bPause.type = 'button';
+    bPause.addEventListener('click', stop);
+    var bReset = el('button', 'boton boton-sec', 'Reiniciar');
+    bReset.type = 'button';
+    bReset.addEventListener('click', reset);
+    add(btns, bStart, bPause, bReset);
+    show();
+    return add(box, label, disp, btns, msg);
+  };
+
+  /* Lista de comprobación con autoguardado */
+  R.checklist = function (b) {
+    var box = el('div', 'ejercicio');
+    if (b.title) { add(box, el('p', 'ejercicio-titulo', b.title)); }
+    var ul = el('ul', 'checklist');
+    b.items.forEach(function (it, i) {
+      var li = el('li');
+      var cb = el('input');
+      cb.type = 'checkbox';
+      cb.id = 'c-' + b.id + '-' + i;
+      if (load('c-' + b.id + '-' + i) === '1') { cb.checked = true; }
+      cb.addEventListener('change', function () { save('c-' + b.id + '-' + i, cb.checked ? '1' : '0'); });
+      var lab = el('label');
+      lab.htmlFor = cb.id;
+      inline(lab, it);
+      add(li, cb, lab);
+      add(ul, li);
+    });
+    return add(box, ul);
+  };
+
+  /* Autocalificación con los criterios oficiales */
+  R.selfscore = function (b) {
+    var box = el('div', 'ejercicio autoeval');
+    if (b.title) { add(box, el('p', 'ejercicio-titulo', b.title)); }
+    if (b.intro) { add(box, inline(el('p', 'ejercicio-intro'), b.intro)); }
+    var totalEl = el('p', 'autoeval-total');
+    var sels = [];
+    function recalc() {
+      var t = 0;
+      sels.forEach(function (s) { t += Number(s.value || 0); });
+      if (t < 0) { t = 0; }
+      totalEl.textContent = 'Total: ' + fmtScore(t) + ' / ' + fmtScore(b.max);
+    }
+    b.groups.forEach(function (g, i) {
+      var row = el('div', 'autoeval-fila');
+      var lab = el('label', 'autoeval-label');
+      lab.htmlFor = 's-' + b.id + '-' + i;
+      inline(lab, g.label);
+      var sel = el('select', 'selector');
+      sel.id = 's-' + b.id + '-' + i;
+      var vals = g.values || scoreOptions(g.max);
+      vals.forEach(function (v) {
+        var o = el('option', null, (v > 0 && g.negative ? '−' : '') + fmtScore(Math.abs(v)));
+        o.value = String(g.negative ? -Math.abs(v) : v);
+        add(sel, o);
+      });
+      var prev = load('s-' + b.id + '-' + i);
+      if (prev !== null) { sel.value = prev; }
+      sel.addEventListener('change', function () {
+        save('s-' + b.id + '-' + i, sel.value);
+        recalc();
+      });
+      sels.push(sel);
+      add(row, lab, sel);
+      add(box, row);
+    });
+    add(box, totalEl);
+    recalc();
+    return box;
+  };
+
+  /* Calibración: corregir una respuesta y compararla con la del departamento */
+  R.grade = function (b) {
+    var box = el('div', 'ejercicio');
+    if (b.title) { add(box, el('p', 'ejercicio-titulo', b.title)); }
+    if (b.intro) { add(box, inline(el('p', 'ejercicio-intro'), b.intro)); }
+    var sample = el('div', 'muestra');
+    b.sample.forEach(function (s) { add(sample, inline(el('p'), s)); });
+    add(box, sample);
+    var sels = [];
+    b.tramos.forEach(function (t) {
+      var row = el('div', 'autoeval-fila');
+      add(row, inline(el('span', 'autoeval-label'), t.label));
+      var sel = el('select', 'selector');
+      var ph = el('option', null, 'Tu nota');
+      ph.value = '';
+      add(sel, ph);
+      scoreOptions(t.max).forEach(function (v) {
+        var o = el('option', null, fmtScore(v));
+        o.value = String(v);
+        add(sel, o);
+      });
+      sels.push(sel);
+      add(row, sel);
+      add(box, row);
+    });
+    var btn = el('button', 'boton', 'Comparar con la corrección del departamento');
+    btn.type = 'button';
+    var out = el('div', 'comparacion');
+    btn.addEventListener('click', function () {
+      out.textContent = '';
+      var mine = 0;
+      var ours = 0;
+      b.tramos.forEach(function (t, i) {
+        var v = sels[i].value === '' ? null : Number(sels[i].value);
+        if (v !== null) { mine += v; }
+        ours += t.ok;
+        var p = el('p', 'comparacion-fila');
+        add(p, el('strong', null, plain(t.label) + ': '));
+        add(p, document.createTextNode('tu nota ' + (v === null ? '—' : fmtScore(v)) + ' · departamento ' + fmtScore(t.ok) + '. '));
+        inline(p, t.fb);
+        add(out, p);
+      });
+      add(out, el('p', 'comparacion-total', 'Total del departamento: ' + fmtScore(ours) + ' · el tuyo: ' + fmtScore(mine)));
+      if (b.moral) { add(out, inline(el('p', 'comparacion-moral'), b.moral)); }
+    });
+    add(box, btn, out);
+    return box;
+  };
+
+  /* Copiar todas las respuestas escritas del módulo */
+  R.copy = function (b) {
+    var wrap = el('div', 'copiar');
+    var btn = el('button', 'boton', b.x || 'Copiar mis respuestas');
+    btn.type = 'button';
+    var msg = el('span', 'copiar-msg');
+    btn.addEventListener('click', function () {
+      var lines = [D.title + ' · ' + D.course, ''];
+      writeFields.forEach(function (f) {
+        if (b.ids && b.ids.indexOf(f.id) === -1) { return; }
+        lines.push('## ' + f.label);
+        lines.push(f.node.value.trim() || '(sin respuesta)');
+        lines.push('');
+      });
+      var text = lines.join('\n');
+      function fallback() {
+        var ta = el('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); msg.textContent = 'Copiado.'; } catch (e) { msg.textContent = 'No se pudo copiar.'; }
+        document.body.removeChild(ta);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { msg.textContent = 'Copiado. Pégalo donde te indique tu profesora.'; }, fallback);
+      } else {
+        fallback();
+      }
+    });
+    if (b.note) { add(wrap, inline(el('p', 'copiar-nota'), b.note)); }
+    return add(wrap, btn, msg);
+  };
+
+  R.next = function (b) {
+    var wrap = el('div', 'siguiente');
+    if (b.href) {
+      var a = el('a', 'boton boton-siguiente', b.x);
+      a.href = b.href;
+      add(wrap, a);
+    } else {
+      var s = el('span', 'boton boton-siguiente boton-inactivo', b.x);
+      s.setAttribute('aria-disabled', 'true');
+      add(wrap, s);
+    }
+    return wrap;
+  };
+
+  function renderBlocks(parent, blocks) {
+    blocks.forEach(function (b) {
+      var fn = R[b.t];
+      if (fn) { parent.appendChild(fn(b)); }
+    });
+  }
+
+  /* ---------- página ---------- */
+  function build() {
+    var root = document.getElementById('app');
+    var header = el('header', 'cabecera');
+    var hin = el('div', 'cabecera-in');
+    add(hin, el('p', 'eyebrow', D.eyebrow));
+    add(hin, el('h1', 'titulo', D.title));
+    if (D.subtitle) { add(hin, inline(el('p', 'subtitulo'), D.subtitle)); }
+    var nav = el('nav', 'pestanas');
+    nav.setAttribute('role', 'tablist');
+    add(hin, nav);
+    add(header, hin);
+    add(root, header, el('div', 'divisor'));
+
+    var main = el('main', 'contenido');
+    add(root, main);
+
+    var tabBtns = [];
+    var panels = [];
+    D.tabs.forEach(function (tab, i) {
+      var btn = el('button', 'pestana', tab.label);
+      btn.type = 'button';
+      btn.setAttribute('role', 'tab');
+      btn.addEventListener('click', function () { show(i); });
+      tabBtns.push(btn);
+      add(nav, btn);
+      var panel = el('section', 'panel');
+      panel.setAttribute('role', 'tabpanel');
+      add(panel, el('p', 'panel-eyebrow', 'Pestaña ' + (i + 1) + ' de ' + D.tabs.length));
+      add(panel, el('h2', 'panel-titulo', tab.title || tab.label));
+      renderBlocks(panel, tab.blocks);
+      panels.push(panel);
+      add(main, panel);
+    });
+    if (D.footer) { add(main, inline(el('p', 'pie'), D.footer)); }
+
+    var bar = el('div', 'mininav');
+    var bPrev = el('button', 'mininav-btn', '← Anterior');
+    bPrev.type = 'button';
+    var pos = el('span', 'mininav-pos');
+    var bNext = el('button', 'mininav-btn', 'Siguiente →');
+    bNext.type = 'button';
+    add(bar, bPrev, pos, bNext);
+    add(root, bar);
+
+    var current = 0;
+    function show(i, noScroll) {
+      current = i;
+      panels.forEach(function (p, k) { p.hidden = k !== i; });
+      tabBtns.forEach(function (b, k) {
+        b.classList.toggle('activa', k === i);
+        b.setAttribute('aria-selected', k === i ? 'true' : 'false');
+      });
+      pos.textContent = (i + 1) + ' / ' + panels.length + ' · ' + D.tabs[i].label;
+      bPrev.disabled = i === 0;
+      bNext.disabled = i === panels.length - 1;
+      save('tab', String(i));
+      if (!noScroll) { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    }
+    bPrev.addEventListener('click', function () { if (current > 0) { show(current - 1); } });
+    bNext.addEventListener('click', function () { if (current < panels.length - 1) { show(current + 1); } });
+
+    var start = Number(load('tab'));
+    if (!(start >= 0 && start < panels.length)) { start = 0; }
+    show(start, true);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', build);
+  } else {
+    build();
+  }
+})();
+
+</script>
+</body>
+</html>
