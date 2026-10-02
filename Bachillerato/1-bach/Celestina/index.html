@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Celestina — 1º de Bachillerato</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --azul:#1a4a7a;
+  --azul-osc:#0f2f4d;
+  --turquesa:#0e9aa7;
+  --terracota:#c64829;
+  --oro:#c9973a;
+  --crema:#faf7f1;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--crema);
+  font-family:'Source Sans 3', Arial, sans-serif;
+  color:#2a2a28;
+  line-height:1.6;
+}
+h1,h2,h3,h4{
+  font-family:'Playfair Display', Georgia, serif;
+  color:var(--azul-osc);
+  font-weight:700;
+  margin-top:0;
+}
+a{color:var(--terracota);}
+
+header.top{
+  background:var(--azul);
+  color:#fff;
+  padding:22px 24px 0 24px;
+}
+.top-inner{
+  max-width:980px;
+  margin:0 auto;
+}
+.eyebrow{
+  font-family:'Source Sans 3', sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-size:.78rem;
+  color:#a9d9dc;
+  margin:0 0 6px 0;
+}
+h1.title{
+  font-size:1.9rem;
+  color:#fff;
+  margin:0 0 4px 0;
+}
+p.subtitle{
+  margin:0 0 18px 0;
+  color:rgba(255,255,255,.8);
+  font-size:1rem;
+  max-width:640px;
+}
+
+nav.tabs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:2px;
+  border-top:1px solid rgba(255,255,255,.15);
+  padding-top:2px;
+}
+button.tab{
+  appearance:none;
+  border:none;
+  background:transparent;
+  color:rgba(255,255,255,.55);
+  font-family:'Source Sans 3', sans-serif;
+  font-size:.85rem;
+  font-weight:600;
+  padding:11px 14px 10px 14px;
+  cursor:pointer;
+  border-bottom:3px solid transparent;
+  transition:color .15s ease;
+  white-space:nowrap;
+}
+button.tab:hover{color:rgba(255,255,255,.85);}
+button.tab.active{
+  color:#fff;
+  border-bottom:3px solid var(--terracota);
+}
+
+div.mininav{
+  background:var(--azul-osc);
+  color:rgba(255,255,255,.85);
+  font-size:.82rem;
+  padding:9px 24px;
+}
+div.mininav .mininav-inner{
+  max-width:980px;
+  margin:0 auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+div.mininav .crumb b{color:var(--oro);}
+div.mininav .counter{color:rgba(255,255,255,.6);}
+
+main{
+  max-width:980px;
+  margin:0 auto;
+  padding:32px 24px 80px 24px;
+}
+.panel{display:none;}
+.panel.active{display:block;}
+
+h2.sec-title{
+  font-size:1.45rem;
+  border-bottom:2px solid var(--oro);
+  padding-bottom:8px;
+  margin:0 0 18px 0;
+}
+h2.sec-title:not(:first-child){margin-top:38px;}
+h3.sub-title{
+  font-size:1.12rem;
+  color:var(--terracota);
+  margin:22px 0 8px 0;
+}
+p.body-text{margin:0 0 12px 0;}
+ul.body-list{margin:0 0 16px 0;padding-left:22px;}
+ul.body-list li{margin-bottom:6px;}
+
+.callout{
+  background:var(--turquesa);
+  color:#fff;
+  border-radius:6px;
+  padding:14px 18px;
+  margin:18px 0;
+  font-size:.95rem;
+}
+.callout .callout-label{
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  font-size:.72rem;
+  display:block;
+  margin-bottom:6px;
+  color:#eafcfd;
+}
+
+.frag{
+  background:#fff;
+  border-left:4px solid var(--oro);
+  border-radius:0 6px 6px 0;
+  padding:16px 20px;
+  margin:16px 0;
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+}
+.frag .frag-source{
+  font-size:.78rem;
+  color:#7a7a76;
+  margin-top:10px;
+  font-style:italic;
+}
+.frag p.dline{margin:0 0 6px 0;font-size:.96rem;}
+.frag p.dline b{color:var(--azul-osc);}
+.frag p.narr{margin:0 0 6px 0;font-size:.96rem;font-style:italic;}
+
+table.data-table{
+  border-collapse:collapse;
+  width:100%;
+  margin:14px 0 20px 0;
+  font-size:.92rem;
+}
+table.data-table th{
+  background:var(--azul-osc);
+  color:#fff;
+  text-align:left;
+  padding:8px 10px;
+}
+table.data-table td{
+  padding:8px 10px;
+  border-bottom:1px solid #e3ddd0;
+  vertical-align:top;
+}
+table.data-table tr:nth-child(even) td{background:#f3efe4;}
+
+.qbox{
+  border-left:4px solid var(--terracota);
+  padding:6px 0 6px 16px;
+  margin:16px 0;
+  font-style:italic;
+  color:#3a3a36;
+}
+
+.activity{
+  background:#fff;
+  border:1px solid #e3ddd0;
+  border-radius:6px;
+  padding:16px 20px;
+  margin:18px 0;
+}
+.activity h4{
+  color:var(--azul);
+  margin:0 0 4px 0;
+  font-family:'Source Sans 3', sans-serif;
+  font-weight:700;
+  font-size:.95rem;
+}
+.activity .level-tag{
+  display:inline-block;
+  font-size:.68rem;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  font-weight:700;
+  color:#fff;
+  background:var(--oro);
+  border-radius:3px;
+  padding:2px 7px;
+  margin-bottom:10px;
+}
+.activity ol{margin:0;padding-left:20px;}
+.activity ol li{margin-bottom:6px;}
+.activity p.open-prompt{margin:4px 0 0 0;}
+
+textarea.answer-box{
+  width:100%;
+  min-height:90px;
+  font-family:'Source Sans 3', sans-serif;
+  font-size:.92rem;
+  border:1px solid #d8d2c4;
+  border-radius:4px;
+  padding:10px;
+  resize:vertical;
+  margin-top:8px;
+}
+
+footer.page-footer{
+  text-align:center;
+  color:#8a8578;
+  font-size:.78rem;
+  padding:24px;
+}
+
+@media (max-width:640px){
+  h1.title{font-size:1.5rem;}
+  button.tab{font-size:.78rem;padding:9px 10px 9px 10px;}
+}
+
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <p class="eyebrow">1º de Bachillerato · Educación literaria · Prerrenacimiento</p>
+    <h1 class="title">La Celestina</h1>
+    <p class="subtitle">Fernando de Rojas — Tragicomedia de Calisto y Melibea. Módulo de estudio para el análisis en profundidad de la obra.</p>
+    <nav class="tabs" id="tabs-nav"></nav>
+  </div>
+</header>
+
+<div class="mininav">
+  <div class="mininav-inner">
+    <span class="crumb" id="mininav-crumb"></span>
+    <span class="counter" id="mininav-counter"></span>
+  </div>
+</div>
+
+<main>
+  <div id="content-root"></div>
+</main>
+
+<footer class="page-footer">Material de estudio y consulta · Lengua Castellana y Literatura I</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  function el(tag, opts, children) {
+    var node = document.createElement(tag);
+    opts = opts || {};
+    if (opts.className) node.className = opts.className;
+    if (opts.text) node.appendChild(document.createTextNode(opts.text));
+    if (opts.attrs) {
+      for (var k in opts.attrs) {
+        if (Object.prototype.hasOwnProperty.call(opts.attrs, k)) {
+          node.setAttribute(k, opts.attrs[k]);
+        }
+      }
+    }
+    (children || []).forEach(function (c) {
+      if (c) node.appendChild(c);
+    });
+    return node;
+  }
+  function txt(s) { return document.createTextNode(s); }
+
+  function h2(text) { return el('h2', { className: 'sec-title', text: text }); }
+  function h3(text) { return el('h3', { className: 'sub-title', text: text }); }
+  function p(text) { return el('p', { className: 'body-text', text: text }); }
+  function ul(items) {
+    return el('ul', { className: 'body-list' }, items.map(function (i) {
+      return el('li', { text: i });
+    }));
+  }
+  function callout(label, text) {
+    return el('div', { className: 'callout' }, [
+      el('span', { className: 'callout-label', text: label }),
+      txt(text)
+    ]);
+  }
+  function qbox(text) {
+    return el('p', { className: 'qbox', text: text });
+  }
+  function frag(title, lines, source) {
+    var box = el('div', { className: 'frag' });
+    if (title) box.appendChild(el('h4', { attrs: {}, text: title }));
+    lines.forEach(function (l) {
+      if (l.narr) {
+        box.appendChild(el('p', { className: 'narr', text: l.narr }));
+      } else {
+        var pnode = el('p', { className: 'dline' });
+        pnode.appendChild(el('b', { text: l.sp + '.\u2014 ' }));
+        pnode.appendChild(txt(l.line));
+        box.appendChild(pnode);
+      }
+    });
+    if (source) box.appendChild(el('p', { className: 'frag-source', text: source }));
+    return box;
+  }
+  function table(headers, rows) {
+    var thead = el('tr', {}, headers.map(function (h) { return el('th', { text: h }); }));
+    var tbody = rows.map(function (r) {
+      return el('tr', {}, r.map(function (c) { return el('td', { text: c }); }));
+    });
+    return el('table', { className: 'data-table' }, [el('thead', {}, [thead]), el('tbody', {}, tbody)]);
+  }
+  /* guided activity: numbered sub-questions */
+  function activity(title, levelTag, steps) {
+    var box = el('div', { className: 'activity' });
+    if (levelTag) box.appendChild(el('span', { className: 'level-tag', text: levelTag }));
+    box.appendChild(el('h4', { text: title }));
+    box.appendChild(el('ol', {}, steps.map(function (s) { return el('li', { text: s }); })));
+    var ta = el('textarea', { className: 'answer-box', attrs: { placeholder: 'Espacio para tomar notas o redactar la respuesta...' } });
+    box.appendChild(ta);
+    return box;
+  }
+  /* open activity: single free-commentary prompt, no sub-questions */
+  function openActivity(title, levelTag, promptText, minHeight) {
+    var box = el('div', { className: 'activity' });
+    if (levelTag) box.appendChild(el('span', { className: 'level-tag', text: levelTag }));
+    box.appendChild(el('h4', { text: title }));
+    box.appendChild(el('p', { className: 'open-prompt', text: promptText }));
+    var ta = el('textarea', { className: 'answer-box', attrs: { placeholder: 'Redacta aquí el comentario...' } });
+    if (minHeight) ta.style.minHeight = minHeight;
+    box.appendChild(ta);
+    return box;
+  }
+
+  var TABS = [
+    { id: 'panorama', label: 'Panorama' },
+    { id: 'autoria', label: 'Autoría' },
+    { id: 'genero', label: 'Género' },
+    { id: 'estructura', label: 'Estructura' },
+    { id: 'personajes', label: 'Personajes' },
+    { id: 'temas', label: 'Temas' },
+    { id: 'estilo', label: 'Estilo' },
+    { id: 'contexto', label: 'Contexto y tradición' },
+    { id: 'practica', label: 'Práctica guiada' },
+    { id: 'creacion', label: 'Creación' }
+  ];
+
+  window.CELESTINA_TABS = TABS;
+  window.CELESTINA_HELPERS = { el: el, txt: txt, h2: h2, h3: h3, p: p, ul: ul, callout: callout, qbox: qbox, frag: frag, table: table, activity: activity, openActivity: openActivity };
+})();
+(function () {
+  'use strict';
+  var H = window.CELESTINA_HELPERS;
+  var el = H.el, h2 = H.h2, h3 = H.h3, p = H.p, ul = H.ul, callout = H.callout, table = H.table;
+
+  function build() {
+    var panel = el('div', { className: 'panel', attrs: { id: 'panel-panorama' } });
+
+    panel.appendChild(h2('Panorama: de la Edad Media al Prerrenacimiento'));
+    panel.appendChild(p('Antes de entrar en La Celestina conviene situarla en el mapa. No es una obra aislada: cierra un periodo y abre otro. Este panorama es deliberadamente breve — una guía de referencia, no un temario completo — porque lo que de verdad se va a trabajar en profundidad es la obra que sigue.'));
+
+    panel.appendChild(h3('La literatura medieval (siglos XII-XIV): grandes líneas'));
+    panel.appendChild(ul([
+      'Lírica: la lírica tradicional (jarchas, cantigas de amigo) convive con la lírica culta de cancionero, de raíz cortesana.',
+      'Poesía narrativa: el mester de clerecía (clérigos que versifican con rigor culto: Gonzalo de Berceo, el Libro de Alexandre) frente al mester de juglaría, de transmisión oral (el Cantar de Mio Cid, épica en torno a un héroe histórico).',
+      'Prosa: se consolida con Alfonso X el Sabio (prosa historiográfica y científica) y culmina en el siglo XIV con don Juan Manuel y El conde Lucanor, colección de cuentos con intención moral.',
+      'Teatro medieval: escaso y casi siempre litúrgico o paralitúrgico; apenas queda testimonio escrito en castellano (el Auto de los Reyes Magos es la pieza más citada).'
+    ]));
+
+    panel.appendChild(h3('El Prerrenacimiento (siglo XV): el siglo de transición'));
+    panel.appendChild(p('El XV es un siglo bisagra: conviven todavía formas e ideas medievales (el providencialismo, la visión jerárquica del mundo) con los primeros aires del humanismo italiano —el interés por el individuo, por la Antigüedad clásica, por la Fortuna como fuerza caprichosa que gobierna la vida humana—. Es el siglo en el que España empieza a mirar hacia Italia.'));
+    panel.appendChild(table(
+      ['Ámbito', 'Autores y obras principales', 'Rasgo que anuncia el cambio'],
+      [
+        ['Lírica culta', 'Marqués de Santillana (Sonetos fechos al itálico modo); Juan de Mena (Laberinto de Fortuna)', 'Primeros ensayos del endecasílabo italiano; la Fortuna como motivo central'],
+        ['Poesía de cancionero', 'Jorge Manrique (Coplas a la muerte de su padre)', 'El tópico medieval del ubi sunt tratado con una hondura ya muy personal'],
+        ['Prosa narrativa', 'Novela sentimental: Diego de San Pedro (Cárcel de amor)', 'Introspección amorosa, análisis del sentimiento individual'],
+        ['Teatro / comedia humanística', 'La Celestina, de Fernando de Rojas (1499/1502)', 'Diálogo dramático de altísima elaboración psicológica, deudor de la comedia humanística italiana']
+      ]
+    ));
+
+    panel.appendChild(callout('En el itinerario del curso', 'La Celestina cierra este bloque de transición. A partir de ella entramos en el Renacimiento propiamente dicho (Lazarillo de Tormes, Cervantes) y, más adelante, en el Barroco (El alcalde de Zalamea).'));
+
+    panel.appendChild(h3('¿Por qué "Prerrenacimiento" y no ya "Renacimiento"?'));
+    panel.appendChild(p('Porque La Celestina todavía no comparte del todo la visión optimista y armónica que caracterizará al Renacimiento pleno. Al contrario: es una obra profundamente pesimista, donde el amor destruye en lugar de dignificar, donde la Fortuna no se domina y donde el final es la muerte de todos los protagonistas. Por eso los historiadores de la literatura la sitúan en la frontera: formalmente mira ya hacia el humanismo italiano, pero en su visión del mundo conserva mucho del providencialismo y del pesimismo medievales.'));
+
+    document.getElementById('content-root').appendChild(panel);
+  }
+  window.CELESTINA_BUILDERS = window.CELESTINA_BUILDERS || [];
+  window.CELESTINA_BUILDERS.push(build);
+})();
+(function () {
+  'use strict';
+  var H = window.CELESTINA_HELPERS;
+  var el = H.el, h2 = H.h2, h3 = H.h3, p = H.p, ul = H.ul, callout = H.callout, qbox = H.qbox;
+
+  function build() {
+    var panel = el('div', { className: 'panel', attrs: { id: 'panel-autoria' } });
+
+    panel.appendChild(h2('Autoría y génesis del texto'));
+
+    panel.appendChild(h3('Fernando de Rojas'));
+    panel.appendChild(ul([
+      'Nace hacia 1473 en La Puebla de Montalbán (Toledo), en el seno de una familia de conversos (judíos convertidos al cristianismo), un dato que algunos estudiosos relacionan con la visión desengañada y pesimista de la obra.',
+      'Estudia Leyes en la Universidad de Salamanca.',
+      'Ejerce como jurista y llega a ser alcalde mayor de Talavera de la Reina, donde muere en 1541.',
+      'No volvió a escribir literatura después de La Celestina: es, en la práctica, un autor de una sola obra.'
+    ]));
+
+    panel.appendChild(h3('El problema de la doble autoría'));
+    panel.appendChild(p('La propia obra plantea el problema desde sus páginas preliminares. En la carta "El autor a un su amigo" y en los versos acrósticos que preceden al texto, Rojas cuenta que encontró un primer acto ya escrito —de autor anónimo, que algunos atribuyeron en su época a Juan de Mena o a Rodrigo Cota— y que él decidió continuarlo "por quince días de vacaciones".'));
+    panel.appendChild(qbox('"Yo vi en Salamanca la obra presente; movime a acabarla por estas razones: es la primera, que estoy en vacaciones, la otra, inventarla persona prudente..."'));
+    panel.appendChild(p('Los acrósticos formados por las primeras letras de las estrofas preliminares deletrean una frase que identifica al autor como "EL BACHILLER FERNANDO DE ROJAS ACABÓ LA COMEDIA DE CALISTO Y MELIBEA Y FUE NASCIDO EN LA PUEBLA DE MONTALBÁN". Es la propia obra, por tanto, la que se presenta como resultado de dos manos: un autor primitivo (Acto I) y un continuador, Rojas (del Acto II en adelante).'));
+
+    panel.appendChild(callout('Debate crítico', 'La crítica no se pone de acuerdo sobre si esa doble autoría es real o una ficción literaria más —un recurso del propio Rojas para distanciarse de una obra tan atrevida—. Lo que sí es unánime es el reconocimiento de que existe una altísima coherencia de estilo, de caracterización y de visión del mundo entre el Acto I y el resto, lo que ha llevado a muchos filólogos a pensar que Rojas pudo reelaborar también ese primer acto, o que al menos lo asumió por completo como propio.'));
+
+    panel.appendChild(h3('De la Comedia a la Tragicomedia: las dos versiones'));
+    panel.appendChild(ul([
+      'Comedia de Calisto y Melibea (Burgos, 1499): versión primitiva, en 16 actos.',
+      'Tragicomedia de Calisto y Melibea (Sevilla, 1502 y ediciones posteriores): versión ampliada, en 21 actos, con el añadido del llamado "Tratado de Centurio" entre los actos XIV y XIX de la versión final, que retrasa el desenlace y desarrolla más el mundo de los criados y las prostitutas.',
+      'El cambio de título —de Comedia a Tragicomedia— refleja la propia conciencia del autor de que la obra no encaja en el esquema tradicional: no es una comedia porque acaba mal (con la muerte de todos los protagonistas), pero tampoco es una tragedia pura, porque sus personajes no son nobles en el sentido clásico y hay abundantes escenas cómicas y de sátira social.'
+    ]));
+
+    panel.appendChild(h3('El "argumento" y los propósitos declarados'));
+    panel.appendChild(p('En el prólogo y los preliminares, Rojas presenta la obra con una finalidad moralizante explícita: advertir a los jóvenes ("mancebos") de los engaños de las alcahuetas y de los criados desleales, y de los peligros del amor desordenado. Conviene leer esta declaración con distancia crítica: la fuerza y ambigüedad con que están construidos los personajes —sobre todo Celestina— desbordan con mucho una simple intención didáctica, y es precisamente esa ambigüedad moral la que ha hecho de la obra un clásico.'));
+
+    document.getElementById('content-root').appendChild(panel);
+  }
+  window.CELESTINA_BUILDERS = window.CELESTINA_BUILDERS || [];
+  window.CELESTINA_BUILDERS.push(build);
+})();
+(function () {
+  'use strict';
+  var H = window.CELESTINA_HELPERS;
+  var el = H.el, h2 = H.h2, h3 = H.h3, p = H.p, ul = H.ul, callout = H.callout, frag = H.frag;
+
+  function build() {
+    var panel = el('div', { className: 'panel', attrs: { id: 'panel-genero' } });
+
+    panel.appendChild(h2('Un problema de género: ni novela ni teatro puro'));
+    panel.appendChild(p('La Celestina se estudia habitualmente en los itinerarios de narrativa —como tú misma planteabas al empezar—, y sin embargo está escrita íntegramente en forma dialogada, sin apenas acotaciones, como una obra de teatro. Este cruce de géneros es en sí mismo uno de los rasgos más estudiados de la obra y conviene entenderlo antes de analizar cualquier otro aspecto.'));
+
+    panel.appendChild(h3('¿Por qué se lee como narrativa?'));
+    panel.appendChild(ul([
+      'Su extensión (16 o 21 actos) y la complejidad de su trama son impropias de una representación teatral real: es muy improbable que se concibiera para ser puesta en escena tal cual.',
+      'El diálogo asume funciones que en una novela cumpliría el narrador: los personajes describen el espacio, el tiempo, sus propios gestos y hasta sus pensamientos ("apartes") a través de lo que dicen, en un procedimiento que la crítica llama diálogo con acotación implícita.',
+      'Se concibió probablemente para la lectura en voz alta —individual o colectiva— más que para la representación, dentro de la tradición de la "comedia humanística" latina, un género de lectura, no de escena, cultivado en las universidades italianas del XV.'
+    ]));
+
+    panel.appendChild(h3('Diálogo con acotación implícita: un ejemplo'));
+    panel.appendChild(p('Observa cómo, sin una sola acotación escénica, el propio Sempronio nos informa de dónde está y qué hace nada más empezar la obra:'));
+    panel.appendChild(frag(null, [
+      { sp: 'CALISTO', line: '\u00a1Sempronio, Sempronio, Sempronio! \u00bfD\u00f3nde est\u00e1 este maldito?' },
+      { sp: 'SEMPRONIO', line: 'Aqu\u00ed soy, se\u00f1or, curando de estos caballos.' },
+      { sp: 'CALISTO', line: 'Pues, \u00bfc\u00f3mo sales de la sala?' },
+      { sp: 'SEMPRONIO', line: 'Abatiose el gerifalte y v\u00ednele a enderezar en el alc\u00e1ndara.' }
+    ], 'Acto I'));
+    panel.appendChild(p('En cuatro réplicas sabemos que Calisto llama a gritos, que Sempronio estaba en las caballerizas atendiendo a un halcón (gerifalte) que se había posado mal, y que hay una relación de amo y criado tensa desde el primer instante. Todo eso, en una obra de teatro convencional, iría en una acotación; aquí lo dice el propio diálogo.'));
+
+    panel.appendChild(h3('¿Y por qué no es simplemente "teatro"?'));
+    panel.appendChild(ul([
+      'No hay división en jornadas ni las convenciones escénicas del teatro del Siglo de Oro (que además es posterior).',
+      'El tiempo interno de la obra es elástico y en ocasiones contradictorio con una representación real (algunos actos parecen transcurrir en minutos, otros dan a entender el paso de días).',
+      'La propia crítica del siglo XX (Marcelino Menéndez Pelayo, María Rosa Lida de Malkiel, Stephen Gilman, entre otros) ha preferido hablar de "novela dialogada" o "género literario nuevo" antes que forzarla dentro de las categorías de narrativa o teatro heredadas.'
+    ]));
+
+    panel.appendChild(callout('Idea clave para el examen', 'No se trata de "decidir" si es narrativa o teatro y quedarse con una respuesta cerrada, sino de saber explicar por qué es un caso límite: nace de la tradición de la comedia humanística (género de lectura, no de representación), pero anticipa recursos que luego desarrollará la novela moderna, como la construcción de la interioridad de los personajes a través de sus propias palabras.'));
+
+    document.getElementById('content-root').appendChild(panel);
+  }
+  window.CELESTINA_BUILDERS = window.CELESTINA_BUILDERS || [];
+  window.CELESTINA_BUILDERS.push(build);
+})();
+(function () {
+  'use strict';
+  var H = window.CELESTINA_HELPERS;
+  var el = H.el, h2 = H.h2, h3 = H.h3, p = H.p, ul = H.ul, callout = H.callout, table = H.table;
+
+  function build() {
+    var panel = el('div', { className: 'panel', attrs: { id: 'panel-estructura' } });
+
+    panel.appendChild(h2('Estructura y argumento'));
+
+    panel.appendChild(h3('Dos planos entrelazados'));
+    panel.appendChild(p('La acción avanza en dos planos paralelos que se cruzan constantemente: el plano alto o amoroso (Calisto y Melibea) y el plano bajo o de criados y prostitutas (Sempronio, Pármeno, Celestina, Elicia, Areúsa). El segundo plano no es un simple contrapunto cómico: acaba determinando el desenlace del primero, porque son los criados quienes, movidos por la codicia, matan a Celestina, y esa muerte desencadena toda la tragedia final.'));
+
+    panel.appendChild(h3('Progresión de la acción (resumen por fases)'));
+    panel.appendChild(table(
+      ['Fase', 'Actos aprox. (Tragicomedia)', 'Contenido'],
+      [
+        ['Planteamiento', 'I', 'Calisto entra en la huerta de Melibea persiguiendo un halcón, le declara su amor y es rechazado. Desesperado, recurre a Celestina a través de Sempronio.'],
+        ['Mediación', 'II\u2013X', 'Celestina seduce, engaña y "hechiza" la voluntad de Melibea; Pármeno se suma finalmente al plan de Sempronio y Celestina, atraído por Areúsa y por el reparto de beneficios. Calisto y Melibea llegan a un primer encuentro amoroso.'],
+        ['Crisis y primera muerte', 'XII', 'Sempronio y Pármeno matan a Celestina al no querer repartir con ella el pago de una cadena de oro. Son ejecutados de inmediato por la justicia.'],
+        ['Tratado de Centurio (solo en la Tragicomedia)', 'XIV\u2013XIX', 'Añadido en la versión ampliada: Areúsa y Elicia, para vengar a Celestina y a sus amantes, contratan al rufián Centurio para atacar a Calisto.'],
+        ['Desenlace', 'XIX\u2013XXI', 'Calisto muere al caer de una escalera huyendo precipitadamente de la huerta de Melibea. Melibea, desesperada, se arroja desde una torre ante su padre Pleberio, que cierra la obra con un largo planto (lamento) sobre la falsedad del mundo y el poder destructor del amor y la Fortuna.']
+      ]
+    ));
+
+    panel.appendChild(callout('Para trabajar en clase', 'Fíjate en que cada muerte provoca la siguiente en una cadena casi mecánica: la codicia mata a Celestina, la venganza mata a Calisto, y el dolor mata (moralmente) a Melibea, que se suicida. Esta estructura de causalidad encadenada es uno de los argumentos más sólidos para defender la coherencia interna de la obra, más allá del problema de la doble autoría.'));
+
+    panel.appendChild(h3('Ritmo narrativo: dilación y aceleración'));
+    panel.appendChild(ul([
+      'La primera parte de la obra (la seducción de Melibea) se dilata durante muchos actos, con largos parlamentos, digresiones filosóficas y escenas de regateo entre Celestina y los criados.',
+      'La segunda parte, en cambio, se precipita: las tres muertes principales (Celestina, Calisto, Melibea) se suceden en muy poco espacio narrativo, como si la obra "cayera" hacia su final trágico una vez desatada la cadena de violencia.',
+      'Este contraste entre morosidad inicial y precipitación final refuerza la idea de la Fortuna como fuerza que, una vez puesta en marcha, ya no se puede controlar.'
+    ]));
+
+    document.getElementById('content-root').appendChild(panel);
+  }
+  window.CELESTINA_BUILDERS = window.CELESTINA_BUILDERS || [];
+  window.CELESTINA_BUILDERS.push(build);
+})();
+(function () {
+  'use strict';
+  var H = window.CELESTINA_HELPERS;
+  var el = H.el, h2 = H.h2, h3 = H.h3, p = H.p, ul = H.ul, callout = H.callout, frag = H.frag;
+
+  function build() {
+    var panel = el('div', { className: 'panel', attrs: { id: 'panel-personajes' } });
+
+    panel.appendChild(h2('Personajes'));
+    panel.appendChild(p('Un rasgo que distingue a La Celestina de la literatura anterior es que sus personajes no son "tipos" planos al servicio de una moraleja, sino figuras con motivaciones propias, contradictorias, que evolucionan a lo largo de la obra. Ese es precisamente uno de los grandes logros que la crítica destaca en ella.'));
+
+    panel.appendChild(h3('Calisto'));
+    panel.appendChild(ul([
+      'Joven noble, enamorado de Melibea desde el primer encuentro en la huerta.',
+      'Encarna una parodia del amor cortés: sus discursos usan el lenguaje religioso y caballeresco del amor idealizado, pero de forma exagerada hasta rozar el sacrilegio (llega a decir que es "melibeo" y no cristiano).',
+      'Es egoísta, impaciente y bastante cobarde: delega en Celestina y en sus criados toda la iniciativa, y muere de forma casi ridícula, cayendo de una escalera por las prisas.',
+      'Su muerte, tan poco heroica, es una de las claves de la lectura irónica que la crítica hace del personaje: Rojas parece estar desmontando el ideal del amante cortés.'
+    ]));
+
+    panel.appendChild(h3('Melibea'));
+    panel.appendChild(ul([
+      'Hija única de Pleberio y Alisa, de familia noble y acomodada.',
+      'Rechaza a Calisto en el primer encuentro, pero cede después de la intervención "mágica" de Celestina: el texto deja deliberadamente ambiguo si es el hechizo o su propio deseo lo que la hace ceder.',
+      'A diferencia de Calisto, evoluciona hacia una mayor determinación: toma sus propias decisiones (concierta los encuentros, oculta la relación a sus padres) y, al final, decide su propia muerte de forma consciente y argumentada ante Pleberio.',
+      'Su suicidio es el punto culminante de la tragedia y desencadena el planto final de su padre.'
+    ]));
+
+    panel.appendChild(h3('Celestina'));
+    panel.appendChild(p('El personaje más estudiado de la obra. Vieja alcahueta, hechicera y antigua prostituta, regenta un negocio en el que combina la venta de afeites, la reparación de virgos, la magia y, sobre todo, la mediación amorosa. Es un personaje profundamente ambiguo: repugnante por su cinismo y su codicia, pero también fascinante por su inteligencia verbal, su dominio de la retórica y su lucidez sobre la condición humana.'));
+    panel.appendChild(frag('Pármeno describe los "seis oficios" de Celestina (fragmento resumido de un parlamento más extenso)', [
+      { narr: 'Pármeno, advirtiendo a Calisto de quién es realmente Celestina:' },
+      { sp: 'PÁRMENO', line: 'Ella tenía seis oficios; conviene saber: labrandera, perfumera, maestra de hacer afeites y de hacer virgos, alcahueta y un poquito hechicera.' }
+    ], 'Acto I'));
+    panel.appendChild(p('Ese "un poquito hechicera" es una de las frases más comentadas de la obra: introduce la duda sobre si la magia de Celestina es real o pura superchería que ella misma explota para dar más autoridad a su oficio, una ambigüedad que la crítica nunca ha resuelto del todo.'));
+
+    panel.appendChild(h3('Pármeno y Sempronio: los criados'));
+    panel.appendChild(ul([
+      'Sempronio: criado de Calisto desde el principio, cínico y calculador, amante de Elicia; es quien introduce a Celestina en la trama.',
+      'Pármeno: criado más joven, inicialmente leal y desconfiado de Celestina (a quien conoce desde la infancia, porque fue "criado" por ella), pero termina corrompido cuando Celestina lo atrae con la promesa de Areúsa y con el reparto de las ganancias.',
+      'La evolución de Pármeno —de la lealtad a la complicidad— es una de las líneas argumentales más trabajadas psicológicamente de toda la obra: se puede seguir acto a acto cómo se resquebraja su resistencia moral.'
+    ]));
+
+    panel.appendChild(h3('Areúsa y Elicia'));
+    panel.appendChild(p('Prostitutas, primas entre sí, vinculadas respectivamente a Pármeno y a Sempronio. Tras la muerte de Celestina y de los criados, son ellas quienes organizan la venganza contratando al rufián Centurio (en el "Tratado de Centurio" añadido en la Tragicomedia), lo que provoca indirectamente la muerte de Calisto.'));
+
+    panel.appendChild(h3('Pleberio y Alisa'));
+    panel.appendChild(p('Los padres de Melibea. Representan el mundo burgués acomodado, ajeno hasta el final a lo que ocurre en su propia casa. El personaje de Pleberio cobra un protagonismo inesperado en el último acto, con su famoso planto tras la muerte de Melibea, uno de los textos más citados de toda la literatura española por su hondura filosófica sobre la falsedad del mundo.'));
+
+    panel.appendChild(callout('Para la práctica guiada', 'El tipo de pregunta que suele plantearse en los exámenes sobre esta obra (situar un personaje, explicar su función y su evolución) se trabaja específicamente en la pestaña "Práctica guiada".'));
+
+    document.getElementById('content-root').appendChild(panel);
+  }
+  window.CELESTINA_BUILDERS = window.CELESTINA_BUILDERS || [];
+  window.CELESTINA_BUILDERS.push(build);
+})();
+(function () {
+  'use strict';
+  var H = window.CELESTINA_HELPERS;
+  var el = H.el, h2 = H.h2, h3 = H.h3, p = H.p, ul = H.ul, callout = H.callout, qbox = H.qbox;
+
+  function build() {
+    var panel = el('div', { className: 'panel', attrs: { id: 'panel-temas' } });
+
+    panel.appendChild(h2('Temas'));
+
+    panel.appendChild(h3('El amor como fuerza destructiva'));
+    panel.appendChild(p('Frente al amor cortés medieval, que dignifica al amante y lo mejora moralmente, en La Celestina el amor es una pasión ciega que anula la razón y conduce a la destrucción de quienes lo sienten. Calisto lo experimenta casi como una enfermedad; Melibea, como una fuerza a la que termina entregándose contra su "casto propósito" inicial. El amor no salva a nadie en esta obra: mata a los tres protagonistas principales.'));
+
+    panel.appendChild(h3('La Fortuna'));
+    panel.appendChild(p('Herencia directa del pensamiento prerrenacentista (pensemos en el Laberinto de Fortuna de Juan de Mena): la Fortuna es una fuerza caprichosa e incontrolable que gobierna los asuntos humanos. Aparece mencionada explícitamente varias veces como causante de los encuentros y desgracias de los personajes, y es coherente con el desenlace: nadie controla realmente lo que le sucede.'));
+
+    panel.appendChild(h3('Magia y hechicería'));
+    panel.appendChild(p('Celestina practica ritos de magia (el conjuro a Plutón sobre el hilado destinado a Melibea es el pasaje más citado) que combinan elementos de tradición popular con una puesta en escena casi teatral. La obra deja abierta la ambigüedad: ¿funciona realmente la magia, o es Celestina una manipuladora que se sirve de la superstición ajena y de su enorme habilidad retórica y psicológica?'));
+
+    panel.appendChild(h3('Dinero y mercantilismo'));
+    panel.appendChild(ul([
+      'Casi todas las relaciones de la obra están mediadas por el interés económico: Celestina media por dinero, los criados sirven por dinero, la propia muerte de Celestina se produce por una disputa sobre el reparto de una cadena de oro.',
+      'Este trasfondo mercantil refleja el auge de una mentalidad burguesa y urbana en la Castilla de finales del XV, muy distinta del mundo aristocrático y guerrero de la épica medieval.'
+    ]));
+
+    panel.appendChild(h3('Pesimismo y ruptura del orden social'));
+    panel.appendChild(p('La obra termina con la muerte violenta o voluntaria de todos los protagonistas jóvenes y con el hundimiento moral de una familia noble. No hay justicia poética reparadora, ni consuelo religioso explícito en el desenlace: el planto final de Pleberio es un lamento desesperado sobre la falsedad y el engaño del mundo como escenario donde el ser humano solo encuentra dolor.'));
+    panel.appendChild(qbox('Pleberio, en el acto final, dirigiéndose al "mundo" tras la muerte de su hija: reprocha a la vida haberle "dejado solo" tras darle "compañía" (Melibea) para arrebatársela después \u2014uno de los pasajes más estudiados de toda la literatura medieval y prerrenacentista española.'));
+
+    panel.appendChild(callout('Conexión con el itinerario del curso', 'Este pesimismo de fondo —la idea de que el mundo engaña y de que ni el amor ni la riqueza salvan a nadie— conecta con la crisis de valores que se irá acentuando en el Barroco (piensa en el tema del desengaño que trabajaréis con El alcalde de Zalamea), aunque las causas históricas y la forma de expresarlo sean distintas.'));
+
+    document.getElementById('content-root').appendChild(panel);
+  }
+  window.CELESTINA_BUILDERS = window.CELESTINA_BUILDERS || [];
+  window.CELESTINA_BUILDERS.push(build);
+})();
+(function () {
+  'use strict';
+  var H = window.CELESTINA_HELPERS;
+  var el = H.el, h2 = H.h2, h3 = H.h3, p = H.p, ul = H.ul, callout = H.callout, frag = H.frag;
+
+  function build() {
+    var panel = el('div', { className: 'panel', attrs: { id: 'panel-estilo' } });
+
+    panel.appendChild(h2('Estilo y recursos'));
+
+    panel.appendChild(h3('Contraste de registros: el gran recurso de la obra'));
+    panel.appendChild(p('El rasgo estilístico más comentado de La Celestina es el contraste entre el estilo culto —latinizante, lleno de citas de autoridades clásicas (Séneca, Aristóteles, Petrarca), de sentencias filosóficas y de una sintaxis compleja— y el estilo popular, oral, lleno de refranes, insultos, diminutivos afectivos y expresiones coloquiales. Cada personaje tiene un registro coherente con su condición social, pero los registros se contagian y mezclan constantemente, sobre todo en los parlamentos de Celestina.'));
+
+    panel.appendChild(h3('Ejemplo de registro culto: Calisto'));
+    panel.appendChild(frag(null, [
+      { sp: 'CALISTO', line: 'En esto veo, Melibea, la grandeza de Dios.' },
+      { sp: 'MELIBEA', line: '\u00bfEn qu\u00e9, Calisto?' },
+      { sp: 'CALISTO', line: 'En dar poder a natura que de tan perfecta hermosura te dotase, y hacer a m\u00ed, inm\u00e9rito, tanta merced que verte alcanzase...' }
+    ], 'Acto I \u2014 primeras l\u00edneas de la obra'));
+    panel.appendChild(p('Observa el vocabulario ("inmérito", "natura"), la sintaxis subordinada y la comparación con la experiencia mística ("los gloriosos santos... no gozan más que yo"): Calisto habla el lenguaje del amor cortés y de la teología, aplicado —de forma casi blasfema— a una mujer.'));
+
+    panel.appendChild(h3('Ejemplo de registro popular: los criados'));
+    panel.appendChild(frag(null, [
+      { sp: 'SEMPRONIO', line: 'Aqu\u00ed soy, se\u00f1or, curando de estos caballos.' },
+      { narr: 'Más adelante, sobre Celestina, hablando entre ellos con toda crudeza:' },
+      { sp: 'P\u00c1RMENO', line: 'Se\u00f1or, Sempronio y una puta vieja alcoholada daban aquellas porradas.' }
+    ], 'Acto I'));
+    panel.appendChild(p('El paso de un registro a otro, a veces en la misma escena, es lo que crea el efecto de "mundo social completo" que tanto se ha alabado en la obra: no es un microcosmos de nobles idealizados, sino una sociedad urbana con todos sus estratos representados y con su lenguaje propio.'));
+
+    panel.appendChild(h3('Otros recursos característicos'));
+    panel.appendChild(ul([
+      'Refranero: Celestina y los criados hablan constantemente en refranes ("a río vuelto, ganancia de pescadores"; "donde vino el asno, vendrá la albarda"), que dan color popular al texto y que a menudo encierran su propia ambigüedad moral.',
+      'Ironía: el narrador implícito (que no existe como voz propia, recordemos) deja que sean los propios hechos los que desmientan las palabras de los personajes; el ejemplo más claro es la propia muerte ridícula de Calisto, tan poco acorde con su grandilocuencia amorosa.',
+      'Sentencias y aforismos: la obra está llena de máximas de sabiduría popular o clásica intercaladas en los parlamentos, especialmente en boca de Celestina, que se presenta a sí misma como una autoridad moral (irónicamente, dado su oficio).',
+      'Monólogos y apartes: varios personajes, sobre todo Celestina y Calisto, tienen largos monólogos en los que razonan en voz alta sus dudas o su angustia — un antecedente claro del monólogo interior que desarrollará la narrativa posterior.'
+    ]));
+
+    panel.appendChild(callout('Para comentar en un fragmento', 'Cuando trabajes con un fragmento suelto, identifica primero qué personaje habla y qué registro usa: eso te da ya una pista firme sobre el tono de la escena y sobre lo que Rojas está haciendo en ese punto de la obra (idealización, sátira, ironía...).'));
+
+    document.getElementById('content-root').appendChild(panel);
+  }
+  window.CELESTINA_BUILDERS = window.CELESTINA_BUILDERS || [];
+  window.CELESTINA_BUILDERS.push(build);
+})();
+(function () {
+  'use strict';
+  var H = window.CELESTINA_HELPERS;
+  var el = H.el, h2 = H.h2, h3 = H.h3, p = H.p, ul = H.ul, callout = H.callout;
+
+  function build() {
+    var panel = el('div', { className: 'panel', attrs: { id: 'panel-contexto' } });
+
+    panel.appendChild(h2('Contexto y tradición'));
+
+    panel.appendChild(h3('Contexto histórico: la Castilla de finales del XV'));
+    panel.appendChild(ul([
+      'Reinado de los Reyes Católicos (desde 1474): unificación territorial, fin de la Reconquista (1492), expulsión de los judíos (1492), primeros años de la expansión americana.',
+      'Auge de las ciudades y de una mentalidad urbana y mercantil, muy visible en la obra (el mundo de Celestina es un mundo de intercambios, de compraventa de favores y de servicios).',
+      'Tensión social en torno a los conversos, comunidad a la que pertenecía la familia de Fernando de Rojas: algunos críticos han visto en el pesimismo y el desengaño de la obra un reflejo de la inseguridad vital de este grupo social, aunque esta lectura biografista se debe manejar con cautela, sin convertirla en la única clave interpretativa.'
+    ]));
+
+    panel.appendChild(h3('La influencia del humanismo italiano'));
+    panel.appendChild(p('La Celestina bebe directamente de la comedia humanística latina, un género cultivado en las universidades italianas del siglo XV (autores como Enea Silvio Piccolomini) que consistía en piezas dialogadas, de intención moral y a menudo erótica, pensadas para la lectura culta y no para la representación. De ese género toma Rojas la estructura dialogada, el gusto por la sentencia clásica y buena parte de su erudición (citas de Petrarca, Séneca, Aristóteles).'));
+
+    panel.appendChild(h3('Fuentes y antecedentes literarios'));
+    panel.appendChild(ul([
+      'El Pamphilus de amore (comedia elegíaca latina medieval): aporta el esquema básico del enamorado que recurre a una alcahueta para conquistar a una dama.',
+      'La comedia romana (Plauto, Terencio): influye en el tipo del criado listo y en el gusto por el contraste de registros.',
+      'La tradición de la literatura sentimental castellana (Diego de San Pedro): aporta el lenguaje del amor cortés que Calisto lleva al extremo.',
+      'Antecedentes del personaje de la alcahueta: figuras similares aparecen ya en el Libro de buen amor del Arcipreste de Hita (Trotaconventos, siglo XIV), un antecedente directo de Celestina dentro de la propia literatura castellana.'
+    ]));
+
+    panel.appendChild(h3('Posteridad: la "literatura celestinesca"'));
+    panel.appendChild(p('El éxito inmediato y arrollador de la obra (más de un centenar de ediciones en el siglo XVI, traducciones a varias lenguas europeas) generó un género propio, la llamada literatura celestinesca: continuaciones, imitaciones y obras con alcahuetas protagonistas que se extienden durante todo el siglo XVI. El propio nombre "celestina" pasó a la lengua común como sinónimo de alcahueta, señal del calado cultural del personaje.'));
+
+    panel.appendChild(callout('Lugar en la tradición', 'La Celestina es, junto con el Amadís de Gaula y el Cantar de Mio Cid, una de las obras que marca el paso de la literatura medieval a la moderna en castellano: por su tratamiento del individuo, por la complejidad psicológica de sus personajes y por su pesimismo radical, se adelanta a su tiempo y sigue leyéndose como una obra plenamente viva.'));
+
+    document.getElementById('content-root').appendChild(panel);
+  }
+  window.CELESTINA_BUILDERS = window.CELESTINA_BUILDERS || [];
+  window.CELESTINA_BUILDERS.push(build);
+})();
+(function () {
+  'use strict';
+  var H = window.CELESTINA_HELPERS;
+  var el = H.el, h2 = H.h2, h3 = H.h3, p = H.p, ul = H.ul, callout = H.callout, frag = H.frag, activity = H.activity, openActivity = H.openActivity;
+
+  function build() {
+    var panel = el('div', { className: 'panel', attrs: { id: 'panel-practica' } });
+
+    panel.appendChild(h2('Práctica guiada: comentario de fragmentos'));
+    panel.appendChild(p('Los tres fragmentos siguen una progresión deliberada: el andamiaje va retirándose. El primero trabaja con preguntas muy dirigidas; el segundo reduce la guía y pide ya decisiones propias; el tercero no da preguntas, solo los criterios que debe cubrir el comentario. El objetivo final es que, llegado el tercer fragmento, sean capaces de construir un comentario completo por sí mismas, sin necesitar que se les señale qué mirar.'));
+
+    /* NIVEL 1 — Fragmento 1: apertura, totalmente guiado */
+    panel.appendChild(h3('Fragmento 1 \u2014 El encuentro en la huerta (Acto I, apertura)'));
+    panel.appendChild(frag(null, [
+      { sp: 'CALISTO', line: 'En esto veo, Melibea, la grandeza de Dios.' },
+      { sp: 'MELIBEA', line: '\u00bfEn qu\u00e9, Calisto?' },
+      { sp: 'CALISTO', line: 'En dar poder a natura que de tan perfecta hermosura te dotase, y hacer a m\u00ed, inm\u00e9rito, tanta merced que verte alcanzase, y en tan conveniente lugar, que mi secreto dolor manifestarte pudiese. Sin duda, incomparablemente es mayor tal galard\u00f3n que el servicio, sacrificio, devoci\u00f3n y obras p\u00edas que por este lugar alcanzar tengo yo a Dios ofrecido.' },
+      { sp: 'MELIBEA', line: '\u00bfPor gran premio tienes \u00e9ste, Calisto?' },
+      { sp: 'CALISTO', line: 'T\u00e9ngolo por tanto, en verdad, que si Dios me diese en el cielo silla sobre sus santos, no lo tendr\u00eda por tanta felicidad.' },
+      { sp: 'MELIBEA', line: 'Pues aun m\u00e1s igual galard\u00f3n te dar\u00e9 yo si perseveras.' },
+      { sp: 'CALISTO', line: '\u00a1Oh bienaventuradas orejas m\u00edas, que indignamente tan gran palabra hab\u00e9is o\u00eddo!' },
+      { sp: 'MELIBEA', line: 'M\u00e1s desaventuradas de que me acabes de o\u00edr, porque la paga ser\u00e1 tan fiera cual merece tu loco atrevimiento... \u00a1Vete, vete de ah\u00ed, torpe!, que no puede mi paciencia tolerar que haya subido en coraz\u00f3n humano conmigo en il\u00edcito amor comunicar su deleite.' }
+    ], 'Acto I'));
+    panel.appendChild(activity('Cuestiones sobre el fragmento 1', 'Nivel 1 \u00b7 con preguntas gu\u00eda', [
+      'Sitúa este fragmento dentro de la estructura de la obra: ¿qué momento de la acción es y qué función cumple respecto a todo lo que viene después?',
+      'Explica cómo habla Calisto: identifica al menos dos recursos propios del lenguaje del amor cortés y comenta el efecto de exageración religiosa en su discurso.',
+      'Contrasta la actitud de Melibea aquí con la que tendrá más adelante en la obra. ¿Qué contraste dramático genera esto?'
+    ]));
+
+    /* NIVEL 2 — Fragmento 2: Pármeno, guía reducida */
+    panel.appendChild(h3('Fragmento 2 \u2014 Pármeno describe a Celestina (Acto I)'));
+    panel.appendChild(frag(null, [
+      { sp: 'P\u00c1RMENO', line: 'Ella ten\u00eda seis oficios; conviene saber: labrandera, perfumera, maestra de hacer afeites y de hacer virgos, alcahueta y un poquito hechicera... Ninguna vino sin torrezno, trigo, harina o jarro de vino, y de las otras provisiones que pod\u00edan a sus amas hurtar.' },
+      { sp: 'CALISTO', line: '\u00a1As\u00ed pudiera ciento!' },
+      { sp: 'P\u00c1RMENO', line: '\u00a1S\u00ed, santo Dios! Y remediaba por caridad muchas hu\u00e9rfanas y erradas que se encomendaban a ella.' }
+    ], 'Acto I'));
+    panel.appendChild(activity('Cuestiones sobre el fragmento 2', 'Nivel 2 \u00b7 gu\u00eda reducida', [
+      'Explica la función de este fragmento en la obra y comenta su ironía, apoyándote en al menos una cita textual.',
+      'A partir de aquí y de lo visto en "Personajes" y "Contexto", valora qué papel social cumplía una figura como Celestina en su época.'
+    ]));
+
+    /* NIVEL 3 — Fragmento 3: comentario abierto, sin preguntas */
+    panel.appendChild(h3('Fragmento 3 \u2014 Celestina habla de la vejez (Acto IV)'));
+    panel.appendChild(frag(null, [
+      { sp: 'MELIBEA', line: '\u00bfPor qu\u00e9 dices, madre, tanto mal de lo que todo el mundo con tanta eficacia gozar y ver desea?' },
+      { sp: 'CELESTINA', line: 'Desean harto mal para s\u00ed... \u00bfQui\u00e9n te podr\u00eda contar, se\u00f1ora, sus da\u00f1os, sus inconvenientes, sus fatigas, sus cuidados, sus enfermedades... aquel arrugar de cara, aquel mudar de cabellos su primera y fresca color, aquel poco o\u00edr, aquel debilitado ver... aquel espacioso comer? Pues \u00a1ay, ay, se\u00f1ora!, si lo dicho viene acompa\u00f1ado de pobreza, all\u00ed ver\u00e1s callar todos los otros trabajos.' }
+    ], 'Acto IV'));
+    panel.appendChild(openActivity(
+      'Comentario del fragmento 3',
+      'Nivel 3 \u00b7 sin preguntas gu\u00eda',
+      'Redacta un comentario de este fragmento, sin preguntas intermedias que lo dirijan. Tu comentario debe situar el fragmento en la obra, explicar la intervención de cada personaje, identificar al menos un recurso de estilo propio del registro empleado y relacionar el pasaje con alguno de los temas trabajados en la pestaña "Temas". Organízalo tú misma: decide el orden y el peso que le das a cada aspecto.',
+      '160px'
+    ));
+
+    panel.appendChild(callout('Nota sobre los fragmentos', 'Los textos citados proceden de la Tragicomedia de Calisto y Melibea, obra de dominio público. Si para otra actividad necesitas un fragmento distinto que no esté aquí, dímelo y lo buscamos juntas o lo pasas tú directamente.'));
+
+    document.getElementById('content-root').appendChild(panel);
+  }
+  window.CELESTINA_BUILDERS = window.CELESTINA_BUILDERS || [];
+  window.CELESTINA_BUILDERS.push(build);
+})();
+(function () {
+  'use strict';
+  var H = window.CELESTINA_HELPERS;
+  var el = H.el, h2 = H.h2, h3 = H.h3, p = H.p, ul = H.ul, callout = H.callout, activity = H.activity, openActivity = H.openActivity;
+
+  function build() {
+    var panel = el('div', { className: 'panel', attrs: { id: 'panel-creacion' } });
+
+    panel.appendChild(h2('Creación literaria y argumentación'));
+    panel.appendChild(p('El bloque de Educación literaria del currículo pide explícitamente propuestas de creación de textos de intención literaria a partir de las obras leídas. Aquí tienes tres propuestas de dificultad y enfoque distintos, y al final una tarea de argumentación en el formato con el que luego trabajaréis de cara a la Selectividad.'));
+
+    panel.appendChild(activity('Propuesta 1 \u2014 Monólogo interior', null, [
+      'Elige un personaje secundario de la obra (Pármeno, Elicia, Alisa...) en un momento clave de la trama.',
+      'Escribe un breve monólogo interior (15-20 líneas) en el que ese personaje reflexione sobre lo que está viviendo, en primera persona.',
+      'Cuida el registro: debe sonar coherente con cómo habla ese personaje en la obra (culto/popular, según corresponda).'
+    ]));
+
+    panel.appendChild(activity('Propuesta 2 \u2014 Escena añadida', null, [
+      'Imagina una escena que no aparece en la obra pero que podría encajar en ella (por ejemplo: un encuentro entre Areúsa y Elicia antes de contratar a Centurio, o una conversación entre Pleberio y Alisa la noche antes de la muerte de Melibea).',
+      'Escríbela en forma de diálogo dramático, sin acotaciones explícitas: que sea el propio diálogo el que informe de dónde están y qué hacen los personajes (como se trabajó en la pestaña "Género").',
+      'Manténla en un registro y un tono coherentes con la obra.'
+    ]));
+
+    panel.appendChild(activity('Propuesta 3 \u2014 Reescritura actualizada', null, [
+      'Traslada el arranque de la obra (el encuentro de Calisto y Melibea) a un contexto contemporáneo, conservando la misma estructura de la escena: declaración exagerada, rechazo, desesperación.',
+      'Puedes cambiar el registro (por ejemplo, un lenguaje juvenil actual) pero manteniendo el mismo esquema de idealización desmedida por parte de uno de los personajes.',
+      'Al final, añade dos líneas explicando qué elección de estilo hiciste y por qué.'
+    ]));
+
+    panel.appendChild(callout('Para valorar el trabajo de creación', 'No se trata de imitar el castellano del siglo XV, sino de demostrar que se ha entendido el funcionamiento del diálogo, el contraste de registros y la construcción de los personajes que hemos analizado en los apartados anteriores.'));
+
+    panel.appendChild(h3('Propuesta 4 \u2014 Discurso argumentativo (formato Selectividad)'));
+    panel.appendChild(p('Esta última tarea tiene un formato distinto a las anteriores: no es creación literaria, sino argumentación, en el mismo formato que luego pedirá la prueba de Selectividad en 2º (un discurso de entre 200 y 250 palabras, eligiendo libremente la estructura). Todavía no habéis trabajado el bloque específico de preparación de esa prueba, y no hace falta: lo que se pide aquí es que penséis y defendáis una postura propia sobre una cuestión que la propia obra plantea, con vuestros propios recursos.'));
+    panel.appendChild(openActivity(
+      'Elige UNA de las dos cuestiones y redacta un discurso argumentativo de entre 200 y 250 palabras',
+      null,
+      '1) ¿Puede el dinero corromper cualquier relación humana, por sincera que parezca? Argumenta tu postura a partir de lo que ocurre entre Celestina y los criados de Calisto.  ' +
+      '2) ¿Es posible un amor verdadero cuando uno de los dos actúa movido por el interés o el engaño, como ocurre entre Calisto y Melibea? Desarrolla tu propia opinión con argumentos.',
+      '220px'
+    ));
+
+    document.getElementById('content-root').appendChild(panel);
+  }
+  window.CELESTINA_BUILDERS = window.CELESTINA_BUILDERS || [];
+  window.CELESTINA_BUILDERS.push(build);
+})();
+(function () {
+  'use strict';
+
+  function init() {
+    var TABS = window.CELESTINA_TABS;
+    var tabsNav = document.getElementById('tabs-nav');
+    var mininavCrumb = document.getElementById('mininav-crumb');
+    var mininavCounter = document.getElementById('mininav-counter');
+
+    (window.CELESTINA_BUILDERS || []).forEach(function (fn) { fn(); });
+
+    TABS.forEach(function (t, idx) {
+      var btn = document.createElement('button');
+      btn.className = 'tab';
+      btn.type = 'button';
+      btn.setAttribute('data-tab', t.id);
+      btn.appendChild(document.createTextNode(t.label));
+      btn.addEventListener('click', function () {
+        activate(t.id, idx);
+      });
+      tabsNav.appendChild(btn);
+    });
+
+    function activate(id, idx) {
+      var panels = document.querySelectorAll('.panel');
+      for (var i = 0; i < panels.length; i++) {
+        panels[i].classList.remove('active');
+      }
+      var target = document.getElementById('panel-' + id);
+      if (target) target.classList.add('active');
+
+      var buttons = tabsNav.querySelectorAll('.tab');
+      for (var j = 0; j < buttons.length; j++) {
+        buttons[j].classList.remove('active');
+      }
+      var activeBtn = tabsNav.querySelector('[data-tab="' + id + '"]');
+      if (activeBtn) activeBtn.classList.add('active');
+
+      var tabInfo = TABS.filter(function (t) { return t.id === id; })[0];
+      if (tabInfo) {
+        mininavCrumb.textContent = '';
+        var b = document.createElement('b');
+        b.appendChild(document.createTextNode(tabInfo.label));
+        mininavCrumb.appendChild(document.createTextNode('La Celestina \u2014 '));
+        mininavCrumb.appendChild(b);
+      }
+      var position = TABS.findIndex(function (t) { return t.id === id; }) + 1;
+      mininavCounter.textContent = position + ' / ' + TABS.length;
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    activate(TABS[0].id, 0);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+</script>
+</body>
+</html>
