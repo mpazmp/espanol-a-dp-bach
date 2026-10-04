@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lecturas obligatorias · 2º Bachillerato</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --azul: #1a4a7a;
+  --azul-osc: #0f2f4d;
+  --turquesa: #0e9aa7;
+  --terracota: #c64829;
+  --oro: #c9973a;
+  --crema: #faf7f1;
+  --tinta: #1f2a36;
+  --tinta-suave: #4a5866;
+  --linea: #e4ddd0;
+  --blanco: #ffffff;
+  --ok: #2e7d4f;
+  --no: #b3261e;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--crema);
+  color: var(--tinta);
+  font-family: 'Source Sans 3', 'Source Sans Pro', system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  padding-bottom: 72px;
+}
+h1, h2, h3, .titulo, .panel-titulo { font-family: 'Playfair Display', Georgia, serif; }
+
+/* Cabecera */
+.cabecera { background: var(--azul); color: var(--blanco); }
+.cabecera-in { max-width: 920px; margin: 0 auto; padding: 28px 16px 0; }
+.eyebrow { color: #7fdce4; text-transform: uppercase; letter-spacing: .08em; font-size: 13px; font-weight: 600; margin: 0 0 6px; }
+.titulo { font-size: clamp(26px, 5vw, 38px); line-height: 1.15; margin: 0 0 8px; font-weight: 700; }
+.subtitulo { margin: 0 0 18px; color: rgba(255,255,255,.85); max-width: 680px; }
+.pestanas { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; margin: 0 -16px; padding: 0 16px; }
+.pestanas::-webkit-scrollbar { display: none; }
+.pestana {
+  flex: 0 0 auto; background: none; border: 0; border-bottom: 3px solid transparent;
+  color: rgba(255,255,255,.55); font: inherit; font-size: 15px; font-weight: 600;
+  padding: 12px 12px 10px; cursor: pointer; white-space: nowrap;
+}
+.pestana:hover { color: rgba(255,255,255,.85); }
+.pestana.activa { color: var(--blanco); border-bottom-color: var(--terracota); }
+.divisor { height: 3px; background: var(--terracota); }
+
+/* Contenido */
+.contenido { max-width: 920px; margin: 0 auto; padding: 24px 16px 32px; }
+.panel-eyebrow { color: var(--turquesa); text-transform: uppercase; letter-spacing: .08em; font-size: 12px; font-weight: 700; margin: 8px 0 2px; }
+.panel-titulo { font-size: clamp(24px, 4vw, 30px); color: var(--azul); margin: 0 0 16px; }
+h2 { color: var(--azul); font-size: 23px; margin: 32px 0 10px; }
+h3 { color: var(--azul-osc); font-size: 19px; margin: 22px 0 8px; }
+p { margin: 0 0 12px; }
+.lead { font-size: 18.5px; color: var(--tinta); }
+strong { font-weight: 700; }
+mark.marcador { background: #f6e6c4; color: inherit; padding: 0 2px; border-radius: 2px; }
+
+.badge { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 3px 9px; border-radius: 3px; margin: 4px 0 10px; }
+.badge-oficial { background: var(--azul-osc); color: var(--blanco); }
+.badge-dep { background: transparent; color: var(--oro); border: 1.5px solid var(--oro); }
+
+.aviso { background: var(--turquesa); color: var(--blanco); padding: 14px 18px; border-radius: 4px; margin: 18px 0; }
+.aviso p { margin: 0; }
+.aviso .aviso-titulo { font-weight: 700; margin-bottom: 4px; }
+.aviso strong { color: var(--blanco); }
+
+.lista { padding-left: 1.3em; margin: 0 0 14px; }
+.lista li { margin-bottom: 6px; }
+
+.tabla-wrap { overflow-x: auto; margin: 10px 0 18px; }
+.tabla { width: 100%; border-collapse: collapse; background: var(--blanco); font-size: 15.5px; min-width: 480px; }
+.tabla th { background: var(--azul-osc); color: var(--blanco); text-align: left; padding: 9px 10px; font-weight: 600; }
+.tabla td { padding: 9px 10px; border-bottom: 1px solid var(--linea); vertical-align: top; }
+
+.card { background: var(--blanco); border: 1px solid var(--linea); border-top: 4px solid var(--azul); border-radius: 4px; padding: 18px 20px 8px; margin: 18px 0; }
+.card-terracota { border-top-color: var(--terracota); }
+.card-oro { border-top-color: var(--oro); }
+.card-turquesa { border-top-color: var(--turquesa); }
+.card-eyebrow { color: var(--turquesa); text-transform: uppercase; letter-spacing: .08em; font-size: 12px; font-weight: 700; margin: 0 0 2px; }
+.card-titulo { margin-top: 0; }
+
+.item-cita { font-style: italic; margin-bottom: 8px; background: var(--blanco); border-left: 4px solid var(--oro); padding: 12px 14px; }
+
+.boton {
+  display: inline-block; background: var(--terracota); color: var(--blanco); border: 0; border-radius: 4px;
+  padding: 10px 16px; font: inherit; font-size: 15.5px; font-weight: 600; cursor: pointer; text-decoration: none;
+}
+.boton:hover { filter: brightness(1.08); }
+.boton-sec { background: transparent; color: var(--terracota); border: 1.5px solid var(--terracota); }
+
+.ejercicio { background: var(--blanco); border: 1px solid var(--linea); border-left: 4px solid var(--terracota); border-radius: 4px; padding: 16px 18px; margin: 18px 0; }
+.ejercicio-titulo { font-weight: 700; color: var(--terracota); margin-bottom: 6px; }
+.ejercicio-intro { color: var(--tinta-suave); }
+.selector { font: inherit; font-size: 15.5px; padding: 6px 8px; border: 1.5px solid var(--linea); border-radius: 4px; background: var(--crema); color: var(--tinta); max-width: 100%; }
+
+/* Escritura */
+.escritura { margin: 16px 0 20px; }
+.escritura-label { display: block; font-weight: 600; color: var(--azul-osc); margin-bottom: 4px; }
+.escritura-pista { font-size: 15px; color: var(--tinta-suave); margin-bottom: 6px; }
+.escritura-area {
+  width: 100%; font: inherit; font-size: 16.5px; line-height: 1.55; padding: 12px; border: 1.5px solid var(--linea);
+  border-radius: 4px; background: var(--blanco); color: var(--tinta); resize: vertical;
+}
+.escritura-area:focus { outline: none; border-color: var(--azul); }
+.escritura-meta { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: 14px; color: var(--tinta-suave); margin-top: 4px; }
+.contador { font-weight: 600; }
+.contador-bajo { color: var(--oro); }
+.contador-alto { color: var(--no); }
+.contador-ok { color: var(--ok); }
+
+.reloj { background: var(--azul-osc); color: var(--blanco); border-radius: 4px; padding: 14px 18px; margin: 16px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.reloj p { margin: 0; }
+.reloj-label { font-weight: 600; flex: 1 1 200px; }
+.reloj-display { font-family: 'Playfair Display', Georgia, serif; font-size: 30px; font-variant-numeric: tabular-nums; }
+.reloj-botones { display: flex; gap: 6px; flex-wrap: wrap; }
+.reloj .boton-sec { color: var(--blanco); border-color: rgba(255,255,255,.6); }
+.reloj-msg { flex-basis: 100%; color: #ffd9cf; font-weight: 600; }
+.reloj-msg:empty { display: none; }
+.reloj-fin { background: var(--terracota); }
+
+.autoeval-fila { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 0; border-top: 1px solid var(--linea); flex-wrap: wrap; }
+.autoeval-label { flex: 1 1 260px; }
+.autoeval-total { font-weight: 700; color: var(--azul); text-align: right; margin: 10px 0 0; font-size: 18px; }
+
+.copiar { margin: 20px 0; }
+.copiar-nota { font-size: 15px; color: var(--tinta-suave); }
+.copiar-msg { margin-left: 10px; font-size: 14.5px; color: var(--ok); }
+
+.pie { font-size: 13.5px; color: var(--tinta-suave); border-top: 1px solid var(--linea); padding-top: 12px; margin-top: 36px; }
+
+/* Mini-navegación inferior */
+.mininav {
+  position: fixed; left: 0; right: 0; bottom: 0; background: var(--azul-osc); color: var(--blanco);
+  display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 16px; z-index: 10;
+}
+.mininav-btn { background: none; border: 1px solid rgba(255,255,255,.35); color: var(--blanco); border-radius: 4px; padding: 7px 12px; font: inherit; font-size: 14.5px; cursor: pointer; }
+.mininav-btn:disabled { opacity: .35; cursor: default; }
+.mininav-pos { font-size: 14px; color: rgba(255,255,255,.8); text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+@media (max-width: 520px) {
+  body { font-size: 16.5px; }
+  .card, .ejercicio { padding: 14px 14px 6px; }
+  .mininav-pos { font-size: 12.5px; }
+}
+
+.libros { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin: 18px 0; }
+.libro { background: var(--blanco); border: 1px solid var(--linea); border-top: 4px solid var(--terracota); border-radius: 4px; padding: 18px 20px; display: flex; flex-direction: column; }
+.libro.pendiente { border-top-color: #b9b2a6; }
+.libro-genero { color: var(--turquesa); text-transform: uppercase; letter-spacing: .08em; font-size: 12px; font-weight: 700; margin: 0 0 4px; }
+.libro-titulo { font-family: 'Playfair Display', Georgia, serif; font-size: 22px; color: var(--azul); margin: 0 0 2px; }
+.libro-autor { color: var(--tinta-suave); margin: 0 0 10px; }
+.libro-desc { font-size: 15.5px; flex: 1; }
+.libro .boton { align-self: flex-start; margin-top: 8px; }
+.estado { display: inline-block; font-size: 13px; font-weight: 600; color: var(--tinta-suave); border: 1.5px dashed #b9b2a6; border-radius: 4px; padding: 7px 12px; margin-top: 8px; align-self: flex-start; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+(function () {
+  'use strict';
+
+  /* Para añadir un libro: crea su carpeta con un index.html y cambia aquí "url: null" por "url: 'carpeta/'" */
+  var LIBROS = [
+    { genero: 'Novela', titulo: 'El árbol de la ciencia', autor: 'Pío Baroja (1911)', url: 'arbol-de-la-ciencia/',
+      desc: 'Andrés Hurtado, el conocimiento frente a la vida y el problema de España.' },
+    { genero: 'Poesía', titulo: 'La realidad y el deseo', autor: 'Luis Cernuda', url: null,
+      desc: 'El conflicto entre el deseo y la realidad en la obra poética de Cernuda.' },
+    { genero: 'Teatro', titulo: 'La casa de Bernarda Alba', autor: 'Federico García Lorca (1936)', url: null,
+      desc: 'Autoridad, deseo y libertad en el último drama de Lorca.' },
+    { genero: 'Novela', titulo: 'El cuarto de atrás', autor: 'Carmen Martín Gaite (1978)', url: null,
+      desc: 'Memoria, posguerra y escritura en una novela que juega con lo fantástico.' }
+  ];
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) { n.className = cls; }
+    if (text !== undefined && text !== null) { n.textContent = text; }
+    return n;
+  }
+  function add(parent) {
+    for (var i = 1; i < arguments.length; i++) { if (arguments[i]) { parent.appendChild(arguments[i]); } }
+    return parent;
+  }
+
+  function build() {
+    var root = document.getElementById('app');
+    var header = el('header', 'cabecera');
+    var hin = el('div', 'cabecera-in');
+    add(hin, el('p', 'eyebrow', 'Educación literaria · PEvAU pregunta 5b · 2º de Bachillerato'));
+    add(hin, el('h1', 'titulo', 'Lecturas obligatorias'));
+    add(hin, el('p', 'subtitulo', 'Las cuatro obras del Anexo III de las orientaciones PEvAU 2026-27. Cada una tiene su itinerario de lectura y sus simulacros de Selectividad.'));
+    hin.style.paddingBottom = '22px';
+    add(header, hin);
+    add(root, header, el('div', 'divisor'));
+
+    var main = el('main', 'contenido');
+    var grid = el('div', 'libros');
+    LIBROS.forEach(function (b) {
+      var card = el('article', 'libro' + (b.url ? '' : ' pendiente'));
+      add(card, el('p', 'libro-genero', b.genero), el('h2', 'libro-titulo', b.titulo), el('p', 'libro-autor', b.autor), el('p', 'libro-desc', b.desc));
+      if (b.url) {
+        var a = el('a', 'boton', 'Abrir el itinerario →');
+        a.href = b.url;
+        add(card, a);
+      } else {
+        add(card, el('span', 'estado', 'Próximamente'));
+      }
+      add(grid, card);
+    });
+    add(main, grid);
+    var pie = el('p', 'pie', 'Lecturas: Directrices y orientaciones PEvAU Andalucía, Lengua Castellana y Literatura II, 2026-27, Anexo III (oficial). Itinerarios y simulacros: material del Departamento de Lengua Castellana y Literatura, Colegio Las Chapas (no oficial).');
+    add(main, pie);
+    add(root, main);
+  }
+
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', build); } else { build(); }
+})();
+</script>
+</body>
+</html>
