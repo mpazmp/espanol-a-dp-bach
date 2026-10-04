@@ -1,0 +1,881 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El árbol de la ciencia · 2º Bachillerato</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --azul: #1a4a7a;
+  --azul-osc: #0f2f4d;
+  --turquesa: #0e9aa7;
+  --terracota: #c64829;
+  --oro: #c9973a;
+  --crema: #faf7f1;
+  --tinta: #1f2a36;
+  --tinta-suave: #4a5866;
+  --linea: #e4ddd0;
+  --blanco: #ffffff;
+  --ok: #2e7d4f;
+  --no: #b3261e;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--crema);
+  color: var(--tinta);
+  font-family: 'Source Sans 3', 'Source Sans Pro', system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  padding-bottom: 72px;
+}
+h1, h2, h3, .titulo, .panel-titulo { font-family: 'Playfair Display', Georgia, serif; }
+
+/* Cabecera */
+.cabecera { background: var(--azul); color: var(--blanco); }
+.cabecera-in { max-width: 920px; margin: 0 auto; padding: 28px 16px 0; }
+.volver { display: inline-block; color: rgba(255,255,255,.8); font-size: 14px; text-decoration: none; margin-bottom: 10px; }
+.volver:hover { color: #fff; text-decoration: underline; }
+.eyebrow { color: #7fdce4; text-transform: uppercase; letter-spacing: .08em; font-size: 13px; font-weight: 600; margin: 0 0 6px; }
+.titulo { font-size: clamp(26px, 5vw, 38px); line-height: 1.15; margin: 0 0 8px; font-weight: 700; }
+.subtitulo { margin: 0 0 18px; color: rgba(255,255,255,.85); max-width: 680px; }
+.pestanas { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; margin: 0 -16px; padding: 0 16px; }
+.pestanas::-webkit-scrollbar { display: none; }
+.pestana {
+  flex: 0 0 auto; background: none; border: 0; border-bottom: 3px solid transparent;
+  color: rgba(255,255,255,.55); font: inherit; font-size: 15px; font-weight: 600;
+  padding: 12px 12px 10px; cursor: pointer; white-space: nowrap;
+}
+.pestana:hover { color: rgba(255,255,255,.85); }
+.pestana.activa { color: var(--blanco); border-bottom-color: var(--terracota); }
+.divisor { height: 3px; background: var(--terracota); }
+
+/* Contenido */
+.contenido { max-width: 920px; margin: 0 auto; padding: 24px 16px 32px; }
+.panel-eyebrow { color: var(--turquesa); text-transform: uppercase; letter-spacing: .08em; font-size: 12px; font-weight: 700; margin: 8px 0 2px; }
+.panel-titulo { font-size: clamp(24px, 4vw, 30px); color: var(--azul); margin: 0 0 16px; }
+h2 { color: var(--azul); font-size: 23px; margin: 32px 0 10px; }
+h3 { color: var(--azul-osc); font-size: 19px; margin: 22px 0 8px; }
+p { margin: 0 0 12px; }
+.lead { font-size: 18.5px; color: var(--tinta); }
+strong { font-weight: 700; }
+mark.marcador { background: #f6e6c4; color: inherit; padding: 0 2px; border-radius: 2px; }
+
+.badge { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 3px 9px; border-radius: 3px; margin: 4px 0 10px; }
+.badge-oficial { background: var(--azul-osc); color: var(--blanco); }
+.badge-dep { background: transparent; color: var(--oro); border: 1.5px solid var(--oro); }
+
+.aviso { background: var(--turquesa); color: var(--blanco); padding: 14px 18px; border-radius: 4px; margin: 18px 0; }
+.aviso p { margin: 0; }
+.aviso .aviso-titulo { font-weight: 700; margin-bottom: 4px; }
+.aviso strong { color: var(--blanco); }
+
+.lista { padding-left: 1.3em; margin: 0 0 14px; }
+.lista li { margin-bottom: 6px; }
+
+.tabla-wrap { overflow-x: auto; margin: 10px 0 18px; }
+.tabla { width: 100%; border-collapse: collapse; background: var(--blanco); font-size: 15.5px; min-width: 480px; }
+.tabla th { background: var(--azul-osc); color: var(--blanco); text-align: left; padding: 9px 10px; font-weight: 600; }
+.tabla td { padding: 9px 10px; border-bottom: 1px solid var(--linea); vertical-align: top; }
+
+.card { background: var(--blanco); border: 1px solid var(--linea); border-top: 4px solid var(--azul); border-radius: 4px; padding: 18px 20px 8px; margin: 18px 0; }
+.card-terracota { border-top-color: var(--terracota); }
+.card-oro { border-top-color: var(--oro); }
+.card-turquesa { border-top-color: var(--turquesa); }
+.card-eyebrow { color: var(--turquesa); text-transform: uppercase; letter-spacing: .08em; font-size: 12px; font-weight: 700; margin: 0 0 2px; }
+.card-titulo { margin-top: 0; }
+
+.item-cita { font-style: italic; margin-bottom: 8px; background: var(--blanco); border-left: 4px solid var(--oro); padding: 12px 14px; }
+
+.boton {
+  display: inline-block; background: var(--terracota); color: var(--blanco); border: 0; border-radius: 4px;
+  padding: 10px 16px; font: inherit; font-size: 15.5px; font-weight: 600; cursor: pointer; text-decoration: none;
+}
+.boton:hover { filter: brightness(1.08); }
+.boton-sec { background: transparent; color: var(--terracota); border: 1.5px solid var(--terracota); }
+
+.ejercicio { background: var(--blanco); border: 1px solid var(--linea); border-left: 4px solid var(--terracota); border-radius: 4px; padding: 16px 18px; margin: 18px 0; }
+.ejercicio-titulo { font-weight: 700; color: var(--terracota); margin-bottom: 6px; }
+.ejercicio-intro { color: var(--tinta-suave); }
+.selector { font: inherit; font-size: 15.5px; padding: 6px 8px; border: 1.5px solid var(--linea); border-radius: 4px; background: var(--crema); color: var(--tinta); max-width: 100%; }
+
+/* Escritura */
+.escritura { margin: 16px 0 20px; }
+.escritura-label { display: block; font-weight: 600; color: var(--azul-osc); margin-bottom: 4px; }
+.escritura-pista { font-size: 15px; color: var(--tinta-suave); margin-bottom: 6px; }
+.escritura-area {
+  width: 100%; font: inherit; font-size: 16.5px; line-height: 1.55; padding: 12px; border: 1.5px solid var(--linea);
+  border-radius: 4px; background: var(--blanco); color: var(--tinta); resize: vertical;
+}
+.escritura-area:focus { outline: none; border-color: var(--azul); }
+.escritura-meta { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: 14px; color: var(--tinta-suave); margin-top: 4px; }
+.contador { font-weight: 600; }
+.contador-bajo { color: var(--oro); }
+.contador-alto { color: var(--no); }
+.contador-ok { color: var(--ok); }
+
+.reloj { background: var(--azul-osc); color: var(--blanco); border-radius: 4px; padding: 14px 18px; margin: 16px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.reloj p { margin: 0; }
+.reloj-label { font-weight: 600; flex: 1 1 200px; }
+.reloj-display { font-family: 'Playfair Display', Georgia, serif; font-size: 30px; font-variant-numeric: tabular-nums; }
+.reloj-botones { display: flex; gap: 6px; flex-wrap: wrap; }
+.reloj .boton-sec { color: var(--blanco); border-color: rgba(255,255,255,.6); }
+.reloj-msg { flex-basis: 100%; color: #ffd9cf; font-weight: 600; }
+.reloj-msg:empty { display: none; }
+.reloj-fin { background: var(--terracota); }
+
+.autoeval-fila { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 0; border-top: 1px solid var(--linea); flex-wrap: wrap; }
+.autoeval-label { flex: 1 1 260px; }
+.autoeval-total { font-weight: 700; color: var(--azul); text-align: right; margin: 10px 0 0; font-size: 18px; }
+
+.copiar { margin: 20px 0; }
+.copiar-nota { font-size: 15px; color: var(--tinta-suave); }
+.copiar-msg { margin-left: 10px; font-size: 14.5px; color: var(--ok); }
+
+.pie { font-size: 13.5px; color: var(--tinta-suave); border-top: 1px solid var(--linea); padding-top: 12px; margin-top: 36px; }
+
+/* Mini-navegación inferior */
+.mininav {
+  position: fixed; left: 0; right: 0; bottom: 0; background: var(--azul-osc); color: var(--blanco);
+  display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 16px; z-index: 10;
+}
+.mininav-btn { background: none; border: 1px solid rgba(255,255,255,.35); color: var(--blanco); border-radius: 4px; padding: 7px 12px; font: inherit; font-size: 14.5px; cursor: pointer; }
+.mininav-btn:disabled { opacity: .35; cursor: default; }
+.mininav-pos { font-size: 14px; color: rgba(255,255,255,.8); text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+@media (max-width: 520px) {
+  body { font-size: 16.5px; }
+  .card, .ejercicio { padding: 14px 14px 6px; }
+  .mininav-pos { font-size: 12.5px; }
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+/* El árbol de la ciencia · 2º de Bachillerato · versión para las alumnas */
+window.MODULO = (function () {
+  var ED = 'Edición de clase: Caro Raggio, 1973.';
+
+  function q(id, label, rows) { return { t: 'write', id: id, label: label, rows: rows || 3 }; }
+
+  var scoreSim = [
+    { label: 'Cuestión 1 (máx. 0,5)', max: 0.5 },
+    { label: 'Cuestión 2 (máx. 0,5)', max: 0.5 },
+    { label: 'Cuestión 3 (máx. 0,5)', max: 0.5 }
+  ];
+  function resp(id, label) { return { t: 'write', id: id, label: label, rows: 5, counter: true, min: 60, max: 90 }; }
+
+  return {
+    prefix: 'arbol-2b-',
+    back: { href: '../', x: '← Todas las lecturas' },
+    course: '2º de Bachillerato',
+    eyebrow: 'Lectura obligatoria · PEvAU pregunta 5b · 2º de Bachillerato',
+    title: 'El árbol de la ciencia',
+    subtitle: 'Pío Baroja, 1911. Un itinerario para leer la novela entera, conocerla a fondo y responder con seguridad a las cuestiones de Selectividad.',
+    footer: 'Citas comprobadas sobre la edición de clase: Pío Baroja, *El árbol de la ciencia*, Caro Raggio, Madrid, 1973 (edición conmemorativa del centenario); se reproducen fragmentos breves con fines didácticos. Estructura de la pregunta 5b: *Directrices y orientaciones PEvAU Andalucía, Lengua Castellana y Literatura II, 2026-27* (oficial). Preguntas, explicaciones y simulacros: material del Departamento de Lengua Castellana y Literatura, Colegio Las Chapas (no oficial).',
+    tabs: [
+      /* ---------------- 1 ---------------- */
+      {
+        label: 'Antes de leer', title: 'Cómo vas a trabajar la novela',
+        blocks: [
+          { t: 'lead', x: 'Este itinerario te acompaña **mientras lees**, no en lugar de leer. Las preguntas piden detalles que no aparecen en ningún resumen: solo los responde quien ha leído el libro.' },
+          { t: 'aviso', title: 'Antes de empezar', x: 'Lo que escribes se guarda **solo en este navegador**. Responde con el libro abierto y con tus palabras. Tu profesora comprobará la lectura en clase, en papel y sin dispositivos.' },
+          { t: 'h2', x: 'Calendario de lectura' },
+          { t: 'table', head: ['Semana', 'Lees', 'Trabajas aquí'], rows: [
+            ['1', 'Partes I y II (pp. 5-50)', 'Pestaña «Partes I-II»'],
+            ['2', 'Partes III y IV (pp. 51-72)', 'Pestaña «Partes III-IV» y debate sobre «Inquisiciones»'],
+            ['3', 'Partes V y VI (pp. 73-115)', 'Pestaña «Partes V-VII»'],
+            ['4', 'Parte VII (pp. 116-124)', 'Fragmentos, personajes, temas y simulacros de Selectividad']
+          ] },
+          { t: 'p', x: '*Las páginas corresponden a la edición de clase (Caro Raggio, 1973). Si usas otra edición, guíate por la parte y el capítulo.*' },
+          { t: 'h2', x: 'La estructura: siete partes' },
+          { t: 'table', head: ['Parte', 'Título', 'Espacio', 'Págs.'], rows: [
+            ['I', 'La vida de un estudiante en Madrid', 'Madrid', '5-30'],
+            ['II', 'Las carnarias', 'Madrid', '31-50'],
+            ['III', 'Tristezas y dolores', 'Valencia y un pueblo de Burgos', '51-61'],
+            ['**IV**', '**Inquisiciones**', '**Madrid, en casa de Iturrioz**', '**62-72**'],
+            ['V', 'La experiencia en el pueblo', 'Alcolea del Campo', '73-95'],
+            ['VI', 'La experiencia en Madrid', 'Madrid', '96-115'],
+            ['VII', 'La experiencia del hijo', 'Madrid', '116-124']
+          ] },
+          { t: 'p', x: 'Fíjate en la simetría: tres partes muestran el mundo, la cuarta lo interpreta en un diálogo filosófico y las tres últimas ponen esa interpretación a prueba. Cada «experiencia» es un intento de vivir.' },
+          { t: 'card', eyebrow: 'Contexto', title: 'Lo imprescindible antes de abrir el libro', body: [
+            { t: 'list', items: [
+              '**Autobiografía transformada.** Baroja estudió Medicina en Madrid, fue médico rural y dejó la profesión; su hermano Darío murió de tuberculosis. Andrés Hurtado es una proyección del autor, no su retrato.',
+              '**Generación del 98.** La novela reúne sus grandes preocupaciones: el sentido de la vida, la crisis de la razón y el «problema de España».',
+              '**Novela de formación fracasada.** Andrés busca una idea que dé sentido a su vida: la ciencia, la filosofía, el trabajo, el amor.',
+              '**Estilo barojiano.** Frases cortas, párrafos breves, mucho diálogo, descripciones rápidas y un tono que huye de la retórica.'
+            ] }
+          ] },
+          q('antes-1', 'Antes de leer: el título procede del Génesis. ¿Qué sabes del «árbol de la ciencia del bien y del mal»? ¿Qué esperas de una novela con este título?', 4)
+        ]
+      },
+      /* ---------------- 2 ---------------- */
+      {
+        label: 'Partes I-II', title: 'Partes I y II: el estudiante y el mundo',
+        blocks: [
+          { t: 'p', x: 'Responde con el libro al lado. Anota la página cuando la encuentres: te servirá para localizar fragmentos en el examen.' },
+          { t: 'card', eyebrow: 'Parte I · pp. 5-30 · 11 capítulos', title: 'La vida de un estudiante en Madrid', body: [
+            q('p1-1', '1. ¿Dónde se daba la clase de Química del año preparatorio y cómo era el viejo profesor?'),
+            q('p1-2', '2. ¿En qué discrepan Andrés y Montaner en su primera conversación?'),
+            q('p1-3', '3. ¿Quiénes forman la familia de Andrés? ¿Cómo es su relación con el padre y con Luisito?'),
+            q('p1-4', '4. ¿Qué profesor entusiasma a Andrés en el cuarto curso y qué filósofos empieza a leer después?'),
+            q('p1-5', '5. ¿Quién es Antonio Lamela y cuál es su secreto?'),
+            q('p1-6', '6. ¿Qué impresión le causan a Andrés el hospital de San Juan de Dios y el Hospital General?'),
+            q('p1-7', '**En una frase:** ¿qué ha descubierto Andrés sobre la universidad, la ciencia y la sociedad al terminar esta parte?', 2)
+          ] },
+          { t: 'card', eyebrow: 'Parte II · pp. 31-50 · 9 capítulos', title: 'Las carnarias', accent: 'turquesa', body: [
+            q('p2-1', '1. ¿Quién lleva a Andrés a casa de las Minglanillas y quiénes viven allí?'),
+            q('p2-2', '2. ¿Cómo describe el narrador a Lulú? ¿Qué le llama la atención a Andrés de ella?'),
+            q('p2-3', '3. ¿Qué ocurre en la noche de «Una cachupinada»? ¿A casa de quién van y cómo se comporta Andrés?'),
+            q('p2-4', '4. ¿Por qué se enfrenta Andrés a Manolo el Chafandín y cómo termina la escena?'),
+            q('p2-5', '5. ¿Quién es la Venancia y en qué consiste su «filosofía bailonesca»?'),
+            q('p2-6', '6. En «La crueldad universal», ¿qué ejemplos de la naturaleza pone Iturrioz y qué conclusión saca?'),
+            q('p2-7', '**Piensa:** «carnario» es el lugar donde se guarda la carne y también el depósito de cadáveres. ¿Por qué crees que Baroja titula así esta parte?', 3)
+          ] }
+        ]
+      },
+      /* ---------------- 3 ---------------- */
+      {
+        label: 'Partes III-IV', title: 'Partes III y IV: el dolor y las ideas',
+        blocks: [
+          { t: 'card', eyebrow: 'Parte III · pp. 51-61 · 5 capítulos', title: 'Tristezas y dolores', body: [
+            q('p3-1', '1. ¿Qué síntoma de Luisito alarma a Andrés y qué deciden hacer?'),
+            q('p3-2', '2. ¿Cómo es la vida en el pueblecito cercano a Valencia? ¿Cómo cambia Margarita?'),
+            q('p3-3', '3. ¿Por qué no está de acuerdo Andrés con trasladarse a la casa de los tíos de Valencia?'),
+            q('p3-4', '4. ¿Dónde está Andrés cuando muere su hermano, cómo se entera y de qué muere el niño?'),
+            q('p3-5', '**Piensa:** ¿qué siente Andrés ante la noticia y qué revela esa reacción de su personalidad?', 3)
+          ] },
+          { t: 'card', eyebrow: 'Parte IV · pp. 62-72 · 5 capítulos', title: 'Inquisiciones', accent: 'terracota', body: [
+            { t: 'p', x: 'Es el **centro de la novela**: cinco capítulos de diálogo entre Andrés y su tío. Léelos despacio; casi todas las preguntas de interpretación del examen remiten a ellos.' },
+            q('p4-1', '1. ¿Dónde suelen conversar Andrés e Iturrioz? ¿Qué está haciendo Andrés en esos días?'),
+            q('p4-2', '2. ¿Qué le aconseja leer Iturrioz y por qué desconfía de los «metafísicos alemanes»?'),
+            q('p4-3', '3. Explica con tus palabras la historia de los dos árboles del Paraíso tal como la cuenta Iturrioz.', 4),
+            q('p4-4', '4. ¿Qué consecuencias saca Andrés de la filosofía de Kant y de la de Schopenhauer?', 4),
+            q('p4-5', '5. ¿Qué piensa Iturrioz sobre el egoísmo humano?'),
+            q('p4-6', '**Debate:** ¿con quién estás más de acuerdo, con Andrés o con Iturrioz? Argumenta tu postura en 80-100 palabras.', 5)
+          ] }
+        ]
+      },
+      /* ---------------- 4 ---------------- */
+      {
+        label: 'Partes V-VII', title: 'Partes V, VI y VII: las tres experiencias',
+        blocks: [
+          { t: 'card', eyebrow: 'Parte V · pp. 73-95 · 10 capítulos', title: 'La experiencia en el pueblo', body: [
+            q('p5-1', '1. ¿Qué incidente tiene Andrés en el tren, camino del pueblo?'),
+            q('p5-2', '2. ¿Cómo son Pepinito y Dorotea? ¿Qué ocurre con el gorrión en el patio?'),
+            q('p5-3', '3. ¿Por qué choca Andrés con el médico Sánchez?'),
+            q('p5-4', '4. ¿Cómo es la política de Alcolea? ¿Quiénes son los dos bandos?'),
+            q('p5-5', '5. ¿Qué régimen de vida se impone Andrés y qué estado empieza a vislumbrar?'),
+            q('p5-6', '6. ¿Qué ocurre con la mujer del tío Garrota y cómo afecta a Andrés?'),
+            q('p5-7', '7. ¿Cómo termina la estancia de Andrés en Alcolea?')
+          ] },
+          { t: 'card', eyebrow: 'Parte VI · pp. 96-115 · 9 capítulos', title: 'La experiencia en Madrid', accent: 'turquesa', body: [
+            q('p6-1', '1. ¿Qué piensa Iturrioz de la guerra con Estados Unidos? ¿Cómo reacciona la gente tras el desastre?'),
+            q('p6-2', '2. ¿Qué ha sido de Montaner, de Julio Aracil y de Fermín Ibarra?'),
+            q('p6-3', '3. ¿En qué consiste el trabajo de médico de higiene y qué descubre Andrés en él?'),
+            q('p6-4', '4. ¿Qué negocio tiene Lulú cuando Andrés vuelve a verla?'),
+            q('p6-5', '5. ¿Qué es La Esperanza y por qué le irritan a Andrés sus pacientes?'),
+            q('p6-6', '6. ¿Cómo muere Villasús y qué ocurre en su velatorio?'),
+            q('p6-7', '7. ¿Cómo define Andrés el amor en su conversación con Lulú? ¿Cómo acaba esa conversación?')
+          ] },
+          { t: 'card', eyebrow: 'Parte VII · pp. 116-124 · 4 capítulos', title: 'La experiencia del hijo', accent: 'terracota', body: [
+            q('p7-1', '1. ¿Qué «caso de conciencia» plantea Andrés a Iturrioz y qué le responde este?'),
+            q('p7-2', '2. ¿De qué vive Andrés tras casarse? ¿Cómo es la casa y quién les sirve?'),
+            q('p7-3', '3. ¿Qué es la «ataraxia»? ¿En qué dos momentos de la novela se acerca Andrés a ella?'),
+            q('p7-4', '4. ¿Qué cambia en Andrés cuando Lulú queda embarazada?'),
+            q('p7-5', '5. ¿Cómo terminan Lulú, el niño y Andrés?'),
+            q('p7-6', '**Piensa:** ¿por qué crees que el último capítulo se titula «Tenía algo de precursor»?', 3)
+          ] }
+        ]
+      },
+      /* ---------------- 5 ---------------- */
+      {
+        label: 'Fragmentos', title: 'Identificar y localizar fragmentos',
+        blocks: [
+          { t: 'lead', x: 'En la pregunta 5b el fragmento llega sin referencias. Para cada cita indica: **parte y capítulo**, **quién habla**, **qué acaba de ocurrir** y **por qué es importante** en la novela.' },
+          { t: 'aviso', x: 'Hazlo primero de memoria. Después busca la cita en el libro y corrige en otro color en tu cuaderno: así sabrás qué partes tienes que releer.' },
+          { t: 'write', id: 'f1', label: '1. «Serían las diez de la mañana de un día de octubre.»', rows: 3 },
+          { t: 'write', id: 'f2', label: '2. «Que la vida es una lucha constante, una cacería cruel en que nos vamos devorando los unos a los otros. Plantas, microbios, animales.»', rows: 3 },
+          { t: 'write', id: 'f3', label: '3. «La justicia es una ilusión humana; en el fondo todo es destruir, todo es crear.»', rows: 3 },
+          { t: 'write', id: 'f4', label: '4. «[…] o la abstención y la contemplación indiferente de todo, o la acción limitándose a un círculo pequeño.»', rows: 3 },
+          { t: 'write', id: 'f5', label: '5. «Comed del árbol de la vida, sed bestias, sed cerdos, sed egoístas, revolcaos por el suelo alegremente; pero no comáis del árbol de la ciencia […].»', rows: 3 },
+          { t: 'write', id: 'f6', label: '6. «Kant ha sido el gran destructor de la mentira greco-semítica.»', rows: 3 },
+          { t: 'write', id: 'f7', label: '7. «[…] la vida aparece como una cosa oscura y ciega, potente y jugosa sin justicia, sin bondad, sin fin.»', rows: 3 },
+          { t: 'write', id: 'f8', label: '8. «Las costumbres de Alcolea eran españolas puras, es decir, de un absurdo completo.»', rows: 3 },
+          { t: 'write', id: 'f9', label: '9. «No a la derrota, a una cacería.»', rows: 3 },
+          { t: 'write', id: 'f10', label: '10. «[…] la naturaleza no sólo hacía el esclavo, sino que le daba el espíritu de la esclavitud.»', rows: 3 },
+          { t: 'write', id: 'f11', label: '11. «El delito mayor del hombre es hacer nacer.»', rows: 3 },
+          { t: 'write', id: 'f12', label: '12. «—Pero había en él algo de precursor —murmuró el otro médico.»', rows: 3 },
+          { t: 'h2', x: 'Localización inversa' },
+          { t: 'p', x: 'Ahora al revés: te damos la escena y tú la sitúas (parte y capítulo) y explicas qué significa.' },
+          q('li-1', 'a) Andrés recibe en un pueblo una carta de su padre que había ido de pueblo en pueblo.'),
+          q('li-2', 'b) Andrés levanta una silla contra un chulo en casa de doña Leonarda.'),
+          q('li-3', 'c) Un hombre azuza al gato contra una cría de gorrión.'),
+          q('li-4', 'd) Andrés se encara con un viajero que insulta a los españoles.'),
+          q('li-5', 'e) Un grupo de bohemios vela a un dramaturgo muerto en la miseria.')
+        ]
+      },
+      /* ---------------- 6 ---------------- */
+      {
+        label: 'Personajes', title: 'Personajes: existencia vital e ideología',
+        blocks: [
+          { t: 'lead', x: 'En la novela, cada personaje es **una manera de estar ante la vida** que Andrés admira, rechaza o no puede asumir. Para cada uno, escribe quién es, una escena concreta en la que aparece (con su parte) y qué representa.' },
+          { t: 'card', eyebrow: 'Protagonista', title: 'Andrés Hurtado', body: [
+            q('pe-andres-1', '¿Cómo evoluciona Andrés de la Parte I a la VII? Señala un momento clave de cada experiencia.', 5),
+            q('pe-andres-2', 'Inteligencia y voluntad: ¿qué tiene Andrés de sobra y qué le falta? Pon un ejemplo de la novela.', 3)
+          ] },
+          { t: 'card', eyebrow: 'Los que rodean a Andrés', title: 'Fichas para completar', accent: 'turquesa', body: [
+            q('pe-iturrioz', '**Iturrioz**'),
+            q('pe-lulu', '**Lulú**'),
+            q('pe-padre', '**Don Pedro Hurtado**'),
+            q('pe-luisito', '**Luisito y Margarita**'),
+            q('pe-aracil', '**Julio Aracil**'),
+            q('pe-montaner', '**Montaner**'),
+            q('pe-ibarra', '**Fermín Ibarra**'),
+            q('pe-lamela', '**Antonio Lamela**'),
+            q('pe-villasus', '**Rafael Villasús**'),
+            q('pe-venancia', '**La Venancia**'),
+            q('pe-alcolea', '**Dorotea, Pepinito, Sánchez y don Blas Carreño**', 4)
+          ] },
+          { t: 'card', eyebrow: 'El contraste que más se pregunta', title: 'Andrés frente a Iturrioz', accent: 'terracota', body: [
+            { t: 'p', x: 'Completa la comparación con ejemplos del texto.' },
+            q('pe-c1', 'Actitud ante la vida'),
+            q('pe-c2', 'Ante la crueldad de la naturaleza'),
+            q('pe-c3', 'Qué solución propone cada uno'),
+            q('pe-c4', 'Sobre tener hijos')
+          ] }
+        ]
+      },
+      /* ---------------- 7 ---------------- */
+      {
+        label: 'Temas y estilo', title: 'Temas, ideología y estilo',
+        blocks: [
+          { t: 'lead', x: 'El tema central es **la imposibilidad de conciliar el conocimiento y la vida**: la lucidez de Andrés le muestra un mundo sin sentido y le quita fuerzas para vivirlo.' },
+          { t: 'card', eyebrow: 'Ocho ejes temáticos', title: 'Para entender la novela', body: [
+            { t: 'list', ordered: true, items: [
+              '**El árbol de la ciencia frente al árbol de la vida.** Conocer da una «tendencia a mejorar» que destruye (IV, 3).',
+              '**Pesimismo filosófico.** Kant derriba las certezas; Schopenhauer muestra la vida como voluntad ciega. Andrés busca refugio en la contemplación y la ataraxia.',
+              '**La crueldad universal.** Hospitales, barrios pobres e insectos muestran una naturaleza sin justicia (II, 9).',
+              '**España como problema.** Universidad retórica, caciquismo e insolidaridad en Alcolea, indiferencia ante el desastre del 98, inventores que tienen que irse fuera.',
+              '**La ciencia y la medicina.** Andrés espera de la ciencia una verdad; la medicina real le muestra miseria, negocio y resignación.',
+              '**El amor, el sexo y la herencia.** Andrés define el amor como «la confluencia del instinto fetichista y del instinto sexual» (VI, 9) y teme transmitir una herencia enferma.',
+              '**La mujer.** Matrimonio como negocio, prostitución explotada, encierro en Alcolea; frente a todo ello, la independencia y la lucidez de Lulú.',
+              '**El suicidio.** No es un gesto heroico, sino el final de quien «no tenía fuerza para vivir».'
+            ] }
+          ] },
+          q('te-1', '**Elige uno de los ocho ejes** y explícalo con dos escenas concretas de la novela (indica parte y capítulo).', 6),
+          { t: 'card', eyebrow: 'Forma', title: 'Rasgos formales que se preguntan', accent: 'turquesa', body: [
+            { t: 'list', items: [
+              '**Narrador** en tercera persona, omnisciente y muy cercano a Andrés.',
+              '**Diálogo** como vehículo de las ideas: la Parte IV es casi teatral.',
+              '**Estructura** en siete partes con capítulos breves y titulados; simetría en torno a la IV.',
+              '**Estilo** antirretórico: frase corta, adjetivación precisa, descripciones impresionistas, ironía y caricatura de los tipos secundarios.',
+              '**Género:** novela de tesis, de formación y filosófica.'
+            ] }
+          ] },
+          q('te-2', 'Busca en la novela un ejemplo de **caricatura** de un personaje secundario y explica cómo la construye Baroja.', 4),
+          { t: 'card', eyebrow: 'Relaciones', title: 'Vínculos con otras obras', accent: 'oro', body: [
+            { t: 'list', items: [
+              '*Luces de bohemia* (Valle-Inclán): Villasús y Max Estrella, la bohemia y el Madrid miserable.',
+              '*La vida es sueño* (Calderón): Iturrioz da la vuelta al «delito mayor del hombre es haber nacido».',
+              '*Niebla* y *San Manuel Bueno, mártir* (Unamuno): la verdad que mata y la ilusión necesaria para vivir.',
+              '*La voluntad* (Azorín): otro protagonista abúlico del 98.',
+              '*La casa de Bernarda Alba* (Lorca): el encierro de la mujer en la España rural, como en Alcolea.'
+            ] }
+          ] },
+          q('te-3', 'Elige uno de estos vínculos y explica en 80-100 palabras qué tienen en común las dos obras.', 5)
+        ]
+      },
+      /* ---------------- 8 ---------------- */
+      {
+        label: 'Selectividad', title: 'La pregunta 5b de la PEvAU',
+        blocks: [
+          { t: 'badge', kind: 'oficial', x: 'Oficial · Orientaciones PEvAU 2026-27' },
+          { t: 'table', head: ['Qué se pide', 'Puntos'], rows: [
+            ['Tres cuestiones sobre un fragmento de la lectura: aspectos temáticos, formales y contextuales', '1,5 (0,5 cada una)'],
+            ['Calificación', 'En tramos de 0,25'],
+            ['Expresión, ortografía y presentación', 'Hasta 2 puntos de descuento en todo el examen']
+          ] },
+          { t: 'card', eyebrow: 'Método', title: 'Cómo es una respuesta de 0,5', accent: 'terracota', body: [
+            { t: 'list', ordered: true, items: [
+              '**Sitúa**: parte, momento de la historia y personajes.',
+              '**Explica** con un dato concreto del fragmento o de la novela.',
+              '**Relaciona** con el sentido global: el título, la evolución de Andrés, el 98.'
+            ] },
+            { t: 'p', x: 'Entre **60 y 90 palabras** por cuestión. Sin introducciones ni biografía de Baroja si no te la piden.' }
+          ] },
+          { t: 'card', eyebrow: 'Lo que resta', title: 'Errores frecuentes', body: [
+            { t: 'list', items: [
+              'Resumir el argumento en lugar de responder a la cuestión.',
+              'Situar «en la novela» sin decir la parte ni el momento.',
+              'Confundir personajes (Aracil y Montaner) o lugares (dónde muere Luisito, dónde está Alcolea).',
+              'Escribir más de 120 palabras: le quitas tiempo al resto del examen.'
+            ] }
+          ] },
+          { t: 'badge', kind: 'dep', x: 'Simulacros del departamento · no oficial' },
+          { t: 'aviso', x: 'Tu profesora publicará las respuestas modelo cuando hayáis entregado los simulacros. Primero inténtalo tú.' },
+
+          { t: 'h2', x: 'Simulacro A' },
+          { t: 'p', cls: 'item-cita', x: '«Comed del árbol de la vida, sed bestias, sed cerdos, sed egoístas, revolcaos por el suelo alegremente; pero no comáis del árbol de la ciencia, porque ese fruto agrio os dará una tendencia a mejorar que os destruirá.»' },
+          resp('sa-1', '1. Sitúe el fragmento en la obra.'),
+          resp('sa-2', '2. Explique la relación del fragmento con el título de la novela.'),
+          resp('sa-3', '3. Comente un rasgo formal del fragmento.'),
+          { t: 'selfscore', id: 'sa', title: 'Autocorrección del simulacro A', max: 1.5, groups: scoreSim },
+
+          { t: 'h2', x: 'Simulacro B' },
+          { t: 'p', cls: 'item-cita', x: '«Las costumbres de Alcolea eran españolas puras, es decir, de un absurdo completo. El pueblo no tenía el menor sentido social; las familias se metían en sus casas, como los trogloditas en su cueva. No había solidaridad; nadie sabía ni podía utilizar la fuerza de la asociación.»' },
+          resp('sb-1', '1. Sitúe el fragmento y explique su contexto en la novela.'),
+          resp('sb-2', '2. Relacione el fragmento con la visión de España de la Generación del 98.'),
+          resp('sb-3', '3. ¿Qué aporta esta experiencia a la evolución de Andrés?'),
+          { t: 'selfscore', id: 'sb', title: 'Autocorrección del simulacro B', max: 1.5, groups: scoreSim },
+
+          { t: 'h2', x: 'Simulacro C' },
+          { t: 'p', cls: 'item-cita', x: '«—Ha muerto sin dolor —murmuró Iturrioz—. Este muchacho no tenía fuerza para vivir. Era un epicúreo, un aristócrata, aunque él no lo creía. —Pero había en él algo de precursor —murmuró el otro médico.»' },
+          resp('sc-1', '1. Explique qué ha ocurrido antes de este fragmento.'),
+          resp('sc-2', '2. Interprete las palabras de Iturrioz sobre Andrés.'),
+          resp('sc-3', '3. ¿Por qué se dice que «había en él algo de precursor»?'),
+          { t: 'selfscore', id: 'sc', title: 'Autocorrección del simulacro C', max: 1.5, groups: scoreSim },
+
+          { t: 'h2', x: 'Banco de preguntas para entrenar' },
+          { t: 'list', items: [
+            'Caracterice a Lulú y explique qué representa para Andrés.',
+            'Explique la función de Iturrioz en la novela.',
+            '¿Qué visión de la medicina y de los hospitales ofrece la obra?',
+            'Explique el sentido del título de la Parte II, «Las carnarias».',
+            '¿Cómo aparece el desastre del 98 en la novela?',
+            'Explique la relación de Andrés con su padre y con Luisito.',
+            'Comente el papel de la mujer en la novela a partir de Lulú, Niní y Dorotea.',
+            'Señale tres rasgos del estilo barojiano presentes en el fragmento.',
+            'Justifique por qué la Parte IV es el eje de la obra.',
+            'Explique qué es la ataraxia y en qué momentos la alcanza Andrés.'
+          ] },
+
+          { t: 'h2', x: 'Un ejercicio más' },
+          { t: 'card', eyebrow: 'Condiciones de examen', title: 'Simulacro D en 15 minutos', accent: 'terracota', body: [
+            { t: 'p', x: 'Sin libro y sin consultar las pestañas anteriores.' },
+            { t: 'p', cls: 'item-cita', x: '«—Para mí sí; yo pienso en el hijo; yo no creo como Calderón, que el delito mayor del hombre sea el haber nacido. Esto me parece una tontería poética. El delito mayor del hombre es hacer nacer.»' },
+            { t: 'timer', minutes: 15, label: 'Tres cuestiones: 15 minutos' },
+            resp('sd-1', '1. Sitúe el fragmento: quién habla, a quién y con qué motivo.'),
+            resp('sd-2', '2. Explique la postura que se defiende y su relación con el desenlace de la novela.'),
+            resp('sd-3', '3. Comente la relación intertextual que establece el fragmento.'),
+            { t: 'selfscore', id: 'sd', title: 'Autocorrección del simulacro D', max: 1.5, groups: scoreSim }
+          ] },
+          { t: 'copy', x: 'Copiar todas mis respuestas', note: 'Si tu profesora te pide entregar tu trabajo, copia tus respuestas y pégalas donde te indique.' }
+        ]
+      }
+    ]
+  };
+})();
+
+(function () {
+  'use strict';
+
+  var D = window.MODULO;
+  var PFX = D.prefix;
+  var writeFields = [];
+
+  /* ---------- almacenamiento local (solo comodidad de la alumna) ---------- */
+  function save(key, value) {
+    try { localStorage.setItem(PFX + key, value); } catch (e) { /* sin almacenamiento */ }
+  }
+  function load(key) {
+    try { return localStorage.getItem(PFX + key); } catch (e) { return null; }
+  }
+  function debounce(fn, ms) {
+    var t = null;
+    return function () {
+      var args = arguments;
+      if (t) { clearTimeout(t); }
+      t = setTimeout(function () { fn.apply(null, args); }, ms);
+    };
+  }
+
+  /* ---------- utilidades DOM ---------- */
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) { n.className = cls; }
+    if (text !== undefined && text !== null) { n.textContent = text; }
+    return n;
+  }
+  function add(parent) {
+    for (var i = 1; i < arguments.length; i++) {
+      if (arguments[i]) { parent.appendChild(arguments[i]); }
+    }
+    return parent;
+  }
+  /* Marcado mínimo: **negrita**, *cursiva*, ==resaltado== */
+  function inline(parent, s) {
+    var parts = String(s).split(/(\*\*[^*]+\*\*|==[^=]+==|\*[^*]+\*)/g);
+    for (var i = 0; i < parts.length; i++) {
+      var p = parts[i];
+      if (!p) { continue; }
+      if (p.indexOf('**') === 0 && p.length > 4) {
+        parent.appendChild(el('strong', null, p.slice(2, -2)));
+      } else if (p.indexOf('==') === 0 && p.length > 4) {
+        parent.appendChild(el('mark', 'marcador', p.slice(2, -2)));
+      } else if (p.charAt(0) === '*' && p.length > 2) {
+        parent.appendChild(el('em', null, p.slice(1, -1)));
+      } else {
+        parent.appendChild(document.createTextNode(p));
+      }
+    }
+    return parent;
+  }
+  function plain(s) {
+    return String(s).replace(/\*\*|==|\*/g, '');
+  }
+  function countWords(s) {
+    var t = String(s).trim();
+    if (!t) { return 0; }
+    return t.split(/\s+/).filter(function (w) { return /[0-9A-Za-zÁÉÍÓÚÜÑáéíóúüñ]/.test(w); }).length;
+  }
+  function fmtScore(n) {
+    return n.toFixed(2).replace('.', ',');
+  }
+  function scoreOptions(max) {
+    var out = [];
+    for (var v = 0; v <= max + 0.0001; v += 0.25) { out.push(Math.round(v * 100) / 100); }
+    return out;
+  }
+
+  /* ---------- bloques ---------- */
+  var R = {};
+
+  R.h2 = function (b) { return inline(el('h2'), b.x); };
+  R.h3 = function (b) { return inline(el('h3'), b.x); };
+  R.p = function (b) { return inline(el('p', b.cls || null), b.x); };
+  R.lead = function (b) { return inline(el('p', 'lead'), b.x); };
+
+  R.aviso = function (b) {
+    var box = el('div', 'aviso');
+    if (b.title) { add(box, el('p', 'aviso-titulo', b.title)); }
+    add(box, inline(el('p'), b.x));
+    return box;
+  };
+
+  R.badge = function (b) {
+    var cls = b.kind === 'oficial' ? 'badge badge-oficial' : 'badge badge-dep';
+    return el('span', cls, b.x);
+  };
+
+  R.list = function (b) {
+    var ul = el(b.ordered ? 'ol' : 'ul', 'lista');
+    b.items.forEach(function (it) { add(ul, inline(el('li'), it)); });
+    return ul;
+  };
+
+  R.table = function (b) {
+    var wrap = el('div', 'tabla-wrap');
+    var t = el('table', 'tabla');
+    if (b.head) {
+      var thead = el('thead');
+      var tr = el('tr');
+      b.head.forEach(function (h) { add(tr, inline(el('th'), h)); });
+      add(thead, tr);
+      add(t, thead);
+    }
+    var tb = el('tbody');
+    b.rows.forEach(function (r) {
+      var tr2 = el('tr');
+      r.forEach(function (c) { add(tr2, inline(el('td'), c)); });
+      add(tb, tr2);
+    });
+    add(t, tb);
+    return add(wrap, t);
+  };
+
+  R.card = function (b) {
+    var c = el('section', 'card' + (b.accent ? ' card-' + b.accent : ''));
+    if (b.eyebrow) { add(c, el('p', 'card-eyebrow', b.eyebrow)); }
+    if (b.title) { add(c, inline(el('h3', 'card-titulo'), b.title)); }
+    renderBlocks(c, b.body || []);
+    return c;
+  };
+
+  /* Campo de escritura con autoguardado y contador opcional */
+  R.write = function (b) {
+    var box = el('div', 'escritura');
+    var lab = el('label', 'escritura-label');
+    lab.htmlFor = 'w-' + b.id;
+    inline(lab, b.label);
+    add(box, lab);
+    if (b.hint) { add(box, inline(el('p', 'escritura-pista'), b.hint)); }
+    var ta = el('textarea', 'escritura-area');
+    ta.id = 'w-' + b.id;
+    ta.rows = b.rows || 6;
+    ta.spellcheck = false;
+    var prev = load('w-' + b.id);
+    if (prev) { ta.value = prev; }
+    add(box, ta);
+    var meta = el('div', 'escritura-meta');
+    var status = el('span', 'guardado', '');
+    var counter = null;
+    if (b.counter) {
+      counter = el('span', 'contador');
+      add(meta, counter);
+    }
+    add(meta, status);
+    add(box, meta);
+
+    function updateCount() {
+      if (!counter) { return; }
+      var n = countWords(ta.value);
+      var min = b.min || 200;
+      var max = b.max || 250;
+      var msg = n + ' palabras';
+      counter.className = 'contador';
+      if (n === 0) {
+        msg += ' · objetivo: ' + min + '-' + max;
+      } else if (n < min) {
+        msg += ' · faltan ' + (min - n);
+        counter.classList.add('contador-bajo');
+      } else if (n > max) {
+        msg += ' · sobran ' + (n - max);
+        counter.classList.add('contador-alto');
+      } else {
+        msg += ' · extensión correcta';
+        counter.classList.add('contador-ok');
+      }
+      counter.textContent = msg;
+    }
+    var persist = debounce(function () {
+      save('w-' + b.id, ta.value);
+      status.textContent = 'Guardado en este navegador';
+    }, 600);
+    ta.addEventListener('input', function () {
+      status.textContent = '…';
+      updateCount();
+      persist();
+    });
+    updateCount();
+    writeFields.push({ id: b.id, label: plain(b.label), node: ta });
+    return box;
+  };
+
+  /* Cuenta atrás */
+  R.timer = function (b) {
+    var box = el('div', 'reloj');
+    var label = el('p', 'reloj-label', b.label);
+    var disp = el('p', 'reloj-display');
+    var msg = el('p', 'reloj-msg');
+    var total = (b.minutes || 0) * 60;
+    var secs = total;
+    var h = null;
+    var bStart = el('button', 'boton', 'Iniciar');
+    function show() {
+      var m = Math.floor(secs / 60);
+      var s = secs % 60;
+      disp.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+    }
+    function stop() {
+      if (h) { clearInterval(h); h = null; }
+      bStart.textContent = 'Reanudar';
+    }
+    function tick() {
+      secs--;
+      if (secs <= 0) {
+        secs = 0;
+        stop();
+        msg.textContent = 'Tiempo. Termina la frase que estás escribiendo y revisa.';
+        box.classList.add('reloj-fin');
+      }
+      show();
+    }
+    function start() {
+      if (h) { return; }
+      msg.textContent = '';
+      box.classList.remove('reloj-fin');
+      h = setInterval(tick, 1000);
+      bStart.textContent = 'En marcha';
+    }
+    function reset() {
+      stop();
+      secs = total;
+      bStart.textContent = 'Iniciar';
+      msg.textContent = '';
+      box.classList.remove('reloj-fin');
+      show();
+    }
+    var btns = el('div', 'reloj-botones');
+    bStart.type = 'button';
+    bStart.addEventListener('click', start);
+    var bPause = el('button', 'boton boton-sec', 'Pausar');
+    bPause.type = 'button';
+    bPause.addEventListener('click', stop);
+    var bReset = el('button', 'boton boton-sec', 'Reiniciar');
+    bReset.type = 'button';
+    bReset.addEventListener('click', reset);
+    add(btns, bStart, bPause, bReset);
+    show();
+    return add(box, label, disp, btns, msg);
+  };
+
+  /* Autocalificación con los criterios oficiales */
+  R.selfscore = function (b) {
+    var box = el('div', 'ejercicio autoeval');
+    if (b.title) { add(box, el('p', 'ejercicio-titulo', b.title)); }
+    if (b.intro) { add(box, inline(el('p', 'ejercicio-intro'), b.intro)); }
+    var totalEl = el('p', 'autoeval-total');
+    var sels = [];
+    function recalc() {
+      var t = 0;
+      sels.forEach(function (s) { t += Number(s.value || 0); });
+      if (t < 0) { t = 0; }
+      totalEl.textContent = 'Total: ' + fmtScore(t) + ' / ' + fmtScore(b.max);
+    }
+    b.groups.forEach(function (g, i) {
+      var row = el('div', 'autoeval-fila');
+      var lab = el('label', 'autoeval-label');
+      lab.htmlFor = 's-' + b.id + '-' + i;
+      inline(lab, g.label);
+      var sel = el('select', 'selector');
+      sel.id = 's-' + b.id + '-' + i;
+      scoreOptions(g.max).forEach(function (v) {
+        var o = el('option', null, fmtScore(v));
+        o.value = String(v);
+        add(sel, o);
+      });
+      var prev = load('s-' + b.id + '-' + i);
+      if (prev !== null) { sel.value = prev; }
+      sel.addEventListener('change', function () {
+        save('s-' + b.id + '-' + i, sel.value);
+        recalc();
+      });
+      sels.push(sel);
+      add(row, lab, sel);
+      add(box, row);
+    });
+    add(box, totalEl);
+    recalc();
+    return box;
+  };
+
+  /* Copiar todas las respuestas escritas */
+  R.copy = function (b) {
+    var wrap = el('div', 'copiar');
+    var btn = el('button', 'boton', b.x || 'Copiar mis respuestas');
+    btn.type = 'button';
+    var msg = el('span', 'copiar-msg');
+    btn.addEventListener('click', function () {
+      var lines = [D.title + ' · ' + D.course, ''];
+      writeFields.forEach(function (f) {
+        if (b.ids && b.ids.indexOf(f.id) === -1) { return; }
+        lines.push('## ' + f.label);
+        lines.push(f.node.value.trim() || '(sin respuesta)');
+        lines.push('');
+      });
+      var text = lines.join('\n');
+      function fallback() {
+        var ta = el('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); msg.textContent = 'Copiado.'; } catch (e) { msg.textContent = 'No se pudo copiar.'; }
+        document.body.removeChild(ta);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { msg.textContent = 'Copiado. Pégalo donde te indique tu profesora.'; }, fallback);
+      } else {
+        fallback();
+      }
+    });
+    if (b.note) { add(wrap, inline(el('p', 'copiar-nota'), b.note)); }
+    return add(wrap, btn, msg);
+  };
+
+  function renderBlocks(parent, blocks) {
+    blocks.forEach(function (b) {
+      var fn = R[b.t];
+      if (fn) { parent.appendChild(fn(b)); }
+    });
+  }
+
+  /* ---------- página ---------- */
+  function build() {
+    var root = document.getElementById('app');
+    var header = el('header', 'cabecera');
+    var hin = el('div', 'cabecera-in');
+    if (D.back) {
+      var back = el('a', 'volver', D.back.x);
+      back.href = D.back.href;
+      add(hin, back);
+    }
+    add(hin, el('p', 'eyebrow', D.eyebrow));
+    add(hin, el('h1', 'titulo', D.title));
+    if (D.subtitle) { add(hin, inline(el('p', 'subtitulo'), D.subtitle)); }
+    var nav = el('nav', 'pestanas');
+    nav.setAttribute('role', 'tablist');
+    add(hin, nav);
+    add(header, hin);
+    add(root, header, el('div', 'divisor'));
+
+    var main = el('main', 'contenido');
+    add(root, main);
+
+    var tabBtns = [];
+    var panels = [];
+    D.tabs.forEach(function (tab, i) {
+      var btn = el('button', 'pestana', tab.label);
+      btn.type = 'button';
+      btn.setAttribute('role', 'tab');
+      btn.addEventListener('click', function () { show(i); });
+      tabBtns.push(btn);
+      add(nav, btn);
+      var panel = el('section', 'panel');
+      panel.setAttribute('role', 'tabpanel');
+      add(panel, el('p', 'panel-eyebrow', 'Pestaña ' + (i + 1) + ' de ' + D.tabs.length));
+      add(panel, el('h2', 'panel-titulo', tab.title || tab.label));
+      renderBlocks(panel, tab.blocks);
+      panels.push(panel);
+      add(main, panel);
+    });
+    if (D.footer) { add(main, inline(el('p', 'pie'), D.footer)); }
+
+    var bar = el('div', 'mininav');
+    var bPrev = el('button', 'mininav-btn', '← Anterior');
+    bPrev.type = 'button';
+    var pos = el('span', 'mininav-pos');
+    var bNext = el('button', 'mininav-btn', 'Siguiente →');
+    bNext.type = 'button';
+    add(bar, bPrev, pos, bNext);
+    add(root, bar);
+
+    var current = 0;
+    function show(i, noScroll) {
+      current = i;
+      panels.forEach(function (p, k) { p.hidden = k !== i; });
+      tabBtns.forEach(function (b, k) {
+        b.classList.toggle('activa', k === i);
+        b.setAttribute('aria-selected', k === i ? 'true' : 'false');
+      });
+      pos.textContent = (i + 1) + ' / ' + panels.length + ' · ' + D.tabs[i].label;
+      bPrev.disabled = i === 0;
+      bNext.disabled = i === panels.length - 1;
+      save('tab', String(i));
+      if (!noScroll) { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    }
+    bPrev.addEventListener('click', function () { if (current > 0) { show(current - 1); } });
+    bNext.addEventListener('click', function () { if (current < panels.length - 1) { show(current + 1); } });
+
+    var start = Number(load('tab'));
+    if (!(start >= 0 && start < panels.length)) { start = 0; }
+    show(start, true);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', build);
+  } else {
+    build();
+  }
+})();
+</script>
+</body>
+</html>
