@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Celestina — Actividades</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --azul:#1a4a7a;
+  --azul-osc:#0f2f4d;
+  --turquesa:#0e9aa7;
+  --terracota:#c64829;
+  --oro:#c9973a;
+  --crema:#faf7f1;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--crema);
+  font-family:'Source Sans 3', Arial, sans-serif;
+  color:#2a2a28;
+  line-height:1.6;
+}
+h1,h2,h3,h4{
+  font-family:'Playfair Display', Georgia, serif;
+  color:var(--azul-osc);
+  font-weight:700;
+  margin-top:0;
+}
+a{color:var(--terracota);}
+
+header.top{
+  background:var(--azul);
+  color:#fff;
+  padding:22px 24px 0 24px;
+}
+.top-inner{
+  max-width:980px;
+  margin:0 auto;
+}
+.eyebrow{
+  font-family:'Source Sans 3', sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-size:.78rem;
+  color:#a9d9dc;
+  margin:0 0 6px 0;
+}
+h1.title{
+  font-size:1.9rem;
+  color:#fff;
+  margin:0 0 4px 0;
+}
+p.subtitle{
+  margin:0 0 18px 0;
+  color:rgba(255,255,255,.8);
+  font-size:1rem;
+  max-width:640px;
+}
+
+nav.tabs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:2px;
+  border-top:1px solid rgba(255,255,255,.15);
+  padding-top:2px;
+}
+button.tab{
+  appearance:none;
+  border:none;
+  background:transparent;
+  color:rgba(255,255,255,.55);
+  font-family:'Source Sans 3', sans-serif;
+  font-size:.85rem;
+  font-weight:600;
+  padding:11px 14px 10px 14px;
+  cursor:pointer;
+  border-bottom:3px solid transparent;
+  transition:color .15s ease;
+  white-space:nowrap;
+}
+button.tab:hover{color:rgba(255,255,255,.85);}
+button.tab.active{
+  color:#fff;
+  border-bottom:3px solid var(--terracota);
+}
+
+div.mininav{
+  background:var(--azul-osc);
+  color:rgba(255,255,255,.85);
+  font-size:.82rem;
+  padding:9px 24px;
+}
+div.mininav .mininav-inner{
+  max-width:980px;
+  margin:0 auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+div.mininav .crumb b{color:var(--oro);}
+div.mininav .counter{color:rgba(255,255,255,.6);}
+
+main{
+  max-width:980px;
+  margin:0 auto;
+  padding:32px 24px 80px 24px;
+}
+.panel{display:none;}
+.panel.active{display:block;}
+
+h2.sec-title{
+  font-size:1.45rem;
+  border-bottom:2px solid var(--oro);
+  padding-bottom:8px;
+  margin:0 0 18px 0;
+}
+h2.sec-title:not(:first-child){margin-top:38px;}
+h3.sub-title{
+  font-size:1.12rem;
+  color:var(--terracota);
+  margin:22px 0 8px 0;
+}
+p.body-text{margin:0 0 12px 0;}
+ul.body-list{margin:0 0 16px 0;padding-left:22px;}
+ul.body-list li{margin-bottom:6px;}
+
+.callout{
+  background:var(--turquesa);
+  color:#fff;
+  border-radius:6px;
+  padding:14px 18px;
+  margin:18px 0;
+  font-size:.95rem;
+}
+.callout .callout-label{
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  font-size:.72rem;
+  display:block;
+  margin-bottom:6px;
+  color:#eafcfd;
+}
+
+.frag{
+  background:#fff;
+  border-left:4px solid var(--oro);
+  border-radius:0 6px 6px 0;
+  padding:16px 20px;
+  margin:16px 0;
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+}
+.frag .frag-source{
+  font-size:.78rem;
+  color:#7a7a76;
+  margin-top:10px;
+  font-style:italic;
+}
+.frag p.dline{margin:0 0 6px 0;font-size:.96rem;}
+.frag p.dline b{color:var(--azul-osc);}
+.frag p.narr{margin:0 0 6px 0;font-size:.96rem;font-style:italic;}
+
+table.data-table{
+  border-collapse:collapse;
+  width:100%;
+  margin:14px 0 20px 0;
+  font-size:.92rem;
+}
+table.data-table th{
+  background:var(--azul-osc);
+  color:#fff;
+  text-align:left;
+  padding:8px 10px;
+}
+table.data-table td{
+  padding:8px 10px;
+  border-bottom:1px solid #e3ddd0;
+  vertical-align:top;
+}
+table.data-table tr:nth-child(even) td{background:#f3efe4;}
+
+.qbox{
+  border-left:4px solid var(--terracota);
+  padding:6px 0 6px 16px;
+  margin:16px 0;
+  font-style:italic;
+  color:#3a3a36;
+}
+
+.activity{
+  background:#fff;
+  border:1px solid #e3ddd0;
+  border-radius:6px;
+  padding:16px 20px;
+  margin:18px 0;
+}
+.activity h4{
+  color:var(--azul);
+  margin:0 0 4px 0;
+  font-family:'Source Sans 3', sans-serif;
+  font-weight:700;
+  font-size:.95rem;
+}
+.activity .level-tag{
+  display:inline-block;
+  font-size:.68rem;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  font-weight:700;
+  color:#fff;
+  background:var(--oro);
+  border-radius:3px;
+  padding:2px 7px;
+  margin-bottom:10px;
+}
+.activity ol{margin:0;padding-left:20px;}
+.activity ol li{margin-bottom:6px;}
+.activity p.open-prompt{margin:4px 0 0 0;}
+
+textarea.answer-box{
+  width:100%;
+  min-height:90px;
+  font-family:'Source Sans 3', sans-serif;
+  font-size:.92rem;
+  border:1px solid #d8d2c4;
+  border-radius:4px;
+  padding:10px;
+  resize:vertical;
+  margin-top:8px;
+}
+
+footer.page-footer{
+  text-align:center;
+  color:#8a8578;
+  font-size:.78rem;
+  padding:24px;
+}
+
+@media (max-width:640px){
+  h1.title{font-size:1.5rem;}
+  button.tab{font-size:.78rem;padding:9px 10px 9px 10px;}
+}
+
+
+/* ---- Actividades: tarjetas de partes y botones ---- */
+.part-grid{display:grid;gap:14px;margin:18px 0;}
+.part-card{
+  background:#fff;
+  border:1px solid #e3ddd0;
+  border-left:4px solid var(--oro);
+  border-radius:6px;
+  padding:16px 20px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 20px;
+  align-items:center;
+  justify-content:space-between;
+}
+.part-card .part-info{flex:1 1 340px;}
+.part-card h3.part-title{font-size:1.05rem;color:var(--azul-osc);margin:0 0 4px 0;}
+.part-card p.part-desc{margin:0;font-size:.92rem;color:#4a4a46;}
+.part-card p.part-status{margin:6px 0 0 0;font-size:.78rem;color:#7a7a76;font-style:italic;}
+a.btn{
+  display:inline-block;
+  background:var(--terracota);
+  color:#fff;
+  text-decoration:none;
+  font-family:'Source Sans 3', sans-serif;
+  font-weight:700;
+  font-size:.9rem;
+  padding:10px 20px;
+  border-radius:4px;
+  white-space:nowrap;
+}
+a.btn:hover{filter:brightness(1.08);}
+a.btn.locked{background:#bdb6a6;cursor:not-allowed;pointer-events:none;}
+
+/* ---- Páginas de actividades ---- */
+.mininav a.back{color:#fff;text-decoration:none;font-weight:600;}
+.mininav a.back:hover{text-decoration:underline;}
+.task{background:#fff;border:1px solid #e3ddd0;border-radius:6px;padding:14px 18px 16px 18px;margin:14px 0;}
+.task .task-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
+.task .task-num{font-family:'Playfair Display', Georgia, serif;font-weight:700;font-size:1.05rem;color:var(--terracota);}
+.task .tag{display:inline-block;font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;font-weight:700;color:#fff;border-radius:3px;padding:2px 7px;}
+.tag-literal{background:var(--turquesa);}
+.tag-inferencia{background:var(--azul);}
+.tag-forma{background:var(--oro);}
+.tag-global{background:var(--terracota);}
+.task p.task-text{margin:0;}
+p.sec-note{margin:-6px 0 12px 0;font-size:.9rem;color:#5a5a55;font-style:italic;}
+
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <p class="eyebrow" id="eyebrow"></p>
+    <h1 class="title" id="page-title"></h1>
+    <p class="subtitle" id="page-subtitle"></p>
+  </div>
+</header>
+
+<div class="mininav">
+  <div class="mininav-inner">
+    <span class="crumb" id="mini-crumb"></span>
+    <a class="back" href="./">&larr; Volver al módulo</a>
+  </div>
+</div>
+
+<main>
+  <div id="content-root"></div>
+  <p style="margin-top:32px;"><a class="btn" href="./">Volver al módulo</a></p>
+</main>
+
+<footer class="page-footer">Material de estudio y consulta · Lengua Castellana y Literatura I</footer>
+
+<script>
+window.ACT_PAGE = {
+ "id": "p0",
+ "eyebrow": "La Celestina · Tarea grupal",
+ "title": "Preliminares y Acto I",
+ "subtitle": "Carta, prólogo y primer acto: lectura atenta en equipo.",
+ "intro": "Trabajad en grupos de cuatro, con la carta «El autor a un su amigo», el prólogo y el Acto I delante. Entregad una hoja por grupo. Tiempo orientativo: 30 minutos. Repartíos las preguntas de las partes A y B y poned todo en común en la parte C.",
+ "sections": [
+  {
+   "title": "Parte A · Preliminares (10 min)",
+   "tasks": [
+    {
+     "type": "literal",
+     "text": "En la carta «El autor a un su amigo», ¿qué dice Rojas sobre el autor del primer acto y qué dice sobre su propia aportación y sobre por qué continuó la obra? Citad una frase."
+    },
+    {
+     "type": "inferencia",
+     "text": "En el prólogo, Rojas cita la sentencia de Heráclito «Omnia secundum litem fiunt» (todas las cosas nacen de la contienda). ¿Cómo la aplica a las opiniones de los lectores sobre la obra y al cambio de título de Comedia a Tragicomedia?"
+    },
+    {
+     "type": "literal",
+     "text": "En el título largo de la obra, ¿para qué dice el autor que sirve el libro y a quién se dirige? Resumidlo con vuestras palabras."
+    }
+   ]
+  },
+  {
+   "title": "Parte B · Acto I (10 min)",
+   "tasks": [
+    {
+     "type": "literal",
+     "height": "170px",
+     "text": "Dividid el acto en escenas (la huerta; Calisto y Sempronio; la casa de Celestina; Calisto y Pármeno; Celestina y Pármeno) y resumid cada una en una línea."
+    },
+    {
+     "type": "forma",
+     "text": "Calisto habla de Melibea con lenguaje religioso («Melibeo soy…»). Buscad dos frases suyas de ese tipo y señalad cómo reacciona Sempronio."
+    },
+    {
+     "type": "inferencia",
+     "text": "Pármeno retrata a Celestina con sus «seis oficios». ¿Coincide ese retrato con lo que vemos de ella cuando actúa (con Elicia y Crito, con Sempronio, con Pármeno)? Razonad con un ejemplo."
+    }
+   ]
+  },
+  {
+   "title": "Parte C · Conclusión conjunta (10 min)",
+   "tasks": [
+    {
+     "type": "inferencia",
+     "height": "170px",
+     "text": "¿Cumple el Acto I lo que prometen los preliminares? Respondedlo en 6-8 líneas, con una cita del Acto I y otra de los preliminares. Todo el grupo debe estar de acuerdo con la respuesta."
+    }
+   ]
+  }
+ ]
+};
+</script>
+<script>
+(function () {
+  'use strict';
+  var D = window.ACT_PAGE;
+  if (!D) return;
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text) n.appendChild(document.createTextNode(text));
+    return n;
+  }
+
+  var TAGS = {
+    literal: 'Comprensión literal',
+    inferencia: 'Interpretación e inferencia',
+    forma: 'Forma y estilo',
+    global: 'Tarea global'
+  };
+
+  function save(key, value) {
+    try { window.localStorage.setItem(key, value); } catch (e) { /* sin almacenamiento */ }
+  }
+  function load(key) {
+    try { return window.localStorage.getItem(key) || ''; } catch (e) { return ''; }
+  }
+
+  function buildTask(task, number, keyBase) {
+    var box = el('div', 'task');
+    var head = el('div', 'task-head');
+    head.appendChild(el('span', 'task-num', String(number) + '.'));
+    if (task.type && TAGS[task.type]) {
+      head.appendChild(el('span', 'tag tag-' + task.type, TAGS[task.type]));
+    }
+    box.appendChild(head);
+    box.appendChild(el('p', 'task-text', task.text));
+
+    var ta = el('textarea', 'answer-box');
+    ta.setAttribute('placeholder', 'Escribe aquí tu respuesta...');
+    if (task.height) ta.style.minHeight = task.height;
+    var key = keyBase + '-' + number;
+    ta.value = load(key);
+    var timer = null;
+    ta.addEventListener('input', function () {
+      if (timer) window.clearTimeout(timer);
+      timer = window.setTimeout(function () { save(key, ta.value); }, 600);
+    });
+    box.appendChild(ta);
+    return box;
+  }
+
+  function init() {
+    document.title = D.title + ' \u2014 La Celestina';
+    document.getElementById('eyebrow').textContent = D.eyebrow;
+    document.getElementById('page-title').textContent = D.title;
+    document.getElementById('page-subtitle').textContent = D.subtitle;
+    document.getElementById('mini-crumb').textContent = 'La Celestina \u2014 Actividades';
+
+    var root = document.getElementById('content-root');
+    if (D.intro) root.appendChild(el('p', 'body-text', D.intro));
+
+    var keyBase = 'cel-act-' + D.id;
+    var n = 0;
+    D.sections.forEach(function (sec) {
+      root.appendChild(el('h2', 'sec-title', sec.title));
+      if (sec.note) root.appendChild(el('p', 'sec-note', sec.note));
+      sec.tasks.forEach(function (t) {
+        n += 1;
+        root.appendChild(buildTask(t, n, keyBase));
+      });
+    });
+
+    window.scrollTo(0, 0);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+</script>
+</body>
+</html>
