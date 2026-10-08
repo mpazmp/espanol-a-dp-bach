@@ -246,6 +246,54 @@ footer.page-footer{
   button.tab{font-size:.78rem;padding:9px 10px 9px 10px;}
 }
 
+
+/* ---- Actividades: tarjetas de partes y botones ---- */
+.part-grid{display:grid;gap:14px;margin:18px 0;}
+.part-card{
+  background:#fff;
+  border:1px solid #e3ddd0;
+  border-left:4px solid var(--oro);
+  border-radius:6px;
+  padding:16px 20px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 20px;
+  align-items:center;
+  justify-content:space-between;
+}
+.part-card .part-info{flex:1 1 340px;}
+.part-card h3.part-title{font-size:1.05rem;color:var(--azul-osc);margin:0 0 4px 0;}
+.part-card p.part-desc{margin:0;font-size:.92rem;color:#4a4a46;}
+.part-card p.part-status{margin:6px 0 0 0;font-size:.78rem;color:#7a7a76;font-style:italic;}
+a.btn{
+  display:inline-block;
+  background:var(--terracota);
+  color:#fff;
+  text-decoration:none;
+  font-family:'Source Sans 3', sans-serif;
+  font-weight:700;
+  font-size:.9rem;
+  padding:10px 20px;
+  border-radius:4px;
+  white-space:nowrap;
+}
+a.btn:hover{filter:brightness(1.08);}
+a.btn.locked{background:#bdb6a6;cursor:not-allowed;pointer-events:none;}
+
+/* ---- Páginas de actividades ---- */
+.mininav a.back{color:#fff;text-decoration:none;font-weight:600;}
+.mininav a.back:hover{text-decoration:underline;}
+.task{background:#fff;border:1px solid #e3ddd0;border-radius:6px;padding:14px 18px 16px 18px;margin:14px 0;}
+.task .task-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
+.task .task-num{font-family:'Playfair Display', Georgia, serif;font-weight:700;font-size:1.05rem;color:var(--terracota);}
+.task .tag{display:inline-block;font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;font-weight:700;color:#fff;border-radius:3px;padding:2px 7px;}
+.tag-literal{background:var(--turquesa);}
+.tag-inferencia{background:var(--azul);}
+.tag-forma{background:var(--oro);}
+.tag-global{background:var(--terracota);}
+.task p.task-text{margin:0;}
+p.sec-note{margin:-6px 0 12px 0;font-size:.9rem;color:#5a5a55;font-style:italic;}
+
 </style>
 </head>
 <body>
@@ -366,6 +414,7 @@ footer.page-footer{
     { id: 'temas', label: 'Temas' },
     { id: 'estilo', label: 'Estilo' },
     { id: 'contexto', label: 'Contexto y tradición' },
+    { id: 'actividades', label: 'Actividades' },
     { id: 'practica', label: 'Práctica guiada' },
     { id: 'creacion', label: 'Creación' }
   ];
@@ -442,7 +491,7 @@ footer.page-footer{
     panel.appendChild(h3('De la Comedia a la Tragicomedia: las dos versiones'));
     panel.appendChild(ul([
       'Comedia de Calisto y Melibea (Burgos, 1499): versión primitiva, en 16 actos.',
-      'Tragicomedia de Calisto y Melibea (Sevilla, 1502 y ediciones posteriores): versión ampliada, en 21 actos, con el añadido del llamado "Tratado de Centurio" entre los actos XIV y XIX de la versión final, que retrasa el desenlace y desarrolla más el mundo de los criados y las prostitutas.',
+      'Tragicomedia de Calisto y Melibea (Sevilla, 1502 y ediciones posteriores): versión ampliada, en 21 actos, con cinco actos añadidos (XV-XIX), el llamado "Tratado de Centurio", que retrasa el desenlace y desarrolla más el mundo de los criados y las prostitutas.',
       'El cambio de título —de Comedia a Tragicomedia— refleja la propia conciencia del autor de que la obra no encaja en el esquema tradicional: no es una comedia porque acaba mal (con la muerte de todos los protagonistas), pero tampoco es una tragedia pura, porque sus personajes no son nobles en el sentido clásico y hay abundantes escenas cómicas y de sátira social.'
     ]));
 
@@ -516,7 +565,7 @@ footer.page-footer{
         ['Planteamiento', 'I', 'Calisto entra en la huerta de Melibea persiguiendo un halcón, le declara su amor y es rechazado. Desesperado, recurre a Celestina a través de Sempronio.'],
         ['Mediación', 'II\u2013X', 'Celestina seduce, engaña y "hechiza" la voluntad de Melibea; Pármeno se suma finalmente al plan de Sempronio y Celestina, atraído por Areúsa y por el reparto de beneficios. Calisto y Melibea llegan a un primer encuentro amoroso.'],
         ['Crisis y primera muerte', 'XII', 'Sempronio y Pármeno matan a Celestina al no querer repartir con ella el pago de una cadena de oro. Son ejecutados de inmediato por la justicia.'],
-        ['Tratado de Centurio (solo en la Tragicomedia)', 'XIV\u2013XIX', 'Añadido en la versión ampliada: Areúsa y Elicia, para vengar a Celestina y a sus amantes, contratan al rufián Centurio para atacar a Calisto.'],
+        ['Tratado de Centurio (solo en la Tragicomedia)', 'XV\u2013XIX', 'Añadido en la versión ampliada: Areúsa y Elicia, para vengar a Celestina y a sus amantes, contratan al rufián Centurio para atacar a Calisto.'],
         ['Desenlace', 'XIX\u2013XXI', 'Calisto muere al caer de una escalera huyendo precipitadamente de la huerta de Melibea. Melibea, desesperada, se arroja desde una torre ante su padre Pleberio, que cierra la obra con un largo planto (lamento) sobre la falsedad del mundo y el poder destructor del amor y la Fortuna.']
       ]
     ));
@@ -873,6 +922,71 @@ footer.page-footer{
   } else {
     init();
   }
+})();
+
+(function () {
+  'use strict';
+  var H = window.CELESTINA_HELPERS;
+  var el = H.el, h2 = H.h2, p = H.p, ul = H.ul, callout = H.callout;
+  var CARDS = [{"file": "actos-preliminares-1.html", "title": "Preliminares y Acto I · Tarea grupal", "desc": "Carta, prólogo y primer acto, en grupos de cuatro. Unos 30 minutos."}, {"file": "actos-2-6.html", "title": "Actos II–VI", "desc": "Seis tareas breves: comprensión literal, interpretación y estilo."}, {"file": "actos-7-11.html", "title": "Actos VII–XI", "desc": "Seis tareas breves: comprensión literal, interpretación y estilo."}, {"file": "actos-12-16.html", "title": "Actos XII–XVI", "desc": "Seis tareas breves: comprensión literal, interpretación y estilo."}, {"file": "actos-17-21.html", "title": "Actos XVII–XXI", "desc": "Seis tareas breves: comprensión literal, interpretación y estilo."}, {"file": "tarea-global.html", "title": "Tarea global final", "desc": "Una tarea que reúne toda la obra, para después de terminar la lectura."}];
+
+  function setState(card, available) {
+    var btn = card.querySelector('a.btn');
+    var status = card.querySelector('p.part-status');
+    if (available) {
+      btn.classList.remove('locked');
+      btn.removeAttribute('aria-disabled');
+      btn.textContent = 'Abrir actividades';
+      status.textContent = 'Disponible.';
+    } else {
+      btn.classList.add('locked');
+      btn.setAttribute('aria-disabled', 'true');
+      btn.textContent = 'Aún no disponible';
+      status.textContent = 'Se activará cuando terminéis la lectura de esta parte.';
+    }
+  }
+
+  function checkAvailable(file) {
+    if (window.location.protocol === 'file:' || typeof window.fetch !== 'function') {
+      return Promise.resolve(true);
+    }
+    return window.fetch(file, { method: 'HEAD', cache: 'no-store' }).then(function (r) {
+      return r.ok;
+    }).catch(function () { return false; });
+  }
+
+  function build() {
+    var panel = el('div', { className: 'panel', attrs: { id: 'panel-actividades' } });
+    panel.appendChild(h2('Actividades por actos'));
+    panel.appendChild(p('La obra se trabaja por partes: primero los preliminares y el acto I, después cuatro bloques de cinco actos y, al final, una tarea global. Cada botón se activa cuando se publica la parte correspondiente, a medida que avanza la lectura.'));
+    panel.appendChild(ul([
+      'Comprensión literal: qué ocurre, quién interviene, qué se dice.',
+      'Interpretación e inferencia: por qué ocurre y qué significa; hay que apoyarse en el texto.',
+      'Forma y estilo: cómo está escrito y qué efecto producen los recursos.'
+    ]));
+
+    var grid = el('div', { className: 'part-grid' });
+    CARDS.forEach(function (c) {
+      var info = el('div', { className: 'part-info' }, [
+        el('h3', { className: 'part-title', text: c.title }),
+        el('p', { className: 'part-desc', text: c.desc }),
+        el('p', { className: 'part-status', text: '' })
+      ]);
+      var btn = el('a', { className: 'btn locked', attrs: { href: c.file } });
+      btn.appendChild(document.createTextNode('Aún no disponible'));
+      var card = el('div', { className: 'part-card' }, [info, btn]);
+      setState(card, false);
+      grid.appendChild(card);
+      checkAvailable(c.file).then(function (ok) { setState(card, ok); });
+    });
+    panel.appendChild(grid);
+
+    panel.appendChild(callout('Cómo trabajar', 'Lee primero los actos de la parte y después abre sus actividades. Cada respuesta se guarda en tu navegador mientras escribes, pero conviene copiar el trabajo final en el documento que se te pida entregar.'));
+
+    document.getElementById('content-root').appendChild(panel);
+  }
+  window.CELESTINA_BUILDERS = window.CELESTINA_BUILDERS || [];
+  window.CELESTINA_BUILDERS.push(build);
 })();
 
 </script>
