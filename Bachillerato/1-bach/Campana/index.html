@@ -401,6 +401,24 @@ input.search{width:100%;max-width:380px;font-family:'Source Sans 3',sans-serif;f
   .lab-single{display:none !important;}
   .lab-single.print-me{display:block !important;}
 }
+/* Barra de guardado en la nube */
+div.nube{background:#e6f5f6;border-bottom:1px solid #b9e2e5;}
+div.nube .nube-inner{max-width:980px;margin:0 auto;padding:.55rem 0;display:flex;flex-wrap:wrap;align-items:center;gap:.4rem 1rem;font-size:.95rem;}
+div.nube .nube-nombre{color:var(--azul,#1a4a7a);}
+div.nube .nube-estado{flex:1 1 260px;color:#2b4a5a;}
+div.nube .nube-estado.ok{color:#1d6b3a;}
+div.nube .nube-estado.pendiente, div.nube .nube-estado.enviando, div.nube .nube-estado.recuperando{color:#7a5a12;}
+div.nube .nube-estado.error, div.nube .nube-estado.sin{color:#c64829;font-weight:600;}
+div.nube .nube-botones{display:flex;gap:.5rem;}
+div.nube .btn2{padding:5px 12px;}
+@media (max-width:1020px){div.nube .nube-inner{padding:.55rem 20px;}}
+.nube-fondo{position:fixed;inset:0;background:rgba(15,47,77,.55);display:flex;align-items:center;justify-content:center;z-index:1000;padding:1rem;}
+.nube-dialogo{background:#faf7f1;border-radius:10px;max-width:460px;width:100%;padding:1.4rem 1.5rem;box-shadow:0 10px 40px rgba(0,0,0,.3);border-top:5px solid #0e9aa7;}
+.nube-dialogo h3{font-family:'Playfair Display',Georgia,serif;color:#1a4a7a;margin:0 0 .5rem;}
+.nube-dialogo label{display:block;font-weight:600;margin:.8rem 0 .25rem;}
+.nube-dialogo input{width:100%;box-sizing:border-box;padding:.5rem .6rem;border:1px solid #c9c2b4;border-radius:6px;font:inherit;}
+.nube-dialogo .nube-aviso{color:#c64829;min-height:1.2em;margin:.6rem 0 0;}
+@media print{div.nube{display:none !important;}}
 </style>
 </head>
 <body>
@@ -2243,6 +2261,295 @@ input.search{width:100%;max-width:380px;font-family:'Source Sans 3',sans-serif;f
   }
   C.builders.push(build);
 })();
+(function () {
+  'use strict';
+  var C = window.CAMP;
+  var el = C.el;
+
+  /* Dirección del servicio de la profesora (Apps Script, termina en /exec) */
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbwZ9xRQz0Lf6Pc1sQ4_06z_fdoGPZxUAJYdfzdgkKoDjyMpvPgbIAFcdP3RQT98jQy7/exec';
+  var MODULO = 'La palabra en campaña';
+  var ID_KEY = 'nube-identidad';
+  var ESPERA = 15000;
+  var activo = /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec$/.test(ENDPOINT);
+
+  var registro = {};
+  var pendientes = {};
+  var temporizador = null;
+  var enviando = false;
+  var estado, nombreTxt, btnEnviar, btnCambiar;
+
+  function sincronizable(key) {
+    return !!registro[key] || /^(col-|plan-|notas\d|coment\d)/.test(key) || key === 'diccionario';
+  }
+
+  /* Cada área de texto se registra para poder etiquetarla en la hoja */
+  var savedAreaOriginal = C.savedArea;
+  C.savedArea = function (key) {
+    var ta = savedAreaOriginal.apply(null, arguments);
+    ta.setAttribute('data-key', key);
+    registro[key] = true;
+    return ta;
+  };
+
+  /* Todo lo que se guarda en el navegador se marca como pendiente de enviar */
+  var setOriginal = C.store.set;
+  C.store.set = function (key, value) {
+    setOriginal(key, value);
+    if (activo && identidad() && sincronizable(key)) {
+      pendientes[key] = true;
+      programar(ESPERA);
+    }
+  };
+
+  function identidad() { return C.store.getJSON(ID_KEY, null); }
+
+  function texto(node) { return node ? node.textContent.replace(/\s+/g, ' ').trim() : ''; }
+  function corto(s, n) { return s.length > n ? s.slice(0, n - 1) + '…' : s; }
+
+  function etiqueta(key) {
+    var m;
+    if (key === 'col-titulo') return 'Columna · Título';
+    if (key === 'col-borrador') return 'Columna · Texto';
+    if (key === 'col-nota') return 'Columna · Nota de decisiones';
+    if ((m = /^notas(\d+)$/.exec(key))) return 'Sesión ' + m[1] + ' · Apuntes';
+    if ((m = /^coment(\d+)$/.exec(key))) return 'Comentario · Apartado ' + m[1];
+    if (/^plan-/.test(key)) {
+      var lab = document.querySelector('label[for="' + key + '"]');
+      return 'Columna · Planificación · ' + (lab ? texto(lab) : key.slice(5));
+    }
+    var ta = document.querySelector('textarea[data-key="' + key + '"]');
+    if (!ta) return key;
+    var partes = [];
+    var panel = ta.closest('.panel');
+    if (panel) {
+      var info = C.TABS.filter(function (t) { return 'panel-' + t.id === panel.id; })[0];
+      if (info) partes.push(info.label);
+    }
+    var ex = ta.closest('.ex');
+    if (ex) partes.push(texto(ex.querySelector('h4')));
+    var item = ta.closest('.ex-item');
+    if (item) partes.push(corto(texto(item.querySelector('.q')), 90));
+    return partes.filter(Boolean).join(' · ') || key;
+  }
+
+  function palabras(s) { return C.countWords ? C.countWords(s) : String(s).trim().split(/\s+/).filter(Boolean).length; }
+
+  function diccionarioTexto(raw) {
+    var lista;
+    try { lista = JSON.parse(raw); } catch (e) { return { texto: raw, n: 0 }; }
+    if (!Array.isArray(lista)) return { texto: '', n: 0 };
+    var t = lista.map(function (d, i) {
+      return (i + 1) + '. ' + (d.palabra || '') + ' (' + (d.cat || '') + '; sesión ' + (d.sesion || '') + ')\n' +
+        'Definición: ' + (d.def || '') + '\n' +
+        'Formación: ' + (d.proc || '') + (d.analisis ? ' — ' + d.analisis : '') + '\n' +
+        'Ejemplo: ' + (d.ejemplo || '') + (d.fuente ? ' [' + d.fuente + ']' : '') + '\n' +
+        'Matiz: ' + (d.conn || '') + (d.nota ? '. ' + d.nota : '');
+    }).join('\n\n');
+    return { texto: t, n: lista.length };
+  }
+
+  function item(key) {
+    var valor = C.store.get(key);
+    if (key === 'diccionario') {
+      var d = diccionarioTexto(valor);
+      return { clave: key, apartado: 'Diccionario de campaña (' + d.n + ' entradas)', texto: d.texto, palabras: d.n, valor: valor };
+    }
+    return { clave: key, apartado: etiqueta(key), texto: valor, palabras: palabras(valor), valor: valor };
+  }
+
+  function carga(claves) {
+    var id = identidad();
+    return {
+      accion: 'guardar', modulo: MODULO, alumna: id.nombre, grupo: id.grupo, codigo: id.codigo,
+      items: claves.map(item)
+    };
+  }
+
+  function programar(ms) {
+    if (temporizador) clearTimeout(temporizador);
+    temporizador = setTimeout(enviar, ms);
+    pintar('pendiente');
+  }
+
+  function enviar() {
+    temporizador = null;
+    var claves = Object.keys(pendientes);
+    if (!claves.length) { pintar('ok'); return; }
+    if (enviando) { programar(3000); return; }
+    enviando = true;
+    pintar('enviando');
+    claves.forEach(function (k) { delete pendientes[k]; });
+    fetch(ENDPOINT, { method: 'POST', body: JSON.stringify(carga(claves)) })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        enviando = false;
+        if (!res || !res.ok) throw new Error(res && res.error);
+        C.store.set('nube-ultimo', new Date().toISOString());
+        if (Object.keys(pendientes).length) programar(2000); else pintar('ok');
+      })
+      .catch(function () {
+        enviando = false;
+        claves.forEach(function (k) { pendientes[k] = true; });
+        pintar('error');
+        if (temporizador) clearTimeout(temporizador);
+        temporizador = setTimeout(enviar, 60000);
+      });
+  }
+
+  /* Si se cierra la pestaña o la tapa del Chromebook, se envía lo pendiente al momento */
+  function enviarYa() {
+    var claves = Object.keys(pendientes);
+    if (!claves.length || !navigator.sendBeacon) return;
+    var ok = navigator.sendBeacon(ENDPOINT, new Blob([JSON.stringify(carga(claves))], { type: 'text/plain;charset=utf-8' }));
+    if (ok) claves.forEach(function (k) { delete pendientes[k]; });
+  }
+
+  function todasLasClaves() {
+    var prefijo = 'campana1bach:';
+    var res = [];
+    try {
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k && k.indexOf(prefijo) === 0) {
+          var key = k.slice(prefijo.length);
+          if (sincronizable(key) && C.store.get(key)) res.push(key);
+        }
+      }
+    } catch (e) { /* sin almacenamiento */ }
+    return res;
+  }
+
+  function hora(iso) {
+    var d = iso ? new Date(iso) : new Date();
+    return ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2);
+  }
+
+  function pintar(modo) {
+    if (!estado) return;
+    var id = identidad();
+    nombreTxt.textContent = id ? id.nombre + (id.grupo ? ' · ' + id.grupo : '') : '';
+    btnEnviar.style.display = id ? '' : 'none';
+    btnCambiar.textContent = id ? 'Cambiar' : 'Identificarme';
+    estado.className = 'nube-estado ' + (id ? modo : 'sin');
+    var msg = {
+      sin: 'Identifícate para que tus respuestas lleguen a la profesora y no se pierdan.',
+      ok: 'Todo guardado en la nube' + (C.store.get('nube-ultimo') ? ' (' + hora(C.store.get('nube-ultimo')) + ')' : '') + '.',
+      pendiente: 'Cambios pendientes: se enviarán en unos segundos.',
+      enviando: 'Enviando…',
+      error: 'No se ha podido enviar. Se reintentará solo; comprueba la conexión.',
+      recuperando: 'Buscando tus respuestas guardadas…'
+    };
+    estado.textContent = msg[id ? modo : 'sin'] || '';
+  }
+
+  function dialogo() {
+    var id = identidad() || {};
+    var fondo = el('div', { className: 'nube-fondo' });
+    var caja = el('div', { className: 'nube-dialogo', attrs: { role: 'dialog', 'aria-modal': 'true' } });
+    var nombre = el('input', { attrs: { type: 'text', id: 'nube-nombre', autocomplete: 'name', placeholder: 'Nombre y dos apellidos' } });
+    var grupo = el('input', { attrs: { type: 'text', id: 'nube-grupo', placeholder: 'Por ejemplo: 1º A' } });
+    var codigo = el('input', { attrs: { type: 'text', id: 'nube-codigo', inputmode: 'numeric', maxlength: '4', placeholder: '4 cifras' } });
+    nombre.value = id.nombre || '';
+    grupo.value = id.grupo || '';
+    codigo.value = id.codigo || '';
+    var aviso = el('p', { className: 'nube-aviso' });
+    var aceptar = el('button', { className: 'btn2 primary', attrs: { type: 'button' }, text: 'Guardar y continuar' });
+    var cancelar = el('button', { className: 'btn2', attrs: { type: 'button' }, text: 'Cancelar' });
+
+    caja.appendChild(el('h3', { text: 'Identifícate' }));
+    caja.appendChild(el('p', { text: 'Escribe siempre el mismo nombre y el mismo código. Si el Chromebook borra tus datos, con ellos recuperarás lo que ya habías escrito.' }));
+    [['nube-nombre', 'Nombre y apellidos', nombre], ['nube-grupo', 'Grupo', grupo], ['nube-codigo', 'Código personal (inventa 4 cifras y no lo olvides)', codigo]].forEach(function (f) {
+      caja.appendChild(el('label', { attrs: { 'for': f[0] }, text: f[1] }));
+      caja.appendChild(f[2]);
+    });
+    caja.appendChild(aviso);
+    caja.appendChild(el('div', { className: 'btn-row' }, [aceptar, cancelar]));
+    fondo.appendChild(caja);
+    document.body.appendChild(fondo);
+    nombre.focus();
+
+    function cerrar() { document.body.removeChild(fondo); }
+    cancelar.addEventListener('click', cerrar);
+    aceptar.addEventListener('click', function () {
+      var n = nombre.value.replace(/\s+/g, ' ').trim();
+      var c = codigo.value.replace(/\D/g, '');
+      if (n.split(' ').length < 2) { aviso.textContent = 'Escribe tu nombre y al menos un apellido.'; return; }
+      if (c.length !== 4) { aviso.textContent = 'El código debe tener 4 cifras.'; return; }
+      C.store.setJSON(ID_KEY, { nombre: n, grupo: grupo.value.trim(), codigo: c });
+      cerrar();
+      recuperarYEnviar();
+    });
+  }
+
+  /* Trae de la hoja lo que la alumna ya había escrito y rellena lo que falte aquí */
+  function recuperarYEnviar() {
+    var id = identidad();
+    pintar('recuperando');
+    fetch(ENDPOINT, { method: 'POST', body: JSON.stringify({ accion: 'recuperar', modulo: MODULO, alumna: id.nombre, codigo: id.codigo }) })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (!res || !res.ok) throw new Error('sin respuesta');
+        var nube = res.datos || {};
+        var traidas = 0;
+        Object.keys(nube).forEach(function (k) {
+          if (!C.store.get(k) && nube[k]) { setOriginal(k, nube[k]); traidas++; }
+        });
+        /* Solo se envía lo que la hoja aún no tiene o tiene distinto */
+        todasLasClaves().forEach(function (k) {
+          if (C.store.get(k) !== nube[k]) pendientes[k] = true;
+        });
+        if (traidas) {
+          enviarYa();
+          window.location.reload();
+          return;
+        }
+        enviar();
+      })
+      .catch(function () {
+        pintar('error');
+        if (temporizador) clearTimeout(temporizador);
+        temporizador = setTimeout(recuperarYEnviar, 60000);
+      });
+  }
+
+  function montar() {
+    if (!activo) return;
+    var barra = el('div', { className: 'nube' });
+    var interior = el('div', { className: 'nube-inner' });
+    nombreTxt = el('b', { className: 'nube-nombre' });
+    estado = el('span', { className: 'nube-estado' });
+    btnEnviar = el('button', { className: 'btn2', attrs: { type: 'button' }, text: 'Enviar ahora' });
+    btnCambiar = el('button', { className: 'btn2', attrs: { type: 'button' } });
+    btnEnviar.addEventListener('click', function () {
+      todasLasClaves().forEach(function (k) { pendientes[k] = true; });
+      enviar();
+    });
+    btnCambiar.addEventListener('click', dialogo);
+    interior.appendChild(nombreTxt);
+    interior.appendChild(estado);
+    interior.appendChild(el('span', { className: 'nube-botones' }, [btnEnviar, btnCambiar]));
+    barra.appendChild(interior);
+    var mini = document.querySelector('.mininav');
+    mini.parentNode.insertBefore(barra, mini.nextSibling);
+
+    document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') enviarYa(); });
+    window.addEventListener('pagehide', enviarYa);
+    window.addEventListener('online', function () { if (Object.keys(pendientes).length) enviar(); });
+
+    if (identidad()) {
+      pintar('ok');
+      setTimeout(recuperarYEnviar, 800);
+    } else {
+      pintar('sin');
+      setTimeout(dialogo, 600);
+    }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { setTimeout(montar, 0); });
+  else setTimeout(montar, 0);
+})();
+
 (function () {
   'use strict';
   var C = window.CAMP;
