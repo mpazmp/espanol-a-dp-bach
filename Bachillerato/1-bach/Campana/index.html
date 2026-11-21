@@ -1,0 +1,2315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La palabra en campaña — 1º de Bachillerato</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --azul:#1a4a7a;
+  --azul-osc:#0f2f4d;
+  --turquesa:#0e9aa7;
+  --terracota:#c64829;
+  --oro:#c9973a;
+  --crema:#faf7f1;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--crema);
+  font-family:'Source Sans 3', Arial, sans-serif;
+  color:#2a2a28;
+  line-height:1.6;
+}
+h1,h2,h3,h4{
+  font-family:'Playfair Display', Georgia, serif;
+  color:var(--azul-osc);
+  font-weight:700;
+  margin-top:0;
+}
+a{color:var(--terracota);}
+
+header.top{
+  background:var(--azul);
+  color:#fff;
+  padding:22px 24px 0 24px;
+}
+.top-inner{
+  max-width:980px;
+  margin:0 auto;
+}
+.eyebrow{
+  font-family:'Source Sans 3', sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-size:.78rem;
+  color:#a9d9dc;
+  margin:0 0 6px 0;
+}
+h1.title{
+  font-size:1.9rem;
+  color:#fff;
+  margin:0 0 4px 0;
+}
+p.subtitle{
+  margin:0 0 18px 0;
+  color:rgba(255,255,255,.8);
+  font-size:1rem;
+  max-width:640px;
+}
+
+nav.tabs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:2px;
+  border-top:1px solid rgba(255,255,255,.15);
+  padding-top:2px;
+}
+button.tab{
+  appearance:none;
+  border:none;
+  background:transparent;
+  color:rgba(255,255,255,.55);
+  font-family:'Source Sans 3', sans-serif;
+  font-size:.85rem;
+  font-weight:600;
+  padding:11px 14px 10px 14px;
+  cursor:pointer;
+  border-bottom:3px solid transparent;
+  transition:color .15s ease;
+  white-space:nowrap;
+}
+button.tab:hover{color:rgba(255,255,255,.85);}
+button.tab.active{
+  color:#fff;
+  border-bottom:3px solid var(--terracota);
+}
+
+div.mininav{
+  background:var(--azul-osc);
+  color:rgba(255,255,255,.85);
+  font-size:.82rem;
+  padding:9px 24px;
+}
+div.mininav .mininav-inner{
+  max-width:980px;
+  margin:0 auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+div.mininav .crumb b{color:var(--oro);}
+div.mininav .counter{color:rgba(255,255,255,.6);}
+
+main{
+  max-width:980px;
+  margin:0 auto;
+  padding:32px 24px 80px 24px;
+}
+.panel{display:none;}
+.panel.active{display:block;}
+
+h2.sec-title{
+  font-size:1.45rem;
+  border-bottom:2px solid var(--oro);
+  padding-bottom:8px;
+  margin:0 0 18px 0;
+}
+h2.sec-title:not(:first-child){margin-top:38px;}
+h3.sub-title{
+  font-size:1.12rem;
+  color:var(--terracota);
+  margin:22px 0 8px 0;
+}
+p.body-text{margin:0 0 12px 0;}
+ul.body-list{margin:0 0 16px 0;padding-left:22px;}
+ul.body-list li{margin-bottom:6px;}
+
+.callout{
+  background:var(--turquesa);
+  color:#fff;
+  border-radius:6px;
+  padding:14px 18px;
+  margin:18px 0;
+  font-size:.95rem;
+}
+.callout .callout-label{
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  font-size:.72rem;
+  display:block;
+  margin-bottom:6px;
+  color:#eafcfd;
+}
+
+.frag{
+  background:#fff;
+  border-left:4px solid var(--oro);
+  border-radius:0 6px 6px 0;
+  padding:16px 20px;
+  margin:16px 0;
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+}
+.frag .frag-source{
+  font-size:.78rem;
+  color:#7a7a76;
+  margin-top:10px;
+  font-style:italic;
+}
+.frag p.dline{margin:0 0 6px 0;font-size:.96rem;}
+.frag p.dline b{color:var(--azul-osc);}
+.frag p.narr{margin:0 0 6px 0;font-size:.96rem;font-style:italic;}
+
+table.data-table{
+  border-collapse:collapse;
+  width:100%;
+  margin:14px 0 20px 0;
+  font-size:.92rem;
+}
+table.data-table th{
+  background:var(--azul-osc);
+  color:#fff;
+  text-align:left;
+  padding:8px 10px;
+}
+table.data-table td{
+  padding:8px 10px;
+  border-bottom:1px solid #e3ddd0;
+  vertical-align:top;
+}
+table.data-table tr:nth-child(even) td{background:#f3efe4;}
+
+.qbox{
+  border-left:4px solid var(--terracota);
+  padding:6px 0 6px 16px;
+  margin:16px 0;
+  font-style:italic;
+  color:#3a3a36;
+}
+
+.activity{
+  background:#fff;
+  border:1px solid #e3ddd0;
+  border-radius:6px;
+  padding:16px 20px;
+  margin:18px 0;
+}
+.activity h4{
+  color:var(--azul);
+  margin:0 0 4px 0;
+  font-family:'Source Sans 3', sans-serif;
+  font-weight:700;
+  font-size:.95rem;
+}
+.activity .level-tag{
+  display:inline-block;
+  font-size:.68rem;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  font-weight:700;
+  color:#fff;
+  background:var(--oro);
+  border-radius:3px;
+  padding:2px 7px;
+  margin-bottom:10px;
+}
+.activity ol{margin:0;padding-left:20px;}
+.activity ol li{margin-bottom:6px;}
+.activity p.open-prompt{margin:4px 0 0 0;}
+
+textarea.answer-box{
+  width:100%;
+  min-height:90px;
+  font-family:'Source Sans 3', sans-serif;
+  font-size:.92rem;
+  border:1px solid #d8d2c4;
+  border-radius:4px;
+  padding:10px;
+  resize:vertical;
+  margin-top:8px;
+}
+
+footer.page-footer{
+  text-align:center;
+  color:#8a8578;
+  font-size:.78rem;
+  padding:24px;
+}
+
+@media (max-width:640px){
+  h1.title{font-size:1.5rem;}
+  button.tab{font-size:.78rem;padding:9px 10px 9px 10px;}
+}
+
+
+/* ---- Actividades: tarjetas de partes y botones ---- */
+.part-grid{display:grid;gap:14px;margin:18px 0;}
+.part-card{
+  background:#fff;
+  border:1px solid #e3ddd0;
+  border-left:4px solid var(--oro);
+  border-radius:6px;
+  padding:16px 20px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 20px;
+  align-items:center;
+  justify-content:space-between;
+}
+.part-card .part-info{flex:1 1 340px;}
+.part-card h3.part-title{font-size:1.05rem;color:var(--azul-osc);margin:0 0 4px 0;}
+.part-card p.part-desc{margin:0;font-size:.92rem;color:#4a4a46;}
+.part-card p.part-status{margin:6px 0 0 0;font-size:.78rem;color:#7a7a76;font-style:italic;}
+a.btn{
+  display:inline-block;
+  background:var(--terracota);
+  color:#fff;
+  text-decoration:none;
+  font-family:'Source Sans 3', sans-serif;
+  font-weight:700;
+  font-size:.9rem;
+  padding:10px 20px;
+  border-radius:4px;
+  white-space:nowrap;
+}
+a.btn:hover{filter:brightness(1.08);}
+a.btn.locked{background:#bdb6a6;cursor:not-allowed;pointer-events:none;}
+
+/* ---- Páginas de actividades ---- */
+.mininav a.back{color:#fff;text-decoration:none;font-weight:600;}
+.mininav a.back:hover{text-decoration:underline;}
+.task{background:#fff;border:1px solid #e3ddd0;border-radius:6px;padding:14px 18px 16px 18px;margin:14px 0;}
+.task .task-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
+.task .task-num{font-family:'Playfair Display', Georgia, serif;font-weight:700;font-size:1.05rem;color:var(--terracota);}
+.task .tag{display:inline-block;font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;font-weight:700;color:#fff;border-radius:3px;padding:2px 7px;}
+.tag-literal{background:var(--turquesa);}
+.tag-inferencia{background:var(--azul);}
+.tag-forma{background:var(--oro);}
+.tag-global{background:var(--terracota);}
+.task p.task-text{margin:0;}
+p.sec-note{margin:-6px 0 12px 0;font-size:.9rem;color:#5a5a55;font-style:italic;}
+
+/* ---- La palabra en campaña: componentes propios ---- */
+em{font-style:italic;}
+.lead{font-size:1.05rem;color:#3a3a36;margin:0 0 16px 0;}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:16px 0;}
+.card{background:#fff;border:1px solid #e3ddd0;border-top:4px solid var(--oro);border-radius:6px;padding:14px 18px;}
+.card h4{font-family:'Source Sans 3',sans-serif;color:var(--azul);margin:0 0 6px 0;font-size:.98rem;}
+.card p{margin:0;font-size:.93rem;}
+.callout.warm{background:#fff;color:#2a2a28;border-left:4px solid var(--terracota);}
+.callout.warm .callout-label{color:var(--terracota);}
+.concept{background:#fff;border-left:4px solid var(--turquesa);border-radius:0 6px 6px 0;padding:12px 18px;margin:12px 0;box-shadow:0 1px 3px rgba(0,0,0,.05);}
+.concept .c-term{font-weight:700;color:var(--azul-osc);}
+.concept p{margin:4px 0 0 0;font-size:.94rem;}
+.session{background:#fff;border:1px solid #e3ddd0;border-radius:6px;margin:16px 0;overflow:hidden;}
+.session > summary{list-style:none;cursor:pointer;padding:14px 18px;display:flex;gap:14px;align-items:baseline;}
+.session > summary::-webkit-details-marker{display:none;}
+.session > summary .s-num{font-family:'Playfair Display',Georgia,serif;font-weight:700;color:var(--terracota);font-size:1.15rem;min-width:28px;}
+.session > summary .s-title{font-weight:700;color:var(--azul-osc);font-size:1.02rem;}
+.session > summary .s-phase{margin-left:auto;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:#8a8578;white-space:nowrap;}
+.session[open] > summary{border-bottom:1px solid #e3ddd0;background:#fbf9f4;}
+.session .s-body{padding:6px 20px 18px 20px;}
+.phase-head{font-family:'Playfair Display',Georgia,serif;color:var(--azul);font-size:1.1rem;margin:28px 0 4px 0;}
+.btn-row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;}
+button.btn2{appearance:none;border:1px solid var(--azul);background:#fff;color:var(--azul);font-family:'Source Sans 3',sans-serif;font-weight:700;font-size:.85rem;padding:7px 14px;border-radius:4px;cursor:pointer;}
+button.btn2:hover{background:#eef3f8;}
+button.btn2.primary{background:var(--terracota);border-color:var(--terracota);color:#fff;}
+button.btn2.primary:hover{filter:brightness(1.08);}
+button.btn2.danger{border-color:#a33;color:#a33;}
+.lab-picker{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 22px 0;}
+.lab-picker button{appearance:none;border:1px solid #d8d2c4;background:#fff;border-radius:4px;padding:8px 12px;cursor:pointer;font-family:'Source Sans 3',sans-serif;font-size:.85rem;color:var(--azul-osc);text-align:left;}
+.lab-picker button b{color:var(--terracota);margin-right:4px;}
+.lab-picker button.active{background:var(--azul-osc);color:#fff;border-color:var(--azul-osc);}
+.lab-picker button.active b{color:var(--oro);}
+.ex{background:#fff;border:1px solid #e3ddd0;border-radius:6px;padding:14px 18px 12px 18px;margin:16px 0;}
+.ex h4{font-family:'Source Sans 3',sans-serif;color:var(--azul);margin:0 0 4px 0;font-size:.98rem;}
+.ex p.instr{margin:0 0 10px 0;font-size:.93rem;color:#4a4a46;}
+.ex-item{display:grid;grid-template-columns:1fr minmax(160px,240px);gap:6px 14px;align-items:center;padding:8px 0;border-top:1px dashed #e3ddd0;}
+.ex-item.stack{grid-template-columns:1fr;}
+.ex-item .q{font-size:.95rem;}
+.ex-item select,.ex-item input[type=text]{width:100%;font-family:'Source Sans 3',sans-serif;font-size:.92rem;padding:6px 8px;border:1px solid #d0c9b8;border-radius:4px;background:#fff;}
+.ex-item.ok select,.ex-item.ok input[type=text]{border-color:#2e8b57;background:#eef8f1;}
+.ex-item.ko select,.ex-item.ko input[type=text]{border-color:#c64829;background:#fcefeb;}
+.ex-item .sol{grid-column:1 / -1;display:none;font-size:.88rem;color:#3d5a40;background:#f1f7f0;border-radius:4px;padding:6px 10px;}
+.ex.show-sol .ex-item .sol{display:block;}
+.ex .score{font-size:.85rem;font-weight:700;color:var(--azul);align-self:center;}
+.model{display:none;background:#f1f7f0;border-left:4px solid #2e8b57;border-radius:0 4px 4px 0;padding:10px 14px;margin:8px 0;font-size:.92rem;}
+.model p{margin:0 0 6px 0;}
+.model.visible{display:block;}
+.model .m-label{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;font-weight:700;color:#2e8b57;margin-bottom:4px;}
+.dic-tip{font-size:.88rem;background:#fbf4e6;border:1px dashed var(--oro);border-radius:6px;padding:10px 14px;margin:18px 0;}
+.dic-tip b{color:#8a6420;}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px 16px;}
+.field label{display:block;font-size:.78rem;font-weight:700;color:var(--azul-osc);text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px;}
+.field input,.field select,.field textarea{width:100%;font-family:'Source Sans 3',sans-serif;font-size:.93rem;padding:7px 9px;border:1px solid #d0c9b8;border-radius:4px;background:#fff;}
+.field textarea{min-height:64px;resize:vertical;}
+.field.wide{grid-column:1 / -1;}
+.field .hint{font-size:.78rem;color:#7a7a76;margin-top:2px;}
+.progress{height:10px;background:#e8e2d4;border-radius:5px;overflow:hidden;margin:6px 0 4px 0;}
+.progress > div{height:100%;background:var(--turquesa);width:0;transition:width .3s ease;}
+.entry{background:#fff;border:1px solid #e3ddd0;border-left:4px solid var(--turquesa);border-radius:0 6px 6px 0;padding:12px 16px;margin:10px 0;}
+.entry.example{border-left-color:var(--oro);background:#fffdf8;}
+.entry .e-head{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;}
+.entry .e-word{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.15rem;color:var(--azul-osc);}
+.entry .e-cat{font-size:.82rem;color:#7a7a76;font-style:italic;}
+.entry .e-tag{font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;font-weight:700;color:#fff;background:var(--azul);border-radius:3px;padding:2px 7px;}
+.entry .e-tag.conn{background:var(--oro);}
+.entry p{margin:5px 0 0 0;font-size:.92rem;}
+.entry p b{color:var(--azul-osc);}
+.entry .e-actions{margin-top:8px;display:flex;gap:6px;}
+.wc{font-size:.82rem;color:#7a7a76;margin-top:4px;}
+.wc.in{color:#2e8b57;font-weight:700;}
+.wc.out{color:var(--terracota);font-weight:700;}
+.checklist{list-style:none;padding:0;margin:8px 0 14px 0;}
+.checklist li{padding:5px 0;border-bottom:1px dashed #e3ddd0;font-size:.93rem;}
+.checklist label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;}
+.checklist input{margin-top:4px;}
+.model-text{background:#fff;border:1px solid #e3ddd0;border-radius:6px;padding:22px 28px;margin:16px 0;font-family:Georgia,serif;font-size:1rem;line-height:1.7;}
+.model-text h4{font-family:'Playfair Display',Georgia,serif;font-size:1.3rem;margin:0 0 4px 0;}
+.model-text .byline{text-indent:0;font-family:'Source Sans 3',sans-serif;font-size:.8rem;color:#8a8578;margin:0 0 14px 0;}
+.model-text p{margin:0 0 12px 0;text-indent:1.5em;}
+.model-text p .pnum{font-family:'Source Sans 3',sans-serif;font-size:.7rem;color:var(--oro);font-weight:700;margin-left:-1.5em;margin-right:.6em;}
+.frames{list-style:none;padding:0;margin:8px 0 14px 0;}
+.frames li{background:#f6f2e8;border-radius:4px;padding:6px 12px;margin:5px 0;font-size:.93rem;}
+input.search{width:100%;max-width:380px;font-family:'Source Sans 3',sans-serif;font-size:.95rem;padding:8px 12px;border:1px solid #d0c9b8;border-radius:4px;margin:6px 0 12px 0;}
+.print-btn{float:right;margin-top:-4px;}
+.saved-note{font-size:.78rem;color:#7a7a76;font-style:italic;margin:4px 0 0 0;}
+@media (max-width:640px){
+  .ex-item{grid-template-columns:1fr;}
+  .model-text{padding:16px 16px;}
+  .print-btn{display:none;}
+  .session > summary .s-phase{display:none;}
+}
+@media print{
+  header.top nav, .mininav, .btn-row, .lab-picker, .print-btn, .e-actions, footer.page-footer{display:none !important;}
+  header.top{background:#fff;color:#000;padding:0 0 8px 0;border-bottom:2px solid #1a4a7a;}
+  header.top h1.title{color:#1a4a7a;}
+  header.top .eyebrow, header.top p.subtitle{color:#555;}
+  body{background:#fff;}
+  main{padding:12px 0;max-width:none;}
+  .callout{background:#fff;color:#000;border:1px solid #0e9aa7;}
+  .callout .callout-label{color:#0e9aa7;}
+  details.session{break-inside:avoid;}
+  details.session > summary .s-phase{display:inline;}
+  .ex, .card, .entry, .concept{break-inside:avoid;box-shadow:none;}
+  textarea.answer-box{min-height:120px;border:1px solid #999;}
+  .lab-single{display:none !important;}
+  .lab-single.print-me{display:block !important;}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-inner">
+    <p class="eyebrow">1º de Bachillerato · Comunicación y reflexión sobre la lengua</p>
+    <h1 class="title">La palabra en campaña</h1>
+    <p class="subtitle">Prensa, sesgo y léxico en unas elecciones. Situación de aprendizaje sobre las elecciones generales del 29 de noviembre.</p>
+    <nav class="tabs" id="tabs-nav"></nav>
+  </div>
+</header>
+<div class="mininav">
+  <div class="mininav-inner">
+    <span class="crumb" id="mininav-crumb"></span>
+    <span class="counter" id="mininav-counter"></span>
+  </div>
+</div>
+<main>
+  <div id="content-root"></div>
+</main>
+<footer class="page-footer">Material de estudio y práctica · Lengua Castellana y Literatura I</footer>
+<script>
+(function () {
+  'use strict';
+  var PREFIX = 'campana1bach:';
+
+  function el(tag, opts, children) {
+    var node = document.createElement(tag);
+    opts = opts || {};
+    if (opts.className) node.className = opts.className;
+    if (opts.text) node.appendChild(document.createTextNode(opts.text));
+    if (opts.rich) node.appendChild(rich(opts.rich));
+    if (opts.attrs) {
+      for (var k in opts.attrs) {
+        if (Object.prototype.hasOwnProperty.call(opts.attrs, k)) node.setAttribute(k, opts.attrs[k]);
+      }
+    }
+    (children || []).forEach(function (c) {
+      if (c === null || c === undefined || c === false) return;
+      if (typeof c === 'string') node.appendChild(document.createTextNode(c));
+      else node.appendChild(c);
+    });
+    return node;
+  }
+  function txt(s) { return document.createTextNode(s); }
+
+  /* Marcado mínimo: **negrita** y *cursiva*. Construye nodos, sin innerHTML. */
+  function rich(s) {
+    var frag = document.createDocumentFragment();
+    var re = /\*\*([^*]+)\*\*|\*([^*]+)\*/g;
+    var last = 0, m;
+    s = String(s);
+    while ((m = re.exec(s)) !== null) {
+      if (m.index > last) frag.appendChild(txt(s.slice(last, m.index)));
+      if (m[1] !== undefined) frag.appendChild(el('strong', { text: m[1] }));
+      else frag.appendChild(el('em', { text: m[2] }));
+      last = re.lastIndex;
+    }
+    if (last < s.length) frag.appendChild(txt(s.slice(last)));
+    return frag;
+  }
+
+  function h2(text) { return el('h2', { className: 'sec-title', text: text }); }
+  function h3(text) { return el('h3', { className: 'sub-title', text: text }); }
+  function p(text, cls) { return el('p', { className: cls || 'body-text', rich: text }); }
+  function ul(items) {
+    return el('ul', { className: 'body-list' }, items.map(function (i) { return el('li', { rich: i }); }));
+  }
+  function ol(items) {
+    return el('ol', { className: 'body-list' }, items.map(function (i) { return el('li', { rich: i }); }));
+  }
+  function callout(label, text, extra) {
+    return el('div', { className: 'callout' + (extra ? ' ' + extra : '') }, [
+      el('span', { className: 'callout-label', text: label }),
+      rich(text)
+    ]);
+  }
+  function concept(term, def) {
+    return el('div', { className: 'concept' }, [
+      el('span', { className: 'c-term', text: term }),
+      el('p', { rich: def })
+    ]);
+  }
+  function table(headers, rows) {
+    var thead = el('tr', {}, headers.map(function (h) { return el('th', { text: h }); }));
+    var tbody = rows.map(function (r) {
+      return el('tr', {}, r.map(function (c) { return el('td', { rich: c }); }));
+    });
+    return el('table', { className: 'data-table' }, [el('thead', {}, [thead]), el('tbody', {}, tbody)]);
+  }
+  function frames(items) {
+    return el('ul', { className: 'frames' }, items.map(function (i) { return el('li', { rich: i }); }));
+  }
+
+  var store = {
+    get: function (key) {
+      try { return window.localStorage.getItem(PREFIX + key) || ''; } catch (e) { return ''; }
+    },
+    set: function (key, value) {
+      try { window.localStorage.setItem(PREFIX + key, value); } catch (e) { /* sin almacenamiento */ }
+    },
+    getJSON: function (key, fallback) {
+      var raw = store.get(key);
+      if (!raw) return fallback;
+      try { return JSON.parse(raw); } catch (e) { return fallback; }
+    },
+    setJSON: function (key, value) { store.set(key, JSON.stringify(value)); }
+  };
+
+  function countWords(s) {
+    var t = String(s).trim();
+    if (!t) return 0;
+    return t.split(/\s+/).length;
+  }
+
+  /* Área de texto que se guarda sola en el navegador */
+  function savedArea(key, placeholder, minHeight, onChange) {
+    var ta = el('textarea', { className: 'answer-box', attrs: { placeholder: placeholder || 'Escribe aquí tu respuesta...' } });
+    if (minHeight) ta.style.minHeight = minHeight;
+    ta.value = store.get(key);
+    ta.addEventListener('input', function () {
+      store.set(key, ta.value);
+      if (onChange) onChange(ta.value);
+    });
+    return ta;
+  }
+
+  function printButton() {
+    var b = el('button', { className: 'btn2 print-btn', attrs: { type: 'button' }, text: 'Imprimir esta pestaña' });
+    b.addEventListener('click', function () { window.print(); });
+    return b;
+  }
+
+  function downloadText(filename, content, mime) {
+    var blob = new Blob([content], { type: (mime || 'text/plain') + ';charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = el('a', { attrs: { href: url, download: filename } });
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }
+
+  function copyText(content, button) {
+    var done = function () {
+      var old = button.textContent;
+      button.textContent = 'Copiado';
+      setTimeout(function () { button.textContent = old; }, 1600);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(content).then(done, function () { fallback(); });
+    } else { fallback(); }
+    function fallback() {
+      var ta = el('textarea');
+      ta.value = content;
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) { /* nada */ }
+      document.body.removeChild(ta);
+    }
+  }
+
+  function panel(id) {
+    return el('div', { className: 'panel', attrs: { id: 'panel-' + id } });
+  }
+
+  window.CAMP = {
+    el: el, txt: txt, rich: rich, h2: h2, h3: h3, p: p, ul: ul, ol: ol, callout: callout,
+    concept: concept, table: table, frames: frames, store: store, countWords: countWords,
+    savedArea: savedArea, printButton: printButton, downloadText: downloadText,
+    copyText: copyText, panel: panel, builders: [], goTo: null,
+    TABS: [
+      { id: 'reto', label: 'El reto' },
+      { id: 'sesiones', label: 'Sesiones' },
+      { id: 'glosario', label: 'Glosario' },
+      { id: 'laboratorio', label: 'Laboratorio de palabras' },
+      { id: 'diccionario', label: 'Diccionario de campaña' },
+      { id: 'comentario', label: 'Comentario crítico' },
+      { id: 'columna', label: 'Taller de columna' },
+      { id: 'evaluacion', label: 'Evaluación' }
+    ]
+  };
+})();
+(function () {
+  'use strict';
+  var C = window.CAMP;
+  var el = C.el;
+
+  function norm(s, exact) {
+    var t = String(s).replace(/\s+/g, ' ').trim();
+    if (!exact) t = t.toLowerCase();
+    return t;
+  }
+
+  /* Ejercicio cerrado: 'select' (desplegable) o 'input' (respuesta breve) */
+  function closedExercise(ex, key) {
+    var box = el('div', { className: 'ex' });
+    box.appendChild(el('h4', { rich: ex.title }));
+    if (ex.instr) box.appendChild(el('p', { className: 'instr', rich: ex.instr }));
+    var rows = [];
+    ex.items.forEach(function (it, i) {
+      var k = key + ':' + i;
+      var control;
+      if (ex.type === 'select') {
+        control = el('select', {}, [el('option', { attrs: { value: '' }, text: '— elige —' })].concat(
+          (it.options || ex.options).map(function (o) { return el('option', { attrs: { value: o }, text: o }); })
+        ));
+      } else {
+        control = el('input', { attrs: { type: 'text', autocomplete: 'off', spellcheck: 'false', placeholder: it.ph || 'Escribe aquí' } });
+      }
+      control.value = C.store.get(k);
+      var row = el('div', { className: 'ex-item' + (it.stack ? ' stack' : '') }, [
+        el('div', { className: 'q', rich: it.q }),
+        control
+      ]);
+      var answers = Array.isArray(it.a) ? it.a : [it.a];
+      var solText = '**Solución:** ' + answers[0] + (it.why ? '. ' + it.why : '');
+      row.appendChild(el('div', { className: 'sol', rich: solText }));
+      control.addEventListener(ex.type === 'select' ? 'change' : 'input', function () {
+        C.store.set(k, control.value);
+        row.classList.remove('ok', 'ko');
+      });
+      rows.push({ row: row, control: control, answers: answers });
+      box.appendChild(row);
+    });
+    var score = el('span', { className: 'score' });
+    var check = el('button', { className: 'btn2 primary', attrs: { type: 'button' }, text: 'Comprobar' });
+    var show = el('button', { className: 'btn2', attrs: { type: 'button' }, text: 'Ver soluciones' });
+    var reset = el('button', { className: 'btn2', attrs: { type: 'button' }, text: 'Borrar' });
+    check.addEventListener('click', function () {
+      var ok = 0;
+      rows.forEach(function (r) {
+        var v = norm(r.control.value, ex.exact);
+        var good = r.answers.some(function (a) { return norm(a, ex.exact) === v; });
+        r.row.classList.remove('ok', 'ko');
+        if (v) r.row.classList.add(good ? 'ok' : 'ko');
+        if (good) ok++;
+      });
+      score.textContent = ok + ' / ' + rows.length + ' correctas';
+    });
+    show.addEventListener('click', function () {
+      box.classList.toggle('show-sol');
+      show.textContent = box.classList.contains('show-sol') ? 'Ocultar soluciones' : 'Ver soluciones';
+    });
+    reset.addEventListener('click', function () {
+      rows.forEach(function (r, i) {
+        r.control.value = '';
+        r.row.classList.remove('ok', 'ko');
+        C.store.set(key + ':' + i, '');
+      });
+      score.textContent = '';
+    });
+    box.appendChild(el('div', { className: 'btn-row' }, [check, show, reset, score]));
+    return box;
+  }
+
+  /* Ejercicio abierto: consignas con área de texto y propuesta de solución */
+  function openExercise(ex, key) {
+    var box = el('div', { className: 'ex' });
+    box.appendChild(el('h4', { rich: ex.title }));
+    if (ex.instr) box.appendChild(el('p', { className: 'instr', rich: ex.instr }));
+    ex.items.forEach(function (it, i) {
+      var wrap = el('div', { className: 'ex-item stack' });
+      wrap.appendChild(el('div', { className: 'q', rich: it.q }));
+      wrap.appendChild(C.savedArea(key + ':' + i, it.ph || 'Escribe aquí tu respuesta...', it.h || '70px'));
+      if (it.model) {
+        var model = el('div', { className: 'model' }, [el('span', { className: 'm-label', text: 'Propuesta de respuesta' })]);
+        (Array.isArray(it.model) ? it.model : [it.model]).forEach(function (m) { model.appendChild(el('p', { rich: m })); });
+        var b = el('button', { className: 'btn2', attrs: { type: 'button' }, text: 'Ver propuesta' });
+        b.addEventListener('click', function () {
+          model.classList.toggle('visible');
+          b.textContent = model.classList.contains('visible') ? 'Ocultar propuesta' : 'Ver propuesta';
+        });
+        wrap.appendChild(el('div', { className: 'btn-row' }, [b]));
+        wrap.appendChild(model);
+      }
+      box.appendChild(wrap);
+    });
+    return box;
+  }
+
+  function exercise(ex, key) {
+    if (ex.type === 'open') return openExercise(ex, key);
+    return closedExercise(ex, key);
+  }
+
+  C.exercise = exercise;
+})();
+(function () {
+  'use strict';
+  var C = window.CAMP;
+  var el = C.el, h2 = C.h2, h3 = C.h3, p = C.p, ul = C.ul;
+
+  function link(label, tab) {
+    var b = el('button', { className: 'btn2', attrs: { type: 'button' }, text: label });
+    b.addEventListener('click', function () { C.goTo(tab); });
+    return b;
+  }
+
+  function build() {
+    var panel = C.panel('reto');
+    panel.appendChild(C.printButton());
+    panel.appendChild(h2('El reto: leer como una experta'));
+    panel.appendChild(p('Estos días recibes titulares, vídeos y mensajes sobre los mismos hechos contados de maneras muy distintas. En esta situación de aprendizaje vas a usar la campaña y los resultados de las elecciones generales del 29 de noviembre como material de trabajo. No vamos a opinar sobre quién debe ganar: vamos a explicar, con precisión técnica, **cómo un texto construye una interpretación de la realidad**.', 'lead'));
+    panel.appendChild(p('Al final escribirás tu propia columna de opinión y tendrás que justificar cada decisión lingüística importante. Por el camino, en cada sesión trabajarás el vocabulario y la formación de palabras con el léxico real de la campaña.'));
+
+    panel.appendChild(C.callout('Norma de neutralidad', 'En esta unidad se analiza el lenguaje, nunca la orientación de voto. Los textos procederán de medios de distinta línea editorial y de todas las candidaturas en proporción equilibrada. Ninguna tarea te pide ni valora tu preferencia política. Si en un análisis aparece una opinión, debe referirse al texto y a sus mecanismos, no a los partidos.'));
+
+    panel.appendChild(h3('Qué vas a entregar'));
+    var g = el('div', { className: 'grid2' });
+    [
+      ['Comentario crítico', 'Prueba individual en la sesión 9 sobre una columna o un editorial que no habrás visto antes. 60 minutos. Cuenta un 40 %.'],
+      ['Columna de opinión', 'Entre 400 y 500 palabras, con una nota de decisiones lingüísticas de 150 a 200 palabras. Cuenta un 35 %.'],
+      ['Diccionario de campaña', 'Al menos 35 entradas al final de la sesión 8, más las preguntas de léxico del comentario. Cuenta un 25 %.']
+    ].forEach(function (c) {
+      g.appendChild(el('div', { className: 'card' }, [el('h4', { text: c[0] }), el('p', { rich: c[1] })]));
+    });
+    panel.appendChild(g);
+
+    panel.appendChild(h3('Cómo es cada sesión'));
+    panel.appendChild(p('Cada clase tiene dos partes. Primero, **análisis del discurso** (35-40 minutos): textos reales de prensa y redes y herramientas lingüísticas para explicarlos. Después, **laboratorio de palabras** (15-20 minutos): formar, descomponer, sustituir y reescribir palabras de la campaña.'));
+    panel.appendChild(p('Todo lo que trabajes en el laboratorio pasa a tu **Diccionario de campaña**: cada sesión añades al menos cinco palabras con su definición, su procedimiento de formación, un ejemplo real y su matiz connotativo.'));
+
+    panel.appendChild(h3('Las tres fases'));
+    panel.appendChild(C.table(['Fase', 'Sesiones', 'Qué hacemos'], [
+      ['1. Final de campaña', '1-3', 'Agenda, gramática de la objetividad y encuadre, con textos de los últimos días de campaña.'],
+      ['2. Resultados y opinión', '4-7', 'Titulares de resultados, géneros de opinión, discurso en redes y desinformación.'],
+      ['3. Producción y evaluación', '8-9 (+10)', 'Taller de columna, prueba de comentario y, si se hace, exposición oral.']
+    ]));
+
+    panel.appendChild(h3('Herramientas de esta página'));
+    panel.appendChild(ul([
+      '**Sesiones**: guion de cada clase, conceptos clave y tareas.',
+      '**Glosario**: todos los términos de análisis, con buscador.',
+      '**Laboratorio de palabras**: nueve fichas con ejercicios autocorregibles y propuestas de solución.',
+      '**Diccionario de campaña**: tu plantilla para crear, guardar y descargar las entradas.',
+      '**Comentario crítico**: estructura de la prueba, marcos de frase y un comentario modelo.',
+      '**Taller de columna**: planificación, borrador con contador de palabras, revisión y nota de decisiones.',
+      '**Evaluación**: pesos, rúbricas y criterios.'
+    ]));
+    panel.appendChild(el('div', { className: 'btn-row' }, [
+      link('Ir a las sesiones', 'sesiones'), link('Abrir el Diccionario', 'diccionario'), link('Ver la evaluación', 'evaluacion')
+    ]));
+
+    panel.appendChild(C.callout('Dónde se guarda tu trabajo', 'Lo que escribes en esta página se guarda en este navegador y en este dispositivo. Si cambias de ordenador o borras los datos del navegador, se pierde. Descarga o copia tu trabajo con los botones de cada pestaña y entrégalo donde se te indique.', 'warm'));
+
+    document.getElementById('content-root').appendChild(panel);
+  }
+  C.builders.push(build);
+})();
+(function () {
+  'use strict';
+  var C = window.CAMP;
+  var el = C.el, h2 = C.h2, h3 = C.h3, p = C.p, ul = C.ul;
+
+  var PHASES = {
+    1: 'Fase 1 · Final de campaña',
+    2: 'Fase 2 · Resultados y opinión',
+    3: 'Fase 3 · Producción y evaluación'
+  };
+
+  var S = [
+    {
+      n: 1, phase: 1, title: 'La agenda: qué es noticia y quién lo decide',
+      goal: 'Descubrir que una portada ya es una interpretación: decide qué importa, cuánto y en qué orden.',
+      concepts: [
+        ['Agenda (agenda-setting)', 'Los medios no deciden qué pensamos, pero sí influyen mucho en **sobre qué** pensamos. Al elegir qué temas aparecen y cuáles no, fijan la lista de asuntos que parecen importantes.'],
+        ['Jerarquía de la portada', 'Se lee en la posición (arriba, a la izquierda, en el centro), el espacio que ocupa cada noticia, el tamaño del titular y de la foto, y el orden. Lo que no aparece también cuenta.'],
+        ['Tesis implícita', 'Idea que una portada transmite sin decirla. Se deduce de la selección y la jerarquía, no de una frase concreta.']
+      ],
+      tasks: [
+        'En grupo, analizad las portadas del mismo día de cuatro diarios: qué noticia abre, qué ocupa más espacio, qué foto se elige y qué tema falta en cada una.',
+        'Redactad en tres líneas la **tesis implícita** de una de las portadas.',
+        'Laboratorio: familia léxica de *elegir* y campo asociativo de la campaña (ficha 1).',
+        'Diagnóstico individual: cómo te informas (abajo).'
+      ],
+      frames: [
+        'La portada de ___ sugiere que ___, porque sitúa ___ en el lugar principal y dedica a ___ solo ___.',
+        'A diferencia de ___, este diario no menciona ___, lo que hace que ___ parezca menos relevante.'
+      ],
+      exercises: [{
+        type: 'open', title: 'Diagnóstico: ¿cómo te informas?',
+        instr: 'Responde con sinceridad. Nadie va a valorar qué medios eliges; solo sirve para partir de tu experiencia real.',
+        items: [
+          { q: '¿Por qué medios o canales te llega la información sobre la campaña? Ordénalos de más a menos frecuentes.' },
+          { q: 'Cuando una noticia te llama la atención, ¿consultas otra fuente para contrastarla? ¿Cuál?' },
+          { q: '¿Has compartido alguna vez una noticia o un vídeo sin leerlo o verlo entero? ¿Por qué crees que ocurre?' },
+          { q: '¿Sabrías decir la línea editorial de algún medio que lees? ¿Cómo lo has deducido?' }
+        ]
+      }, {
+        type: 'open', title: 'Tesis implícita de una portada',
+        items: [{ q: 'Diario, fecha y tesis implícita en tres líneas, con los elementos de la portada que la apoyan.', h: '90px' }]
+      }],
+      lab: 1
+    },
+    {
+      n: 2, phase: 1, title: 'La gramática de la objetividad',
+      goal: 'Reconocer los mecanismos gramaticales que hacen que un texto parezca neutral o que dejan ver la opinión del emisor.',
+      concepts: [
+        ['Modalización', 'Huella del emisor en el texto: modalidad oracional (exclamativa, interrogativa, dubitativa), adjetivos valorativos, adverbios (*lamentablemente, sin duda*), verbos de opinión y sufijos apreciativos.'],
+        ['Verbos de habla', 'No es lo mismo que alguien *dijo*, *reconoció*, *admitió*, *alegó* o *denunció*. El verbo que elige el periodista ya valora lo que se cita.'],
+        ['Estilo directo e indirecto', 'El estilo directo reproduce las palabras entre comillas; el indirecto las reformula y permite al periodista seleccionarlas. Las comillas parciales («destroza») pueden marcar distancia o ironía.'],
+        ['Atribución de fuentes', 'Fuentes identificadas (*según la portavoz del Ministerio*), genéricas (*fuentes del partido*) o anónimas (*se comenta*). Cuanto más vaga es la fuente, menos se puede verificar.'],
+        ['Mecanismos que borran al agente', 'La pasiva sin complemento agente (*fueron detenidos*), la pasiva refleja (*se produjeron incidentes*), las impersonales (*dicen que*) y la **nominalización** (*la subida de impuestos* en lugar de *el Gobierno sube los impuestos*) ocultan quién hace la acción.']
+      ],
+      tasks: [
+        'Comparad una noticia y una crónica de un mismo acto de campaña: subrayad en dos colores los rasgos objetivos y los subjetivos.',
+        'Localizad todos los verbos de habla y clasificadlos por la valoración que añaden.',
+        'Ejercicios de agente (abajo).',
+        'Laboratorio: sufijación (ficha 2).'
+      ],
+      exercises: [{
+        type: 'select', title: '¿Qué mecanismo oculta al agente?',
+        options: ['Pasiva perifrástica sin agente', 'Pasiva refleja', 'Impersonal con verbo en 3.ª persona del plural', 'Nominalización'],
+        items: [
+          { q: '*Fueron detenidos tres jóvenes tras el mitin.*', a: 'Pasiva perifrástica sin agente', why: 'Ser + participio, sin complemento agente: no sabemos quién detuvo' },
+          { q: '*Se cometieron errores en el recuento.*', a: 'Pasiva refleja', why: 'Se + verbo concordado con el sujeto paciente (errores)' },
+          { q: '*El recorte de las ayudas al alquiler indigna a los inquilinos.*', a: 'Nominalización', why: 'El sustantivo recorte convierte la acción en una cosa y elimina a quien recorta' },
+          { q: '*Dicen que habrá adelanto electoral en otoño.*', a: 'Impersonal con verbo en 3.ª persona del plural', why: 'Sujeto indeterminado: nadie se hace responsable de la afirmación' },
+          { q: '*La privatización del servicio se aprobó en el último pleno.*', a: 'Nominalización', why: 'Privatización oculta al agente; además, se aprobó es una pasiva refleja. Lo más llamativo es el sustantivo que resume la acción' }
+        ]
+      }, {
+        type: 'open', title: 'Mostrar u ocultar al agente',
+        instr: 'Reescribe cada frase como se indica y explica qué cambia en la responsabilidad.',
+        items: [
+          { q: 'Oculta al agente: *La policía desalojó a los manifestantes.*', model: '*Los manifestantes fueron desalojados* o *Se desalojó a los manifestantes* o *El desalojo de los manifestantes…* La acción sigue ahí, pero desaparece quién la realizó y el lector deja de preguntarse por esa responsabilidad.' },
+          { q: 'Muestra al agente: *Se ha decidido retrasar el debate.*', model: '*Las candidaturas han decidido retrasar el debate* (o el agente que corresponda). Al nombrarlo, la decisión tiene un responsable al que se le pueden pedir explicaciones.' },
+          { q: 'Muestra al agente: *La subida del IVA de la luz entra en vigor el lunes.*', model: '*El Gobierno sube el IVA de la luz a partir del lunes.* El sustantivo subida se convierte en verbo con sujeto y la medida deja de parecer un fenómeno natural.' },
+          { q: 'Muestra al agente: *Se produjeron incidentes al final del acto.*', model: '*Un grupo de asistentes provocó incidentes al final del acto.* La pasiva refleja presentaba los incidentes como algo que simplemente ocurrió.' }
+        ]
+      }],
+      lab: 2
+    },
+    {
+      n: 3, phase: 1, title: 'El encuadre: el mismo hecho, otro marco',
+      goal: 'Explicar cómo la selección, la omisión y las metáforas convierten un mismo hecho en historias distintas.',
+      concepts: [
+        ['Encuadre (framing)', 'Marco desde el que se cuenta un hecho. Los más frecuentes en campaña: **económico** (costes y beneficios), **de conflicto** (choque entre actores), **moral o humano** (valores, víctimas, derechos) y **de estrategia** (quién gana o pierde votos).'],
+        ['Selección y omisión', 'Qué datos se dan y cuáles no, qué voces hablan y cuáles no, qué foto se elige y qué dice su pie.'],
+        ['Metáfora conceptual', 'Forma de entender un ámbito a través de otro. En política son habituales la **guerra** (*batalla, trinchera, fuego cruzado*), el **deporte** (*sprint final, remontada, empate técnico*) y el **espectáculo** (*escenario, guion, protagonista, circo*).']
+      ],
+      tasks: [
+        'Leed dos noticias sobre una misma propuesta electoral en medios de línea opuesta: qué encuadre domina en cada una y con qué recursos (datos, voces, imagen, pie de foto).',
+        'Ejercicios de encuadre y de metáforas (abajo).',
+        'Laboratorio: connotación, eufemismo y disfemismo (ficha 3).'
+      ],
+      exercises: [{
+        type: 'select', title: 'Cuatro titulares, cuatro marcos',
+        instr: 'Todos hablan de la misma propuesta inventada: transporte público gratuito para menores de 26 años. Identifica el encuadre dominante.',
+        options: ['Económico', 'De conflicto', 'Moral o humano', 'De estrategia'],
+        items: [
+          { q: '«La gratuidad del transporte joven costaría 900 millones al año»', a: 'Económico', why: 'El dato elegido es el coste' },
+          { q: '«Choque frontal entre candidatos por el transporte gratis»', a: 'De conflicto', why: 'Lo noticioso es el enfrentamiento, no la medida' },
+          { q: '«Que ningún joven se quede sin estudiar por no poder pagar el autobús»', a: 'Moral o humano', why: 'Apela a un derecho y a personas concretas' },
+          { q: '«El guiño a los jóvenes con el que una candidatura busca recortar distancia en las encuestas»', a: 'De estrategia', why: 'La medida se presenta como maniobra para ganar votos' }
+        ]
+      }, {
+        type: 'select', title: '¿De qué ámbito procede la metáfora?',
+        options: ['Guerra', 'Deporte', 'Espectáculo'],
+        items: [
+          { q: 'El candidato *se atrincheró* en su discurso.', a: 'Guerra' },
+          { q: 'Todo se decidirá en el *sprint final*.', a: 'Deporte' },
+          { q: 'El debate se convirtió en un *circo*.', a: 'Espectáculo' },
+          { q: '*Fuego cruzado* entre los portavoces.', a: 'Guerra' },
+          { q: 'La *remontada* que nadie esperaba.', a: 'Deporte' },
+          { q: 'Un *actor secundario* que acaba robando el *protagonismo*.', a: 'Espectáculo' }
+        ]
+      }],
+      lab: 3
+    },
+    {
+      n: 4, phase: 2, title: 'Los números también se redactan',
+      goal: 'Comprobar que unos mismos resultados admiten titulares opuestos según el dato, el verbo y el gráfico que se elijan.',
+      concepts: [
+        ['Selección del dato', 'Quién gana, quién sube más, quién pierde, la participación, los escaños o los votos: cada medio elige el dato que mejor sirve a su relato.'],
+        ['Verbos de cambio', 'Forman una escala de intensidad: *sube, crece, avanza, se dispara, arrasa*; *baja, retrocede, cede, se hunde, se desploma*. Un mismo dato puede contarse con cualquiera de ellos.'],
+        ['Gráficos engañosos', 'Ejes que no empiezan en cero, escalas distintas en dos gráficos que se comparan, porcentajes calculados sobre bases diferentes, efectos 3D que agrandan una porción u omisión de la fuente y del tamaño de la muestra.']
+      ],
+      tasks: [
+        'Comparad titulares del 30 de noviembre sobre los mismos resultados: qué dato elige cada uno, qué verbo y qué metáfora.',
+        'Revisad dos gráficos de resultados y comprobad los ejes, la escala y la fuente.',
+        'Ejercicio de titulares (abajo).',
+        'Laboratorio: prefijación y su ortografía (ficha 4).'
+      ],
+      exercises: [{
+        type: 'open', title: 'Tres titulares, un solo resultado',
+        instr: 'Resultado inventado: candidatura A, 31 % (dos puntos menos que en las anteriores); candidatura B, 28 % (cuatro puntos más). Analiza qué hace cada titular.',
+        items: [
+          { q: '«A gana las elecciones»', model: 'Elige el dato del ganador y omite la pérdida de apoyo. Verbo neutro y rotundo. Encuadre de resultado.' },
+          { q: '«B se dispara y acaricia la victoria»', model: 'Elige la variación (+4) y no el resultado final. *Se dispara* intensifica la subida y *acaricia la victoria* (metáfora) convierte la derrota en casi victoria.' },
+          { q: '«A se deja dos puntos pese a ganar»', model: 'Elige la caída. La locución *dejarse* sugiere pérdida y *pese a* presenta la victoria como un dato secundario.' },
+          { q: 'Ahora escribe tú un titular lo más neutral posible y explica qué has evitado.', model: 'Por ejemplo: *A gana con el 31 % y B sube cuatro puntos hasta el 28 %*. Se dan los dos datos, se usan verbos de baja intensidad y no hay metáforas.' }
+        ]
+      }],
+      lab: 4
+    },
+    {
+      n: 5, phase: 2, title: 'Opinar: editorial, columna y artículo',
+      goal: 'Identificar tema, tesis, estructura y estrategias argumentativas en textos de opinión y hacer un primer comentario guiado.',
+      concepts: [
+        ['Editorial', 'Expresa la opinión del medio. No lleva firma y suele tener un tono institucional.'],
+        ['Columna', 'Texto firmado por un colaborador habitual, con espacio fijo y estilo personal. Admite ironía, humor y primera persona.'],
+        ['Artículo de opinión', 'Texto firmado por un autor ocasional, a menudo experto en el tema.'],
+        ['Estructura', '**Deductiva** (tesis al principio), **inductiva** (tesis al final), **encuadrada** (al principio y al final) o **implícita** (no se formula y hay que deducirla).'],
+        ['Falacias', 'Argumentos que parecen válidos y no lo son: *ad hominem*, hombre de paja, falso dilema, pendiente resbaladiza, generalización apresurada, apelación al miedo, *tu quoque*.']
+      ],
+      tasks: [
+        'Leed dos editoriales del día después: tema, tesis, estructura y tipos de argumentos.',
+        'Localizad las estrategias de cortesía (concesiones, atenuación) y de ataque (ironía, descalificación).',
+        'Ejercicio de falacias (abajo).',
+        'Primer comentario guiado: usad los marcos de frase de la pestaña **Comentario crítico**.',
+        'Laboratorio: sinonimia contextual y verbos precisos (ficha 5).'
+      ],
+      exercises: [{
+        type: 'select', title: 'Caza la falacia',
+        options: ['Ad hominem', 'Hombre de paja', 'Falso dilema', 'Pendiente resbaladiza', 'Generalización apresurada', 'Tu quoque (tú también)'],
+        items: [
+          { q: '«¿Cómo va a saber de economía alguien que suspendió Matemáticas en el instituto?»', a: 'Ad hominem', why: 'Ataca a la persona, no a su propuesta' },
+          { q: '«Mi rival quiere bajar un impuesto; o sea, quiere cerrar los hospitales.»', a: 'Hombre de paja', why: 'Deforma la posición del otro para rebatirla con facilidad' },
+          { q: '«O nos votáis a nosotros o el país se hunde.»', a: 'Falso dilema', why: 'Reduce las opciones a dos cuando hay más' },
+          { q: '«Si hoy se permite esta protesta, mañana nadie respetará ninguna ley.»', a: 'Pendiente resbaladiza', why: 'Encadena consecuencias extremas sin demostrarlas' },
+          { q: '«Dos concejales de ese partido han sido imputados: todos son unos corruptos.»', a: 'Generalización apresurada', why: 'Extrae una conclusión general de unos pocos casos' },
+          { q: '«No me hable de promesas incumplidas: ustedes incumplieron más.»', a: 'Tu quoque (tú también)', why: 'Responde a la crítica señalando la falta del otro en lugar de defenderse' }
+        ]
+      }],
+      lab: 5
+    },
+    {
+      n: 6, phase: 2, title: 'El discurso político en redes',
+      goal: 'Analizar eslóganes y publicaciones oficiales como textos multimodales diseñados para la polarización y la viralidad.',
+      concepts: [
+        ['Eslogan', 'Frase breve y memorable. Recursos habituales: elipsis del verbo, imperativo o primera persona del plural, antítesis, paralelismo, aliteración y juegos de palabras.'],
+        ['Polarización', 'División del mundo en *nosotros* (los buenos, el pueblo, la gente normal) y *ellos* (los otros, la élite, el peligro). Se construye con la **deixis personal** y el léxico valorativo.'],
+        ['Apelación emocional', 'Busca miedo, orgullo, indignación o esperanza más que razones. Es la emoción que más se comparte.'],
+        ['Multimodalidad', 'El significado se construye con palabra, imagen, música, subtítulos, emojis, ritmo de montaje y gesto.'],
+        ['Cámara de eco', 'Los algoritmos nos muestran sobre todo lo que ya pensamos, de modo que las opiniones contrarias parecen raras o absurdas.']
+      ],
+      tasks: [
+        'Analizad publicaciones oficiales de varias candidaturas en proporción equilibrada: recursos del eslogan, deixis, emoción dominante y elementos no verbales.',
+        'Ejercicio de eslóganes inventados (abajo).',
+        'Laboratorio: composición, siglas, acrónimos y acortamientos (ficha 6).'
+      ],
+      exercises: [{
+        type: 'select', title: 'El recurso dominante del eslogan',
+        instr: 'Eslóganes inventados para este ejercicio.',
+        options: ['Antítesis', 'Paralelismo', 'Elipsis verbal', 'Aliteración', 'Primera persona del plural inclusiva'],
+        items: [
+          { q: '«Más hechos, menos ruido.»', a: ['Antítesis', 'Elipsis verbal'], why: 'Opone más / menos y hechos / ruido. También hay elipsis verbal (se da por buena), pero el efecto principal es la oposición' },
+          { q: '«Contigo, futuro.»', a: 'Elipsis verbal', why: 'Falta el verbo; el lector lo completa' },
+          { q: '«Vota con cabeza, vota con corazón.»', a: 'Paralelismo', why: 'Repite la misma estructura sintáctica' },
+          { q: '«Juntos lo hacemos posible.»', a: 'Primera persona del plural inclusiva', why: 'El emisor incluye al receptor en el nosotros' },
+          { q: '«Pan, paz y progreso.»', a: 'Aliteración', why: 'Repetición del sonido /p/ al comienzo de las palabras' }
+        ]
+      }, {
+        type: 'open', title: 'Nosotros y ellos',
+        items: [{ q: 'Copia una frase de una publicación analizada en clase en la que aparezca la oposición *nosotros / ellos*. Explica qué palabras la construyen y qué emoción busca.', h: '90px' }]
+      }],
+      lab: 6
+    },
+    {
+      n: 7, phase: 2, title: 'Desinformación y verificación',
+      goal: 'Clasificar los tipos de desinformación y aplicar la lectura lateral para verificar un contenido.',
+      concepts: [
+        ['Tipos de desinformación', '**Sátira confundida** (humor tomado como real), **conexión falsa** (el titular no corresponde al contenido), **contenido engañoso** (datos reales usados para engañar), **contexto falso** (contenido real fuera de su fecha o lugar), **suplantación** (se imita a un medio o a una persona), **contenido manipulado** (imagen o vídeo alterados), **contenido inventado** y **ultrafalsos**, vídeos o audios generados con inteligencia artificial.'],
+        ['Lectura lateral', 'En lugar de quedarte en la página, sal de ella: busca quién la publica, qué dicen otros medios, si un verificador ya la ha revisado y de dónde procede la imagen (búsqueda inversa).'],
+        ['Verificadores', 'Maldita.es, Newtral y EFE Verifica publican desmentidos con las pruebas que los sostienen.']
+      ],
+      tasks: [
+        'Clasificación de casos (abajo).',
+        'Buscad en los verificadores dos bulos de esta campaña ya desmentidos y completad la ficha (abajo).',
+        'Laboratorio: neologismos, extranjerismos y calcos (ficha 7).'
+      ],
+      exercises: [{
+        type: 'select', title: '¿Qué tipo de desinformación es?',
+        instr: 'Casos inventados.',
+        options: ['Sátira confundida', 'Conexión falsa', 'Contenido engañoso', 'Contexto falso', 'Suplantación', 'Ultrafalso'],
+        items: [
+          { q: 'Una foto real de una manifestación de 2019 circula como si fuera de ayer.', a: 'Contexto falso' },
+          { q: 'Una captura con el logotipo de un periódico que nunca publicó esa noticia.', a: 'Suplantación' },
+          { q: 'Un audio con la voz de una candidata, generado por inteligencia artificial.', a: 'Ultrafalso' },
+          { q: 'Un titular dice «Lo que nadie te cuenta del debate» y el artículo no revela nada nuevo.', a: 'Conexión falsa', why: 'Es además un ciberanzuelo' },
+          { q: 'Un artículo de una web de humor se comparte como noticia verdadera.', a: 'Sátira confundida' },
+          { q: 'Una cifra real del paro se recorta para que parezca que ha subido cuando ha bajado.', a: 'Contenido engañoso' }
+        ]
+      }, {
+        type: 'open', title: 'Ficha de verificación',
+        instr: 'Para cada bulo: qué decía, dónde circuló, qué verificador lo desmintió, con qué pruebas y qué tipo de desinformación es.',
+        items: [
+          { q: 'Bulo 1', h: '100px' },
+          { q: 'Bulo 2', h: '100px' }
+        ]
+      }],
+      lab: 7
+    },
+    {
+      n: 8, phase: 3, title: 'Taller de columna',
+      goal: 'Planificar, redactar y revisar una columna de opinión con conciencia de cada elección lingüística.',
+      concepts: [
+        ['Planificación', 'Tema real de la campaña o del resultado (o un tema de actualidad no político), tesis, destinatario, estructura y dos argumentos de tipos distintos.'],
+        ['Revisión por parejas', 'Con la rúbrica delante, cada compañera subraya tres palabras genéricas del texto de la otra y propone alternativas.']
+      ],
+      tasks: [
+        'Planificación y borrador de 400-500 palabras en la pestaña **Taller de columna**.',
+        'Revisión por parejas y laboratorio de precisión léxica (ficha 8).',
+        'En casa: versión final y nota de decisiones lingüísticas de 150-200 palabras.',
+        'Comprueba que tu Diccionario tiene al menos 35 entradas.'
+      ],
+      goTab: ['Abrir el Taller de columna', 'columna'],
+      lab: 8
+    },
+    {
+      n: 9, phase: 3, title: 'Prueba de comentario crítico',
+      goal: 'Comentar una columna o un editorial que no has visto antes, en 60 minutos.',
+      concepts: [
+        ['Formato', 'Texto de extensión similar a los de la PEvAU. Cinco apartados: tema y tesis (1 punto), estructura (1,5), intención y mecanismos lingüísticos (3), vocabulario y formación de palabras (1,5) y valoración crítica (3).']
+      ],
+      tasks: [
+        'Repasa la pestaña **Comentario crítico**: estructura, marcos de frase y comentario modelo.',
+        'Practica el apartado de léxico con la ficha 9.',
+        'Entrega la columna y el Diccionario de campaña.'
+      ],
+      goTab: ['Abrir la guía del comentario', 'comentario'],
+      lab: 9
+    },
+    {
+      n: 10, phase: 3, title: 'Exposición oral (opcional)',
+      goal: 'Defender tu columna ante la clase en dos minutos.',
+      concepts: [
+        ['Cómo preparar los dos minutos', 'Abre con una frase que atrape, formula tu tesis en una sola oración, desarrolla tu mejor argumento con un ejemplo y cierra con una idea que se recuerde. No leas: lleva tres palabras clave en una tarjeta.']
+      ],
+      tasks: [
+        'Exposición de dos minutos por persona.',
+        'Turno breve de preguntas: responde a la objeción, no a la persona.'
+      ]
+    }
+  ];
+
+  function sessionBlock(s) {
+    var d = el('details', { className: 'session' });
+    d.appendChild(el('summary', {}, [
+      el('span', { className: 's-num', text: String(s.n) }),
+      el('span', { className: 's-title', text: s.title }),
+      el('span', { className: 's-phase', text: PHASES[s.phase] })
+    ]));
+    var body = el('div', { className: 's-body' });
+    body.appendChild(p('**Objetivo.** ' + s.goal));
+    body.appendChild(el('h4', { className: 'sub-title', text: 'Conceptos clave' }));
+    s.concepts.forEach(function (c) { body.appendChild(C.concept(c[0], c[1])); });
+    body.appendChild(el('h4', { className: 'sub-title', text: 'En clase' }));
+    body.appendChild(C.ol(s.tasks));
+    if (s.frames) {
+      body.appendChild(p('**Marcos de frase**'));
+      body.appendChild(C.frames(s.frames));
+    }
+    (s.exercises || []).forEach(function (ex, i) {
+      body.appendChild(C.exercise(ex, 's' + s.n + 'e' + i));
+    });
+    var btns = [];
+    if (s.lab) {
+      var lb = el('button', { className: 'btn2', attrs: { type: 'button' }, text: 'Ficha ' + s.lab + ' del laboratorio' });
+      lb.addEventListener('click', function () { C.openLab(s.lab); });
+      btns.push(lb);
+    }
+    if (s.goTab) {
+      var gb = el('button', { className: 'btn2', attrs: { type: 'button' }, text: s.goTab[0] });
+      gb.addEventListener('click', function () { C.goTo(s.goTab[1]); });
+      btns.push(gb);
+    }
+    if (btns.length) body.appendChild(el('div', { className: 'btn-row' }, btns));
+    body.appendChild(el('h4', { className: 'sub-title', text: 'Mis notas de la sesión' }));
+    body.appendChild(C.savedArea('notas' + s.n, 'Apuntes, dudas, ejemplos que te han llamado la atención...', '80px'));
+    d.appendChild(body);
+    return d;
+  }
+
+  function build() {
+    var panel = C.panel('sesiones');
+    panel.appendChild(C.printButton());
+    panel.appendChild(h2('Secuencia de sesiones'));
+    panel.appendChild(p('Abre cada sesión para ver su objetivo, los conceptos clave, las tareas de clase y los ejercicios. Tus respuestas y notas se guardan solas en este navegador.'));
+    var current = 0;
+    S.forEach(function (s) {
+      if (s.phase !== current) {
+        current = s.phase;
+        panel.appendChild(el('h3', { className: 'phase-head', text: PHASES[s.phase] }));
+      }
+      panel.appendChild(sessionBlock(s));
+    });
+    panel.appendChild(C.callout('Recuerda', 'Cada sesión añade al menos cinco palabras a tu Diccionario de campaña: definición propia, procedimiento de formación, ejemplo real con su fuente y matiz connotativo.'));
+    document.getElementById('content-root').appendChild(panel);
+  }
+  C.builders.push(build);
+})();
+(function () {
+  'use strict';
+  var C = window.CAMP;
+  var el = C.el;
+
+  var G = [
+    ['Acortamiento', 'Palabra que se forma eliminando parte de otra: *progre* (progresista), *mani* (manifestación), *tele* (televisión). Suele ser coloquial y a veces tiene carga peyorativa.'],
+    ['Acrónimo', 'Sigla que se lee como una palabra (*OTAN, ONU*) o palabra formada con el principio de una y el final de otra (*Mercosur, ofimática*).'],
+    ['Agenda (agenda-setting)', 'Capacidad de los medios para fijar qué asuntos parecen importantes, según qué temas eligen y cuánto espacio les dan.'],
+    ['Argumento de autoridad', 'Apoya la tesis en la opinión de un experto o de una institución reconocida.'],
+    ['Argumento de ejemplificación', 'Apoya la tesis con un caso concreto.'],
+    ['Analogía', 'Argumento que compara la situación con otra parecida y más fácil de entender.'],
+    ['Atribución de fuentes', 'Indicación de quién dice lo que se cita: fuente identificada, genérica o anónima.'],
+    ['Bulo', 'Noticia falsa difundida a propósito, normalmente para engañar o perjudicar.'],
+    ['Calco', 'Traducción literal de una palabra o expresión extranjera: *posverdad* (post-truth), *rascacielos* (skyscraper).'],
+    ['Cámara de eco', 'Entorno en el que solo recibimos opiniones parecidas a las nuestras, a menudo por efecto de los algoritmos.'],
+    ['Ciberanzuelo', 'Alternativa en español a *clickbait*: titular pensado para provocar el clic más que para informar.'],
+    ['Columna', 'Texto de opinión firmado por un colaborador habitual, con espacio fijo y estilo personal.'],
+    ['Composición', 'Formación de una palabra uniendo dos o más palabras o raíces: *centroderecha, hispanohablante*.'],
+    ['Connotación', 'Valor añadido, subjetivo o emocional, que una palabra tiene además de su significado básico (denotación).'],
+    ['Contraargumento', 'Objeción que el autor presenta para refutarla después: *Se dirá que…, pero…*'],
+    ['Crónica', 'Género que mezcla información e interpretación; el periodista, testigo de los hechos, los cuenta con estilo personal.'],
+    ['Deixis personal', 'Palabras que señalan a los participantes de la comunicación: *yo, nosotros, ustedes, ellos*. En política construye grupos.'],
+    ['Denotación', 'Significado básico y objetivo de una palabra, el que recoge el diccionario.'],
+    ['Derivación', 'Formación de palabras añadiendo prefijos (*reelegir*) o sufijos (*votante*) a una base.'],
+    ['Desinformación', 'Información falsa o engañosa difundida de forma deliberada.'],
+    ['Disfemismo', 'Expresión que presenta la realidad de forma más dura o despectiva: *tijeretazo* por *recorte*.'],
+    ['Editorial', 'Texto sin firma que expresa la opinión del medio.'],
+    ['Encuadre (framing)', 'Marco desde el que se cuenta un hecho: económico, de conflicto, moral o humano, de estrategia.'],
+    ['Estilo directo / indirecto', 'Reproducción literal de las palabras entre comillas / reformulación de lo dicho por el periodista.'],
+    ['Estructura deductiva', 'La tesis aparece al principio y después se argumenta.'],
+    ['Estructura encuadrada', 'La tesis aparece al principio y se retoma al final.'],
+    ['Estructura inductiva', 'Los argumentos llevan a la tesis, que aparece al final.'],
+    ['Eslogan', 'Frase breve y memorable que resume un mensaje publicitario o político.'],
+    ['Eufemismo', 'Expresión que suaviza una realidad desagradable: *ajuste* por *recorte*.'],
+    ['Extranjerismo', 'Palabra tomada de otra lengua. Si no está adaptada, se escribe en cursiva: *marketing*.'],
+    ['Falacia', 'Razonamiento que parece válido sin serlo: *ad hominem*, hombre de paja, falso dilema, pendiente resbaladiza…'],
+    ['Lectura lateral', 'Técnica de verificación: salir de la página para buscar quién la publica y qué dicen otras fuentes.'],
+    ['Metáfora conceptual', 'Forma de entender un ámbito a través de otro: la política como guerra, deporte o espectáculo.'],
+    ['Modalización', 'Conjunto de marcas con las que el emisor muestra su actitud ante lo que dice.'],
+    ['Multimodalidad', 'Construcción del sentido con varios códigos a la vez: palabra, imagen, sonido, gesto, tipografía.'],
+    ['Neologismo', 'Palabra nueva en la lengua.'],
+    ['Nominalización', 'Conversión de una acción en sustantivo (*la subida*), que permite omitir al agente.'],
+    ['Parasíntesis', 'Formación con prefijo y sufijo a la vez, sin que exista la palabra solo con uno de ellos: *empadronar* (no existe *empadrón* ni *padronar*).'],
+    ['Pasiva refleja', 'Construcción con *se* y verbo concordado con el sujeto paciente: *Se cometieron errores*.'],
+    ['Polarización', 'División del discurso en dos bandos enfrentados, *nosotros* frente a *ellos*.'],
+    ['Préstamo', 'Palabra tomada de otra lengua. Puede estar adaptada (*mitin, líder, eslogan*) o no (*lobby*).'],
+    ['Sigla', 'Palabra formada con las iniciales de una denominación: *CIS, UE, DNI*. No lleva *s* en plural: *las ONG*.'],
+    ['Sufijo apreciativo', 'Sufijo que añade un matiz de tamaño, afecto o desprecio sin cambiar la categoría: *-ito, -illo, -ucho, -astro*.'],
+    ['Tema', 'Idea central del texto, expresada en una frase nominal breve.'],
+    ['Tesis', 'Opinión que el autor defiende sobre el tema, expresada en una oración completa.'],
+    ['Ultrafalso', 'Alternativa en español a *deepfake*: vídeo o audio falso generado con inteligencia artificial.']
+  ];
+
+  function build() {
+    var panel = C.panel('glosario');
+    panel.appendChild(C.printButton());
+    panel.appendChild(C.h2('Glosario de términos de análisis'));
+    panel.appendChild(C.p('Consulta aquí cualquier término que aparezca en las sesiones o en el comentario. Escribe en el buscador para filtrar.'));
+    var search = el('input', { className: 'search', attrs: { type: 'search', placeholder: 'Buscar un término...' } });
+    panel.appendChild(search);
+    var list = el('div');
+    var nodes = G.slice().sort(function (a, b) { return a[0].localeCompare(b[0], 'es'); }).map(function (g) {
+      var n = C.concept(g[0], g[1]);
+      n.setAttribute('data-k', (g[0] + ' ' + g[1]).toLowerCase());
+      list.appendChild(n);
+      return n;
+    });
+    var empty = el('p', { className: 'saved-note', text: 'Ningún término coincide con la búsqueda.' });
+    empty.style.display = 'none';
+    list.appendChild(empty);
+    search.addEventListener('input', function () {
+      var q = search.value.trim().toLowerCase();
+      var shown = 0;
+      nodes.forEach(function (n) {
+        var vis = !q || n.getAttribute('data-k').indexOf(q) !== -1;
+        n.style.display = vis ? '' : 'none';
+        if (vis) shown++;
+      });
+      empty.style.display = shown ? 'none' : '';
+    });
+    panel.appendChild(list);
+    document.getElementById('content-root').appendChild(panel);
+  }
+  C.builders.push(build);
+})();
+(function () {
+  'use strict';
+  var C = window.CAMP;
+  var el = C.el, p = C.p;
+
+  var PROC = ['Sufijación', 'Prefijación', 'Parasíntesis', 'Composición'];
+
+  var LABS = [
+    {
+      n: 1, title: 'Familias léxicas y campo asociativo',
+      intro: [
+        'Una **familia léxica** es el conjunto de palabras que comparten el mismo lexema: *votar, voto, votante, votación*. A veces el lexema tiene dos formas, una patrimonial y otra culta: *elegir* y *elect-* (*elección, elector*); *gobernar* y *gubern-* (*gubernamental*).',
+        'Un **campo asociativo** reúne palabras que no comparten lexema, pero que asociamos a una misma realidad: *mitin, urna, encuesta, papeleta, debate* pertenecen al campo asociativo de la campaña.'
+      ],
+      keys: [
+        ['Sufijación', 'Base + sufijo: *elector* → *electorado*.'],
+        ['Prefijación', 'Prefijo + base: *elegir* → *reelegir*.'],
+        ['Parasíntesis', 'Prefijo y sufijo a la vez, sin que exista la palabra con solo uno de ellos: *en-* + *padrón* + *-ar* → *empadronar*.'],
+        ['Composición', 'Dos lexemas: *hispano* + *hablante* → *hispanohablante*.'],
+        ['¡Cuidado!', '*Inelegible* no es parasintética: existe *elegible*, así que se forma por prefijación (*in-* + *elegible*).']
+      ],
+      ex: [
+        {
+          type: 'select', title: '1. ¿Cómo se ha formado?', instr: 'Elige el procedimiento de formación de cada palabra.', options: PROC,
+          items: [
+            { q: '*elección*', a: 'Sufijación', why: 'Raíz culta *elect-* + *-ción*' },
+            { q: '*electorado*', a: 'Sufijación', why: '*elector* + *-ado* (sufijo de colectivo)' },
+            { q: '*reelegir*', a: 'Prefijación', why: '*re-* (repetición) + *elegir*' },
+            { q: '*inelegible*', a: 'Prefijación', why: '*in-* + *elegible*, palabra que ya existe' },
+            { q: '*poselectoral*', a: 'Prefijación', why: '*pos-* + *electoral*' },
+            { q: '*empadronar*', a: 'Parasíntesis', why: 'No existen *empadrón* ni *padronar*' },
+            { q: '*desgobierno*', a: 'Prefijación', why: '*des-* + *gobierno*' },
+            { q: '*gubernamental*', a: 'Sufijación', why: 'Raíz culta *gubern-* con sufijo adjetival' },
+            { q: '*hispanohablante*', a: 'Composición', why: '*hispano* + *hablante*' }
+          ]
+        },
+        {
+          type: 'select', title: '2. El intruso', instr: 'En cada serie hay una palabra que no pertenece a la familia léxica. Encuéntrala.',
+          items: [
+            { q: '*elector, electoral, electricidad, electorado*', options: ['elector', 'electoral', 'electricidad', 'electorado'], a: 'electricidad', why: 'Viene de *eléctrico*, sin relación con *elegir*' },
+            { q: '*votar, votante, botar, votación*', options: ['votar', 'votante', 'botar', 'votación'], a: 'botar', why: 'Es un homófono: se pronuncia igual, pero su significado y su origen son otros' },
+            { q: '*candidato, candidatura, precandidato, candado*', options: ['candidato', 'candidatura', 'precandidato', 'candado'], a: 'candado' },
+            { q: '*encuesta, encuestador, encuestar, encuentro*', options: ['encuesta', 'encuestador', 'encuestar', 'encuentro'], a: 'encuentro', why: 'Pertenece a la familia de *encontrar*' }
+          ]
+        },
+        {
+          type: 'open', title: '3. La familia más larga',
+          items: [
+            { q: 'Escribe la familia léxica más larga que puedas de *gobernar* en cinco minutos. Marca las palabras que usan la raíz culta *gubern-*.', h: '80px', model: '*gobierno, gobernante, gobernador, gobernación, gobernable, ingobernable, gobernabilidad, desgobierno, desgobernar, autogobierno, cogobernar; gubernamental, gubernativo, antigubernamental, progubernamental*. Las cuatro últimas usan la raíz culta *gubern-*.' },
+            { q: 'Escribe diez palabras del campo asociativo de *campaña* y agrúpalas en tres subcampos: actos, personas y medios.', h: '80px', model: 'Actos: *mitin, debate, pegada de carteles, cierre de campaña, jornada de reflexión*. Personas: *candidata, portavoz, militante, simpatizante, encuestador, interventora*. Medios: *cartel, eslogan, anuncio, encuesta, programa electoral*.' }
+          ]
+        }
+      ],
+      dic: 'Incorpora cinco palabras de la familia de *elegir*, *votar* o *gobernar*, cada una con su análisis: por ejemplo, *reelección* = *re-* + *elección*.'
+    },
+    {
+      n: 2, title: 'Sufijación: sustantivos, adjetivos y apreciativos',
+      intro: [
+        'Muchos sufijos **cambian la categoría** de la palabra. Convierten verbos o adjetivos en sustantivos (*-ción, -miento, -dad, -ncia, -ismo*), forman adjetivos (*-ble, -al, -ista, -ivo*) o verbos (*-izar, -ear, -ificar*).',
+        'Los sufijos **apreciativos** no cambian la categoría, pero añaden un matiz de tamaño, afecto, ironía o desprecio: *discurs-ito, partid-illo, polit-icastro, gent-uza*. En prensa y en redes son una forma muy eficaz de opinar sin decirlo.'
+      ],
+      keys: [
+        ['-ble', 'Que puede ser: *votable, gobernable*.'],
+        ['-ismo / -ista', 'Doctrina o tendencia / partidario de ella: *abstencionismo, partidista*.'],
+        ['-astro, -ucho, -uzo, -ejo', 'Despectivos: *politicastro, casucha, gentuza, discursejo*.'],
+        ['-ón, -azo', 'Aumentativos, a menudo ponderativos: *notición, cochazo*. *-azo* también indica golpe: *tijeretazo*.']
+      ],
+      ex: [
+        {
+          type: 'input', title: '1. Forma la palabra', instr: 'Escribe la palabra derivada que se pide.',
+          items: [
+            { q: 'Sustantivo abstracto de *gobernable*', a: 'gobernabilidad' },
+            { q: 'Adjetivo en *-ble* de *votar*', a: 'votable' },
+            { q: 'Verbo en *-izar* de *político*', a: 'politizar' },
+            { q: 'Sustantivo en *-ción* de *privatizar*', a: 'privatización' },
+            { q: 'Adjetivo en *-ista* de *partido* («que defiende los intereses de un partido»)', a: 'partidista' },
+            { q: 'Sustantivo en *-ismo* de *abstención*', a: 'abstencionismo' },
+            { q: 'Sustantivo en *-ncia* de *transparente*', a: 'transparencia' },
+            { q: 'Adjetivo en *-al* de *elector*', a: 'electoral' }
+          ]
+        },
+        {
+          type: 'select', title: '2. ¿Cambia la categoría?', options: ['V → N', 'V → Adj', 'Adj → N', 'Adj → V', 'N → Adj', 'N → N (no cambia)'],
+          items: [
+            { q: '*votar* → *votación*', a: 'V → N' },
+            { q: '*gobernar* → *gobernable*', a: 'V → Adj' },
+            { q: '*legal* → *legalidad*', a: 'Adj → N' },
+            { q: '*moderno* → *modernizar*', a: 'Adj → V' },
+            { q: '*partido* → *partidista*', a: 'N → Adj' },
+            { q: '*partido* → *partidillo*', a: 'N → N (no cambia)', why: 'Los apreciativos no cambian la categoría' }
+          ]
+        },
+        {
+          type: 'select', title: '3. ¿Qué añade el sufijo?', instr: 'Fíjate en el contexto: el mismo sufijo puede ser afectivo o despectivo.',
+          options: ['Diminutivo afectivo', 'Diminutivo despectivo o irónico', 'Despectivo', 'Aumentativo o ponderativo'],
+          items: [
+            { q: '«Otro *discursito* de veinte minutos para no decir nada.»', a: 'Diminutivo despectivo o irónico' },
+            { q: '«Un *politicastro* sin más ideas que el eslogan.»', a: 'Despectivo' },
+            { q: '«Mi abuela fue a votar con su *bolsito* de siempre.»', a: 'Diminutivo afectivo' },
+            { q: '«Un *partidillo* que no llega al 1 %.»', a: 'Diminutivo despectivo o irónico' },
+            { q: '«La encuesta es un *notición* para la oposición.»', a: 'Aumentativo o ponderativo' },
+            { q: '«No pienso discutir con esa *gentuza*.»', a: 'Despectivo' }
+          ]
+        },
+        {
+          type: 'open', title: '4. El mismo sufijo, dos intenciones',
+          items: [{ q: 'Escribe dos frases sobre la campaña con una palabra en *-illo* o *-ito*: en la primera, con valor afectivo; en la segunda, con valor despectivo.', model: ['Afectivo: *La interventora llevaba un termo de cafecito para toda la mesa.*', 'Despectivo: *El candidato volvió a soltar su frasecita de siempre.*'] }]
+        }
+      ],
+      dic: 'Añade al menos un derivado con cambio de categoría y un apreciativo, explicando el matiz que aporta el sufijo en su contexto.'
+    },
+    {
+      n: 3, title: 'Connotación, eufemismo y disfemismo',
+      intro: [
+        'La **denotación** es el significado básico de una palabra; la **connotación**, el valor añadido que despierta. *Recorte* y *ajuste* pueden denotar lo mismo, pero no connotan lo mismo.',
+        'El **eufemismo** suaviza una realidad incómoda (*desaceleración* por *crisis*). El **disfemismo** la endurece o la ridiculiza (*tijeretazo* por *recorte*). Elegir uno u otro es elegir cómo quieres que el lector juzgue el hecho.'
+      ],
+      keys: [
+        ['Escalera léxica', 'Serie ordenada de lo más suave a lo más valorativo: *cambio → ajuste → recorte → tijeretazo*.'],
+        ['Pregunta clave', '¿Qué quiere que sienta el lector ante este hecho quien elige esta palabra?']
+      ],
+      ex: [
+        {
+          type: 'select', title: '1. ¿Suaviza, nombra o endurece?', options: ['Eufemismo', 'Término neutro', 'Disfemismo'],
+          items: [
+            { q: '*ajuste presupuestario* (por *recorte*)', a: 'Eufemismo' },
+            { q: '*reducción del gasto*', a: 'Término neutro' },
+            { q: '*tijeretazo*', a: 'Disfemismo' },
+            { q: '*desaceleración económica* (por *crisis*)', a: 'Eufemismo' },
+            { q: '*expediente de regulación de empleo* (por *despidos*)', a: 'Eufemismo' },
+            { q: '*despido*', a: 'Término neutro' },
+            { q: '*echar a la calle*', a: 'Disfemismo' },
+            { q: '*daños colaterales* (por *víctimas civiles*)', a: 'Eufemismo' }
+          ]
+        },
+        {
+          type: 'select', title: '2. ¿Qué connota el verbo del titular?', instr: 'Titulares inventados.', options: ['Positiva', 'Negativa'],
+          items: [
+            { q: '«El Gobierno *blinda* las pensiones»', a: 'Positiva', why: 'Sugiere protección sólida' },
+            { q: '«La oposición *se atrinchera* en el no»', a: 'Negativa', why: 'Metáfora bélica de inmovilismo' },
+            { q: '«El alcalde *maquilla* las cuentas»', a: 'Negativa', why: 'Sugiere ocultación' },
+            { q: '«La ministra *rescata* al sector turístico»', a: 'Positiva', why: 'Presenta a la ministra como salvadora' },
+            { q: '«El candidato *conecta* con los jóvenes»', a: 'Positiva' },
+            { q: '«El partido *se pliega* a sus socios»', a: 'Negativa', why: 'Sugiere sumisión' }
+          ]
+        },
+        {
+          type: 'open', title: '3. Un titular, tres versiones',
+          items: [
+            { q: 'Reescribe el titular *El Ayuntamiento reduce un 10 % el presupuesto de cultura* con eufemismos y después con disfemismos.', model: ['Eufemístico: *El Ayuntamiento reajusta las partidas de cultura para optimizar el gasto.*', 'Disfemístico: *Tijeretazo del Ayuntamiento a la cultura: un 10 % menos.*'] },
+            { q: 'Construye tu propia escalera léxica de cuatro peldaños para una concentración de personas en la calle, de lo más neutro a lo más valorativo.', model: '*acto → concentración → protesta → revuelta*. Cada peldaño añade una valoración: de la neutralidad a la sugerencia de desorden o violencia.' }
+          ]
+        }
+      ],
+      dic: 'Registra dos parejas eufemismo / disfemismo que encuentres en los textos de la campaña, con su fuente.'
+    },
+    {
+      n: 4, title: 'Prefijación y su ortografía',
+      intro: [
+        'Los prefijos aportan significados muy frecuentes en el léxico electoral: repetición (*re-*), tiempo (*pre-, pos-*), oposición o apoyo (*anti-, pro-*), cargo anterior (*ex-*), grado (*sobre-, infra-, vice-*) o negación (*in-, des-*).',
+        'Su ortografía sigue la *Ortografía* de la RAE (2010). Es uno de los errores más frecuentes en los titulares.'
+      ],
+      keys: [
+        ['Regla 1. Unido', 'El prefijo se escribe unido a una base de una sola palabra: *exministra, antisistema, proeuropeo, vicepresidenta*.'],
+        ['Regla 2. Separado', 'Si la base tiene varias palabras, el prefijo va separado: *ex primer ministro, ex alto cargo, pro derechos humanos*.'],
+        ['Regla 3. Con guion', 'Ante mayúscula, sigla o cifra: *anti-OTAN, pro-UE, sub-21*.'],
+        ['Regla 4. La r', 'La *r* inicial de la base se duplica tras un prefijo acabado en vocal: *sobrerrepresentado, infrarrepresentado, contrarreforma*.'],
+        ['Regla 5. pos- mejor que post-', '*Posverdad, poselectoral, posdebate*. Se mantiene *post-* ante *s*: *postsoviético*.']
+      ],
+      ex: [
+        {
+          type: 'input', exact: true, title: '1. Escríbelo bien', instr: 'Escribe la forma correcta. Cuidado con las mayúsculas, los espacios y los guiones.',
+          items: [
+            { q: 'ex ministra', a: 'exministra' },
+            { q: 'anti sistema', a: 'antisistema' },
+            { q: 'ex-primer ministro', a: 'ex primer ministro', why: 'Base pluriverbal: separado y sin guion' },
+            { q: 'sobre representado', a: 'sobrerrepresentado' },
+            { q: 'anti OTAN', a: 'anti-OTAN' },
+            { q: 'post electoral', a: 'poselectoral' },
+            { q: 'pro europeo', a: 'proeuropeo' },
+            { q: 'infra representado', a: 'infrarrepresentado' },
+            { q: 'vice-presidenta', a: 'vicepresidenta' },
+            { q: 'exalto cargo', a: 'ex alto cargo' }
+          ]
+        },
+        {
+          type: 'select', title: '2. ¿Qué significa el prefijo?',
+          options: ['Repetición', 'Posterioridad', 'Anterioridad', 'Oposición', 'A favor de', 'Que ha dejado de ser', 'Exceso o por encima', 'Por debajo', 'Negación', 'Segundo en rango'],
+          items: [
+            { q: '**re**elección', a: 'Repetición' },
+            { q: '**pos**electoral', a: 'Posterioridad' },
+            { q: '**pre**campaña', a: 'Anterioridad' },
+            { q: '**anti**sistema', a: 'Oposición' },
+            { q: '**pro**europeo', a: 'A favor de' },
+            { q: '**ex**ministra', a: 'Que ha dejado de ser' },
+            { q: '**sobre**rrepresentado', a: 'Exceso o por encima' },
+            { q: '**infra**rrepresentado', a: 'Por debajo' },
+            { q: '**in**elegible', a: 'Negación' },
+            { q: '**vice**presidenta', a: 'Segundo en rango' }
+          ]
+        },
+        {
+          type: 'open', title: '3. Corrige los titulares',
+          items: [
+            { q: '«El ex-alcalde critica la campaña anti-corrupción»', model: '«El exalcalde critica la campaña anticorrupción»: ambos prefijos van unidos y sin guion.' },
+            { q: '«Los exaltos cargos piden un pacto pro-educación»', model: '«Los ex altos cargos piden un pacto proeducación»: *ex* va separado ante base pluriverbal; *pro-* va unido.' },
+            { q: '«El partido, sobre representado en el post debate»', model: '«El partido, sobrerrepresentado en el posdebate»: unión con duplicación de la *r* y *pos-* en lugar de *post-*.' },
+            { q: '«La vice-presidenta apoya la re-elección»', model: '«La vicepresidenta apoya la reelección».' }
+          ]
+        }
+      ],
+      dic: 'Añade cinco palabras con prefijo tomadas de titulares reales; escribe al lado la regla ortográfica que aplican.'
+    },
+    {
+      n: 5, title: 'Sinonimia contextual y verbos precisos',
+      intro: [
+        'Los sinónimos perfectos casi no existen: dos palabras son sinónimas **en un contexto**. *Duro* significa cosas distintas en *un debate duro*, *un plan duro* o *una derrota dura*.',
+        'Los **verbos de habla** son un caso especial. *Decir* es neutro; *reconocer, alegar, denunciar, insinuar* o *advertir* añaden una valoración de lo dicho y de quien lo dice.'
+      ],
+      keys: [
+        ['Neutros', '*decir, afirmar, declarar, señalar, explicar*.'],
+        ['Con valoración', '*reconocer, admitir* (algo negativo), *alegar* (excusa), *denunciar* (acusación), *insinuar* (sin decirlo claro), *advertir* (riesgo), *asegurar* (certeza), *prometer* (compromiso), *lamentar* (pesar).']
+      ],
+      ex: [
+        {
+          type: 'select', title: '1. ¿Qué sugiere el verbo?',
+          options: ['Admite algo negativo', 'Presenta lo dicho como excusa', 'Acusa públicamente', 'Lo afirma con seguridad', 'Lo sugiere sin decirlo', 'Avisa de un riesgo'],
+          items: [
+            { q: 'El ministro *reconoció* que hubo retrasos.', a: 'Admite algo negativo' },
+            { q: 'La candidata *alegó* que no conocía el informe.', a: 'Presenta lo dicho como excusa' },
+            { q: 'El portavoz *denunció* irregularidades en el recuento.', a: 'Acusa públicamente' },
+            { q: 'El alcalde *aseguró* que no subirá los impuestos.', a: 'Lo afirma con seguridad' },
+            { q: 'La diputada *insinuó* que hubo presiones.', a: 'Lo sugiere sin decirlo' },
+            { q: 'El economista *advirtió* de que el déficit crecerá.', a: 'Avisa de un riesgo' }
+          ]
+        },
+        {
+          type: 'select', title: '2. El sinónimo que encaja', instr: 'Elige el sinónimo adecuado a cada contexto.',
+          items: [
+            { q: 'Fue un debate muy *duro*.', options: ['tenso', 'severo', 'amargo', 'resistente'], a: 'tenso' },
+            { q: 'Un plan *duro* contra el fraude fiscal.', options: ['tenso', 'severo', 'amargo', 'resistente'], a: 'severo' },
+            { q: 'Una derrota *dura* para el partido.', options: ['tenso', 'severo', 'amargo', 'resistente'], a: 'amargo', why: 'Concordado: *una derrota amarga*' },
+            { q: 'La candidatura *ganó* las elecciones.', options: ['venció en', 'obtuvo', 'sumó'], a: 'venció en' },
+            { q: 'El partido *ganó* tres escaños.', options: ['venció en', 'obtuvo', 'sumó'], a: 'obtuvo' },
+            { q: 'La propuesta *ganó* apoyos durante la campaña.', options: ['venció en', 'obtuvo', 'sumó'], a: ['sumó', 'obtuvo'], why: '*Sumó* subraya que los apoyos se fueron acumulando' }
+          ]
+        },
+        {
+          type: 'open', title: '3. Rescata este párrafo',
+          instr: 'Sustituye los comodines (*tema, cosa, decir, hacer, tener, hay que*) por palabras precisas.',
+          items: [{
+            q: '«El tema de la vivienda es una cosa que preocupa mucho a los jóvenes. Los partidos dicen muchas cosas sobre este tema, pero luego hacen poco. Hay que hacer algo porque la situación tiene muchos problemas y la gente tiene que poder tener una casa.»',
+            h: '110px',
+            model: ['«El acceso a la vivienda es una de las principales preocupaciones de los jóvenes. Los partidos prometen soluciones durante la campaña, pero apenas las aplican después. Urge actuar, porque la situación acumula dificultades y cualquier ciudadano debería poder disponer de un hogar digno.»', 'Fíjate en que *dicen* se ha convertido en *prometen*: el verbo preciso aporta además una valoración (promesa que no se cumple).']
+          }]
+        }
+      ],
+      dic: 'Registra tres verbos de habla con valoración que hayas encontrado en noticias de la campaña, con la frase completa y la fuente.'
+    },
+    {
+      n: 6, title: 'Composición, siglas, acrónimos y acortamientos',
+      intro: [
+        'La **composición** une dos lexemas en una palabra (*centroderecha*) o en una unidad de varias palabras, el **compuesto sintagmático** (*voto en blanco, mesa electoral, jornada de reflexión*).',
+        'Las **siglas** se forman con iniciales (*CIS, UE*); si se leen como palabra, son **acrónimos** (*OTAN, ONU*). Los **acortamientos** eliminan parte de la palabra (*progre, mani, tele*) y suelen ser coloquiales, a veces peyorativos.'
+      ],
+      keys: [
+        ['Trampa frecuente', '*Bipartidismo* no es un compuesto: es *bi-* (prefijo) + *partid-* + *-ismo* (sufijo).'],
+        ['Ortografía de las siglas', 'Sin puntos y sin *s* en plural: *las ONG, los DNI*. Los acrónimos de más de cuatro letras pueden escribirse solo con inicial mayúscula: *Unicef*.']
+      ],
+      ex: [
+        {
+          type: 'select', title: '1. Clasifica', options: ['Compuesto', 'Compuesto sintagmático', 'Derivada', 'Sigla', 'Acrónimo', 'Acortamiento'],
+          items: [
+            { q: '*centroderecha*', a: 'Compuesto' },
+            { q: '*voto en blanco*', a: 'Compuesto sintagmático' },
+            { q: '*bipartidismo*', a: 'Derivada' },
+            { q: '*CIS*', a: ['Sigla', 'Acrónimo'], why: 'Centro de Investigaciones Sociológicas. Se lee «cis», como una palabra, así que también se acepta acrónimo' },
+            { q: '*OTAN*', a: ['Acrónimo', 'Sigla'], why: 'Sigla que se lee como palabra' },
+            { q: '*progre*', a: 'Acortamiento' },
+            { q: '*mesa electoral*', a: 'Compuesto sintagmático' },
+            { q: '*mani*', a: 'Acortamiento' },
+            { q: '*multipartidismo*', a: 'Derivada' },
+            { q: '*DNI*', a: 'Sigla', why: 'Se deletrea: de-ene-i' }
+          ]
+        },
+        {
+          type: 'open', title: '2. Desarrolla las siglas',
+          items: [{ q: '*CIS, INE, BOE, JEC, UE, ONU, DNI, IVA*', h: '90px', model: 'Centro de Investigaciones Sociológicas; Instituto Nacional de Estadística; Boletín Oficial del Estado; Junta Electoral Central; Unión Europea; Organización de las Naciones Unidas; Documento Nacional de Identidad; Impuesto sobre el Valor Añadido.' }]
+        },
+        {
+          type: 'input', exact: true, title: '3. Corrige la ortografía',
+          items: [
+            { q: 'las ONGs', a: 'las ONG' },
+            { q: 'los DNIs', a: 'los DNI' },
+            { q: 'la U.E.', a: 'la UE' },
+            { q: 'la Otan', a: 'la OTAN', why: 'Tiene cuatro letras: se escribe entera en mayúsculas' }
+          ]
+        },
+        {
+          type: 'open', title: '4. Acortamientos con carga',
+          items: [{ q: 'Compara *progresista / progre* y *manifestación / mani*. ¿Cambia solo el registro o también la valoración? Explica en qué contextos puede ser peyorativo el acortamiento.', model: '*Mani* solo cambia el registro: es coloquial pero neutro. *Progre* cambia además la valoración: en boca de un adversario suele ser despectivo, aunque entre afines puede usarse con humor. Lo mismo ocurre con *facha*, siempre peyorativo. La carga depende de quién lo dice y a quién.' }]
+        }
+      ],
+      dic: 'Incorpora una sigla, un acrónimo, un acortamiento y dos compuestos (uno de ellos sintagmático) del vocabulario de la campaña.'
+    },
+    {
+      n: 7, title: 'Neologismos, extranjerismos y calcos',
+      intro: [
+        'Un **neologismo** es una palabra nueva. Puede formarse con recursos del español (*ciberanzuelo*), tomarse de otra lengua como **préstamo** (adaptado: *mitin, líder, eslogan*; o crudo, en cursiva: *marketing, lobby*) o traducirse literalmente como **calco** (*posverdad*, de *post-truth*).',
+        'La **Fundéu** (Fundación del Español Urgente) propone alternativas en español para muchos anglicismos de la actualidad. Consúltala antes de usar un extranjerismo en tu columna.'
+      ],
+      keys: [
+        ['Regla de escritura', 'El extranjerismo no adaptado se escribe en cursiva (o entre comillas si escribes a mano).']
+      ],
+      ex: [
+        {
+          type: 'input', title: '1. Alternativas en español', instr: 'Escribe una alternativa en español para cada anglicismo.',
+          items: [
+            { q: '*fake news*', a: ['noticia falsa', 'noticias falsas', 'bulo', 'bulos', 'noticia falsa o bulo'] },
+            { q: '*clickbait*', a: ['ciberanzuelo'] },
+            { q: '*fact-checking*', a: ['verificación', 'verificación de datos', 'verificación de hechos', 'comprobación de hechos'] },
+            { q: '*deepfake*', a: ['ultrafalso', 'ultrafalsificación'] },
+            { q: '*trending topic*', a: ['tendencia', 'tema del momento'] },
+            { q: '*hashtag*', a: ['etiqueta'] },
+            { q: '*prime time*', a: ['horario de máxima audiencia', 'franja de máxima audiencia', 'hora de máxima audiencia'] },
+            { q: '*community manager*', a: ['gestor de comunidades', 'gestora de comunidades', 'gestor de redes', 'gestora de redes', 'responsable de redes', 'responsable de redes sociales', 'gestor de redes sociales', 'gestora de redes sociales'] }
+          ]
+        },
+        {
+          type: 'select', title: '2. Préstamo, calco o neologismo',
+          options: ['Préstamo adaptado', 'Extranjerismo no adaptado', 'Calco', 'Neologismo formado en español'],
+          items: [
+            { q: '*mitin* (del inglés *meeting*)', a: 'Préstamo adaptado' },
+            { q: '*eslogan* (del inglés *slogan*)', a: 'Préstamo adaptado' },
+            { q: '*marketing*', a: 'Extranjerismo no adaptado' },
+            { q: '*posverdad* (del inglés *post-truth*)', a: 'Calco' },
+            { q: '*lobby*', a: 'Extranjerismo no adaptado' },
+            { q: '*ciberanzuelo*', a: 'Neologismo formado en español', why: '*ciber-* + *anzuelo*, creado para sustituir a *clickbait*' },
+            { q: '*rascacielos* (del inglés *skyscraper*)', a: 'Calco' },
+            { q: '*tuitear*', a: ['Préstamo adaptado', 'Neologismo formado en español'], why: 'Adapta *tweet* y lo convierte en verbo con el sufijo español *-ear*; ambas respuestas son defendibles' }
+          ]
+        },
+        {
+          type: 'open', title: '3. Reto creativo: invéntalo tú',
+          items: [{ q: 'Inventa un neologismo bien formado para un fenómeno de las redes que no tenga nombre en español. Defínelo y explica su formación.', h: '90px', model: ['*Titulear*: compartir una noticia habiendo leído solo el titular. Derivación por sufijación: *titul-* (de *titular*) + *-ear*, sufijo verbal muy productivo (*tuitear, chatear*).', '*Ruidocracia*: sistema en el que gana quien más grita. Composición con el elemento culto *-cracia* (‘poder’), como *democracia* o *burocracia*.'] }]
+        }
+      ],
+      dic: 'Registra dos extranjerismos de la campaña con su alternativa de la Fundéu y tu neologismo inventado con su análisis.'
+    },
+    {
+      n: 8, title: 'Precisión léxica en tu columna',
+      intro: [
+        'Un texto pierde fuerza cuando abusa de **palabras comodín**: sirven para todo y, por eso, no dicen nada exacto. Revisa tu borrador con esta lista antes de entregarlo.'
+      ],
+      keys: [
+        ['cosa, tema', '*asunto, cuestión, problema, aspecto, hecho, debate*.'],
+        ['hacer', '*realizar, elaborar, aplicar, adoptar* (medidas), *llevar a cabo, impulsar*.'],
+        ['decir', '*afirmar, sostener, prometer, advertir, reconocer, denunciar*.'],
+        ['tener', '*poseer, disponer de, presentar, mantener, acumular*.'],
+        ['hay, hay que', '*existe, se produce, se da*; *es necesario, urge, conviene*.'],
+        ['muy + adjetivo', 'Un adjetivo más preciso: *muy importante* → *decisivo, crucial, determinante*.'],
+        ['A evitar', '*en base a* → *a partir de, según*; *a nivel de* (= ‘en’) → *en, en el ámbito de*; *bajo mi punto de vista* → *desde mi punto de vista*.']
+      ],
+      ex: [
+        {
+          type: 'select', title: '1. ¿Correcto o mejor evitarlo?', options: ['Correcto', 'Mejor evitarlo'],
+          items: [
+            { q: '*en base a las encuestas*', a: 'Mejor evitarlo', why: 'Usa *según las encuestas* o *a partir de las encuestas*' },
+            { q: '*con base en los datos*', a: 'Correcto' },
+            { q: '*a nivel de redes sociales* (= ‘en las redes sociales’)', a: 'Mejor evitarlo' },
+            { q: '*a nivel del mar*', a: 'Correcto', why: 'Aquí *nivel* significa ‘altura’' },
+            { q: '*bajo mi punto de vista*', a: 'Mejor evitarlo', why: 'Mejor *desde mi punto de vista*' },
+            { q: '*de cara a las elecciones* (= ‘con vistas a’)', a: 'Correcto', why: 'Es correcto, pero no abuses de él' }
+          ]
+        },
+        {
+          type: 'open', title: '2. Afina estas frases',
+          items: [
+            { q: '«Hay que hacer medidas para el tema del paro.»', model: '«Es necesario adoptar medidas contra el desempleo.»' },
+            { q: '«A nivel de redes, los jóvenes tienen mucha información.»', model: '«En las redes sociales, los jóvenes disponen de abundante información.»' },
+            { q: '«En base a las encuestas, el debate fue una cosa muy importante.»', model: '«Según las encuestas, el debate fue decisivo.»' },
+            { q: '«Los candidatos dijeron cosas muy malas los unos de los otros.»', model: '«Los candidatos se lanzaron graves acusaciones.»' }
+          ]
+        },
+        {
+          type: 'open', title: '3. Revisión por parejas',
+          instr: 'Lee el borrador de tu compañera con la rúbrica delante.',
+          items: [
+            { q: 'Tres palabras genéricas de su texto y las alternativas que le propones (palabra → alternativa → por qué).', h: '90px' },
+            { q: 'Tres cambios de vocabulario que haces en tu propio borrador después de la revisión.', h: '90px' }
+          ]
+        }
+      ],
+      dic: 'Antes de terminar esta sesión, tu Diccionario debe tener al menos 35 entradas.'
+    },
+    {
+      n: 9, title: 'Evaluación integrada: el léxico en el comentario',
+      intro: [
+        'En la prueba de comentario, el apartado 4 (1,5 puntos) te pide trabajar el vocabulario del propio texto: explicar el procedimiento de formación de tres palabras subrayadas, sustituir dos términos por sinónimos adecuados al contexto y explicar el valor connotativo de una expresión.',
+        'Practica aquí con el texto modelo de la pestaña **Comentario crítico**, «La campaña del megáfono».'
+      ],
+      keys: [
+        ['Cómo responder a la formación de palabras', 'Nombra el procedimiento, separa los componentes y explica el significado de cada uno: *posdebate*: derivación por prefijación; *pos-* (‘después de’) + *debate*.'],
+        ['Cómo responder a los sinónimos', 'El sinónimo debe funcionar **en la frase del texto**: compruébalo sustituyéndolo.'],
+        ['Cómo responder a la connotación', 'Explica qué valoración añade la expresión y cómo contribuye a la intención del autor.']
+      ],
+      ex: [
+        {
+          type: 'select', title: '1. Calentamiento: procedimientos del texto', options: ['Prefijación', 'Sufijación', 'Composición', 'Préstamo adaptado'],
+          items: [
+            { q: '*plató* («se convierte en un plató»)', a: 'Préstamo adaptado', why: 'Del francés *plateau*' },
+            { q: '*estridencia*', a: 'Sufijación', why: 'Sustantivo abstracto derivado de *estridente*, como *transparencia* de *transparente*' },
+            { q: '*reenvía*', a: 'Prefijación', why: '*re-* (repetición) + *envía*' },
+            { q: '*universitario*', a: 'Sufijación', why: '*universidad* (raíz *universit-*) + *-ario*' },
+            { q: '*politiquería*', a: 'Sufijación', why: 'Sufijo *-ería* con valor despectivo' }
+          ]
+        },
+        {
+          type: 'open', title: '2. Simulacro del apartado 4',
+          items: [
+            { q: 'a) Explica el procedimiento de formación de *posdebate*, *desafección* y *megáfono*.', h: '100px', model: ['*Posdebate*: derivación por prefijación. *Pos-* (‘después de’) + *debate*; se escribe unido y con *pos-*, no *post-*.', '*Desafección*: derivación por prefijación. *Des-* (‘negación, privación’) + *afección* (‘afecto, inclinación’): pérdida del apego a la política.', '*Megáfono*: composición culta con dos elementos de origen griego, *mega-* (‘grande’) y *-fono* (‘sonido, voz’).'] },
+            { q: 'b) Sustituye por un sinónimo adecuado al contexto: *estridencia* («competir en estridencia») y *desafección* («una desafección mayor»).', h: '70px', model: '*Estridencia* → *griterío* o *escándalo* («competir en griterío»). *Desafección* → *desapego* o *distanciamiento* («un desapego mayor»).' },
+            { q: 'c) Explica el valor connotativo de la expresión «esta politiquería del megáfono».', h: '90px', model: 'El sufijo *-ería* da a *politiquería* un valor despectivo: no es política, sino su versión degradada, hecha de intrigas y gestos vacíos. *Del megáfono* funciona como símbolo del grito amplificado que sustituye al argumento. La expresión condensa la tesis del autor: la campaña se ha reducido a volumen.' }
+          ]
+        }
+      ],
+      dic: 'Revisa tus entradas: ¿todas tienen análisis morfológico, ejemplo con fuente y matiz connotativo?',
+      goTab: ['Abrir el texto modelo', 'comentario']
+    }
+  ];
+
+  var labNodes = [];
+  var pickerButtons = [];
+
+  function showLab(n) {
+    labNodes.forEach(function (node, i) {
+      var on = (i + 1) === n;
+      node.style.display = on ? '' : 'none';
+      node.classList.toggle('print-me', on);
+      pickerButtons[i].classList.toggle('active', on);
+    });
+    C.store.set('lab-actual', String(n));
+  }
+
+  function labBlock(L) {
+    var box = el('div', { className: 'lab-single' });
+    box.appendChild(el('h3', { className: 'sub-title', text: 'Ficha ' + L.n + ' · ' + L.title }));
+    L.intro.forEach(function (t) { box.appendChild(p(t)); });
+    L.keys.forEach(function (k) { box.appendChild(C.concept(k[0], k[1])); });
+    L.ex.forEach(function (ex, i) { box.appendChild(C.exercise(ex, 'lab' + L.n + 'e' + i)); });
+    var tip = el('div', { className: 'dic-tip' }, [el('b', { text: 'Para tu Diccionario de campaña. ' }), C.rich(L.dic)]);
+    box.appendChild(tip);
+    var btns = [];
+    var dicBtn = el('button', { className: 'btn2', attrs: { type: 'button' }, text: 'Añadir entradas al Diccionario' });
+    dicBtn.addEventListener('click', function () { C.goTo('diccionario'); });
+    btns.push(dicBtn);
+    if (L.goTab) {
+      var gb = el('button', { className: 'btn2', attrs: { type: 'button' }, text: L.goTab[0] });
+      gb.addEventListener('click', function () { C.goTo(L.goTab[1]); });
+      btns.push(gb);
+    }
+    box.appendChild(el('div', { className: 'btn-row' }, btns));
+    return box;
+  }
+
+  function build() {
+    var panel = C.panel('laboratorio');
+    panel.appendChild(C.printButton());
+    panel.appendChild(C.h2('Laboratorio de palabras'));
+    panel.appendChild(p('Nueve fichas, una por sesión. En los ejercicios cerrados puedes **comprobar** tus respuestas y ver las soluciones; en los abiertos, escribe primero y consulta después la propuesta. La impresora saca solo la ficha que tengas abierta.'));
+    var picker = el('div', { className: 'lab-picker' });
+    LABS.forEach(function (L) {
+      var b = el('button', { attrs: { type: 'button' } }, [el('b', { text: String(L.n) }), L.title]);
+      b.addEventListener('click', function () { showLab(L.n); });
+      pickerButtons.push(b);
+      picker.appendChild(b);
+    });
+    panel.appendChild(picker);
+    LABS.forEach(function (L) {
+      var node = labBlock(L);
+      labNodes.push(node);
+      panel.appendChild(node);
+    });
+    document.getElementById('content-root').appendChild(panel);
+    var saved = parseInt(C.store.get('lab-actual'), 10);
+    showLab(saved >= 1 && saved <= LABS.length ? saved : 1);
+  }
+
+  C.openLab = function (n) {
+    showLab(n);
+    C.goTo('laboratorio');
+  };
+  C.builders.push(build);
+})();
+(function () {
+  'use strict';
+  var C = window.CAMP;
+  var el = C.el, p = C.p;
+  var KEY = 'diccionario';
+  var MIN = 35;
+
+  var PROCS = ['Derivación por sufijación', 'Derivación por prefijación', 'Parasíntesis', 'Composición', 'Compuesto sintagmático', 'Sigla', 'Acrónimo', 'Acortamiento', 'Préstamo adaptado', 'Extranjerismo no adaptado', 'Calco', 'Neologismo', 'Palabra simple'];
+  var CONNS = ['Neutra', 'Positiva (meliorativa)', 'Negativa (peyorativa)', 'Eufemística', 'Disfemística', 'Depende del contexto'];
+  var CATS = ['Sustantivo', 'Adjetivo', 'Verbo', 'Adverbio', 'Locución', 'Sigla o acrónimo'];
+
+  var FIELDS = [
+    { k: 'palabra', label: 'Palabra', type: 'input', ph: 'reelección' },
+    { k: 'cat', label: 'Categoría', type: 'select', options: CATS },
+    { k: 'sesion', label: 'Sesión', type: 'select', options: ['1', '2', '3', '4', '5', '6', '7', '8', '9'] },
+    { k: 'def', label: 'Definición propia', type: 'textarea', wide: true, ph: 'Con tus palabras, sin copiar el diccionario.' },
+    { k: 'proc', label: 'Procedimiento de formación', type: 'select', options: PROCS },
+    { k: 'analisis', label: 'Análisis', type: 'input', ph: 're- + elección', hint: 'Separa los componentes y di qué significa cada uno.' },
+    { k: 'ejemplo', label: 'Ejemplo real', type: 'textarea', wide: true, ph: 'Copia la frase del texto en que aparece.' },
+    { k: 'fuente', label: 'Fuente', type: 'input', ph: 'Medio o cuenta, y fecha' },
+    { k: 'conn', label: 'Matiz connotativo', type: 'select', options: CONNS },
+    { k: 'nota', label: 'Explicación del matiz', type: 'textarea', wide: true, ph: '¿Qué valoración añade la palabra en ese contexto?' }
+  ];
+
+  var EXAMPLES = [
+    { palabra: 'reelección', cat: 'Sustantivo', sesion: '1', def: 'Hecho de volver a elegir para un cargo a quien ya lo ocupaba.', proc: 'Derivación por prefijación', analisis: 're- (‘repetición’) + elección (raíz culta elect- + -ción)', ejemplo: '«El alcalde buscará la reelección en mayo».', fuente: 'Ejemplo inventado para el modelo', conn: 'Neutra', nota: 'Término técnico, sin valoración.' },
+    { palabra: 'tijeretazo', cat: 'Sustantivo', sesion: '3', def: 'Recorte brusco e importante, sobre todo de un presupuesto o de unas ayudas.', proc: 'Derivación por sufijación', analisis: 'tijeret- (de tijera) + -azo (‘golpe’)', ejemplo: '«Tijeretazo a la cultura: un 10 % menos».', fuente: 'Ejemplo inventado para el modelo', conn: 'Disfemística', nota: 'Presenta el recorte como un golpe violento y arbitrario; el lector lo juzga negativamente antes de conocer las razones.' },
+    { palabra: 'ciberanzuelo', cat: 'Sustantivo', sesion: '7', def: 'Contenido de internet con un titular pensado para provocar el clic más que para informar.', proc: 'Neologismo', analisis: 'ciber- (‘relativo a internet’) + anzuelo; alternativa de la Fundéu a clickbait', ejemplo: '«Los ciberanzuelos se multiplican en campaña».', fuente: 'Ejemplo inventado para el modelo', conn: 'Negativa (peyorativa)', nota: 'La metáfora del anzuelo presenta al lector como un pez al que se engaña.' }
+  ];
+
+  var entries = [];
+  var editing = -1;
+  var list, counter, bar, form, inputs = {}, submit, cancel;
+
+  function load() { entries = C.store.getJSON(KEY, []); if (!Array.isArray(entries)) entries = []; }
+  function save() { C.store.setJSON(KEY, entries); }
+
+  function entryCard(e, idx, isExample) {
+    var card = el('div', { className: 'entry' + (isExample ? ' example' : '') });
+    var head = el('div', { className: 'e-head' }, [
+      el('span', { className: 'e-word', text: e.palabra || '(sin palabra)' }),
+      e.cat ? el('span', { className: 'e-cat', text: e.cat.toLowerCase() }) : null,
+      e.proc ? el('span', { className: 'e-tag', text: e.proc }) : null,
+      e.conn ? el('span', { className: 'e-tag conn', text: e.conn }) : null,
+      e.sesion ? el('span', { className: 'e-cat', text: 'sesión ' + e.sesion }) : null,
+      isExample ? el('span', { className: 'e-cat', text: '· ejemplo' }) : null
+    ]);
+    card.appendChild(head);
+    function line(label, val) {
+      if (!val) return;
+      card.appendChild(el('p', {}, [el('b', { text: label + ': ' }), val]));
+    }
+    line('Definición', e.def);
+    line('Análisis', e.analisis);
+    line('Ejemplo', e.ejemplo + (e.fuente ? ' (' + e.fuente + ')' : ''));
+    line('Matiz', e.nota);
+    if (!isExample) {
+      var ed = el('button', { className: 'btn2', attrs: { type: 'button' }, text: 'Editar' });
+      var del = el('button', { className: 'btn2 danger', attrs: { type: 'button' }, text: 'Borrar' });
+      ed.addEventListener('click', function () { startEdit(idx); });
+      del.addEventListener('click', function () {
+        if (window.confirm('¿Borrar la entrada «' + (e.palabra || '') + '»?')) {
+          entries.splice(idx, 1);
+          save();
+          if (editing === idx) resetForm();
+          render();
+        }
+      });
+      card.appendChild(el('div', { className: 'e-actions' }, [ed, del]));
+    }
+    return card;
+  }
+
+  function render() {
+    while (list.firstChild) list.removeChild(list.firstChild);
+    var sorted = entries.map(function (e, i) { return { e: e, i: i }; })
+      .sort(function (a, b) { return (a.e.palabra || '').localeCompare(b.e.palabra || '', 'es'); });
+    if (!sorted.length) list.appendChild(p('Todavía no has añadido ninguna entrada.', 'saved-note'));
+    sorted.forEach(function (o) { list.appendChild(entryCard(o.e, o.i, false)); });
+    var n = entries.length;
+    counter.textContent = n + ' de ' + MIN + ' entradas mínimas' + (n >= MIN ? ' · ¡objetivo cumplido!' : '');
+    bar.style.width = Math.min(100, Math.round(n / MIN * 100)) + '%';
+  }
+
+  function readForm() {
+    var e = {};
+    FIELDS.forEach(function (f) { e[f.k] = inputs[f.k].value.trim(); });
+    return e;
+  }
+  function resetForm() {
+    FIELDS.forEach(function (f) { inputs[f.k].value = ''; });
+    editing = -1;
+    submit.textContent = 'Añadir entrada';
+    cancel.style.display = 'none';
+  }
+  function startEdit(idx) {
+    var e = entries[idx];
+    FIELDS.forEach(function (f) { inputs[f.k].value = e[f.k] || ''; });
+    editing = idx;
+    submit.textContent = 'Guardar cambios';
+    cancel.style.display = '';
+    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function csvCell(v) { return '"' + String(v || '').replace(/"/g, '""') + '"'; }
+  function toCSV() {
+    var head = FIELDS.map(function (f) { return csvCell(f.label); }).join(';');
+    var rows = entries.map(function (e) { return FIELDS.map(function (f) { return csvCell(e[f.k]); }).join(';'); });
+    return '﻿' + [head].concat(rows).join('\r\n');
+  }
+  function toText() {
+    return entries.slice().sort(function (a, b) { return (a.palabra || '').localeCompare(b.palabra || '', 'es'); })
+      .map(function (e) {
+        return [
+          e.palabra.toUpperCase() + (e.cat ? ' (' + e.cat.toLowerCase() + ')' : '') + (e.sesion ? ' · sesión ' + e.sesion : ''),
+          'Definición: ' + e.def,
+          'Procedimiento: ' + e.proc + (e.analisis ? ' — ' + e.analisis : ''),
+          'Ejemplo: ' + e.ejemplo + (e.fuente ? ' (' + e.fuente + ')' : ''),
+          'Matiz: ' + e.conn + (e.nota ? '. ' + e.nota : '')
+        ].join('\n');
+      }).join('\n\n');
+  }
+
+  function build() {
+    load();
+    var panel = C.panel('diccionario');
+    panel.appendChild(C.printButton());
+    panel.appendChild(C.h2('Diccionario de campaña'));
+    panel.appendChild(p('Tu diccionario personal del léxico de la campaña. Cada sesión añades al menos **cinco palabras**; al terminar la sesión 8 debes tener **35 entradas** como mínimo. Se valoran la exactitud del análisis morfológico, la variedad de procedimientos y la calidad de los ejemplos.'));
+    panel.appendChild(p('Puedes llevarlo en el cuaderno o en esta plantilla: la estructura de cada entrada es la misma.'));
+
+    counter = el('p', { className: 'saved-note' });
+    bar = el('div');
+    panel.appendChild(el('div', { className: 'progress' }, [bar]));
+    panel.appendChild(counter);
+
+    panel.appendChild(C.h3('Nueva entrada'));
+    form = el('div', { className: 'ex' });
+    var grid = el('div', { className: 'form-grid' });
+    FIELDS.forEach(function (f) {
+      var ctrl;
+      if (f.type === 'select') {
+        ctrl = el('select', {}, [el('option', { attrs: { value: '' }, text: '— elige —' })].concat(
+          f.options.map(function (o) { return el('option', { attrs: { value: o }, text: o }); })));
+      } else if (f.type === 'textarea') {
+        ctrl = el('textarea', { attrs: { placeholder: f.ph || '' } });
+      } else {
+        ctrl = el('input', { attrs: { type: 'text', placeholder: f.ph || '' } });
+      }
+      var id = 'dic-' + f.k;
+      ctrl.setAttribute('id', id);
+      inputs[f.k] = ctrl;
+      grid.appendChild(el('div', { className: 'field' + (f.wide ? ' wide' : '') }, [
+        el('label', { attrs: { 'for': id }, text: f.label }), ctrl,
+        f.hint ? el('div', { className: 'hint', text: f.hint }) : null
+      ]));
+    });
+    form.appendChild(grid);
+    var msg = el('span', { className: 'score' });
+    submit = el('button', { className: 'btn2 primary', attrs: { type: 'button' }, text: 'Añadir entrada' });
+    cancel = el('button', { className: 'btn2', attrs: { type: 'button' }, text: 'Cancelar edición' });
+    cancel.style.display = 'none';
+    submit.addEventListener('click', function () {
+      var e = readForm();
+      var missing = ['palabra', 'def', 'proc', 'ejemplo', 'conn'].filter(function (k) { return !e[k]; });
+      if (missing.length) {
+        msg.textContent = 'Faltan campos obligatorios: palabra, definición, procedimiento, ejemplo y matiz.';
+        return;
+      }
+      if (editing >= 0) { entries[editing] = e; msg.textContent = 'Cambios guardados.'; }
+      else { entries.push(e); msg.textContent = 'Entrada añadida.'; }
+      save();
+      resetForm();
+      render();
+      setTimeout(function () { msg.textContent = ''; }, 2500);
+    });
+    cancel.addEventListener('click', resetForm);
+    form.appendChild(el('div', { className: 'btn-row' }, [submit, cancel, msg]));
+    panel.appendChild(form);
+
+    panel.appendChild(C.h3('Mis entradas'));
+    var csvB = el('button', { className: 'btn2', attrs: { type: 'button' }, text: 'Descargar (.csv para hoja de cálculo)' });
+    var txtB = el('button', { className: 'btn2', attrs: { type: 'button' }, text: 'Descargar (.txt)' });
+    var copyB = el('button', { className: 'btn2', attrs: { type: 'button' }, text: 'Copiar todo' });
+    csvB.addEventListener('click', function () { C.downloadText('diccionario-de-campana.csv', toCSV(), 'text/csv'); });
+    txtB.addEventListener('click', function () { C.downloadText('diccionario-de-campana.txt', toText()); });
+    copyB.addEventListener('click', function () { C.copyText(toText(), copyB); });
+    panel.appendChild(el('div', { className: 'btn-row' }, [csvB, txtB, copyB]));
+    list = el('div');
+    panel.appendChild(list);
+
+    panel.appendChild(C.h3('Tres entradas modelo'));
+    panel.appendChild(p('Así debe quedar una entrada completa.'));
+    EXAMPLES.forEach(function (e) { panel.appendChild(entryCard(e, -1, true)); });
+
+    panel.appendChild(C.callout('Importante', 'Las entradas se guardan en este navegador. Descarga una copia al final de cada semana y entrega el archivo cuando se te pida.', 'warm'));
+    document.getElementById('content-root').appendChild(panel);
+    render();
+  }
+  C.builders.push(build);
+})();
+(function () {
+  'use strict';
+  var C = window.CAMP;
+  var el = C.el, p = C.p, h3 = C.h3;
+
+  var TEXT = {
+    title: 'La campaña del megáfono',
+    byline: 'Texto de práctica escrito para este material',
+    paras: [
+      'Cada cuatro años, o cada vez que toca, el país entero se convierte en un plató. Durante quince días, los candidatos no hablan: proclaman, advierten, denuncian, desenmascaran. Las tertulias se llenan de expertos en todo y los teléfonos, de vídeos de veinte segundos en los que alguien «destroza» a su rival. Al terminar, uno tiene la sensación de haber asistido a una batalla en la que nadie ha explicado qué piensa hacer con la sanidad, con el alquiler o con las pensiones.',
+      'No es un problema de un partido ni de otro. Es un problema de formato. La campaña se ha diseñado para el titular y para el algoritmo, que premian lo que indigna y castigan lo que matiza. Un programa electoral exige tiempo; un insulto cabe en una pantalla. ¿Quién va a leer cuarenta páginas sobre política energética si puede ver a dos candidatos cruzarse reproches en el posdebate?',
+      'Se dirá que siempre ha sido así, que la política es lucha y que las campañas nunca fueron un seminario universitario. Es verdad solo a medias. Los mítines de antes también eran ruidosos, pero el ruido se apagaba al día siguiente y quedaban los periódicos, las entrevistas largas, los debates con tiempo para responder. Hoy el ruido no se apaga nunca: se recicla, se recorta y se reenvía.',
+      'El precio de esta politiquería del megáfono lo pagamos todos. Lo paga el votante, que acaba decidiendo por impresiones y no por propuestas. Lo pagan los propios candidatos, obligados a competir en estridencia. Y lo paga, sobre todo, la confianza: cada encuesta registra una desafección mayor, en especial entre los más jóvenes, que miran la campaña como quien mira una serie que no le interesa.',
+      'Hay salida, y no es complicada. Basta con pedir a los candidatos lo mismo que se pide a cualquier alumno en un examen: que respondan a la pregunta. Que digan qué, cuánto y cuándo. Que se callen un momento cuando habla el otro. Y basta con que los ciudadanos dejemos de compartir el vídeo que nos indigna y leamos la propuesta que nos aburre.',
+      'La democracia no necesita más volumen. Necesita, simplemente, que alguien baje el megáfono y se ponga a explicar.'
+    ]
+  };
+
+  var PARTS = [
+    {
+      n: 1, title: 'Tema y tesis', pts: '1 punto',
+      how: ['El **tema** es una frase nominal breve, sin opinión: de qué trata el texto.', 'La **tesis** es una oración completa: qué opina el autor sobre ese tema. Indica si es explícita (y dónde está) o implícita.'],
+      frames: ['El tema del texto es ___.', 'El autor sostiene que ___.', 'La tesis aparece de forma explícita en el párrafo ___: «___».', 'La tesis no se formula de manera explícita, pero puede deducirse de ___.']
+    },
+    {
+      n: 2, title: 'Estructura y organización de las ideas', pts: '1,5 puntos',
+      how: ['Di qué tipo de estructura tiene según la posición de la tesis: deductiva, inductiva, encuadrada o implícita.', 'Divide el texto en partes, localízalas (párrafos) y resume la función de cada una: introducción, tesis, argumentos, contraargumento, conclusión.'],
+      frames: ['El texto presenta una estructura ___, ya que la tesis aparece ___.', 'En el primer párrafo, el autor ___.', 'A continuación (párrafos ___-___), desarrolla ___ mediante ___.', 'Finalmente, ___, lo que cierra el texto retomando ___.']
+    },
+    {
+      n: 3, title: 'Intención y mecanismos lingüísticos', pts: '3 puntos',
+      how: ['Empieza por la intención: persuadir, criticar, denunciar, alertar, movilizar...', 'Después explica los mecanismos que la sostienen. Cada recurso necesita tres cosas: **nombre** + **cita** + **efecto**. Una lista de recursos sin efecto no puntúa.', 'Agrupa por niveles: modalización y léxico valorativo, encuadre y metáforas, estrategias argumentativas (tipos de argumentos, contraargumentación, falacias), deixis y relación con el lector.'],
+      frames: ['La intención del autor es ___, y para ello recurre a varios mecanismos.', 'El léxico valorativo, como «___», presenta ___ de manera ___.', 'La metáfora «___» sitúa el asunto en el ámbito de ___, de modo que ___.', 'Mediante la primera persona del plural («___»), el autor implica al lector en ___.', 'El autor anticipa una posible objeción («___») para refutarla después: «___».']
+    },
+    {
+      n: 4, title: 'Vocabulario y formación de palabras', pts: '1,5 puntos',
+      how: ['Formación: procedimiento + componentes + significado de cada componente.', 'Sinónimos: comprueba que funcionan en la frase del texto.', 'Connotación: qué valoración añade la expresión y cómo sirve a la intención.'],
+      frames: ['*___* se forma por ___: ___ (‘___’) + ___.', 'En este contexto, *___* puede sustituirse por *___*, porque ___.', 'La expresión «___» tiene un valor ___, ya que ___.']
+    },
+    {
+      n: 5, title: 'Valoración crítica argumentada', pts: '3 puntos',
+      how: ['No resumas: valora. ¿Es convincente la tesis? ¿Qué argumentos son sólidos y cuáles débiles? ¿Hay datos sin fuente, generalizaciones o falacias?', 'Aporta argumentos propios y relaciona el texto con la actualidad, con otros textos o con lo trabajado en clase.', 'Valora los argumentos, no a los partidos: la norma de neutralidad sigue vigente.'],
+      frames: ['Coincido en parte con el autor en que ___; sin embargo, ___.', 'Su argumento más sólido es ___, porque ___.', 'Resulta menos convincente ___, puesto que ___.', 'Esta cuestión se relaciona con ___.', 'En definitiva, ___.']
+    }
+  ];
+
+  var MODEL = [
+    ['1. Tema y tesis', [
+      'El tema es la conversión de las campañas electorales en un espectáculo ruidoso que sustituye las propuestas por la confrontación.',
+      'El autor sostiene que el formato actual de las campañas, pensado para el titular y el algoritmo, impone el ruido sobre la explicación, y que la democracia necesita que los candidatos expliquen sus propuestas y que los ciudadanos las lean. La tesis se formula de manera explícita en el segundo párrafo («Es un problema de formato») y se retoma en el último («La democracia no necesita más volumen»).'
+    ]],
+    ['2. Estructura', [
+      'El texto presenta una estructura encuadrada, ya que la tesis aparece en el segundo párrafo y se recupera como conclusión en el último. Sigue además un esquema de problema y solución.',
+      'En el primer párrafo, a modo de introducción, el autor describe con ironía la campaña como un plató en el que nadie explica sus propuestas. En el segundo formula la tesis y su causa: el algoritmo premia lo que indigna. El tercero presenta un contraargumento («Se dirá que siempre ha sido así») y lo refuta comparando las campañas de antes con las de ahora. El cuarto expone las consecuencias del problema para el votante, para los candidatos y para la confianza. El quinto propone una solución, y el sexto cierra el texto reformulando la tesis con la imagen del megáfono.'
+    ]],
+    ['3. Intención y mecanismos', [
+      'La intención del autor es criticar el formato de las campañas y movilizar al lector para que cambie sus hábitos de consumo de información. Para no provocar rechazo, declara su imparcialidad desde el principio («No es un problema de un partido ni de otro»), lo que refuerza su credibilidad ante lectores de cualquier ideología.',
+      'El léxico valorativo y las metáforas construyen la crítica. La campaña es un «plató» y una «batalla», dos imágenes del espectáculo y de la guerra que niegan su carácter de debate. El megáfono, presente en el título, en el cuarto párrafo y en el cierre, funciona como símbolo del grito amplificado y da cohesión al texto. La serie «proclaman, advierten, denuncian, desenmascaran» satiriza, mediante una gradación de verbos de habla, el tono enfático de los candidatos, y las comillas de «destroza» marcan distancia irónica respecto a ese lenguaje.',
+      'Abundan las estructuras antitéticas y paralelas, que hacen memorable la idea y oponen dos maneras de comunicar: «premian lo que indigna y castigan lo que matiza»; «Un programa electoral exige tiempo; un insulto cabe en una pantalla». La pregunta retórica del segundo párrafo invita al lector a reconocer su propio comportamiento, y la anáfora «Lo paga… Lo pagan… Y lo paga, sobre todo» ordena las consecuencias en gradación ascendente.',
+      'En cuanto a la argumentación, el autor recurre a la ejemplificación (la sanidad, el alquiler, las pensiones), a la relación de causa y consecuencia (el algoritmo), a la comparación entre pasado y presente y a la analogía con el examen escolar. El contraargumento, introducido con una construcción impersonal («Se dirá»), se acepta en parte («Es verdad solo a medias») antes de refutarse. Por último, la primera persona del plural («lo pagamos todos», «dejemos de compartir») y los subjuntivos exhortativos («Que digan qué, cuánto y cuándo») implican al lector y convierten la crítica en una llamada a actuar.'
+    ]],
+    ['4. Vocabulario', [
+      '*Posdebate* se forma por prefijación: *pos-* (‘después de’) + *debate*. *Desafección*, también por prefijación: *des-* (‘privación’) + *afección*. *Megáfono* es un compuesto culto formado por *mega-* (‘grande’) y *-fono* (‘sonido, voz’).',
+      'En el contexto, *estridencia* puede sustituirse por *griterío* («competir en griterío») y *desafección* por *desapego*.',
+      'La expresión «politiquería del megáfono» tiene un valor despectivo: el sufijo *-ería* degrada la política hasta convertirla en intriga vacía, y el megáfono la reduce a volumen. Condensa la tesis del autor.'
+    ]],
+    ['5. Valoración crítica', [
+      'Coincido con el autor en su diagnóstico: el formato de vídeos breves y titulares favorece la indignación frente al matiz, algo que hemos comprobado al analizar la cámara de eco y los ciberanzuelos. Su argumento más sólido es la comparación entre pasado y presente, porque no idealiza las campañas antiguas, sino que identifica con precisión qué ha cambiado: el ruido ya no se apaga.',
+      'Resulta menos convincente, en cambio, la afirmación de que «cada encuesta registra una desafección mayor», que se presenta como un dato sin ofrecer ninguna fuente. Además, la solución propuesta depende casi por completo de la buena voluntad de candidatos y ciudadanos, y apenas menciona la responsabilidad de los medios y de las plataformas, que son quienes diseñan el formato que el propio autor critica. Paradójicamente, el texto usa algunos recursos del mismo formato que denuncia: frases breves, imágenes impactantes y un cierre pensado para ser citado.',
+      'Aun así, la propuesta final de leer «la propuesta que nos aburre» tiene un valor práctico indudable y apela a una responsabilidad que sí está en nuestras manos. En definitiva, se trata de un texto eficaz y bien construido, cuya tesis comparto, aunque su análisis de las causas resulta incompleto.'
+    ]]
+  ];
+
+  function modelText() {
+    var box = el('div', { className: 'model-text' });
+    box.appendChild(el('h4', { text: TEXT.title }));
+    box.appendChild(el('p', { className: 'byline', text: TEXT.byline }));
+    TEXT.paras.forEach(function (t, i) {
+      box.appendChild(el('p', {}, [el('span', { className: 'pnum', text: String(i + 1) }), t]));
+    });
+    return box;
+  }
+
+  function build() {
+    var panel = C.panel('comentario');
+    panel.appendChild(C.printButton());
+    panel.appendChild(C.h2('Comentario crítico'));
+    panel.appendChild(p('Esta guía te prepara para la prueba de la sesión 9: comentario de una columna o un editorial que no habrás visto antes, con una extensión similar a la de los textos de la PEvAU y **60 minutos** de tiempo.'));
+
+    panel.appendChild(h3('Estructura de la prueba'));
+    panel.appendChild(C.table(['Apartado', 'Puntos', 'Qué se te pide'], [
+      ['1. Tema y tesis', '1', 'Tema en frase nominal; tesis en oración completa.'],
+      ['2. Estructura', '1,5', 'Tipo de estructura y partes del texto con su función.'],
+      ['3. Intención y mecanismos', '3', 'Modalización, léxico valorativo, encuadre, estrategias argumentativas.'],
+      ['4. Vocabulario', '1,5', 'Formación de tres palabras, dos sinónimos y el valor connotativo de una expresión.'],
+      ['5. Valoración crítica', '3', 'Opinión argumentada sobre la tesis y los argumentos del texto.']
+    ]));
+    panel.appendChild(C.callout('Reparto del tiempo', 'Lectura y subrayado: 10 minutos · apartados 1 y 2: 10 · apartado 3: 15 · apartado 4: 8 · apartado 5: 15 · revisión: 2.'));
+
+    panel.appendChild(h3('Paso a paso, con marcos de frase'));
+    PARTS.forEach(function (pt) {
+      var d = el('details', { className: 'session' });
+      d.appendChild(el('summary', {}, [
+        el('span', { className: 's-num', text: String(pt.n) }),
+        el('span', { className: 's-title', text: pt.title }),
+        el('span', { className: 's-phase', text: pt.pts })
+      ]));
+      var body = el('div', { className: 's-body' });
+      body.appendChild(C.ul(pt.how));
+      body.appendChild(p('**Marcos de frase**'));
+      body.appendChild(C.frames(pt.frames));
+      d.appendChild(body);
+      panel.appendChild(d);
+    });
+
+    panel.appendChild(h3('Caja de herramientas del apartado 3'));
+    panel.appendChild(C.table(['Mecanismo', 'Qué buscar', 'Qué efecto suele tener'], [
+      ['Modalización', 'Adjetivos y adverbios valorativos, modalidad exclamativa o interrogativa, verbos de opinión, sufijos apreciativos.', 'Muestra la actitud del emisor y orienta la del lector.'],
+      ['Verbos de habla', '*reconocer, alegar, denunciar, insinuar, proclamar*...', 'Valoran lo dicho y a quien lo dice.'],
+      ['Connotación', 'Eufemismos, disfemismos, palabras con carga emocional.', 'Suavizan o endurecen la realidad.'],
+      ['Encuadre y metáforas', 'Guerra, deporte, espectáculo; selección y omisión de datos.', 'Imponen una manera de entender el asunto.'],
+      ['Deixis personal', '*nosotros / ellos*, primera persona del plural inclusiva, apelaciones al lector.', 'Crea complicidad o construye bandos.'],
+      ['Estructuras retóricas', 'Antítesis, paralelismo, anáfora, enumeración, gradación, pregunta retórica, ironía.', 'Hacen memorable la idea y refuerzan su intensidad.'],
+      ['Argumentos', 'Autoridad, datos, ejemplos, analogía, causa y consecuencia, experiencia compartida.', 'Sostienen la tesis; valora su solidez.'],
+      ['Contraargumentación', '*Se dirá que…, es cierto que…, sin embargo…*', 'Da apariencia de equilibrio y refuerza la tesis al refutar la objeción.'],
+      ['Falacias', '*Ad hominem*, hombre de paja, falso dilema, pendiente resbaladiza, generalización.', 'Debilitan el razonamiento: señálalas en la valoración.']
+    ]));
+
+    panel.appendChild(h3('Texto modelo'));
+    panel.appendChild(p('Practica con este texto antes de ver el comentario modelo. Los números indican el párrafo.'));
+    panel.appendChild(modelText());
+
+    panel.appendChild(h3('Tu comentario'));
+    panel.appendChild(p('Escribe cada apartado. Tus respuestas se guardan en este navegador.'));
+    var all = [];
+    PARTS.forEach(function (pt) {
+      var wc = el('p', { className: 'wc' });
+      var ta = C.savedArea('coment' + pt.n, 'Apartado ' + pt.n + ': ' + pt.title.toLowerCase() + '...', pt.n === 3 || pt.n === 5 ? '160px' : '90px', function (v) {
+        wc.textContent = C.countWords(v) + ' palabras';
+      });
+      wc.textContent = C.countWords(ta.value) + ' palabras';
+      all.push({ title: pt.n + '. ' + pt.title, ta: ta });
+      panel.appendChild(el('div', { className: 'ex' }, [el('h4', { text: pt.n + '. ' + pt.title + ' (' + pt.pts + ')' }), ta, wc]));
+    });
+    var copyB = el('button', { className: 'btn2', attrs: { type: 'button' }, text: 'Copiar mi comentario' });
+    copyB.addEventListener('click', function () {
+      C.copyText(all.map(function (a) { return a.title.toUpperCase() + '\n' + a.ta.value; }).join('\n\n'), copyB);
+    });
+    panel.appendChild(el('div', { className: 'btn-row' }, [copyB]));
+
+    panel.appendChild(h3('Comentario modelo'));
+    var modelBox = el('div', { className: 'model' }, [el('span', { className: 'm-label', text: 'Comentario modelo de «La campaña del megáfono»' })]);
+    MODEL.forEach(function (m) {
+      modelBox.appendChild(el('p', {}, [el('strong', { text: m[0] })]));
+      m[1].forEach(function (t) { modelBox.appendChild(el('p', { rich: t })); });
+    });
+    var mb = el('button', { className: 'btn2 primary', attrs: { type: 'button' }, text: 'Mostrar el comentario modelo' });
+    mb.addEventListener('click', function () {
+      modelBox.classList.toggle('visible');
+      mb.textContent = modelBox.classList.contains('visible') ? 'Ocultar el comentario modelo' : 'Mostrar el comentario modelo';
+    });
+    panel.appendChild(p('Ábrelo cuando hayas terminado el tuyo y compáralos apartado por apartado.'));
+    panel.appendChild(el('div', { className: 'btn-row' }, [mb]));
+    panel.appendChild(modelBox);
+
+    panel.appendChild(h3('Antes de entregar'));
+    var checks = [
+      'El tema es una frase nominal, sin opinión.',
+      'La tesis es una oración completa y he dicho dónde está.',
+      'He localizado cada parte de la estructura por párrafos.',
+      'Cada recurso tiene nombre, cita y efecto.',
+      'En el vocabulario he dado procedimiento, componentes y significado.',
+      'He comprobado que mis sinónimos funcionan en la frase del texto.',
+      'En la valoración aporto argumentos propios y no resumo el texto.',
+      'He usado conectores variados y he revisado la ortografía.'
+    ];
+    var ulc = el('ul', { className: 'checklist' });
+    checks.forEach(function (c, i) {
+      var cb = el('input', { attrs: { type: 'checkbox' } });
+      cb.checked = C.store.get('check-com' + i) === '1';
+      cb.addEventListener('change', function () { C.store.set('check-com' + i, cb.checked ? '1' : ''); });
+      ulc.appendChild(el('li', {}, [el('label', {}, [cb, el('span', { rich: c })])]));
+    });
+    panel.appendChild(ulc);
+
+    document.getElementById('content-root').appendChild(panel);
+  }
+  C.builders.push(build);
+})();
+(function () {
+  'use strict';
+  var C = window.CAMP;
+  var el = C.el, p = C.p, h3 = C.h3;
+
+  var PLAN = [
+    { k: 'tema', label: 'Tema', ph: 'Un asunto real de la campaña o del resultado, o un tema de actualidad no político.' },
+    { k: 'tesis', label: 'Tesis (una sola oración)', ph: 'Lo que vas a defender.' },
+    { k: 'dest', label: 'Destinatario', ph: '¿Para quién escribes? ¿Qué sabe ya del tema?' },
+    { k: 'estr', label: 'Estructura', type: 'select', options: ['Deductiva (tesis al principio)', 'Inductiva (tesis al final)', 'Encuadrada (al principio y al final)'] },
+    { k: 'arg1', label: 'Argumento 1', ph: 'Tipo (datos, ejemplo, autoridad, analogía, causa-consecuencia...) y contenido.' },
+    { k: 'arg2', label: 'Argumento 2 (de otro tipo)', ph: 'Tipo y contenido.' },
+    { k: 'contra', label: 'Contraargumento y refutación', ph: 'Se dirá que... Sin embargo...' },
+    { k: 'arranque', label: 'Arranque', ph: '¿Con qué vas a atrapar al lector? Una escena, una pregunta, un dato, una paradoja...' },
+    { k: 'cierre', label: 'Cierre', ph: 'Una idea que se recuerde: retoma el arranque o formula la tesis con una imagen.' }
+  ];
+
+  var REVIEW = [
+    'La tesis se identifica con claridad.',
+    'Hay dos argumentos de tipos distintos y un contraargumento refutado.',
+    'El arranque engancha y el cierre se recuerda.',
+    'Los párrafos están bien conectados y los conectores son variados.',
+    'El registro es el propio de una columna: culto, con voz propia.',
+    'No hay palabras comodín (*cosa, tema, hacer, decir, tener*).',
+    'No hay errores de ortografía, acentuación ni puntuación.',
+    'Los prefijos, siglas y extranjerismos siguen la norma del laboratorio.',
+    'El texto respeta la norma de neutralidad: critica ideas y mecanismos, no ataca a personas.'
+  ];
+
+  function wordCounter(ta, min, max) {
+    var wc = el('p', { className: 'wc' });
+    function upd() {
+      var n = C.countWords(ta.value);
+      wc.textContent = n + ' palabras (entre ' + min + ' y ' + max + ')';
+      wc.className = 'wc ' + (n >= min && n <= max ? 'in' : (n ? 'out' : ''));
+    }
+    ta.addEventListener('input', upd);
+    upd();
+    return wc;
+  }
+
+  function build() {
+    var panel = C.panel('columna');
+    panel.appendChild(C.printButton());
+    panel.appendChild(C.h2('Taller de columna'));
+    panel.appendChild(p('Escribirás una columna de opinión de **400 a 500 palabras** y una **nota de decisiones lingüísticas** de 150 a 200 palabras. Puedes elegir un tema real de la campaña o del resultado, o un tema de actualidad no político. Todo se guarda en este navegador.'));
+
+    panel.appendChild(h3('1. Planificación'));
+    var planBox = el('div', { className: 'ex' });
+    var grid = el('div', { className: 'form-grid' });
+    var planInputs = {};
+    PLAN.forEach(function (f) {
+      var ctrl;
+      if (f.type === 'select') {
+        ctrl = el('select', {}, [el('option', { attrs: { value: '' }, text: '— elige —' })].concat(
+          f.options.map(function (o) { return el('option', { attrs: { value: o }, text: o }); })));
+        ctrl.addEventListener('change', function () { C.store.set('plan-' + f.k, ctrl.value); });
+      } else {
+        ctrl = el('textarea', { attrs: { placeholder: f.ph } });
+        ctrl.addEventListener('input', function () { C.store.set('plan-' + f.k, ctrl.value); });
+      }
+      ctrl.value = C.store.get('plan-' + f.k);
+      ctrl.setAttribute('id', 'plan-' + f.k);
+      planInputs[f.k] = { label: f.label, ctrl: ctrl };
+      grid.appendChild(el('div', { className: 'field' + (f.k === 'tesis' || f.k === 'tema' ? ' wide' : '') }, [
+        el('label', { attrs: { 'for': 'plan-' + f.k }, text: f.label }), ctrl
+      ]));
+    });
+    planBox.appendChild(grid);
+    panel.appendChild(planBox);
+
+    panel.appendChild(h3('2. Borrador'));
+    panel.appendChild(p('Ponle un título. Escribe primero sin detenerte; revisarás después.'));
+    var titleIn = el('input', { className: 'search', attrs: { type: 'text', placeholder: 'Título de la columna' } });
+    titleIn.style.maxWidth = '100%';
+    titleIn.value = C.store.get('col-titulo');
+    titleIn.addEventListener('input', function () { C.store.set('col-titulo', titleIn.value); });
+    panel.appendChild(titleIn);
+    var draft = C.savedArea('col-borrador', 'Texto de la columna...', '320px');
+    panel.appendChild(draft);
+    panel.appendChild(wordCounter(draft, 400, 500));
+
+    panel.appendChild(h3('3. Revisión'));
+    panel.appendChild(p('Primero revisa tu texto con esta lista. Después, en la sesión 8, intercambia el borrador con tu compañera: cada una subraya tres palabras genéricas del texto de la otra y propone alternativas (ficha 8 del laboratorio).'));
+    var ulc = el('ul', { className: 'checklist' });
+    REVIEW.forEach(function (c, i) {
+      var cb = el('input', { attrs: { type: 'checkbox' } });
+      cb.checked = C.store.get('check-col' + i) === '1';
+      cb.addEventListener('change', function () { C.store.set('check-col' + i, cb.checked ? '1' : ''); });
+      ulc.appendChild(el('li', {}, [el('label', {}, [cb, el('span', { rich: c })])]));
+    });
+    panel.appendChild(ulc);
+    var labB = el('button', { className: 'btn2', attrs: { type: 'button' }, text: 'Ficha 8: precisión léxica' });
+    labB.addEventListener('click', function () { C.openLab(8); });
+    var rubB = el('button', { className: 'btn2', attrs: { type: 'button' }, text: 'Ver la rúbrica' });
+    rubB.addEventListener('click', function () { C.goTo('evaluacion'); });
+    panel.appendChild(el('div', { className: 'btn-row' }, [labB, rubB]));
+
+    panel.appendChild(h3('4. Nota de decisiones lingüísticas'));
+    panel.appendChild(p('Explica con metalenguaje preciso por qué has elegido las palabras y los recursos más importantes de tu columna. Cita ejemplos de tu propio texto.'));
+    panel.appendChild(C.frames([
+      'He elegido el verbo *___* en lugar de *___* porque ___.',
+      'Para el arranque he recurrido a ___ con el fin de ___.',
+      'La metáfora «___» sitúa el tema en el ámbito de ___ y me permite ___.',
+      'He evitado *___* por su connotación ___ y he preferido *___*.',
+      'Uso la primera persona del plural en «___» para ___.',
+      'El contraargumento «___» me sirve para ___.'
+    ]));
+    var note = C.savedArea('col-nota', 'Nota de decisiones...', '160px');
+    panel.appendChild(note);
+    panel.appendChild(wordCounter(note, 150, 200));
+
+    panel.appendChild(h3('5. Entrega'));
+    var copyB = el('button', { className: 'btn2 primary', attrs: { type: 'button' }, text: 'Copiar columna y nota' });
+    var dlB = el('button', { className: 'btn2', attrs: { type: 'button' }, text: 'Descargar (.txt)' });
+    function compose() {
+      var plan = PLAN.map(function (f) { return f.label + ': ' + (planInputs[f.k].ctrl.value || ''); }).join('\n');
+      return (titleIn.value || 'Sin título').toUpperCase() + '\n\n' + draft.value + '\n\n— — —\nNOTA DE DECISIONES LINGÜÍSTICAS\n\n' + note.value + '\n\n— — —\nPLANIFICACIÓN\n\n' + plan;
+    }
+    copyB.addEventListener('click', function () { C.copyText(compose(), copyB); });
+    dlB.addEventListener('click', function () { C.downloadText('columna-de-opinion.txt', compose()); });
+    panel.appendChild(el('div', { className: 'btn-row' }, [copyB, dlB]));
+    panel.appendChild(p('Pega el texto en el documento de entrega que se te indique y revisa allí el formato.', 'saved-note'));
+
+    document.getElementById('content-root').appendChild(panel);
+  }
+  C.builders.push(build);
+})();
+(function () {
+  'use strict';
+  var C = window.CAMP;
+  var el = C.el, p = C.p, h3 = C.h3;
+
+  function build() {
+    var panel = C.panel('evaluacion');
+    panel.appendChild(C.printButton());
+    panel.appendChild(C.h2('Evaluación'));
+    panel.appendChild(p('Tres instrumentos, uno por cada eje de la situación: comprender, producir y dominar el léxico.'));
+    panel.appendChild(C.table(['Instrumento', 'Qué se evalúa', 'Peso'], [
+      ['Comentario crítico (sesión 9)', 'Tema, tesis, estructura, estrategias argumentativas, mecanismos de modalización y encuadre, vocabulario y valoración crítica.', '40 %'],
+      ['Columna de opinión + nota de decisiones', 'Coherencia, cohesión, adecuación, argumentación, precisión léxica y corrección; justificación metalingüística de tus elecciones.', '35 %'],
+      ['Diccionario de campaña + preguntas de léxico del comentario', 'Formación de palabras, connotación, uso de fuentes normativas y aplicación en contexto.', '25 %']
+    ]));
+    panel.appendChild(C.callout('Trabajo de clase que también cuenta', 'Las tesis implícitas de las portadas (sesión 1), las reescrituras con y sin agente (sesión 2), el primer comentario guiado (sesión 5) y la coevaluación del borrador (sesión 8) sirven para comprobar cómo avanzas antes de las entregas finales.'));
+
+    panel.appendChild(h3('Prueba de comentario crítico (10 puntos)'));
+    panel.appendChild(C.ol([
+      'Tema y tesis del texto (1 punto).',
+      'Estructura y organización de las ideas (1,5 puntos).',
+      'Intención del emisor y mecanismos lingüísticos que la manifiestan: modalización, léxico valorativo, encuadre, estrategias argumentativas (3 puntos).',
+      'Vocabulario y formación de palabras del texto: procedimiento de formación de tres palabras subrayadas, dos sinónimos adecuados al contexto y valor connotativo de una expresión (1,5 puntos).',
+      'Valoración crítica argumentada (3 puntos).'
+    ]));
+
+    panel.appendChild(h3('Rúbrica de la columna de opinión'));
+    panel.appendChild(C.table(['Indicador', 'Excelente (4)', 'Adecuado (3)', 'En desarrollo (2)', 'Insuficiente (1)'], [
+      ['Tesis y argumentación', 'Tesis clara, argumentos variados y bien desarrollados, contraargumento refutado', 'Tesis clara, argumentos suficientes', 'Tesis difusa o argumentos escasos', 'Sin tesis identificable'],
+      ['Estructura y cohesión', 'Arranque y cierre eficaces; conectores variados y precisos', 'Estructura clara; conectores adecuados', 'Estructura irregular; conectores repetidos', 'Desorganizado'],
+      ['Adecuación y estilo', 'Voz propia; recursos retóricos eficaces; registro del género', 'Registro adecuado; algunos recursos', 'Registro irregular', 'Registro inadecuado'],
+      ['Precisión léxica', 'Vocabulario rico y exacto; ningún comodín', 'Vocabulario adecuado; pocos comodines', 'Vocabulario pobre o repetitivo', 'Vocabulario impreciso'],
+      ['Corrección', 'Sin errores relevantes', 'Errores aislados', 'Errores frecuentes', 'Errores que dificultan la lectura'],
+      ['Nota de decisiones', 'Justifica con metalenguaje preciso y ejemplos de su texto', 'Justifica con algunos términos', 'Justificación general', 'No justifica']
+    ]));
+
+    panel.appendChild(h3('Diccionario de campaña'));
+    panel.appendChild(p('Cada entrada recoge la palabra, la definición propia, el procedimiento de formación analizado, el ejemplo real con su fuente y el matiz connotativo. Se valoran la **exactitud del análisis morfológico**, la **variedad de procedimientos** y la **calidad de los ejemplos**. Mínimo: **35 entradas** al final de la sesión 8.'));
+
+    var b1 = el('button', { className: 'btn2', attrs: { type: 'button' }, text: 'Guía del comentario' });
+    b1.addEventListener('click', function () { C.goTo('comentario'); });
+    var b2 = el('button', { className: 'btn2', attrs: { type: 'button' }, text: 'Taller de columna' });
+    b2.addEventListener('click', function () { C.goTo('columna'); });
+    var b3 = el('button', { className: 'btn2', attrs: { type: 'button' }, text: 'Diccionario de campaña' });
+    b3.addEventListener('click', function () { C.goTo('diccionario'); });
+    panel.appendChild(el('div', { className: 'btn-row' }, [b1, b2, b3]));
+
+    document.getElementById('content-root').appendChild(panel);
+  }
+  C.builders.push(build);
+})();
+(function () {
+  'use strict';
+  var C = window.CAMP;
+
+  function init() {
+    var tabsNav = document.getElementById('tabs-nav');
+    var crumb = document.getElementById('mininav-crumb');
+    var counter = document.getElementById('mininav-counter');
+
+    C.builders.forEach(function (fn) { fn(); });
+
+    C.TABS.forEach(function (t) {
+      var btn = document.createElement('button');
+      btn.className = 'tab';
+      btn.type = 'button';
+      btn.setAttribute('data-tab', t.id);
+      btn.appendChild(document.createTextNode(t.label));
+      btn.addEventListener('click', function () { activate(t.id); });
+      tabsNav.appendChild(btn);
+    });
+
+    function activate(id) {
+      var panels = document.querySelectorAll('.panel');
+      for (var i = 0; i < panels.length; i++) panels[i].classList.remove('active');
+      var target = document.getElementById('panel-' + id);
+      if (target) target.classList.add('active');
+      var buttons = tabsNav.querySelectorAll('.tab');
+      for (var j = 0; j < buttons.length; j++) buttons[j].classList.remove('active');
+      var activeBtn = tabsNav.querySelector('[data-tab="' + id + '"]');
+      if (activeBtn) activeBtn.classList.add('active');
+      var info = C.TABS.filter(function (t) { return t.id === id; })[0];
+      if (info) {
+        crumb.textContent = '';
+        var b = document.createElement('b');
+        b.appendChild(document.createTextNode(info.label));
+        crumb.appendChild(document.createTextNode('La palabra en campaña — '));
+        crumb.appendChild(b);
+      }
+      var pos = C.TABS.findIndex(function (t) { return t.id === id; }) + 1;
+      counter.textContent = pos + ' / ' + C.TABS.length;
+      C.store.set('tab-actual', id);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    C.goTo = activate;
+
+    /* Al imprimir, se abren todos los desplegables */
+    var reopened = [];
+    window.addEventListener('beforeprint', function () {
+      reopened = [];
+      var ds = document.querySelectorAll('.panel.active details');
+      for (var i = 0; i < ds.length; i++) {
+        if (!ds[i].open) { ds[i].open = true; reopened.push(ds[i]); }
+      }
+    });
+    window.addEventListener('afterprint', function () {
+      reopened.forEach(function (d) { d.open = false; });
+      reopened = [];
+    });
+
+    var saved = C.store.get('tab-actual');
+    var valid = C.TABS.some(function (t) { return t.id === saved; });
+    activate(valid ? saved : C.TABS[0].id);
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+</body>
+</html>
