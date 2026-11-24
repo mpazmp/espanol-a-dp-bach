@@ -419,6 +419,32 @@ div.nube .btn2{padding:5px 12px;}
 .nube-dialogo input{width:100%;box-sizing:border-box;padding:.5rem .6rem;border:1px solid #c9c2b4;border-radius:6px;font:inherit;}
 .nube-dialogo .nube-aviso{color:#c64829;min-height:1.2em;margin:.6rem 0 0;}
 @media print{div.nube{display:none !important;}}
+/* Pestaña Teoría */
+.teo-indice-box{background:#fff;border:1px solid #e3ddd0;border-left:4px solid var(--oro);border-radius:0 6px 6px 0;padding:12px 18px;margin:14px 0 24px;}
+.teo-indice-label{display:block;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--oro);margin-bottom:6px;}
+.teo-indice{margin:0;padding-left:0;list-style:none;columns:2;column-gap:28px;}
+.teo-indice li{margin:3px 0;break-inside:avoid;}
+.teo-indice a{color:var(--azul);text-decoration:none;font-weight:600;font-size:.93rem;}
+.teo-indice a:hover{text-decoration:underline;}
+.teo-sec{margin:30px 0 10px;padding-top:6px;scroll-margin-top:16px;}
+.teo-sec-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 14px;border-bottom:2px solid #e3ddd0;padding-bottom:6px;margin-bottom:10px;}
+.teo-sec-title{font-family:'Playfair Display',Georgia,serif;color:var(--azul);font-size:1.25rem;margin:0;}
+.teo-ses{font-size:.78rem;font-weight:700;color:#fff;background:var(--turquesa);border-radius:10px;padding:2px 10px;white-space:nowrap;}
+h4.teo-h{font-family:'Source Sans 3',sans-serif;font-size:1rem;font-weight:700;color:var(--terracota);margin:18px 0 6px;}
+.teo-table{overflow-x:auto;margin:10px 0 14px;}
+.teo-table table.data-table{margin:0;}
+.teo-arriba{display:inline-block;margin-top:8px;font-size:.82rem;color:var(--azul);text-decoration:none;}
+.teo-arriba:hover{text-decoration:underline;}
+.teo-repaso{background:#fff;border:1px solid #e3ddd0;border-top:4px solid var(--terracota);border-radius:6px;padding:6px 20px 12px;margin:34px 0 10px;}
+@media (max-width:700px){.teo-indice{columns:1;}}
+@media print{
+  .teo-bloque{display:none !important;}
+  .teo-bloque.print-me{display:block !important;}
+  .teo-indice-box,.teo-arriba{display:none !important;}
+  .teo-sec{break-inside:auto;}
+  .teo-sec-head{break-after:avoid;}
+  .teo-ses{background:none;color:#0e9aa7;border:1px solid #0e9aa7;}
+}
 </style>
 </head>
 <body>
@@ -592,6 +618,7 @@ div.nube .btn2{padding:5px 12px;}
     copyText: copyText, panel: panel, builders: [], goTo: null,
     TABS: [
       { id: 'reto', label: 'El reto' },
+      { id: 'teoria', label: 'Teoría' },
       { id: 'sesiones', label: 'Sesiones' },
       { id: 'glosario', label: 'Glosario' },
       { id: 'laboratorio', label: 'Laboratorio de palabras' },
@@ -2548,6 +2575,1050 @@ div.nube .btn2{padding:5px 12px;}
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { setTimeout(montar, 0); });
   else setTimeout(montar, 0);
+})();
+
+(function () {
+  'use strict';
+  var C = window.CAMP;
+  var el = C.el;
+
+  /*
+   * Tipos de elemento:
+   *  'texto'                 párrafo
+   *  {h: 'texto'}            subtítulo
+   *  {ul: [...]} / {ol: [...]}
+   *  {c: ['término', 'definición']}
+   *  {k: ['Etiqueta', 'texto']}   recuadro destacado
+   *  {ej: 'texto'}           ejemplo
+   *  {t: [cabeceras], r: [[fila], ...]}
+   */
+
+  var BLOQUES = [
+    {
+      n: 1,
+      title: 'Los medios y los géneros periodísticos',
+      intro: 'Qué es el periodismo, cómo se organiza un periódico y qué rasgos formales y lingüísticos tiene cada género.',
+      secciones: [
+        {
+          id: 't1-1', title: 'Los medios de comunicación', ses: '1',
+          items: [
+            'Un **medio de comunicación de masas** es un canal que transmite mensajes a un público amplio, heterogéneo y disperso. Los principales son la **prensa** (en papel y digital), la **radio**, la **televisión** y las **plataformas digitales y redes sociales**.',
+            { h: 'Rasgos de la comunicación de masas' },
+            { ul: [
+              '**Emisor colectivo**: detrás del texto hay una empresa periodística, aunque lo firme una persona.',
+              '**Receptor múltiple y anónimo**: el medio no sabe exactamente quién lo lee.',
+              '**Comunicación unidireccional**: la respuesta del público es escasa o diferida. Los medios digitales la amplían con comentarios, encuestas y redes.',
+              '**Mensaje perecedero**: la noticia de hoy deja de interesar mañana.',
+              '**Varios códigos**: palabra, imagen, tipografía, sonido. Por eso hablamos de textos **multimodales**.'
+            ] },
+            { h: 'Funciones de los medios' },
+            { t: ['Función', 'Qué hace', 'Géneros donde predomina'], r: [
+              ['**Informar**', 'Da a conocer hechos de actualidad.', 'Noticia, reportaje, entrevista'],
+              ['**Formar opinión**', 'Interpreta y valora los hechos.', 'Editorial, columna, artículo, crónica'],
+              ['**Entretener**', 'Ofrece ocio y evasión.', 'Pasatiempos, humor gráfico, ciertas secciones'],
+              ['**Persuadir (publicidad)**', 'Vende productos o ideas; financia al medio.', 'Anuncios, publicidad institucional, propaganda']
+            ] },
+            { c: ['Línea editorial', 'Conjunto de valores, ideas y posiciones que orientan a un medio. Se ve abiertamente en los editoriales, pero también en qué noticias elige, cuánto espacio les da y desde qué enfoque las cuenta.'] },
+            { k: ['Importante', 'La **objetividad absoluta no existe**: elegir qué se cuenta y en qué orden ya es interpretar. Por eso el periodismo responsable se rige por otros principios: **veracidad**, **contraste de fuentes**, **pluralidad de voces** y **separación entre información y opinión**.'] },
+            'Desde el punto de vista textual, los géneros informativos combinan **narración** y **exposición**; los de opinión son esencialmente **argumentativos**; y la entrevista y el reportaje incorporan **diálogo** y **descripción**.'
+          ]
+        },
+        {
+          id: 't1-2', title: 'El periódico: secciones y elementos', ses: '1',
+          items: [
+            { h: 'Las secciones' },
+            'El periódico agrupa la información en **secciones** fijas, que el lector reconoce y que expresan una jerarquía.',
+            { t: ['Sección', 'Contenido'], r: [
+              ['Portada', 'Escaparate del periódico: las noticias más importantes del día y llamadas a páginas interiores.'],
+              ['Opinión', 'Editorial, columnas, artículos, cartas al director, viñetas.'],
+              ['Nacional / España', 'Política y actualidad del país. En campaña concentra la información electoral.'],
+              ['Internacional', 'Noticias de otros países.'],
+              ['Local / Regional', 'Actualidad de la comunidad o la ciudad.'],
+              ['Economía', 'Empresas, empleo, mercados, impuestos.'],
+              ['Sociedad', 'Educación, sanidad, sucesos, ciencia, medio ambiente.'],
+              ['Cultura y espectáculos', 'Libros, cine, música, arte, televisión.'],
+              ['Deportes', 'Competiciones y deportistas.']
+            ] },
+            { h: 'La portada y la jerarquía' },
+            'La portada no se lee solo de arriba abajo: cada posición tiene un valor. La noticia que **abre** la portada (arriba, con el titular más grande) es la que el medio considera más importante. También cuentan el **número de columnas**, el **tamaño de la foto** y lo que **no aparece**.',
+            { h: 'Elementos de una información' },
+            { ul: [
+              '**Cabecera**: nombre y logotipo del periódico, fecha y número.',
+              '**Data**: lugar y fecha desde donde se escribe (*Madrid, 30 de noviembre*).',
+              '**Firma**: periodista, corresponsal, enviado especial, agencia (*EFE*, *Europa Press*) o *Redacción*.',
+              '**Titulares**: antetítulo, título y subtítulo (ver apartado siguiente).',
+              '**Entradilla** o *lead*: primer párrafo, que resume lo esencial.',
+              '**Cuerpo**: desarrollo de la información.',
+              '**Ladillos**: pequeños títulos intermedios que dividen un texto largo.',
+              '**Destacados**: frases del texto resaltadas en mayor tamaño.',
+              '**Fotografía y pie de foto**: el pie orienta cómo debemos mirar la imagen.',
+              '**Infografía**: gráficos, mapas o esquemas con datos.',
+              '**Despiece**: texto breve complementario, separado del principal.'
+            ] },
+            { h: 'La prensa digital' },
+            { ul: [
+              '**Hipertextualidad**: enlaces a otras noticias y documentos.',
+              '**Multimedialidad**: texto, vídeo, audio, galerías, gráficos interactivos.',
+              '**Interactividad**: comentarios, encuestas, botones para compartir.',
+              '**Actualización constante**: última hora y directos.',
+              '**Dependencia de las métricas**: los clics y el tiempo de lectura influyen en los titulares, a veces pensados más para atraer que para informar (**ciberanzuelo**).'
+            ] }
+          ]
+        },
+        {
+          id: 't1-3', title: 'El titular', ses: '1 y 4',
+          items: [
+            'El titular **resume** la información y **atrae** al lector. Muchos lectores solo leen titulares, por eso es el lugar donde más se concentra la intención del medio.',
+            { h: 'Partes' },
+            { ul: [
+              '**Antetítulo** (cintillo): sitúa el tema. *Elecciones generales*.',
+              '**Título**: lo esencial, en letra grande. *La participación sube tres puntos*.',
+              '**Subtítulo** (sumario): amplía datos. *Las mesas cerraron a las 20.00 con colas en varias ciudades*.'
+            ] },
+            { h: 'Tipos de titulares' },
+            { t: ['Tipo', 'Qué hace', 'Ejemplo (inventado)'], r: [
+              ['**Informativo**', 'Enuncia el hecho con sus datos esenciales.', '*El Congreso aprueba la ley de vivienda*'],
+              ['**Interpretativo o valorativo**', 'Añade una valoración o una interpretación del hecho.', '*Golpe de efecto del Gobierno con la ley de vivienda*'],
+              ['**Expresivo o apelativo**', 'Busca impacto emocional y no informa del todo; supone que el lector ya conoce el hecho.', '*¡Por fin!*'],
+              ['**De cita**', 'Reproduce palabras de un protagonista, entre comillas.', '*La portavoz: «No habrá subida de impuestos»*']
+            ] },
+            { h: 'Rasgos lingüísticos' },
+            { ul: [
+              '**Brevedad**: oraciones simples o **frases nominales** sin verbo (*Victoria ajustada en las urnas*).',
+              '**Presente de indicativo** para hechos ya ocurridos, que los acerca al lector (*El Gobierno aprueba…*).',
+              '**Supresión de artículos** y de palabras prescindibles.',
+              '**Dos puntos** para atribuir una cita (*La ministra: «…»*).',
+              '**Condicional de rumor** para lo no confirmado (*El partido estaría preparando una moción*).',
+              'En los titulares valorativos y expresivos: **léxico connotado**, **metáforas** y **juegos de palabras**.'
+            ] }
+          ]
+        },
+        {
+          id: 't1-4', title: 'Los géneros periodísticos', ses: '1-6',
+          items: [
+            'Los **géneros periodísticos** son modelos de texto que se repiten y que el lector reconoce. Se clasifican según su **intención**: informar, opinar o hacer las dos cosas a la vez.',
+            { t: ['Grupo', 'Intención', 'Géneros', 'Firma'], r: [
+              ['**Informativos**', 'Contar hechos con objetividad.', 'Noticia, reportaje informativo, entrevista informativa', 'Normalmente sí (o agencia)'],
+              ['**Interpretativos o híbridos**', 'Informar y, a la vez, interpretar y valorar.', 'Crónica, reportaje interpretativo, entrevista de personalidad', 'Sí'],
+              ['**De opinión**', 'Expresar y argumentar una valoración.', 'Editorial, artículo de opinión, columna, crítica, cartas al director, viñeta', 'Sí, salvo el editorial']
+            ] },
+            { k: ['Ojo', 'Las fronteras entre géneros no son rígidas y los manuales no siempre coinciden en la clasificación. En el comentario no basta con nombrar el género: hay que **justificarlo** con los rasgos del texto (firma, estructura, presencia del autor, intención).'] }
+          ]
+        },
+        {
+          id: 't1-5', title: 'La noticia', ses: '1, 2 y 4',
+          items: [
+            { c: ['Noticia', 'Relato breve, veraz y objetivo de un hecho de actualidad que interesa a un público amplio.'] },
+            { h: 'Qué convierte un hecho en noticia' },
+            'Los **criterios de noticiabilidad** (valores-noticia) son: **actualidad**, **novedad o rareza**, **proximidad** geográfica o afectiva, **relevancia** o consecuencias, **notoriedad** de los protagonistas, **conflicto** e **interés humano**. La frase clásica lo resume: que un perro muerda a un hombre no es noticia; que un hombre muerda a un perro, sí.',
+            { h: 'Las seis preguntas' },
+            'Una noticia completa responde a **qué**, **quién**, **cuándo**, **dónde**, **cómo** y **por qué** (en inglés, las 6 W). A veces se añade **para qué**.',
+            { h: 'Estructura de pirámide invertida' },
+            'La información se ordena de **más a menos importante**:',
+            { ol: [
+              '**Titular**: lo esencial en pocas palabras.',
+              '**Entradilla**: el primer párrafo responde a las preguntas principales. A menudo va en negrita.',
+              '**Cuerpo**: datos secundarios, antecedentes, contexto, declaraciones y reacciones, en orden decreciente de interés.'
+            ] },
+            'Así, el lector que solo lee el principio conoce lo esencial, y el texto puede recortarse por el final sin perder sentido.',
+            { h: 'Rasgos lingüísticos' },
+            { ul: [
+              '**Tercera persona** y ausencia de marcas del periodista.',
+              '**Modalidad enunciativa**: oraciones declarativas.',
+              '**Léxico denotativo y preciso**; tecnicismos (explicados si es necesario); siglas.',
+              '**Adjetivos especificativos y relacionales**, normalmente pospuestos: *campaña electoral*, *sede central*.',
+              '**Tiempos verbales**: pretérito perfecto simple y compuesto para los hechos (*votaron, ha ganado*); presente para la actualidad.',
+              '**Condicional de rumor** para lo no confirmado: *el candidato habría aceptado*.',
+              '**Estilo directo e indirecto** con verbos de habla, y **atribución de fuentes**.',
+              '**Datos precisos**: cifras, fechas, lugares, nombres.',
+              '**Construcciones impersonales y pasivas** y **nominalizaciones**, que dan apariencia de objetividad (ver bloque 2).'
+            ] },
+            { ej: 'Entradilla inventada: *Las mesas electorales cerraron ayer a las 20.00 con una participación del 71 %, tres puntos más que en las anteriores generales, según los datos del Ministerio del Interior.* Responde a qué (cierre y participación), cuándo (ayer, 20.00), cuánto (71 %) y fuente (Ministerio del Interior).' }
+          ]
+        },
+        {
+          id: 't1-6', title: 'El reportaje y la entrevista', ses: '1-3',
+          items: [
+            { h: 'El reportaje' },
+            { c: ['Reportaje', 'Texto informativo extenso que **profundiza** en un tema de interés, no necesariamente de actualidad inmediata, con documentación, datos, testimonios e imágenes.'] },
+            { ul: [
+              'Va **firmado** y suele ocupar varias páginas, con fotografías, infografías y despieces.',
+              'Tiene **libertad estructural**: puede empezar con una anécdota, una escena o una cita llamativa para atrapar al lector.',
+              'Combina **narración, descripción, exposición y diálogo** (los testimonios).',
+              'Tipos: **informativo**, **interpretativo** (el periodista explica causas y consecuencias) y **de investigación** (saca a la luz hechos ocultos).'
+            ] },
+            { h: 'La entrevista' },
+            { c: ['Entrevista', 'Texto que reproduce el diálogo entre un periodista y una persona de interés.'] },
+            { t: ['Tipo', 'Qué interesa', 'Forma'], r: [
+              ['**Informativa** (de declaraciones)', 'Lo que dice el entrevistado sobre un tema.', 'Pregunta-respuesta en estilo directo.'],
+              ['**De personalidad** (perfil)', 'La persona: su carácter, su trayectoria, sus gustos.', 'Mezcla diálogo, descripción y comentarios del periodista.']
+            ] },
+            { ul: [
+              'Estructura: **titular** (a menudo una frase del entrevistado), **entradilla** que presenta al personaje, **cuerpo** de preguntas y respuestas y, a veces, un **cierre**.',
+              'Rasgos: **modalidad interrogativa**, **deixis de primera y segunda persona**, marcas de **oralidad** y registro propio del entrevistado.'
+            ] }
+          ]
+        },
+        {
+          id: 't1-7', title: 'La crónica', ses: '2',
+          items: [
+            { c: ['Crónica', 'Relato de hechos de actualidad escrito por un periodista que ha estado presente o que sigue el tema de forma continuada. **Informa e interpreta a la vez**.'] },
+            { ul: [
+              'Va **firmada** y lleva **data** (lugar desde el que se escribe).',
+              'La escribe un **cronista**, un **corresponsal** (residente en el lugar) o un **enviado especial**.',
+              'Tipos según el tema: **política** (un mitin, un debate), **parlamentaria**, **deportiva**, **de sucesos**, **cultural**, **de guerra**.',
+              'Suele seguir un **orden cronológico** y puede terminar con una **valoración**.'
+            ] },
+            { h: 'Rasgos lingüísticos' },
+            { ul: [
+              '**Narración**: verbos en pasado o **presente histórico**, marcadores temporales.',
+              '**Descripción**: detalles del ambiente, gestos, adjetivación abundante.',
+              '**Estilo personal** y a veces literario: metáforas, ironía, comparaciones.',
+              '**Subjetividad moderada**: adjetivos valorativos, comentarios del autor, a veces primera persona.'
+            ] },
+            { k: ['Noticia o crónica', 'Ante un mismo mitin, la **noticia** dice qué se dijo y cuántos asistieron; la **crónica** cuenta además cómo fue el ambiente, qué gestos hubo y qué significado tiene el acto. La presencia del periodista es la diferencia clave.'] }
+          ]
+        },
+        {
+          id: 't1-8', title: 'Los géneros de opinión', ses: '5, 8 y 9',
+          items: [
+            'Todos tienen **intención argumentativa**: defienden una **tesis**. Comparten los rasgos de la **subjetividad** (bloque 2) y de la **argumentación** (bloque 3).',
+            { h: 'El editorial' },
+            { ul: [
+              '**Sin firma**: expresa la opinión **del periódico**, su línea editorial.',
+              'Trata los temas de actualidad **más relevantes** y aparece en un lugar fijo de las páginas de opinión.',
+              'Estructura argumentativa clara: **presentación del hecho**, **tesis**, **argumentos**, **conclusión**, a menudo con una **exigencia** o propuesta.',
+              '**Tono institucional** y registro culto; **primera persona del plural** (*creemos, este periódico*) o construcciones impersonales.',
+              '**Modalidad deóntica** (obligación): *el Gobierno debe…, es imprescindible que…, resulta inadmisible…*'
+            ] },
+            { h: 'El artículo de opinión' },
+            { ul: [
+              'Firmado por un **autor ocasional**, a menudo experto en el tema o figura pública.',
+              'Argumentación **documentada**, a veces con datos y citas.',
+              'Su autoridad procede del prestigio o la especialidad de quien firma.'
+            ] },
+            { h: 'La columna' },
+            { ul: [
+              'Firmada por un **colaborador habitual** (columnista), con **periodicidad y espacio fijos**; a veces con título de sección propio.',
+              '**Tema libre** y **estilo personal**: ironía, humor, anécdotas, primera persona, metáforas, registro que puede llegar a lo coloquial.',
+              '**Brevedad**. La tesis puede quedar **implícita**.',
+              'Es el género más cercano al **ensayo** y a la literatura. Es el que escribirás en la sesión 8.'
+            ] },
+            { t: ['', 'Editorial', 'Artículo de opinión', 'Columna'], r: [
+              ['Firma', 'No', 'Sí, autor ocasional', 'Sí, colaborador fijo'],
+              ['Voz', 'La del medio', 'La del autor', 'La del autor'],
+              ['Periodicidad', 'Diaria', 'Ocasional', 'Fija (diaria, semanal)'],
+              ['Tema', 'Actualidad relevante', 'Especialidad del autor', 'Libre'],
+              ['Estilo', 'Institucional, formal', 'Culto, documentado', 'Personal, literario, irónico']
+            ] },
+            { h: 'Otros géneros de opinión' },
+            { ul: [
+              '**Crítica o reseña**: un especialista informa sobre una obra (libro, película, concierto) y la valora.',
+              '**Cartas al director**: textos breves de los lectores. Es el espacio de participación del público.',
+              '**Viñeta y tira cómica**: opinión mediante humor gráfico, con caricatura e ironía; combina imagen y texto.'
+            ] }
+          ]
+        },
+        {
+          id: 't1-9', title: 'Medios, política y opinión pública', ses: '1, 3 y 6',
+          items: [
+            { c: ['Agenda (agenda-setting)', 'Teoría formulada por McCombs y Shaw en 1972, a partir de una idea de Bernard Cohen: los medios no nos dicen **qué pensar**, pero sí **sobre qué pensar**. Al elegir los temas y el espacio que les dan, fijan la lista de asuntos que parecen importantes.'] },
+            { c: ['Encuadre (framing)', 'Seleccionar unos aspectos de la realidad y hacerlos más visibles que otros, de modo que se favorece una definición del problema, una explicación de sus causas, un juicio moral y una solución. Encuadres frecuentes: **económico**, **de conflicto**, **de interés humano**, **de responsabilidad**, **moral** y, en campaña, **de estrategia** (quién gana o pierde votos).'] },
+            { c: ['Discurso político', 'Discurso cuya finalidad es **persuadir** para obtener o conservar apoyo. Géneros: mitin, debate, eslogan, programa electoral, entrevista, publicación en redes. Es distinto de la información periodística, aunque los medios lo reproducen y lo comentan.'] },
+            { c: ['Eslogan', 'Frase breve y memorable que condensa un mensaje. Recursos habituales: elipsis del verbo, imperativo o primera persona del plural, antítesis, paralelismo, aliteración, juegos de palabras.'] },
+            { c: ['Polarización', 'División del discurso en dos bandos enfrentados, **nosotros** (los buenos, la gente) frente a **ellos** (los otros, el peligro). Se construye con la deixis personal y el léxico valorativo.'] },
+            { c: ['Burbuja de filtros y cámara de eco', 'Los algoritmos de las redes nos muestran sobre todo contenidos parecidos a los que ya consumimos. El resultado es un entorno en el que solo escuchamos opiniones afines y las contrarias parecen raras o absurdas.'] },
+            { c: ['Viralidad', 'Difusión muy rápida de un contenido de usuario a usuario. Se favorece con brevedad, impacto visual y emociones intensas (indignación, miedo, humor).'] }
+          ]
+        },
+        {
+          id: 't1-10', title: 'Desinformación y verificación', ses: '7',
+          items: [
+            { c: ['Desinformación', 'Información falsa o engañosa que se difunde **a propósito**. Es distinta del error periodístico, que no es intencionado y se corrige.'] },
+            { c: ['Bulo', 'Noticia falsa difundida deliberadamente, normalmente para engañar o perjudicar. Es la palabra española preferible a *fake news*.'] },
+            { c: ['Posverdad', 'Según el DLE, distorsión deliberada de una realidad que manipula creencias y emociones para influir en la opinión pública. Lo que importa no es si algo es verdad, sino si encaja con lo que ya sentimos.'] },
+            { h: 'Tipos de desinformación' },
+            'La clasificación más usada (de Claire Wardle, First Draft) distingue siete tipos, de menor a mayor intención de engañar:',
+            { t: ['Tipo', 'En qué consiste'], r: [
+              ['**Sátira o parodia**', 'Humor que se toma como real al perder su contexto.'],
+              ['**Conexión falsa**', 'El titular, la imagen o el pie no corresponden al contenido.'],
+              ['**Contenido engañoso**', 'Datos reales usados para dar una impresión falsa.'],
+              ['**Contexto falso**', 'Contenido real presentado fuera de su fecha o su lugar.'],
+              ['**Suplantación**', 'Se imita a un medio, una institución o una persona.'],
+              ['**Contenido manipulado**', 'Imagen, vídeo o documento reales, pero alterados.'],
+              ['**Contenido inventado**', 'Totalmente falso. Incluye los **ultrafalsos** (*deepfakes*): vídeos o audios generados con inteligencia artificial.']
+            ] },
+            { h: 'Cómo verificar' },
+            { ol: [
+              '**Desconfía de lo que te provoca una emoción fuerte** inmediata: es el primer síntoma.',
+              '**Lectura lateral**: sal de la página y busca quién la publica, qué dicen otros medios y si hay una fuente original.',
+              '**Comprueba la fecha, el autor y la dirección web** (las suplantaciones imitan nombres de medios).',
+              '**Búsqueda inversa de imágenes** para saber de dónde y de cuándo procede una foto.',
+              '**Consulta a los verificadores**: Maldita.es, Newtral y EFE Verifica publican desmentidos con pruebas.'
+            ] }
+          ]
+        }
+      ],
+      repaso: [
+        '¿Qué diferencia hay entre informar y formar opinión? Pon un género de cada tipo.',
+        '¿Qué es la línea editorial y en qué se nota, además de en los editoriales?',
+        'Explica la pirámide invertida y por qué es útil para el lector y para el periódico.',
+        'Diferencia noticia, crónica y reportaje con tres rasgos.',
+        'Compara editorial, artículo de opinión y columna.',
+        '¿Qué afirma la teoría de la agenda? ¿Y qué es el encuadre?',
+        'Explica tres tipos de desinformación con un ejemplo inventado de cada uno.'
+      ]
+    },
+
+    {
+      n: 2,
+      title: 'Objetividad y subjetividad',
+      intro: 'Las marcas lingüísticas que hacen que un texto parezca neutral o que dejan ver la opinión de quien escribe.',
+      secciones: [
+        {
+          id: 't2-1', title: 'Conceptos básicos', ses: '2',
+          items: [
+            { c: ['Objetividad', 'El emisor **se oculta** y presenta los hechos como comprobables, sin valorarlos.'] },
+            { c: ['Subjetividad', 'El emisor **se manifiesta** en el texto: opina, valora, siente, duda, exige.'] },
+            { c: ['Modalización', 'Conjunto de recursos con los que el emisor muestra su **actitud** ante lo que dice: certeza, duda, deseo, obligación, aprobación o rechazo.'] },
+            { c: ['Hecho y opinión', 'Un **hecho** se puede comprobar (*La participación fue del 71 %*). Una **opinión** se puede compartir o rechazar, pero no comprobar (*La participación fue decepcionante*).'] },
+            { k: ['Clave para el comentario', 'Ningún texto es totalmente objetivo. Lo que analizamos es **el grado de subjetividad** y **cómo se construye**: con qué palabras, qué estructuras gramaticales y qué recursos. Y siempre hay que relacionarlo con la **intención** del texto.'] }
+          ]
+        },
+        {
+          id: 't2-2', title: 'Marcas de objetividad', ses: '2',
+          items: [
+            { t: ['Recurso', 'Ejemplo'], r: [
+              ['**Tercera persona**; el emisor no aparece', '*La candidata presentó su programa en Sevilla.*'],
+              ['**Modalidad enunciativa** (oraciones declarativas)', '*El escrutinio terminó a medianoche.*'],
+              ['**Léxico denotativo**, preciso y técnico', '*escaño, escrutinio, circunscripción, censo*'],
+              ['**Adjetivos especificativos y relacionales**, pospuestos', '*jornada electoral, voto anticipado, ley orgánica*'],
+              ['**Modo indicativo** y tiempos de pasado o presente actual', '*votaron, ha ganado, cierra*'],
+              ['**Construcciones impersonales y pasivas**', '*Se contabilizaron dos millones de votos. Los resultados fueron publicados a las 23.00.*'],
+              ['**Nominalización**', '*La aprobación de la ley…*'],
+              ['**Datos y cifras**', '*71 %, 350 escaños, 37 millones de electores*'],
+              ['**Fuentes identificadas** y **citas literales**', '*según el Ministerio del Interior; «Respetaremos el resultado», declaró la portavoz.*']
+            ] },
+            { k: ['Cuidado', 'Las construcciones impersonales y las nominalizaciones dan **apariencia de objetividad**, pero también sirven para **ocultar quién hace la acción** (ver apartado 2.5). Un mismo recurso puede ser neutral o estratégico según el contexto.'] }
+          ]
+        },
+        {
+          id: 't2-3', title: 'Marcas de subjetividad', ses: '2, 3, 5 y 6',
+          items: [
+            'Conviene organizarlas por **niveles de la lengua**. En el comentario no se trata de hacer una lista, sino de explicar qué efecto tiene cada marca.',
+            { h: '1. La presencia del emisor y del receptor (deixis)' },
+            { ul: [
+              '**Primera persona del singular**: *yo, me, mi; creo, considero*.',
+              '**Primera persona del plural**: **inclusiva** (incluye al lector: *todos sabemos que…*), **exclusiva** (solo el emisor y su grupo: *nosotros, los firmantes…*), **de modestia** (*como hemos visto*, en lugar de *como he visto*).',
+              '**Apelación al receptor**: segunda persona, vocativos, imperativos (*Piénselo bien, lector*).',
+              '**Deixis espacial y temporal** que sitúa al emisor: *aquí, ahora, este país, estos días*.'
+            ] },
+            { h: '2. La modalidad oracional' },
+            { t: ['Modalidad', 'Actitud', 'Ejemplo'], r: [
+              ['Enunciativa', 'Neutra: informa', '*Hoy se vota.*'],
+              ['Exclamativa', 'Emoción, sorpresa, indignación', '*¡Qué manera de desperdiciar un debate!*'],
+              ['Interrogativa retórica', 'Pregunta que no espera respuesta; afirma', '*¿Alguien cree de verdad esa promesa?*'],
+              ['Desiderativa', 'Deseo', '*Ojalá la participación sea alta.*'],
+              ['Dubitativa', 'Duda', '*Quizá el resultado cambie el panorama.*'],
+              ['Exhortativa', 'Orden, ruego, consejo', '*Vayan a votar.*']
+            ] },
+            { h: '3. Modalizadores: certeza, duda, obligación, valoración' },
+            { t: ['Tipo', 'Expresa', 'Ejemplos'], r: [
+              ['**Epistémicos**', 'Grado de certeza', '*sin duda, evidentemente, es indudable que, al parecer, probablemente, puede que*'],
+              ['**Deónticos**', 'Obligación o necesidad', '*hay que, es necesario que, es imprescindible, deber + infinitivo*'],
+              ['**Valorativos**', 'Juicio o sentimiento', '*por desgracia, afortunadamente, lamentablemente, es inaceptable que, resulta admirable*']
+            ] },
+            { h: '4. Morfología' },
+            { ul: [
+              '**Sufijos apreciativos**: *politicastro, discursito, ministrillo, cochazo*.',
+              '**Superlativos** e intensificadores: *gravísimo, muy, tan, tremendamente*.',
+              '**Prefijos intensificadores**: *superimportante, archiconocido, hipercrítico, ultraconservador*.'
+            ] },
+            { h: '5. Léxico' },
+            { ul: [
+              '**Adjetivos valorativos**: *vergonzoso, brillante, irresponsable, valiente*.',
+              '**Adjetivos antepuestos** (epítetos y explicativos), que destacan la cualidad: *la lamentable decisión, su habitual demagogia*.',
+              '**Sustantivos valorativos**: *chapuza, hazaña, despropósito, acierto*.',
+              '**Verbos de opinión y sentimiento**: *creer, opinar, temer, lamentar, celebrar*.',
+              '**Verbos de habla valorativos**: *admitir, alegar, espetar, arremeter* (ver 2.4).',
+              '**Léxico connotado**, **eufemismos** y **disfemismos** (bloque 5).',
+              '**Campos metafóricos**: guerra (*batalla, trinchera*), deporte (*sprint final, remontada*), espectáculo (*circo, guion*).',
+              '**Registro coloquial** o vulgar buscado: *chiringuito, pasta, cargarse*.'
+            ] },
+            { h: '6. El verbo' },
+            { ul: [
+              '**Subjuntivo** de deseo o duda: *Ojalá rectifiquen. Tal vez sea tarde.*',
+              '**Condicional** de cortesía, hipótesis o rumor: *Convendría revisar…; habría pactado…*',
+              '**Futuro de probabilidad**: *Tendrá sus razones.*',
+              '**Perífrasis modales**: *deber + infinitivo* (obligación: *debe dimitir*), *deber de + infinitivo* (probabilidad: *debe de estar cansado*), *tener que, haber que* (obligación), *poder + infinitivo* (posibilidad).'
+            ] },
+            { h: '7. Recursos retóricos' },
+            { t: ['Recurso', 'Ejemplo (inventado)'], r: [
+              ['**Metáfora**', '*La campaña es un plató.*'],
+              ['**Comparación o símil**', '*Discuten como dos hinchas en la grada.*'],
+              ['**Hipérbole**', '*Nos han prometido el paraíso mil veces.*'],
+              ['**Ironía**', '*Brillante idea la de no presentar presupuestos.*'],
+              ['**Interrogación retórica**', '*¿Quién paga todo esto?*'],
+              ['**Antítesis**', '*Mucho ruido y pocas propuestas.*'],
+              ['**Paralelismo y anáfora**', '*Hablan de futuro, hablan de cambio, hablan de todo menos de lo importante.*'],
+              ['**Enumeración y gradación**', '*Lo anuncian, lo prometen, lo juran.*'],
+              ['**Personificación**', '*Los mercados reaccionan con nerviosismo.*']
+            ] },
+            { h: '8. Tipografía y puntuación' },
+            { ul: [
+              '**Comillas de distancia o ironía**: el «plan» del Gobierno; la «renovación».',
+              '**Cursiva** para destacar.',
+              '**Exclamaciones** y **puntos suspensivos** (insinuación, ironía).',
+              '**Mayúsculas** enfáticas, sobre todo en redes.'
+            ] }
+          ]
+        },
+        {
+          id: 't2-4', title: 'Reproducir las palabras de otros', ses: '2',
+          items: [
+            { c: ['Estilo directo', 'Reproduce las palabras **literalmente**, entre comillas, con un verbo introductor: *La ministra declaró: «Mañana presentaré el plan»*.'] },
+            { c: ['Estilo indirecto', 'El periodista **reformula** lo dicho en una subordinada con *que*, adaptando personas, tiempos y deícticos: *La ministra declaró que al día siguiente presentaría el plan*. Permite resumir, seleccionar y, a veces, deformar.'] },
+            { c: ['Cita parcial', 'Solo unas palabras van entre comillas dentro del estilo indirecto: *La ministra calificó el informe de «indecente»*. Sirve para destacar una expresión o para marcar distancia respecto a ella.'] },
+            { h: 'El verbo introductor ya valora' },
+            'Elegir el verbo con que se presenta una cita es una de las formas más sutiles de opinar en un texto informativo.',
+            { t: ['Grupo', 'Verbos', 'Qué sugiere'], r: [
+              ['Neutros', '*decir, afirmar, declarar, señalar, explicar, indicar*', 'Nada: solo atribuyen.'],
+              ['Reconocimiento', '*reconocer, admitir, confesar*', 'Lo dicho es verdad y perjudica a quien lo dice.'],
+              ['Duda', '*alegar, aducir, pretender*', 'Quizá no sea cierto; parece una excusa.'],
+              ['Ataque o agresividad', '*arremeter, espetar, lanzar, cargar contra*', 'Quien habla es agresivo.'],
+              ['Denuncia y advertencia', '*denunciar, advertir, alertar, exigir*', 'Hay un problema grave.'],
+              ['Queja o emoción', '*lamentar, quejarse, celebrar*', 'Atribuye un sentimiento.'],
+              ['Insistencia', '*insistir, reiterar, empeñarse en*', 'Puede sugerir terquedad.'],
+              ['Atenuación', '*insinuar, sugerir, deslizar, matizar*', 'Se dice a medias o con cautela.'],
+              ['Réplica', '*replicar, responder, contraatacar*', 'Enmarca la cita como enfrentamiento.']
+            ] },
+            { ej: '*El candidato dijo que no conocía el informe* / *El candidato admitió que no conocía el informe* / *El candidato alegó que no conocía el informe*. Mismos hechos, tres valoraciones: neutra, de reconocimiento de una falta y de sospecha.' }
+          ]
+        },
+        {
+          id: 't2-5', title: 'Mostrar u ocultar al agente', ses: '2',
+          items: [
+            'Quien hace una acción es su **agente**. Algunas construcciones permiten **no decir quién** es responsable de lo que ocurre.',
+            { t: ['Construcción', 'Ejemplo', 'Qué se oculta'], r: [
+              ['**Pasiva perifrástica sin complemento agente** (*ser* + participio)', '*Tres jóvenes fueron detenidos.*', 'Quién los detuvo.'],
+              ['**Pasiva refleja** (*se* + verbo concordado con el sujeto)', '*Se cometieron errores en el recuento.*', 'Quién cometió los errores.'],
+              ['**Impersonal con *se*** (verbo en singular)', '*Se desalojó a los manifestantes.*', 'Quién desalojó.'],
+              ['**Impersonal con verbo en 3.ª persona del plural**', '*Dicen que habrá adelanto electoral.*', 'Quién lo dice; nadie se responsabiliza.'],
+              ['**Nominalización**', '*La subida de impuestos entra en vigor.*', 'Quién sube los impuestos.'],
+              ['**Verbos que presentan la acción como un suceso**', '*Los precios subieron.*', 'Que alguien los subió.'],
+              ['**Sujetos abstractos o metonímicos**', '*Bruselas exige; Moncloa responde; los mercados castigan.*', 'Las personas concretas que deciden.']
+            ] },
+            { ej: '*El Gobierno sube el IVA de la luz* (agente visible y responsable) frente a *Entra en vigor la subida del IVA de la luz* (la medida parece un fenómeno natural).' }
+          ]
+        }
+      ],
+      repaso: [
+        'Diferencia hecho y opinión con dos ejemplos de cada uno.',
+        'Nombra cinco marcas de objetividad y explica por qué algunas pueden servir también para ocultar información.',
+        'Explica los tres tipos de primera persona del plural con un ejemplo de cada uno.',
+        '¿Qué diferencia hay entre modalizadores epistémicos y deónticos?',
+        'Escribe una misma cita con tres verbos introductores distintos y explica qué cambia.',
+        'Transforma *La policía detuvo a tres jóvenes* de cuatro maneras que oculten al agente.'
+      ]
+    },
+
+    {
+      n: 3,
+      title: 'El texto argumentativo',
+      intro: 'Tema, tesis, estructura, tipos de argumentos, falacias y conectores: lo necesario para analizar un texto de opinión y escribir el tuyo.',
+      secciones: [
+        {
+          id: 't3-1', title: 'Tema, tesis y resumen', ses: '5 y 9',
+          items: [
+            { c: ['Tema', 'Asunto del que trata el texto, expresado en una **frase nominal** breve y sin opinión: *La degradación del debate electoral en las redes sociales*.'] },
+            { c: ['Tesis', 'Opinión que el autor defiende sobre ese tema, expresada en una **oración completa**: *Las campañas actuales premian el impacto y no las propuestas, lo que empobrece el voto*.'] },
+            { c: ['Resumen', 'Síntesis del contenido completo con palabras propias, en tercera persona, sin opinar y mucho más breve que el original.'] },
+            { k: ['Errores frecuentes', 'Poner como tema una oración con opinión; confundir la tesis con un argumento; copiar frases del texto en lugar de reformularlas.'] }
+          ]
+        },
+        {
+          id: 't3-2', title: 'La estructura', ses: '5, 8 y 9',
+          items: [
+            'La **estructura externa** es la división en párrafos. La **estructura interna** es la organización de las ideas: dónde está la tesis y cómo se relaciona con los argumentos.',
+            { h: 'Partes de un texto argumentativo' },
+            { ol: [
+              '**Introducción**: presenta el tema y capta la atención.',
+              '**Tesis**.',
+              '**Cuerpo argumentativo**: los argumentos que apoyan la tesis.',
+              '**Contraargumento y refutación** (opcional): el autor recoge una objeción y la rebate (*Se dirá que…; sin embargo…*).',
+              '**Conclusión**: recupera la tesis, resume o propone.'
+            ] },
+            { h: 'Tipos de estructura' },
+            { t: ['Estructura', 'Dónde está la tesis', 'Esquema'], r: [
+              ['**Deductiva o analizante**', 'Al principio', 'Tesis → argumentos'],
+              ['**Inductiva o sintetizante**', 'Al final', 'Argumentos → tesis'],
+              ['**Encuadrada**', 'Al principio y al final', 'Tesis → argumentos → tesis reformulada'],
+              ['**Implícita**', 'No se formula', 'Hay que deducirla del conjunto (frecuente en columnas)'],
+              ['**Paralela o acumulativa**', 'Varias tesis o ideas al mismo nivel', 'Idea 1 + idea 2 + idea 3']
+            ] }
+          ]
+        },
+        {
+          id: 't3-3', title: 'Tipos de argumentos', ses: '5, 8 y 9',
+          items: [
+            { t: ['Argumento', 'Qué hace', 'Ejemplo (inventado)'], r: [
+              ['**De autoridad**', 'Se apoya en un experto o una institución reconocida.', '*Como advierte la Junta Electoral, la jornada de reflexión…*'],
+              ['**De datos o estadístico**', 'Aporta cifras comprobables.', '*Solo el 54 % de los menores de 25 años votó.*'],
+              ['**De ejemplificación**', 'Ilustra la tesis con un caso concreto.', '*Basta recordar el último debate: ni una propuesta en noventa minutos.*'],
+              ['**De experiencia personal**', 'Parte de lo vivido por el autor.', '*La primera vez que voté…*'],
+              ['**De analogía o comparación**', 'Relaciona la situación con otra parecida.', '*Votar sin leer los programas es como firmar un contrato sin leerlo.*'],
+              ['**De causa-consecuencia**', 'Muestra causas o efectos.', '*Si los jóvenes no votan, sus problemas no entran en la agenda.*'],
+              ['**De hecho o evidencia**', 'Se apoya en algo comprobable y aceptado.', '*Las listas de espera han crecido en los últimos años.*'],
+              ['**Del sentido común o creencia general**', 'Apela a lo que se considera aceptado por todos (lugar común).', '*Nadie discute que la educación es la base del futuro.*'],
+              ['**Ético o de valores**', 'Apela a la justicia, la igualdad, la libertad, la responsabilidad.', '*Es injusto que el código postal decida tu futuro.*'],
+              ['**Pragmático (ventajas e inconvenientes)**', 'Valora las consecuencias prácticas.', '*El voto por correo facilita la participación y apenas cuesta dinero.*'],
+              ['**Afectivo o emocional**', 'Busca conmover.', '*Pensemos en esas familias que…*'],
+              ['**De definición**', 'Parte del significado de un concepto.', '*Democracia significa gobierno del pueblo; sin participación no hay democracia.*']
+            ] }
+          ]
+        },
+        {
+          id: 't3-4', title: 'Falacias', ses: '5',
+          items: [
+            'Una **falacia** es un razonamiento que **parece válido sin serlo**. Saber reconocerlas es esencial para la valoración crítica.',
+            { t: ['Falacia', 'En qué consiste', 'Ejemplo (inventado)'], r: [
+              ['***Ad hominem***', 'Ataca a la persona en lugar de a su argumento.', '*¿Qué sabrá de economía alguien que suspendía Matemáticas?*'],
+              ['**Hombre de paja**', 'Deforma la postura del otro para rebatirla con facilidad.', '*Quieren bajar un impuesto; o sea, quieren cerrar hospitales.*'],
+              ['**Falso dilema**', 'Reduce las opciones a dos cuando hay más.', '*O nos votáis o el país se hunde.*'],
+              ['**Pendiente resbaladiza**', 'Encadena consecuencias extremas sin demostrarlas.', '*Si hoy se permite esto, mañana nadie respetará ninguna ley.*'],
+              ['**Generalización apresurada**', 'Saca una conclusión general de pocos casos.', '*Dos concejales imputados: todos son corruptos.*'],
+              ['***Tu quoque*** (tú también)', 'Responde a una crítica señalando la falta del otro.', '*No me hable de promesas: ustedes incumplieron más.*'],
+              ['***Ad populum***', 'Algo es verdad porque lo cree la mayoría.', '*Millones de personas no pueden estar equivocadas.*'],
+              ['**Apelación al miedo**', 'Sustituye las razones por la amenaza.', '*Si gana el otro, perderás tu trabajo.*'],
+              ['**Falsa causa**', 'Supone que lo que ocurre después es consecuencia de lo anterior.', '*Desde que gobiernan, llueve menos.*'],
+              ['**Autoridad irrelevante**', 'Cita a alguien famoso que no es experto en el tema.', '*Un actor conocido asegura que esta medida es la mejor.*']
+            ] }
+          ]
+        },
+        {
+          id: 't3-5', title: 'Estrategias de cortesía y de ataque', ses: '5',
+          items: [
+            { h: 'Para acercarse al lector o suavizar la crítica' },
+            { ul: [
+              '**Concesión**: reconocer parte de razón al contrario (*Es cierto que…, pero…*).',
+              '**Atenuación**: rebajar la fuerza de la afirmación (*quizá, en cierto modo, tal vez convendría*).',
+              '**Primera persona inclusiva**: implicar al lector (*todos sabemos*).',
+              '**Fórmulas de modestia**: *a mi juicio, si no me equivoco*.'
+            ] },
+            { h: 'Para atacar' },
+            { ul: [
+              '**Ironía** y **sarcasmo**.',
+              '**Descalificación** y léxico peyorativo.',
+              '**Preguntas retóricas** que ponen en evidencia al adversario.',
+              '**Polarización**: nosotros frente a ellos.',
+              '**Hipérbole** y **disfemismo**.'
+            ] }
+          ]
+        },
+        {
+          id: 't3-6', title: 'Conectores y marcadores discursivos', ses: '5, 8 y 9',
+          items: [
+            'Los **conectores** relacionan ideas y hacen visible la estructura del texto. Son el principal mecanismo de **cohesión** de la argumentación.',
+            { t: ['Función', 'Conectores'], r: [
+              ['**Adición**', '*además, asimismo, también, igualmente, por otra parte, incluso*'],
+              ['**Oposición o contraste**', '*pero, sin embargo, no obstante, en cambio, por el contrario*'],
+              ['**Concesión**', '*aunque, a pesar de que, si bien, aun así, con todo*'],
+              ['**Causa**', '*porque, ya que, puesto que, dado que, pues*'],
+              ['**Consecuencia**', '*por tanto, por consiguiente, así pues, de ahí que, en consecuencia*'],
+              ['**Condición**', '*si, siempre que, a condición de que, en caso de que*'],
+              ['**Explicación y reformulación**', '*es decir, o sea, esto es, en otras palabras, dicho de otro modo*'],
+              ['**Ejemplificación**', '*por ejemplo, así, pongamos por caso, en concreto*'],
+              ['**Orden**', '*en primer lugar, en segundo lugar, por un lado, por otro, por último*'],
+              ['**Conclusión y recapitulación**', '*en conclusión, en definitiva, en resumen, en suma, finalmente*'],
+              ['**Opinión**', '*a mi juicio, en mi opinión, desde mi punto de vista*']
+            ] }
+          ]
+        },
+        {
+          id: 't3-7', title: 'Las propiedades del texto', ses: '8 y 9',
+          items: [
+            { c: ['Adecuación', 'El texto se ajusta a la **situación comunicativa**: propósito, destinatario, género y registro. Una columna admite ironía y primera persona; un editorial pide un tono institucional.'] },
+            { c: ['Coherencia', 'El texto tiene **sentido unitario**: un tema central, una progresión lógica de las ideas y ninguna contradicción.'] },
+            { c: ['Cohesión', 'Las partes del texto están **conectadas** gramatical y léxicamente.'] },
+            { h: 'Mecanismos de cohesión' },
+            { ul: [
+              '**Repetición** o recurrencia léxica.',
+              '**Sinónimos** e **hiperónimos** para no repetir (*la candidata… la aspirante… la política*).',
+              '**Pronombres** que remiten a lo dicho (**anáfora**) o a lo que se dirá (**catáfora**).',
+              '**Elipsis**: se omite lo que ya se sabe.',
+              '**Deícticos**: *este, aquel, aquí, entonces*.',
+              '**Campos semánticos y asociativos** que mantienen el tema.',
+              '**Conectores**.'
+            ] }
+          ]
+        }
+      ],
+      repaso: [
+        'Diferencia tema, tesis y resumen. ¿Qué forma gramatical tiene cada uno?',
+        'Explica las estructuras deductiva, inductiva y encuadrada.',
+        'Pon un ejemplo propio de argumento de autoridad, de analogía y de causa-consecuencia.',
+        'Explica la diferencia entre *ad hominem* y hombre de paja.',
+        'Escribe un párrafo de cinco líneas que use un conector de cada tipo: adición, contraste, causa y conclusión.',
+        'Nombra cuatro mecanismos de cohesión.'
+      ]
+    },
+
+    {
+      n: 4,
+      title: 'La palabra: estructura y formación',
+      intro: 'Cómo está hecha una palabra por dentro y cómo se crean palabras nuevas. Es la base del laboratorio de palabras y del apartado de léxico del comentario.',
+      secciones: [
+        {
+          id: 't4-1', title: 'Palabra, lexema y morfemas', ses: '1 y 2',
+          items: [
+            'Las palabras se pueden dividir en unidades mínimas con significado, llamadas **morfemas** o, de forma general, **formantes**.',
+            { c: ['Lexema o raíz', 'Parte que aporta el **significado léxico** y que comparten todas las palabras de una familia: *vot-* en *votar, voto, votante, votación*.'] },
+            { c: ['Morfemas flexivos', 'Aportan **información gramatical** y no cambian el significado de la palabra: **género** y **número** en sustantivos y adjetivos (*electora, electoras*); **persona, número, tiempo, modo y aspecto** en los verbos (*vot-á-ba-mos*); la **vocal temática** del verbo (*-a-, -e-, -i-*).'] },
+            { c: ['Morfemas derivativos (afijos)', 'Crean **palabras nuevas**. Son los **prefijos** (delante de la raíz: *re-elegir*), los **sufijos** (detrás: *vot-ante*) y los **interfijos** (entre la raíz y el sufijo, sin significado propio: *humar-eda, cafe-c-ito, pan-ad-ero*).'] },
+            { c: ['Base léxica', 'Palabra o forma a la que se añade un afijo. La base de *reelección* es *elección*; la de *elección* es la raíz *elec-*.'] },
+            { h: 'Análisis de ejemplos' },
+            { t: ['Palabra', 'Segmentación', 'Explicación'], r: [
+              ['*votantes*', 'vot- + -ante + -s', 'raíz + sufijo (de verbo a sustantivo o adjetivo) + morfema de número'],
+              ['*reelegidas*', 're- + eleg- + -i- + -d- + -a + -s', 'prefijo + raíz + vocal temática + morfema de participio + género + número'],
+              ['*electorales*', 'elect- + -or + -al + -es', 'raíz + sufijo + sufijo + número'],
+              ['*ingobernable*', 'in- + gobern- + -a- + -ble', 'prefijo de negación + raíz + vocal temática + sufijo de posibilidad']
+            ] },
+            { c: ['Alomorfos', 'Variantes de un mismo morfema. Muchas raíces tienen una forma **patrimonial** (evolucionada del latín) y otra **culta** (tomada directamente del latín): *ley / leg-* (legal), *noche / noct-* (nocturno), *ojo / ocul-* (oculista), *hijo / fili-* (filial), *pueblo / popul-* (popular), *elegir / elig- / elec-* (elector). Aunque parezcan distintas, pertenecen a la **misma familia léxica**.'] },
+            { h: 'Clasificación de las palabras por su estructura' },
+            { t: ['Tipo', 'Estructura', 'Ejemplos'], r: [
+              ['**Simples**', 'Una sola raíz, con o sin morfemas flexivos', '*voto, urna, mesa, ley*'],
+              ['**Derivadas**', 'Raíz + prefijo o sufijo', '*votante, reelegir, ilegal, electoral*'],
+              ['**Compuestas**', 'Dos o más raíces', '*portavoz, centroderecha, hispanohablante*'],
+              ['**Parasintéticas**', 'Prefijo y sufijo a la vez, o composición y sufijo a la vez', '*empadronar, quinceañero*']
+            ] }
+          ]
+        },
+        {
+          id: 't4-2', title: 'La sufijación', ses: '2',
+          items: [
+            'Los **sufijos derivativos** se añaden detrás de la raíz. Con frecuencia **cambian la categoría** de la palabra (de verbo a sustantivo, de sustantivo a adjetivo…), y siempre añaden un matiz de significado.',
+            { t: ['Se forma', 'Sufijos', 'Ejemplos'], r: [
+              ['**Sustantivo desde verbo** (acción, efecto, agente)', '*-ción, -sión, -miento, -dor/-tor, -ante/-ente, -aje, -ura*', '*votación, decisión, recuento, elector, gobernante, presidente, arbitraje*'],
+              ['**Sustantivo desde adjetivo** (cualidad)', '*-dad/-idad, -ez/-eza, -ura, -ía, -ismo*', '*gobernabilidad, honradez, franqueza, cordura, valentía*'],
+              ['**Sustantivo desde sustantivo**', '*-ismo* (doctrina, actitud), *-ista* (partidario, profesional), *-ero, -ería, -ado*', '*bipartidismo, europeísta, cartero, concejalía, electorado*'],
+              ['**Adjetivo desde sustantivo**', '*-al, -ar, -ario, -ico, -oso, -ista, -ano, -ense*', '*electoral, popular, político, polémico, partidista, ciudadano, parlamentario*'],
+              ['**Adjetivo desde verbo**', '*-ble* (que puede ser), *-dor, -ivo, -nte*', '*elegible, gobernable, legislativo, convincente*'],
+              ['**Verbo desde sustantivo o adjetivo**', '*-ar, -ear, -izar, -ificar, -ecer*', '*votar, tuitear, polarizar, legitimar, simplificar, enriquecer*'],
+              ['**Adverbio desde adjetivo**', '*-mente*', '*públicamente, presuntamente*']
+            ] },
+            { h: 'Los sufijos apreciativos' },
+            'No cambian la categoría ni el significado básico, pero añaden un **matiz de tamaño, afecto, ironía o desprecio**. El valor concreto depende del **contexto**.',
+            { t: ['Tipo', 'Sufijos', 'Ejemplos y valores'], r: [
+              ['**Diminutivos**', '*-ito, -illo, -ico, -ín, -ete, -uelo*', '*discursito* (irónico), *ministrillo* (despectivo), *pequeñito* (afectivo)'],
+              ['**Aumentativos**', '*-ón, -azo, -ote*', '*cochazo, notición, grandote*; *-azo* también indica golpe: *tijeretazo, portazo*'],
+              ['**Despectivos**', '*-ucho, -uco, -astro, -aco, -ajo, -ejo, -uzo*', '*politicastro, casucha, libraco, pequeñajo, gentuza*']
+            ] },
+            { k: ['Lexicalización', 'Algunas palabras con sufijo apreciativo han perdido ese valor y se han convertido en palabras nuevas con significado propio: *bolsillo*, *sillón*, *camilla*, *cajetilla*, *camarilla* (grupo que influye en las decisiones de un gobernante).'] }
+          ]
+        },
+        {
+          id: 't4-3', title: 'La prefijación y su ortografía', ses: '4',
+          items: [
+            'Los **prefijos** se colocan delante de la base. **No cambian la categoría** de la palabra (*elegir → reelegir*, ambos verbos), pero sí su significado.',
+            { t: ['Prefijo', 'Significado', 'Ejemplos'], r: [
+              ['*a-, an-*', 'negación, falta de', '*apolítico, analfabeto*'],
+              ['*anti-*', 'oposición', '*antisistema, antidisturbios*'],
+              ['*ante-, pre-*', 'anterioridad', '*anteproyecto, precampaña, preelectoral*'],
+              ['*pos-, post-*', 'posterioridad', '*poselectoral, posguerra*'],
+              ['*archi-, super-, hiper-, ultra-, requete-*', 'intensidad, exceso', '*archiconocido, superpoblado, hiperactivo, ultraconservador*'],
+              ['*bi-, multi-, mono-, pluri-*', 'número', '*bipartidismo, multipartidismo, monocolor, plurinacional*'],
+              ['*co-*', 'unión, compañía', '*copresidente, cofundador*'],
+              ['*contra-*', 'oposición', '*contraprogramación, contraofensiva*'],
+              ['*des-, dis-*', 'negación, inversión, privación', '*desconfianza, deslegitimar, disconforme*'],
+              ['*ex-*', 'que ha dejado de ser; fuera', '*exministra, excarcelar*'],
+              ['*extra-*', 'fuera de', '*extraparlamentario, extraoficial*'],
+              ['*in-, im-, i-*', 'negación', '*ingobernable, imposible, ilegal, irresponsable*'],
+              ['*inter-*', 'entre', '*interparlamentario, internacional*'],
+              ['*infra-, sub-*', 'debajo, inferior', '*infrarrepresentado, subdelegado, subsecretaria*'],
+              ['*sobre-*', 'exceso, encima', '*sobrerrepresentado, sobrecoste*'],
+              ['*macro-, micro-*', 'grande, pequeño', '*macroencuesta, micromecenazgo*'],
+              ['*neo-*', 'nuevo', '*neoliberal, neologismo*'],
+              ['*pro-*', 'a favor de; en lugar de', '*proeuropeo; pronombre*'],
+              ['*re-*', 'repetición; intensidad', '*reelegir, recontar; rebuscar*'],
+              ['*semi-*', 'medio, casi', '*semifinal, semipúblico*'],
+              ['*vice-*', 'en lugar de, inmediatamente inferior', '*vicepresidenta, vicesecretario*']
+            ] },
+            { h: 'Cómo se escriben los prefijos (Ortografía de la RAE, 2010)' },
+            { ol: [
+              '**Unidos a la base**, sin guion ni espacio: *exministra, antisistema, proeuropeo, vicepresidenta, expresidente*.',
+              '**Separados** cuando la base tiene **varias palabras**: *ex primer ministro, pro derechos humanos, anti pena de muerte*. Pero *exalcalde de Marbella*, porque la base es solo *alcalde*.',
+              '**Con guion** ante **mayúscula, sigla o cifra**: *anti-OTAN, sub-21, pro-UE*.',
+              'Si la base empieza por *r*, se escribe **rr**: *sobrerrepresentado, infrarrepresentado, contrarreforma, antirrobo*.',
+              'Se recomienda **pos-** ante consonante (*posguerra, poselectoral, posverdad*); **post-** se mantiene ante palabras que empiezan por *s* (*postsocialismo*).'
+            ] }
+          ]
+        },
+        {
+          id: 't4-4', title: 'La parasíntesis', ses: '1',
+          items: [
+            { c: ['Parasíntesis', 'Formación en la que **dos procedimientos actúan a la vez**, de modo que no existe la palabra con solo uno de ellos.'] },
+            { t: ['Tipo', 'Ejemplos', 'Prueba'], r: [
+              ['**Prefijo + base + sufijo**', '*en-carcel-ar, em-padron-ar, en-sobr-ar, a-terr-izar, em-pobr-ecer, des-alm-ado*', 'No existen *encárcel* ni *carcelar*; *empadrón* ni *padronar*.'],
+              ['**Composición + sufijo**', '*quince-añ-ero, siete-mes-ino, pica-pedr-ero*', 'No existen *quinceaño* ni *añero*.']
+            ] },
+            { k: ['No confundir', 'Una palabra puede tener prefijo y sufijo sin ser parasintética. *Inelegible* es *in- + elegible*, y *elegible* existe, así que es una derivada por prefijación. *Desempadronar* es *des- + empadronar*: derivada de una parasintética.'] }
+          ]
+        },
+        {
+          id: 't4-5', title: 'La composición', ses: '6',
+          items: [
+            { c: ['Composición', 'Unión de **dos o más palabras o raíces** para formar una nueva con significado propio.'] },
+            { t: ['Tipo', 'Rasgos', 'Ejemplos'], r: [
+              ['**Compuestos propios** (una sola palabra)', 'Los componentes se funden en la escritura y el acento.', '*portavoz, centroderecha, bocacalle, agridulce, pelirrojo, malvivir, hispanohablante*'],
+              ['**Compuestos con guion**', 'Normalmente dos adjetivos; el primero no varía.', '*político-económico, franco-alemán, teórico-práctico*'],
+              ['**Compuestos sintagmáticos** (pluriverbales)', 'Varias palabras separadas con un significado unitario y fijo; no admiten insertar otras palabras.', '*colegio electoral, mesa electoral, voto en blanco, golpe de Estado, cabeza de lista, jornada de reflexión*']
+            ] },
+            { h: 'Esquemas frecuentes' },
+            { ul: [
+              '**Verbo + sustantivo**: *portavoz, rompehuelgas, sacapuntas*.',
+              '**Sustantivo + sustantivo**: *bocacalle, centroderecha, centroizquierda*.',
+              '**Sustantivo + adjetivo** (con vocal de enlace *-i-*): *pelirrojo, cabizbajo*.',
+              '**Adjetivo + adjetivo**: *agridulce, sordomudo*.',
+              '**Adverbio + verbo o adjetivo**: *malvivir, bienintencionado*.'
+            ] },
+            { h: 'Composición culta: elementos grecolatinos' },
+            'Muchas palabras del lenguaje político y científico se forman con **raíces griegas o latinas** que no funcionan solas como palabras. Se llaman **elementos compositivos**.',
+            { t: ['Elemento', 'Significado', 'Ejemplos'], r: [
+              ['*demo-*', 'pueblo', '*democracia, demografía, demagogia*'],
+              ['*-cracia, -crata*', 'poder, gobierno', '*democracia, burocracia, tecnocracia, partitocracia, demócrata*'],
+              ['*-arquía, -arca*', 'mando', '*monarquía, oligarquía, anarquía, monarca*'],
+              ['*olig(o)-*', 'pocos', '*oligarquía, oligopolio*'],
+              ['*mono-, poli-*', 'uno, muchos', '*monopolio, polideportivo*'],
+              ['*-logía, -logo*', 'estudio, especialista', '*politología, politólogo, sociología*'],
+              ['*-fobia, -filia*', 'rechazo, afición', '*xenofobia, francofilia*'],
+              ['*-grafía, -grafo*', 'escritura, descripción', '*demografía, infografía, biógrafo*'],
+              ['*tele-*', 'lejos', '*televisión, teletrabajo*'],
+              ['*auto-*', 'uno mismo', '*autonomía, autogobierno, autocrítica*'],
+              ['*-cidio*', 'acción de matar', '*genocidio, magnicidio*']
+            ] },
+            { k: ['Acortamientos que funcionan como elementos compositivos', 'Algunas palabras acortadas se usan para formar otras: *eco-* (de *ecología*: *ecologista, ecotasa*), *euro-* (de *Europa* o *euro*: *eurodiputado, eurozona*), *tele-* (de *televisión*: *telebasura, telediario*), *ciber-* (de *cibernético*: *ciberanzuelo, ciberataque*), *narco-* (de *narcotráfico*: *narcolancha*).'] },
+            { k: ['Trampa frecuente', '*Bipartidismo* parece un compuesto, pero es una **derivada**: *bi-* es un prefijo y *-ismo* un sufijo sobre la base *partido*. Lo mismo ocurre con *multipartidismo*.'] }
+          ]
+        },
+        {
+          id: 't4-6', title: 'Acortamientos, siglas y acrónimos', ses: '6',
+          items: [
+            { c: ['Acortamiento', 'Palabra formada **eliminando parte de otra**, casi siempre el final: *profe, cole, tele, bici, mani* (manifestación), *presi, progre* (progresista), *facha* (fascista). Más rara vez se suprime el principio: *bus* (autobús). Suelen ser **coloquiales** y algunos adquieren **carga peyorativa**.'] },
+            { c: ['Sigla', 'Palabra formada con las **iniciales** de una denominación de varias palabras: *DNI, UE, CIS, ONU, ONG*.'] },
+            { c: ['Acrónimo', 'En sentido amplio, sigla que **se lee como una palabra** (*ONU, OTAN, CIS*). En sentido estricto, palabra formada con **partes de varias palabras**, normalmente el principio de una y el final de otra: *Mercosur* (Mercado Común del Sur), *ofimática* (oficina + informática), *cantautor* (cantante + autor).'] },
+            { h: 'Cómo se leen las siglas' },
+            { ul: [
+              '**Deletreadas**: *DNI* (de-ene-i), *UE* (u-e), *ONG* (o-ene-ge).',
+              '**Como palabra** (silábicas): *ONU, OTAN, CIS, IVA*.'
+            ] },
+            { h: 'Ortografía de las siglas' },
+            { ul: [
+              'Se escriben en **mayúsculas** y **sin puntos**.',
+              'En la escritura el **plural no lleva *-s***: *las ONG, los DNI*. El plural se marca en el determinante.',
+              'Toman el **género** de la palabra principal: *la ONU* (organización), *el CIS* (centro).',
+              'Algunas se han **lexicalizado** y se escriben en minúscula como nombres comunes: *ovni, láser, sida, pyme, uci*.'
+            ] }
+          ]
+        },
+        {
+          id: 't4-7', title: 'Préstamos, calcos y neologismos', ses: '7',
+          items: [
+            { c: ['Préstamo', 'Palabra que una lengua toma de otra. El español ha incorporado arabismos (*alcalde, aldea, aduana*), galicismos (*élite, chófer, burocracia*), italianismos, anglicismos (*líder, mitin, fútbol*) y latinismos (*déficit, referéndum, superávit*).'] },
+            { t: ['Grado de adaptación', 'Rasgos', 'Ejemplos'], r: [
+              ['**Préstamo adaptado**', 'Se ajusta a la ortografía y la pronunciación del español. Va en redonda.', '*mitin* (meeting), *líder* (leader), *eslogan* (slogan), *márquetin*, *tuit*'],
+              ['**Extranjerismo crudo** (no adaptado)', 'Conserva la forma original. Se escribe en **cursiva** (o entre comillas a mano).', '*lobby, streaming, fake news, deepfake*'],
+              ['**Latinismo crudo**', 'Expresión latina sin adaptar; también en cursiva.', '*statu quo, ad hoc, in extremis*']
+            ] },
+            { c: ['Calco', 'Traducción literal de una palabra o expresión extranjera.'] },
+            { ul: [
+              '**Calco léxico**: se traducen los componentes. *Rascacielos* (skyscraper), *fin de semana* (weekend), *baloncesto* (basketball), *posverdad* (post-truth).',
+              '**Calco semántico**: una palabra española adquiere el significado de otra extranjera parecida. *Ratón* (del ordenador), *nube* (almacenamiento), *seguidor* (en redes).'
+            ] },
+            { h: 'Alternativas recomendadas por la Fundéu' },
+            { t: ['Anglicismo', 'Alternativa en español'], r: [
+              ['*fake news*', 'noticia falsa, bulo'],
+              ['*deepfake*', 'ultrafalso'],
+              ['*clickbait*', 'ciberanzuelo'],
+              ['*fact-checking* / *fact-checker*', 'verificación (de datos) / verificador'],
+              ['*hater*', 'odiador'],
+              ['*trending topic*', 'tendencia'],
+              ['*hashtag*', 'etiqueta'],
+              ['*lobby*', 'grupo de presión'],
+              ['*streaming*', 'en directo, en continuo'],
+              ['*spin doctor*', 'asesor o estratega de comunicación'],
+              ['*prime time*', 'horario o franja de máxima audiencia']
+            ] },
+            { c: ['Neologismo', 'Palabra o significado **nuevos** en una lengua.'] },
+            { ul: [
+              '**Neologismos de forma**: palabras nuevas creadas por derivación, composición, acortamiento o préstamo: *posverdad, ciberanzuelo, teletrabajo, tuitear, desescalada*.',
+              '**Neologismos de sentido** (semánticos): palabras antiguas con significado nuevo: *viral, nube, perfil, seguir, muro*.',
+              'Un neologismo entra en el **Diccionario de la lengua española** cuando su uso está extendido y asentado.'
+            ] },
+            { c: ['Epónimos', 'Palabras que proceden de **nombres propios**: *maquiavélico* (de Maquiavelo), *quijotesco*, *donjuán*, *lazarillo*, *celestina* (de la protagonista de la obra que ya conoces), *boicot* (de C. Boycott).'] }
+          ]
+        },
+        {
+          id: 't4-8', title: 'Cómo analizar la formación de una palabra', ses: '9',
+          items: [
+            'En el apartado de léxico del comentario se pide explicar el **procedimiento de formación** de varias palabras. Sigue estos pasos:',
+            { ol: [
+              'Identifica la **categoría** de la palabra (sustantivo, adjetivo, verbo…).',
+              'Busca la **raíz**, comparándola con otras palabras de su familia.',
+              'Separa los **prefijos, sufijos e interfijos**, y los morfemas flexivos.',
+              'Nombra el **procedimiento**: derivación (prefijación o sufijación), composición, parasíntesis, acortamiento, sigla, acrónimo, préstamo, calco.',
+              'Explica **qué aporta** cada afijo y si hay **cambio de categoría**.'
+            ] },
+            { h: 'Respuestas modelo' },
+            { t: ['Palabra', 'Respuesta'], r: [
+              ['*reelección*', 'Sustantivo **derivado por prefijación**: prefijo *re-* (repetición) + *elección*. Esta, a su vez, deriva por sufijación de la raíz *elec-* con el sufijo *-ción* (acción y efecto).'],
+              ['*ingobernable*', 'Adjetivo **derivado**: prefijo *in-* (negación) + *gobernable*, que procede del verbo *gobernar* con el sufijo *-ble* (que puede ser). Hay cambio de categoría de verbo a adjetivo.'],
+              ['*portavoz*', 'Sustantivo **compuesto propio**: verbo *porta* (de *portar*) + sustantivo *voz*. Significa ‘persona que habla en nombre de un grupo’.'],
+              ['*empadronar*', 'Verbo **parasintético**: prefijo *em-* + base *padrón* + sufijo verbal *-ar*. No existen *empadrón* ni *padronar*.'],
+              ['*progre*', '**Acortamiento** de *progresista*, de registro coloquial y a menudo con valor peyorativo.'],
+              ['*CIS*', '**Sigla** de Centro de Investigaciones Sociológicas, que se lee como palabra.'],
+              ['*ciberanzuelo*', '**Neologismo** formado por composición del elemento *ciber-* (relativo a internet) y *anzuelo*; es la alternativa española al anglicismo *clickbait*.']
+            ] }
+          ]
+        }
+      ],
+      repaso: [
+        'Segmenta *reelegibles*, *votaciones* e *inconstitucional* e identifica cada morfema.',
+        '¿Qué diferencia hay entre morfemas flexivos y derivativos?',
+        '¿Qué son los alomorfos? Pon tres ejemplos de raíz patrimonial y culta.',
+        'Explica por qué *encarcelar* es parasintética y *desconfianza* no.',
+        'Escribe correctamente: *ex alcalde, anti sistema, ex primer ministro, sobre representado, anti OTAN*.',
+        'Diferencia sigla, acrónimo y acortamiento con dos ejemplos de cada uno.',
+        'Diferencia préstamo, extranjerismo crudo y calco.'
+      ]
+    },
+
+    {
+      n: 5,
+      title: 'El significado de las palabras',
+      intro: 'Denotación y connotación, familias léxicas, campos semánticos y asociativos, relaciones de significado, cambio semántico y uso de diccionarios.',
+      secciones: [
+        {
+          id: 't5-1', title: 'Denotación y connotación', ses: '3',
+          items: [
+            { c: ['Denotación', 'Significado **básico, objetivo y estable** de una palabra, el que recoge el diccionario y comparten todos los hablantes.'] },
+            { c: ['Connotación', 'Significados **añadidos**, subjetivos o emocionales, que una palabra evoca según el contexto, la cultura o el hablante. Puede ser **positiva** (meliorativa) o **negativa** (peyorativa).'] },
+            { ej: '*Dirigente, líder, cabecilla* y *caudillo* designan a quien manda en un grupo (misma denotación), pero *líder* suele ser positivo, *dirigente* neutro, y *cabecilla* y *caudillo* negativos (connotaciones distintas).' },
+            'Las connotaciones pueden ser **colectivas** (compartidas por una comunidad: *burócrata* sugiere lentitud y papeleo) o **individuales** (asociaciones personales). En el comentario interesan las colectivas, porque son las que el autor utiliza para influir.'
+          ]
+        },
+        {
+          id: 't5-2', title: 'Familia léxica', ses: '1',
+          items: [
+            { c: ['Familia léxica', 'Conjunto de palabras que comparten la **misma raíz** (lexema), aunque pertenezcan a **categorías distintas** y aunque la raíz aparezca con distintas formas (alomorfos).'] },
+            { t: ['Raíz', 'Familia léxica'], r: [
+              ['*vot-*', '*votar, voto, votante, votación*'],
+              ['*eleg- / elig- / elec(t)-*', '*elegir, elegido, elegible, inelegible, elección, electo, elector, electoral, electorado, reelegir, reelección, preelectoral, poselectoral*'],
+              ['*pueblo / popul- / pobl-*', '*pueblo, poblar, población, despoblación, repoblar, popular, impopular, popularidad, populismo, populista*'],
+              ['*ley / leg-*', '*ley, legal, ilegal, legalidad, legislar, legislación, legislativo, legislatura, legítimo, legitimar*']
+            ] },
+            { k: ['Cuidado con las falsas familias', 'Comparten forma pero no raíz: *votar* y *botar* (homófonas). Y palabras con el mismo origen latino que hoy no se sienten relacionadas, como *voto* y *devoto*, no se suelen incluir en la familia actual.'] }
+          ]
+        },
+        {
+          id: 't5-3', title: 'Campo semántico y campo asociativo', ses: '1',
+          items: [
+            { c: ['Campo semántico (o léxico)', 'Conjunto de palabras de la **misma categoría gramatical** que comparten un rasgo de significado común (sema) y se diferencian por otros. Es un conjunto **cerrado y objetivo**.'] },
+            { ej: 'Campo semántico de los **cargos de representación**: *alcalde, concejal, diputado, senador, presidente, ministro*. Todos son sustantivos y comparten el rasgo «cargo público»; se distinguen por el ámbito (municipal, nacional) y la institución (Congreso, Senado, Gobierno).' },
+            { c: ['Campo asociativo', 'Conjunto de palabras de **distintas categorías** relacionadas con una palabra central por **asociación de ideas**, según la experiencia y la cultura. Es un conjunto **abierto y subjetivo**.'] },
+            { ej: 'Campo asociativo de **elecciones**: *urna, papeleta, sobre, colegio electoral, votar, escrutinio, campaña, mitin, candidata, encuesta, abstención, jornada de reflexión, escaño, ganar*.' },
+            { t: ['', 'Familia léxica', 'Campo semántico', 'Campo asociativo'], r: [
+              ['Qué las une', 'La misma raíz', 'Un rasgo de significado', 'La asociación de ideas'],
+              ['Categoría', 'Varias', 'Una sola', 'Varias'],
+              ['Límites', 'Cerrado', 'Cerrado', 'Abierto'],
+              ['Ejemplo', '*votar, voto, votante*', '*alcalde, concejal, diputado*', '*urna, papeleta, votar, escrutinio*']
+            ] },
+            { c: ['Hiperónimo e hipónimos', 'El **hiperónimo** es la palabra de significado general (*cargo*); los **hipónimos** son las más específicas incluidas en él (*alcalde, diputado*). Los hipónimos entre sí son **cohipónimos**. El hiperónimo da nombre al campo semántico y es muy útil para la cohesión.'] }
+          ]
+        },
+        {
+          id: 't5-4', title: 'Relaciones de significado', ses: '3 y 5',
+          items: [
+            { c: ['Sinonimia', 'Relación entre palabras con significado igual o muy parecido. La sinonimia **total** es rara: casi siempre hay diferencias de **registro** (*morir / fallecer / palmar*), de **intensidad** (*subir / dispararse*) o de **connotación** (*líder / cabecilla*). Por eso hablamos de **sinonimia contextual**: dos palabras son sinónimas en un contexto concreto.'] },
+            { c: ['Antonimia', 'Relación entre palabras de significado opuesto. **Graduales** (admiten términos intermedios: *alto / bajo, subida / bajada*), **complementarios** (uno excluye al otro: *legal / ilegal, presente / ausente*) y **recíprocos** (uno implica el otro: *comprar / vender, dar / recibir*).'] },
+            { c: ['Polisemia', 'Una palabra tiene **varios significados relacionados**, procedentes de un mismo origen: *campaña* (militar, electoral, publicitaria), *cámara* (legislativa, fotográfica, frigorífica).'] },
+            { c: ['Homonimia', 'Palabras de **origen distinto** que coinciden en la forma. **Homógrafas**: se escriben igual (*vino* sustantivo y *vino* de *venir*). **Homófonas**: suenan igual y se escriben distinto (*votar / botar, ola / hola, rebelar / revelar*).'] },
+            { c: ['Paronimia', 'Palabras de **forma parecida** y significado distinto, que se confunden con facilidad: *actitud / aptitud, infligir / infringir, prever / proveer, absolver / absorber*.'] }
+          ]
+        },
+        {
+          id: 't5-5', title: 'El cambio semántico', ses: '3 y 6',
+          items: [
+            'Las palabras **cambian de significado** con el tiempo.',
+            { h: 'Causas' },
+            { ul: [
+              '**Históricas**: cambia la realidad, se mantiene la palabra (*pluma* ya no es de ave; *coche* ya no tira de él un caballo).',
+              '**Sociales**: una palabra pasa de un ámbito especializado al general o a otro ámbito (*escenario*, del teatro a la política: *el escenario electoral*).',
+              '**Psicológicas**: el **tabú** lleva a sustituir palabras por **eufemismos**.',
+              '**Lingüísticas**: la **elipsis** (*el móvil* por *el teléfono móvil*).'
+            ] },
+            { h: 'Mecanismos' },
+            { ul: [
+              '**Metáfora**: se nombra algo por su semejanza con otra cosa (*cabeza de lista*, *halcones y palomas* para duros y moderados).',
+              '**Metonimia**: se nombra algo por otra cosa con la que tiene una relación de proximidad (*la Moncloa* por el Gobierno; *Bruselas* por la Unión Europea; *el banquillo* por los suplentes).',
+              '**Ampliación y restricción** del significado.',
+              '**Peyoración**: la palabra empeora (*villano*, habitante de una villa, pasó a significar ‘persona ruin’).',
+              '**Mejora** o melioración: la palabra mejora (*ministro* procede del latín *minister*, ‘servidor’).'
+            ] }
+          ]
+        },
+        {
+          id: 't5-6', title: 'Tabú, eufemismo y disfemismo', ses: '3',
+          items: [
+            { c: ['Tabú', 'Realidades de las que se evita hablar directamente por miedo, pudor o interés: la muerte, la enfermedad, el sexo, el dinero, los despidos, la guerra, los recortes.'] },
+            { c: ['Eufemismo', 'Palabra o expresión que **suaviza** una realidad desagradable. En política sirve para **minimizar** o **ocultar**: *reajuste de plantilla* (despidos), *crecimiento negativo* (caída), *desaceleración* (crisis), *daños colaterales* (víctimas civiles), *copago* (pago).'] },
+            { c: ['Disfemismo', 'Palabra o expresión que presenta la realidad de forma **más dura, despectiva o ridícula**. Sirve para **atacar**: *tijeretazo* (recorte), *chiringuito* (organismo público), *sablazo fiscal* (impuesto).'] },
+            { h: 'La escalera léxica' },
+            'Muchas realidades pueden nombrarse con una serie de palabras ordenadas de la más eufemística a la más disfemística:',
+            { t: ['Eufemismo', 'Neutro', 'Valorativo', 'Disfemismo'], r: [
+              ['*ajuste*', '*reducción*', '*recorte*', '*tijeretazo*'],
+              ['*contribución*', '*impuesto*', '*carga fiscal*', '*sablazo*'],
+              ['*desaceleración*', '*caída*', '*crisis*', '*hundimiento*']
+            ] },
+            { k: ['Para el comentario', 'Cuando encuentres un eufemismo o un disfemismo, explica **qué realidad nombra**, **qué palabra neutra se podría haber usado** y **qué efecto busca** el autor con su elección.'] }
+          ]
+        },
+        {
+          id: 't5-7', title: 'Diccionarios y obras de consulta', ses: '1-9',
+          items: [
+            { t: ['Obra', 'Para qué sirve'], r: [
+              ['**Diccionario de la lengua española** (DLE, RAE): dle.rae.es', 'Significados de las palabras y sus acepciones, etimología, categoría gramatical y **marcas de uso**: *coloq.* (coloquial), *despect.* (despectivo), *p. us.* (poco usado), *desus.* (desusado), *fig.* (figurado).'],
+              ['**Diccionario panhispánico de dudas** (DPD, RAE)', 'Dudas de ortografía, gramática y léxico: si una palabra es correcta, cómo se escribe, cómo se construye.'],
+              ['**Fundéu** (Fundación del Español Urgente): fundeu.es', 'Recomendaciones sobre el español de los medios, alternativas a extranjerismos, palabras de actualidad.'],
+              ['**Ortografía de la lengua española** (RAE, 2010)', 'Normas ortográficas: prefijos, siglas, mayúsculas, extranjerismos.'],
+              ['**Diccionarios de sinónimos y antónimos**', 'Ampliar vocabulario y evitar repeticiones. Comprueba siempre que el sinónimo funciona en tu frase.']
+            ] },
+            { k: ['Cómo leer una entrada del DLE', 'Tras la palabra aparece la **etimología** entre corchetes; después, las **acepciones** numeradas, cada una con su **categoría** (*m.* masculino, *adj.* adjetivo, *tr.* transitivo) y, si la tiene, su **marca de uso**. Al final pueden aparecer las **locuciones y expresiones** con esa palabra.'] }
+          ]
+        }
+      ],
+      repaso: [
+        'Explica la diferencia entre denotación y connotación con un ejemplo de la campaña.',
+        'Escribe la familia léxica de *gobernar* (al menos ocho palabras).',
+        'Diferencia campo semántico y campo asociativo con un ejemplo de cada uno.',
+        'Pon un ejemplo de antónimos graduales, complementarios y recíprocos.',
+        '¿Qué diferencia hay entre polisemia y homonimia?',
+        'Explica dos metonimias habituales en la prensa política.',
+        'Construye una escalera léxica con cuatro palabras, del eufemismo al disfemismo.'
+      ]
+    }
+  ];
+
+  /* ---------- Construcción ---------- */
+
+  function render(item) {
+    if (typeof item === 'string') return C.p(item);
+    if (item.h) return el('h4', { className: 'teo-h', text: item.h });
+    if (item.ul) return C.ul(item.ul);
+    if (item.ol) return C.ol(item.ol);
+    if (item.c) return C.concept(item.c[0], item.c[1]);
+    if (item.k) return C.callout(item.k[0], item.k[1]);
+    if (item.ej) return C.callout('Ejemplo', item.ej, 'warm');
+    if (item.t) {
+      var tbl = C.table(item.t, item.r);
+      return el('div', { className: 'teo-table' }, [tbl]);
+    }
+    return null;
+  }
+
+  var nodos = [];
+  var botones = [];
+
+  function mostrar(n, idSeccion) {
+    nodos.forEach(function (node, i) {
+      var on = (i + 1) === n;
+      node.style.display = on ? '' : 'none';
+      node.classList.toggle('print-me', on);
+      botones[i].classList.toggle('active', on);
+    });
+    C.store.set('teoria-bloque', String(n));
+    if (idSeccion) {
+      var destino = document.getElementById(idSeccion);
+      if (destino) destino.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function bloque(B) {
+    var box = el('div', { className: 'teo-bloque' });
+    box.appendChild(el('h3', { className: 'sub-title', text: 'Bloque ' + B.n + ' · ' + B.title }));
+    box.appendChild(C.p(B.intro));
+
+    var indice = el('ol', { className: 'teo-indice' });
+    B.secciones.forEach(function (S, i) {
+      var a = el('a', { attrs: { href: '#' + S.id }, text: B.n + '.' + (i + 1) + '. ' + S.title });
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        var destino = document.getElementById(S.id);
+        if (destino) destino.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      indice.appendChild(el('li', {}, [a]));
+    });
+    box.appendChild(el('div', { className: 'teo-indice-box' }, [el('span', { className: 'teo-indice-label', text: 'En este bloque' }), indice]));
+
+    B.secciones.forEach(function (S, i) {
+      var sec = el('section', { className: 'teo-sec', attrs: { id: S.id } });
+      var cab = el('div', { className: 'teo-sec-head' }, [
+        el('h3', { className: 'teo-sec-title', text: B.n + '.' + (i + 1) + '. ' + S.title }),
+        el('span', { className: 'teo-ses', text: (/^\d+$/.test(S.ses) ? 'Sesión ' : 'Sesiones ') + S.ses })
+      ]);
+      sec.appendChild(cab);
+      S.items.forEach(function (it) {
+        var node = render(it);
+        if (node) sec.appendChild(node);
+      });
+      var arriba = el('a', { className: 'teo-arriba', attrs: { href: '#' }, text: 'Volver al índice del bloque' });
+      arriba.addEventListener('click', function (e) {
+        e.preventDefault();
+        box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      sec.appendChild(arriba);
+      box.appendChild(sec);
+    });
+
+    var rep = el('div', { className: 'teo-repaso' }, [
+      el('h4', { className: 'teo-h', text: 'Preguntas de repaso' }),
+      C.p('Si sabes contestarlas sin mirar, dominas el bloque.'),
+      C.ol(B.repaso)
+    ]);
+    box.appendChild(rep);
+    return box;
+  }
+
+  function build() {
+    var panel = C.panel('teoria');
+    panel.appendChild(C.printButton());
+    panel.appendChild(C.h2('Teoría'));
+    panel.appendChild(C.p('Todo lo que necesitas saber para esta unidad, organizado en cinco bloques. Úsalo para **consultar** mientras trabajas en las sesiones y para **estudiar** antes de la prueba. Junto a cada apartado se indican las sesiones en las que se usa. La impresora saca solo el bloque que tengas abierto.'));
+
+    var picker = el('div', { className: 'lab-picker teo-picker' });
+    BLOQUES.forEach(function (B) {
+      var b = el('button', { attrs: { type: 'button' } }, [el('b', { text: String(B.n) }), B.title]);
+      b.addEventListener('click', function () { mostrar(B.n); });
+      botones.push(b);
+      picker.appendChild(b);
+    });
+    panel.appendChild(picker);
+
+    BLOQUES.forEach(function (B) {
+      var node = bloque(B);
+      nodos.push(node);
+      panel.appendChild(node);
+    });
+
+    document.getElementById('content-root').appendChild(panel);
+    var guardado = parseInt(C.store.get('teoria-bloque'), 10);
+    mostrar(guardado >= 1 && guardado <= BLOQUES.length ? guardado : 1);
+  }
+
+  C.openTeoria = function (n, idSeccion) {
+    C.goTo('teoria');
+    mostrar(n, idSeccion);
+  };
+  C.builders.push(build);
 })();
 
 (function () {
