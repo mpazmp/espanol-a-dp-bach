@@ -68,36 +68,48 @@ summary{cursor:pointer;font:700 14px Archivo,Arial,sans-serif;color:var(--blue);
 footer{background:var(--band);color:#d6deee;font-size:14px}
 @media(max-width:600px){table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:8em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:7.5em;margin-inline-start:-8em;white-space:normal;font:700 12px Archivo,sans-serif;color:var(--soft)}.stack td:empty{display:none}.frag{padding:16px}}
 @media(prefers-reduced-motion:reduce){.spine{transition:none}}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:18px 0}
+.how div{background:var(--panel);border-radius:10px;padding:16px 18px}
+.how b{display:block;font:700 15px Archivo,Arial,sans-serif;margin-bottom:4px}
+.paper{border:2px solid var(--red);border-radius:10px;padding:16px 20px;font-size:18px}
+.toc{columns:2 260px;padding-left:1.2em}.toc a{color:var(--ink)}
+.session h2{margin-bottom:.2em}
+.session .num{font:700 14px Archivo,Arial,sans-serif;color:var(--red)}
+.tasks{background:var(--panel);border-radius:10px;padding:16px 20px 16px 40px}
+.tasks li{margin:.45em 0}
+.deliver{border-left:4px solid var(--red);padding:6px 14px;margin:16px 0;font-size:16px}
 </style>
 <script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
 </head>
 <body>
 <header class="band">
   <div class="wrap">
-    <div class="lab" style="color:#9fb6e6">Literatura Universal · 1º Bachillerato · Tema 1, Literatura clásica</div>
+    <div class="lab" style="color:#9fb6e6">Literatura Universal · 1º Bachillerato · Literatura clásica</div>
     <h1>Clásicos para la vida</h1>
     <p class="q">¿Por qué seguimos leyendo a autores que escribieron hace más de dos mil años?</p>
-    <p>En dieciséis sesiones recorreremos el teatro griego, la épica, la lírica, el teatro y la prosa de Roma, construiremos una biblioteca ideal para el colegio y terminaremos leyendo entera una obra breve de Cicerón: <i>Sobre la amistad</i>. Cada volumen de la estantería es una sesión: púlsalo para ir a sus textos.</p>
+    <p>En dieciséis sesiones recorreremos el teatro griego, la épica, la lírica, el teatro y la prosa de Roma, construiremos una biblioteca ideal para el colegio y terminaremos leyendo entera una obra breve de Cicerón: <i>Sobre la amistad</i>. Cada volumen de la estantería es una sesión: púlsalo para ir a sus textos y tareas.</p>
     <div class="shelf" id="shelf" aria-label="Sesiones"></div>
   </div>
 </header>
 
 <nav class="links" aria-label="Secciones"><div class="wrap">
-  <a href="#ruta">Hoja de ruta</a><a href="#antologia">Antología</a><a href="#apuntes">Apuntes</a><a href="#comentar">Cómo comentar</a><a href="#biblioteca">Biblioteca ideal</a><a href="#amicitia">Lectura final</a><a href="#evaluacion">Evaluación</a>
+  <a href="#como">Cómo trabajamos</a><a href="#s1">Sesiones</a><a href="#apuntes">Apuntes</a><a href="#comentar">Cómo comentar</a><a href="#biblioteca">Biblioteca ideal</a><a href="#amicitia">Lectura final</a><a href="#evaluacion">Evaluación</a>
 </div></nav>
 
-<section id="ruta" class="band"><div class="wrap">
-  <h2>Hoja de ruta</h2>
-  <p class="lead read">Cada sesión termina con una entrega. Marca la casilla cuando la hayas hecho; la marca se guarda solo en este navegador. Si faltas a clase, sube la entrega antes de la sesión siguiente.</p>
-  <div class="route"><ul id="route"></ul></div>
+<section id="como" class="band"><div class="wrap read">
+  <h2>Cómo trabajamos</h2>
+  <p class="paper"><b>La web es solo para leer. Todo se escribe a mano, en papel.</b> No escribas tus respuestas en el Chromebook: se pueden borrar.</p>
+  <div class="how">
+    <div><b>1. Busca tu sesión</b>Cada sesión tiene su apartado con tres partes: qué hacemos hoy, los textos y las tareas.</div>
+    <div><b>2. Lee los textos</b>Están todos aquí, traducidos. En los latinos puedes desplegar el original.</div>
+    <div><b>3. Escribe en el cuaderno</b>Numera cada respuesta con la sesión y la tarea: «S5-2», por ejemplo.</div>
+    <div><b>4. Entrega</b>Cada sesión termina con una entrega, marcada en rojo. Si faltas, hazla en casa y tráela a la sesión siguiente.</div>
+  </div>
+  <h3>Índice de sesiones</h3>
+  <ol class="toc" id="toc"></ol>
 </div></section>
 
-<section id="antologia" class="band"><div class="wrap read">
-  <h2>Antología</h2>
-  <p class="lead">Los fragmentos más representativos de cada sesión, para leerlos juntas en clase. Los textos latinos llevan el original desplegable: no hace falta saber latín, pero merece la pena oírlo en voz alta.</p>
-  <p class="note">Traducciones para clase; en el libro tenéis otras versiones de algunos de estos textos.</p>
-  <div id="anth"></div>
-</div></section>
+<div id="sessions"></div>
 
 <section id="apuntes" class="band"><div class="wrap read">
   <h2>Apuntes</h2>
@@ -137,6 +149,7 @@ footer{background:var(--band);color:#d6deee;font-size:14px}
   </tbody></table>
 </div></section>
 
+
 <section id="comentar" class="band"><div class="wrap read">
   <h2>Cómo comentar</h2>
   <p class="lead">Toda respuesta sigue la misma pauta: <b>afirmo, cito, explico</b>. Una idea en la primera frase, unas palabras del texto entre comillas y la explicación de qué demuestran.</p>
@@ -157,15 +170,16 @@ footer{background:var(--band);color:#d6deee;font-size:14px}
   </div>
 </div></section>
 
+
 <section id="biblioteca" class="band"><div class="wrap read">
   <h2>Nuestra biblioteca ideal</h2>
-  <p class="lead">Cada equipo «presta» al colegio tres fragmentos clásicos de su bloque, comentados y conectados con nuestra vida. Las quince fichas formarán una exposición en la biblioteca y una página en esta web.</p>
-  <table class="stack"><thead><tr><th>Bloque</th><th>Textos posibles</th></tr></thead><tbody>
-  <tr><td>Teatro griego</td><td><i>Medea</i>, <i>Antígona</i>, <i>Las bacantes</i>, <i>Las nubes</i>, Aristóteles sobre la tragedia</td></tr>
-  <tr><td>Épica</td><td>Argos en la <i>Odisea</i>; Dido; Eneas y Anquises</td></tr>
-  <tr><td>Lírica latina</td><td>Catulo 5 y 85, <i>Carpe diem</i>, <i>Beatus ille</i>, <i>Exegi monumentum</i>, Apolo y Dafne</td></tr>
-  <tr><td>Prosa griega y latina</td><td>Platón, Heródoto, Cicerón, Séneca, Eros y Psique</td></tr>
-  <tr><td>Teatro latino y latín medieval</td><td><i>La olla</i>, Terencio, san Agustín, <i>Carmina Burana</i></td></tr>
+  <p class="lead">Cada equipo «presta» al colegio tres fragmentos clásicos de su bloque, comentados y conectados con nuestra vida. Las quince fichas se hacen en papel, en folios A4, y formarán una exposición en la biblioteca; la profesora las fotografiará para publicarlas aquí.</p>
+  <table class="stack"><thead><tr><th>Bloque</th><th>Textos posibles (todos están en las sesiones)</th></tr></thead><tbody>
+  <tr><td>Teatro griego</td><td><i>Medea</i>, <i>Antígona</i>, <i>Las bacantes</i>, <i>Las nubes</i>, Aristóteles (sesiones 2 y 3)</td></tr>
+  <tr><td>Épica</td><td>Argos en la <i>Odisea</i>; la <i>Eneida</i>; Dido (sesiones 1, 5 y 6)</td></tr>
+  <tr><td>Lírica latina</td><td>Catulo, Horacio, Ovidio y Pound (sesiones 7 y 8)</td></tr>
+  <tr><td>Prosa griega y latina</td><td>Heródoto, Platón, Esopo, Teócrito, Cicerón, Séneca, Apuleyo (sesiones 4 y 10)</td></tr>
+  <tr><td>Teatro latino y latín medieval</td><td>Plauto, Terencio, san Agustín, <i>Carmina Burana</i> (sesiones 9 y 10)</td></tr>
   </tbody></table>
   <h3>Cada ficha de préstamo tiene seis partes</h3>
   <ol>
@@ -173,15 +187,16 @@ footer{background:var(--band);color:#d6deee;font-size:14px}
     <li><b>El fragmento</b>: máximo 15 versos o 10 líneas.</li>
     <li><b>Comentario</b> de 250-300 palabras, con los seis pasos.</li>
     <li><b>Por qué te lo presto hoy</b> (80 palabras).</li>
-    <li><b>Si te gustó, sigue con…</b>: una obra posterior que lo reescriba.</li>
-    <li><b>Una imagen</b> con su crédito.</li>
+    <li><b>Si te gustó, sigue con…</b>: una obra posterior que lo reescriba (libro, cuadro, canción, serie o película).</li>
+    <li><b>Una imagen</b>: un dibujo propio o una imagen impresa, con su crédito.</li>
   </ol>
   <p><b>Roles:</b> coordinadora (plazos), documentalista (contexto e imágenes), redactora (corrección) y diseñadora-portavoz. Todas firmáis al menos un comentario.</p>
+  <p><b>Fechas:</b> sesión 6, selección provisional; sesión 11, borradores; sesión 12, inauguración.</p>
 </div></section>
-
 <section id="amicitia" class="band"><div class="wrap read">
   <h2>Lectura final: <i>Sobre la amistad</i>, de Cicerón</h2>
   <p class="lead">Para cerrar, leemos una obra clásica entera. <i>Laelius de amicitia</i> se lee en unas dos horas: Cicerón la escribió en el año 44 a. C., el último de su vida, en plena guerra civil.</p>
+  <p class="paper">Leeremos la obra en papel: la profesora os dará el texto. Todo lo que escribáis va en el cuaderno.</p>
   <h3>De qué trata</h3>
   <p>Es un diálogo ambientado en el 129 a. C. Pocos días después de la muerte de Escipión Emiliano, su mejor amigo, Lelio conversa con sus dos yernos, Fanio y Escévola, sobre qué es la amistad. Cicerón cuenta que, de joven, oyó la conversación de boca de Escévola, y dedica el libro a su propio amigo, Ático.</p>
   <h3>Plan de lectura</h3>
@@ -199,6 +214,7 @@ footer{background:var(--band);color:#d6deee;font-size:14px}
   <h3>¿Y si no es Cicerón?</h3>
   <p>Si la profesora lo indica, podéis leer en su lugar otra obra breve: Séneca, <i>Sobre la brevedad de la vida</i> (sobre cómo usamos el tiempo; continúa los pasajes de la sesión 10); Platón, <i>Apología de Sócrates</i> (el juicio y la defensa del filósofo); o Plauto, <i>La olla</i> (lectura dramatizada por equipos).</p>
 </div></section>
+
 
 <section id="evaluacion" class="band"><div class="wrap read">
   <h2>Evaluación</h2>
@@ -219,52 +235,123 @@ footer{background:var(--band);color:#d6deee;font-size:14px}
   </tbody></table>
 </div></section>
 
-<footer class="band"><div class="wrap">Literatura Universal · 1º Bachillerato · Situación de aprendizaje «Clásicos para la vida»</div></footer>
+
+<footer class="band"><div class="wrap">Literatura Universal · 1º Bachillerato · Situación de aprendizaje «Clásicos para la vida». Traducciones para uso en clase.</div></footer>
 
 <script>
 {
 const S=[
- {n:1,t:'¿Ayer o hace 2.000 años?',sp:'Dos mil años',d:'Pos-it «Me lo tatuaría» y «Antes pensaba…»',c:'#e9d8a6'},
- {n:2,t:'Tragedia griega',d:'Comentario de Las bacantes (act. 34) y juicio a Medea',c:'#c9d6ea'},
- {n:3,t:'La comedia',d:'Comentario de Las nubes (act. 35)',c:'#d9c2b0'},
- {n:4,t:'Prosa griega',d:'Cuadro sinóptico (act. 39)',c:'#cfd8c4'},
- {n:5,t:'La Eneida',d:'Paralelismos Eneida-historia (act. 52)',c:'#e6c8a0'},
- {n:6,t:'Dido',d:'Lamento de Dido (act. 53) y selección de fragmentos',c:'#d8b9c3'},
- {n:7,t:'Catulo y Horacio',d:'Comentario de Beatus ille (act. 54)',c:'#c9d6ea'},
- {n:8,t:'Ovidio',d:'Comentario comparado de Apolo y Dafne',c:'#cfd8c4'},
- {n:9,t:'Teatro latino',d:'Comentario de La olla (act. 74) y Plauto 2.0',c:'#e9d8a6'},
- {n:10,t:'Prosa latina',d:'Titulares de Eros y Psique y dos máximas',c:'#d9c2b0'},
- {n:11,t:'Taller',d:'Borradores de las tres fichas de préstamo',c:'#c9d6ea'},
- {n:12,t:'Inauguración',d:'Presentación, «Ahora pienso…» y diana',c:'#e6c8a0'},
- {n:13,t:'Prueba',d:'Prueba escrita',c:'#cfd8c4'},
- {n:14,t:'De amicitia I',d:'Lectura en clase de los § 1-24',c:'#d8b9c3'},
- {n:15,t:'De amicitia II',d:'Pasajes clave en voz alta (lectura en casa hecha)',c:'#d9c2b0'},
- {n:16,t:'Sobre la amistad',d:'Tertulia y diálogo «Sobre la amistad, 2026»',c:'#a4262c',f:1}
+{n:1,t:`¿Lo dijo ayer o hace dos mil años?`,sp:`Dos mil años`,c:`#e9d8a6`,
+hoy:`En clase jugamos con diez frases en la pizarra y descubrimos que todas tienen más de dos mil años. Después leemos juntas este fragmento de la <i>Odisea</i> y conocemos el reto: construir una biblioteca ideal de los clásicos para el colegio.`,
+tx:[{who:`Homero · Odisea, canto XVII`,h:`Argos reconoce a Odiseo`,ctx:`Odiseo vuelve a su isla, Ítaca, disfrazado de mendigo, después de veinte años: diez de guerra en Troya y diez de viaje. Nadie lo reconoce. Nadie, salvo su perro.`,tr:`Allí yacía el perro Argos, lleno de garrapatas. En cuanto notó que Odiseo estaba cerca, movió la cola y dejó caer las orejas, pero ya no tuvo fuerzas para acercarse a su amo. Odiseo, volviendo la cara, se secó una lágrima sin que Eumeo, el porquero, lo viera. Y a Argos se lo llevó el destino de la negra muerte nada más ver a Odiseo, después de veinte años.`}],
+ta:[`Escribe en tu cuaderno: «Antes pensaba que los clásicos…» (completa con tres o cuatro líneas sinceras).`,`¿Por qué crees que Odiseo tiene que esconder la lágrima?`,`Copia la frase de la pizarra que te tatuarías y explica en una línea por qué.`],
+en:`Las tres respuestas, en la primera página del cuaderno.`},
+
+{n:2,t:`La tragedia griega`,sp:`Tragedia griega`,c:`#c9d6ea`,
+hoy:`Conocemos a Eurípides y los conceptos clave de la tragedia (los tienes en Apuntes, apartado 1). Leemos a Medea, a Antígona y a Penteo, y hacemos un juicio a Medea por equipos.`,
+tx:[
+{who:`Eurípides · Medea (431 a. C.)`,h:`El argumento`,ctx:`Para entender el juicio de hoy.`,tr:`Medea, princesa extranjera y hechicera, ayudó a Jasón a conseguir el vellocino de oro: traicionó a su padre y mató a su propio hermano por él. Ya en Corinto, con dos hijos, Jasón la abandona para casarse con la hija del rey Creonte, y el rey ordena desterrar a Medea. Ella finge aceptarlo, envía a la novia un vestido envenenado que la abrasa a ella y a su padre, y después mata a sus propios hijos para destruir a Jasón. Al final escapa en el carro del Sol, sin castigo.`},
+{who:`Eurípides · Medea`,h:`«Tres veces junto al escudo»`,ctx:`Medea habla al coro de mujeres de Corinto sobre la vida de las mujeres.`,tr:`Dicen que nosotras llevamos en casa una vida sin peligros, mientras ellos luchan con la lanza. ¡Qué mal razonan! Preferiría estar tres veces en primera línea con el escudo que dar a luz una sola vez.`},
+{who:`Sófocles · Antígona (c. 441 a. C.)`,h:`Dos frases de Antígona`,ctx:`Antígona desafía al rey Creonte para enterrar a su hermano, aunque el rey lo ha prohibido. La primera frase la canta el coro; la segunda la dice ella.`,tr:`Muchas cosas hay asombrosas, pero ninguna más asombrosa que el ser humano.\n\nNo nací para compartir el odio, sino el amor.`,verse:1},
+{who:`Eurípides · Las bacantes (405 a. C.)`,h:`Penteo contra Dioniso`,ctx:`Penteo, joven rey de Tebas, vuelve de un viaje y descubre que las mujeres de la ciudad se han ido al monte a celebrar los ritos de un dios nuevo, Dioniso (Baco). Penteo no lo acepta como dios. El anciano adivino Tiresias intenta convencerlo.`,tr:`PENTEO: Resulta que, estando yo fuera de esta tierra, me entero de nuevos males en la ciudad: que nuestras mujeres han abandonado sus casas con el pretexto de los ritos de Baco y corretean por los montes sombríos honrando con danzas a ese dios nuevo, Dioniso, sea quien sea. […] A las que he atrapado, mis criados las tienen en la cárcel con las manos atadas; y a las que faltan, las cazaré en los montes.\n\nTIRESIAS: No presumas de que el poder es lo que domina a los hombres, ni, aunque lo creas, te tengas por sabio si tu creencia está enferma. Recibe al dios en esta tierra, haz libaciones, celébralo y corona tu cabeza.`,verse:1},
+{who:`Eurípides · Las bacantes`,h:`El final`,ctx:`Lo que ocurre después.`,tr:`Penteo no hace caso. Dioniso lo engaña: lo convence para que se disfrace de mujer y vaya a espiar a las bacantes al monte. Allí lo descubren. Su propia madre, Ágave, enloquecida por el dios, lo despedaza creyendo que es un león, y vuelve a Tebas con la cabeza de su hijo en las manos, orgullosa. Solo cuando recupera la razón comprende lo que ha hecho.`}],
+ta:[`Penteo: ¿qué ha descubierto al volver? ¿Por qué se enfrenta a Dioniso? Cita sus palabras.`,`¿Qué le aconseja Tiresias? Relaciona su consejo con la <i>hybris</i>.`,`Con el final de la obra delante: ¿dónde está la <i>hamartía</i> de Penteo? ¿Y la <i>anagnórisis</i>? ¿Quién la sufre?`,`Juicio a Medea. Tu equipo será fiscalía, defensa, Jasón, la nodriza o el jurado. Escribe tres argumentos para tu papel.`,`Define en una línea, con un ejemplo de las obras de hoy: <i>hybris</i>, <i>hamartía</i>, <i>anagnórisis</i>, catarsis y <i>deus ex machina</i>.`],
+en:`Respuestas 1, 2, 3 y 5.`},
+
+{n:3,t:`La comedia`,sp:`La comedia`,c:`#d9c2b0`,
+hoy:`Pasamos de llorar a reír. Vemos cómo define Aristóteles la tragedia y en qué se diferencian la comedia de Aristófanes y la de Menandro. Leemos la escena más famosa de <i>Las nubes</i>.`,
+tx:[
+{who:`Aristóteles · Poética (s. IV a. C.)`,h:`Qué es una tragedia`,ctx:`La definición más citada de la historia de la teoría literaria. Nos sirve para entender, por contraste, la comedia.`,tr:`La tragedia es la imitación de una acción seria y completa, de cierta extensión, en un lenguaje embellecido, representada por personajes que actúan y no narrada, y que, mediante la compasión y el temor, lleva a cabo la purificación de esas emociones.`},
+{who:`Aristófanes · Las nubes (423 a. C.)`,h:`Sócrates en un cesto`,ctx:`Estrepsíades, un campesino ahogado por las deudas que ha hecho su hijo, va a la escuela de Sócrates para aprender a ganar pleitos con trampas y no pagar. Encuentra al filósofo colgado en el aire, dentro de un cesto.`,tr:`ESTREPSÍADES: ¡Sócrates! ¡Socratito!\nSÓCRATES: ¿Por qué me llamas, criatura efímera?\nESTREPSÍADES: Primero, dime qué haces, te lo ruego.\nSÓCRATES: Camino por los aires y contemplo el sol.\nESTREPSÍADES: O sea, que desprecias a los dioses desde un cesto, y no desde el suelo.\nSÓCRATES: Jamás habría descubierto bien las cosas del cielo si no hubiera dejado en suspenso la mente, mezclando mi pensamiento sutil con el aire, que es parecido.`,verse:1},
+{who:`Menandro (s. IV a. C.)`,h:`Una máxima de la comedia nueva`,ctx:`Menandro dejó muchas frases que se citaban como refranes.`,tr:`No vivimos como queremos, sino como podemos.`}],
+ta:[`¿Qué resulta cómico en la escena de <i>Las nubes</i>? Señala al menos tres recursos (situación, lenguaje, personajes).`,`¿A quién ridiculiza Aristófanes? ¿Te parece justo con Sócrates? (Volverás a él en la sesión 4.)`,`Haz una tabla de dos columnas: comedia antigua (Aristófanes) y comedia nueva (Menandro). Compáralas en temas, personajes, finalidad y lenguaje.`,`¿Qué palabra de la definición de Aristóteles corresponde a la catarsis? ¿Qué película o serie te ha producido «compasión y temor»?`],
+en:`Respuestas 1, 2 y 3.`},
+
+{n:4,t:`La prosa griega`,sp:`Prosa griega`,c:`#cfd8c4`,
+hoy:`La literatura griega también se escribe en prosa: fábulas, historia, filosofía, oratoria y, más tarde, novela. Lee el apartado 2 de Apuntes antes de empezar.`,
+tx:[
+{who:`Heródoto · Historia, proemio (s. V a. C.)`,h:`Para que no se olvide`,ctx:`Así comienza el primer libro de historia de Occidente.`,tr:`Esta es la exposición de la investigación de Heródoto de Halicarnaso, para que con el tiempo no se borre el recuerdo de lo que hicieron los hombres, y para que las grandes y admirables hazañas de griegos y bárbaros no queden sin gloria.`},
+{who:`Platón · Carta VII (s. IV a. C.)`,h:`Por qué no me dediqué a la política`,ctx:`Ya anciano, Platón recuerda su juventud en Atenas: un gobierno tiránico, la vuelta de la democracia y la condena a muerte de su maestro Sócrates.`,tr:`Cuando era joven me pasó lo que a muchos: pensé dedicarme a la política en cuanto fuera dueño de mí mismo. […] Pero, al ver cómo eran los que gobernaban, las leyes y las costumbres, y cómo acusaron y condenaron a muerte a mi amigo Sócrates, el más justo de los hombres de su tiempo, me aparté de todo aquello. Al final comprendí que todas las ciudades de hoy están mal gobernadas, y me vi obligado a decir, en alabanza de la verdadera filosofía, que los males del género humano no cesarán hasta que los verdaderos filósofos lleguen al poder, o hasta que los que gobiernan se pongan de verdad a filosofar.`},
+{who:`Platón · Apología de Sócrates`,h:`Una vida sin examen`,ctx:`Sócrates, condenado a muerte, se niega a dejar de hacer preguntas.`,tr:`Una vida sin examen no merece ser vivida por el ser humano.`},
+{who:`Esopo (s. VI a. C.)`,h:`La cigarra y la hormiga`,ctx:`Una de las más de trescientas fábulas que se le atribuyen.`,tr:`En invierno, una hormiga sacaba al sol el grano que había guardado en verano. Una cigarra hambrienta le pidió algo de comer. «¿Qué hacías tú en verano?», le preguntó la hormiga. «No estaba ociosa: cantaba todo el día», respondió la cigarra. La hormiga se rio y guardó su grano: «Pues si en verano cantabas, en invierno baila». La fábula enseña que hay que prever el futuro.`},
+{who:`Teócrito · Idilio XIX (s. III a. C.)`,h:`Eros, ladrón de miel`,ctx:`Un poema helenístico breve y juguetón. Eros es el dios del amor, hijo de Afrodita.`,tr:`A Eros, el ladrón, una abeja malvada le picó un día cuando robaba miel de las colmenas, y le pinchó la punta de los dedos. Le dolía: se soplaba la mano, pataleaba, daba saltos. Fue a enseñarle la herida a Afrodita y se quejaba de que un bichito tan pequeño como la abeja hiciera heridas tan grandes. Y su madre, riéndose: «¿Y tú no eres igual que las abejas? Pequeño eres, ¡pero qué heridas haces!».`}],
+ta:[`Cuadro sinóptico de la prosa griega y helenística. Columnas: género · autor · obra · rasgo principal. Incluye al menos diez autores (usa Apuntes, apartado 2).`,`Platón: ¿qué quería ser de joven? ¿Qué le hizo cambiar? ¿Qué solución propone? ¿Te parece realista?`,`Teócrito: describe el tono del poema. ¿Qué nos dice sobre el amor?`,`Escribe una nueva versión de «La cigarra y la hormiga» en la que la hormiga actúe de forma más solidaria.`],
+en:`El cuadro sinóptico.`},
+
+{n:5,t:`La Eneida`,sp:`La Eneida`,c:`#e6c8a0`,
+hoy:`Conocemos la epopeya nacional de Roma: su autor, su estructura y su triple naturaleza (historia, política y emoción). Lee el apartado 3 de Apuntes.`,
+tx:[
+{who:`Virgilio · Eneida I, 1-7`,h:`Canto las armas y al hombre`,ctx:`El comienzo de la epopeya. En siete versos está toda la obra.`,lat:`Arma virumque cano, Troiae qui primus ab oris\nItaliam, fato profugus, Laviniaque venit\nlitora, multum ille et terris iactatus et alto\nvi superum saevae memorem Iunonis ob iram;\nmulta quoque et bello passus, dum conderet urbem,\ninferretque deos Latio, genus unde Latinum,\nAlbanique patres, atque altae moenia Romae.`,tr:`Canto las armas y al hombre que, el primero, desde las costas de Troya,\nprófugo por el destino, llegó a Italia y a las playas\nde Lavinio, muy zarandeado por tierra y por mar\npor la fuerza de los dioses, por la ira rencorosa de la cruel Juno;\nque mucho sufrió también en la guerra, hasta fundar una ciudad\ny llevar sus dioses al Lacio: de ahí la raza latina,\nlos padres albanos y las murallas de la alta Roma.`,verse:1},
+{who:`La Eneida en doce libros`,h:`El argumento`,ctx:`Libros I-VI: el viaje (como la Odisea). Libros VII-XII: la guerra (como la Ilíada).`,tr:`I. Una tempestad enviada por Juno arroja a los troyanos a Cartago; la reina Dido los acoge.\nII-III. Eneas cuenta la caída de Troya, su huida con su padre Anquises y su hijo Ascanio, y sus viajes.\nIV. Dido se enamora de Eneas. Júpiter le ordena partir hacia Italia. Dido se suicida.\nV. En Sicilia, juegos fúnebres en honor de Anquises, que ha muerto.\nVI. Con la Sibila, Eneas baja a los infiernos. Su padre le muestra el futuro de Roma.\nVII. En el Lacio, el rey Latino le ofrece a su hija Lavinia, prometida a Turno. Empieza la guerra.\nVIII. Venus entrega a Eneas un escudo con escenas de la futura historia de Roma.\nIX-XI. Batallas; los dioses discuten; mueren héroes de los dos bandos.\nXII. Duelo final: Eneas mata a Turno.`,verse:1},
+{who:`Virgilio · Eneida VI, 851-853`,h:`La misión de Roma`,ctx:`Anquises, en los infiernos, revela a su hijo cuál será el arte de su pueblo.`,lat:`Tu regere imperio populos, Romane, memento\n(hae tibi erunt artes), pacisque imponere morem,\nparcere subiectis et debellare superbos.`,tr:`Tú, romano, recuerda gobernar a los pueblos con tu poder\n(estas serán tus artes), imponer la costumbre de la paz,\nperdonar a los sometidos y derrotar a los soberbios.`,verse:1}],
+ta:[`En el comienzo de la Eneida, localiza: el tema, el héroe, la diosa enemiga y la meta del viaje.`,`Paralelismos entre la Eneida y la historia de Roma. Explica qué representa cada uno: el amor de Eneas y Dido (piensa en Cartago); Ascanio, también llamado Iulo (piensa en Julio César y Augusto); la profecía de Anquises; las guerras del Lacio (piensa en las guerras civiles).`,`¿Por qué se dice que la Eneida es propaganda de Augusto y, a la vez, mucho más que eso?`],
+en:`La respuesta 2.`},
+
+{n:6,t:`Dido`,sp:`Dido`,c:`#d8b9c3`,
+hoy:`Leemos el episodio más emocionante de la Eneida y escuchamos cómo lo convirtió en ópera Henry Purcell en 1689. Al final de la clase, cada equipo entrega su primera selección de fragmentos para la biblioteca.`,
+tx:[
+{who:`Virgilio · Eneida IV, 305-308 y 653-654`,h:`Dido`,ctx:`Dido descubre que Eneas se marcha a escondidas. Después, antes de morir, mira su propia vida.`,lat:`Dissimulare etiam sperasti, perfide, tantum\nposse nefas tacitusque mea decedere terra?\nNec te noster amor nec te data dextera quondam\nnec moritura tenet crudeli funere Dido?\n\nVixi et quem dederat cursum Fortuna peregi,\net nunc magna mei sub terras ibit imago.`,tr:`¿Esperabas, traidor, poder ocultar tanta infamia\ny marcharte de mi tierra en silencio?\n¿No te retiene nuestro amor, ni la mano que un día me diste,\nni Dido, que va a morir de una muerte cruel?\n\nHe vivido, y he recorrido el camino que la Fortuna me dio,\ny ahora una gran imagen de mí bajará bajo la tierra.`,verse:1},
+{who:`Henry Purcell · Dido y Eneas (1689), libreto de Nahum Tate`,h:`El lamento de Dido`,ctx:`Escúchalo en clase o busca «Purcell, Dido's Lament» en YouTube. Fíjate en el bajo: repite una y otra vez la misma línea descendente mientras Dido canta.`,lat:`When I am laid, am laid in earth,\nmay my wrongs create\nno trouble, no trouble in thy breast.\nRemember me, remember me,\nbut ah! forget my fate.`,latlab:`Ver el original inglés`,tr:`Cuando me depositen, me depositen en la tierra,\nque mis desdichas no causen\nninguna pena, ninguna pena en tu pecho.\nRecuérdame, recuérdame,\npero ¡ay!, olvida mi destino.`,verse:1}],
+ta:[`Cuenta las negaciones del primer fragmento de Virgilio. ¿Qué efecto producen? ¿Qué le reprocha Dido a Eneas?`,`¿Cómo se ve Dido a sí misma antes de morir: como víctima o como reina? Cita.`,`Lamento de Purcell: ¿qué transmite el bajo que se repite? ¿Qué pide Dido y qué pide que se olvide?`,`Eneas se va por <i>pietas</i>, por obedecer a los dioses y cumplir su misión. ¿Lo justificas? Escribe tu postura en cinco líneas.`,`Tarea para casa: escribe una carta de Dido a Eneas antes de morir (200 palabras), con un reproche, un recuerdo compartido y una alusión a la <i>pietas</i>.`],
+en:`Respuestas 1, 2 y 3. El equipo entrega en un folio sus tres fragmentos provisionales.`},
+
+{n:7,t:`Catulo y Horacio`,sp:`Catulo y Horacio`,c:`#c9d6ea`,
+hoy:`Dos maneras de entender la poesía: Catulo, el amor apasionado en primera persona; Horacio, el equilibrio y los grandes tópicos. Traducimos dos versos del latín y comentamos el <i>Beatus ille</i>. Apuntes, apartados 4 y 7.`,
+tx:[
+{who:`Catulo · Poema 5`,h:`Vivamos, Lesbia mía`,ctx:`El poema de amor más famoso de Roma.`,lat:`Vivamus, mea Lesbia, atque amemus,\nrumoresque senum severiorum\nomnes unius aestimemus assis!\nSoles occidere et redire possunt:\nnobis cum semel occidit brevis lux,\nnox est perpetua una dormienda.\nDa mi basia mille, deinde centum,\ndein mille altera, dein secunda centum,\ndeinde usque altera mille, deinde centum.\nDein, cum milia multa fecerimus,\nconturbabimus illa, ne sciamus,\naut ne quis malus invidere possit,\ncum tantum sciat esse basiorum.`,tr:`Vivamos, Lesbia mía, y amemos,\ny las habladurías de los viejos tan severos\nvalorémoslas todas en un céntimo.\nLos soles pueden ponerse y volver:\nnosotros, cuando se apague de una vez nuestra breve luz,\ntendremos que dormir una sola noche eterna.\nDame mil besos, después cien,\nluego otros mil, luego otros cien,\ndespués otros mil más, después cien.\nLuego, cuando sumemos muchos miles,\nlos embrollaremos para no saber la cuenta\no para que ningún envidioso pueda echarnos mal de ojo\nal saber que hay tantos besos.`,verse:1},
+{who:`Catulo · Poema 85`,h:`Odio y amo (para traducir)`,ctx:`Tradúcelo tú con este vocabulario: odi, odio · amo, amo · quare, por qué · id faciam, hago eso · fortasse requiris, quizá preguntas · nescio, no sé · sed fieri sentio, pero siento que sucede · excrucior, me atormento (de crux, «cruz»).`,tr:`Odi et amo. Quare id faciam, fortasse requiris.\nNescio, sed fieri sentio et excrucior.`,verse:1},
+{who:`Horacio · Odas I, 11`,h:`Carpe diem`,ctx:`Horacio aconseja a Leucónoe, que consulta a los astrólogos para conocer el futuro.`,lat:`Tu ne quaesieris, scire nefas, quem mihi, quem tibi\nfinem di dederint, Leuconoe, nec Babylonios\ntemptaris numeros. Ut melius, quidquid erit, pati!\nSeu pluris hiemes seu tribuit Iuppiter ultimam,\nquae nunc oppositis debilitat pumicibus mare\nTyrrhenum, sapias, vina liques et spatio brevi\nspem longam reseces. Dum loquimur, fugerit invida\naetas: carpe diem, quam minimum credula postero.`,tr:`No preguntes, Leucónoe (no está permitido saberlo), qué final\nnos han dado los dioses a ti y a mí, ni consultes\nlos cálculos babilonios. ¡Cuánto mejor aceptar lo que venga!\nTanto si Júpiter nos concede más inviernos como si este es el último,\neste que ahora rompe el mar Tirreno contra las rocas,\nsé sensata, filtra el vino y, en un tiempo tan breve,\ncorta la esperanza larga. Mientras hablamos, habrá huido el tiempo\nenvidioso: aprovecha el día y no te fíes nada del mañana.`,verse:1},
+{who:`Horacio · Épodo II, 1-8, y la versión de Fray Luis de León`,h:`Beatus ille`,ctx:`El elogio de la vida en el campo. Cuidado: en el poema completo, todo este elogio lo pronuncia Alfio, un usurero que al final vuelve a prestar dinero.`,lat:`Beatus ille qui procul negotiis,\nut prisca gens mortalium,\npaterna rura bubus exercet suis\nsolutus omni faenore,\nneque excitatur classico miles truci\nneque horret iratum mare,\nforumque vitat et superba civium\npotentiorum limina.`,tr:`Dichoso aquel que, lejos de los negocios,\ncomo la antigua raza de los mortales,\nlabra los campos de su padre con sus propios bueyes,\nlibre de toda usura;\nque no se despierta, como el soldado, con la trompeta feroz\nni teme el mar embravecido,\ny evita el foro y los soberbios\numbrales de los ciudadanos poderosos.\n\nY así empieza la traducción de Fray Luis de León (s. XVI):\n«Dichoso el que de pleitos alejado,\ncual los del tiempo antiguo,\nlabra sus heredades, no obligado\nal logrero enemigo».`,verse:1},
+{who:`Horacio · Odas III, 30`,h:`Un monumento más duradero que el bronce`,ctx:`Horacio cierra sus tres primeros libros de odas convencido de su inmortalidad.`,lat:`Exegi monumentum aere perennius\nregalique situ pyramidum altius,\nquod non imber edax, non Aquilo impotens\npossit diruere aut innumerabilis\nannorum series et fuga temporum.\nNon omnis moriar…`,tr:`He levantado un monumento más duradero que el bronce\ny más alto que la regia mole de las pirámides,\nque ni la lluvia voraz ni el desatado Aquilón\npodrán derribar, ni la innumerable\nsucesión de los años ni la huida del tiempo.\nNo moriré del todo…`,verse:1}],
+ta:[`Traduce el poema 85 de Catulo con el vocabulario. Después responde: ¿por qué el poema no tiene ni un solo adjetivo?`,`Comentario del <i>Beatus ille</i>. a) ¿En qué consiste el tópico? b) ¿Qué vidas se rechazan y cuál se alaba? c) ¿Qué tareas del campo se mencionan (o imaginas en el resto del poema)? d) ¿Qué cambia al saber que habla un usurero? e) Compara la versión de Fray Luis con la traducción literal: ¿qué gana y qué pierde?`,`Busca un tópico en el poema 5 de Catulo y otro en la oda I, 11 de Horacio. Explica cada uno con una cita.`,`Horacio dice que no morirá del todo. ¿Tenía razón? Responde en tres líneas.`],
+en:`La traducción (1) y el comentario del <i>Beatus ille</i> (2).`},
+
+{n:8,t:`Ovidio: Apolo y Dafne`,sp:`Ovidio`,c:`#cfd8c4`,
+hoy:`Comparamos tres versiones del mismo mito: Ovidio (s. I), la escultura de Bernini (s. XVII) y un poema de Ezra Pound (1912). Repasa en Cómo comentar el comentario comparado.`,
+tx:[
+{who:`Ovidio · Metamorfosis I`,h:`El mito`,ctx:`Antes del fragmento.`,tr:`Apolo se burla de Cupido, que entonces lo hiere con una flecha de oro que enamora; a la ninfa Dafne la hiere con una de plomo, que hace huir del amor. Apolo la persigue por el bosque; ella, agotada, llega al río Peneo, su padre, y le pide que destruya la belleza que la ha puesto en peligro.`},
+{who:`Ovidio · Metamorfosis I, 548-552 y 557-559`,h:`Dafne se convierte en laurel`,ctx:`El momento de la transformación y las palabras de Apolo.`,lat:`Vix prece finita torpor gravis occupat artus,\nmollia cinguntur tenui praecordia libro,\nin frondem crines, in ramos bracchia crescunt,\npes modo tam velox pigris radicibus haeret,\nora cacumen habet: remanet nitor unus in illa.\n\nCui deus «At quoniam coniunx mea non potes esse,\narbor eris certe» dixit «mea! Semper habebunt\nte coma, te citharae, te nostrae, laure, pharetrae.»`,tr:`Apenas termina su súplica, un pesado entumecimiento se apodera de sus miembros,\nsu blando pecho se ciñe de una fina corteza,\nsus cabellos se convierten en hojas, sus brazos en ramas,\nel pie, hace un momento tan veloz, se agarra a raíces perezosas,\nsu cara es una copa de árbol: solo le queda su brillo.\n\nEl dios le dijo: «Ya que no puedes ser mi esposa,\nserás al menos mi árbol. Siempre te llevarán,\nlaurel, mis cabellos, mi lira y mi aljaba».`,verse:1},
+{who:`Gian Lorenzo Bernini · Apolo y Dafne (1622-1625), Galería Borghese, Roma`,h:`La escultura`,ctx:`La veremos proyectada en clase.`,tr:`Bernini talla en mármol el instante exacto de la metamorfosis: Apolo acaba de alcanzar a Dafne y le toca la cintura; a ella le brotan hojas de los dedos y del pelo, la corteza le sube por las piernas y los pies se le hunden en raíces. Ella grita; él todavía no se ha dado cuenta.`},
+{who:`Ezra Pound · «A Girl», en Ripostes (1912)`,h:`Una joven`,ctx:`Pound fue un poeta estadounidense que impulsó el imaginismo: versos sencillos, una sola imagen concentrada.`,lat:`The tree has entered my hands,\nThe sap has ascended my arms,\nThe tree has grown in my breast —\nDownward,\nThe branches grow out of me, like arms.\n\nTree you are,\nMoss you are,\nYou are violets with wind above them.\nA child — so high — you are,\nAnd all this is folly to the world.`,latlab:`Ver el original inglés`,tr:`El árbol ha entrado en mis manos,\nla savia ha subido por mis brazos,\nel árbol ha crecido en mi pecho,\nhacia abajo,\nlas ramas me brotan como brazos.\n\nÁrbol eres,\nmusgo eres,\neres violetas con viento sobre ellas.\nUna niña —así de alta— eres,\ny todo esto es locura para el mundo.`,verse:1}],
+ta:[`Contenido. ¿Quién habla en Ovidio y quién en cada estrofa de Pound? ¿Qué cambia al contar la metamorfosis desde dentro?`,`¿En qué orden se transforma el cuerpo de Dafne en Ovidio? ¿Y en Pound? ¿Qué instante elige Bernini?`,`Forma. Compara la riqueza de detalles de Ovidio con la sencillez de Pound: estrofas, repeticiones («you are»), léxico.`,`Interpretación. ¿Acepta Apolo el «no» de Dafne? ¿Puede leerse la metamorfosis como una forma de libertad? ¿Qué significa «todo esto es locura para el mundo»?`],
+en:`El comentario comparado (1-4), en una página como mínimo.`},
+
+{n:9,t:`El teatro latino`,sp:`Teatro latino`,c:`#e9d8a6`,
+hoy:`Plauto, el rey de la carcajada, y Terencio, el comediógrafo más humano. Apuntes, apartado 5. Al final, cada equipo escribe y representa una escena breve.`,
+tx:[
+{who:`Plauto · La olla (Aulularia)`,h:`El argumento`,ctx:`Una comedia que siglos después copió Molière en El avaro.`,tr:`El viejo Euclión encuentra una olla llena de oro enterrada en su casa y, por miedo a que se la roben, vive aterrorizado: esconde la olla, la cambia de sitio y sospecha de todo el mundo, incluso del cocinero que viene a preparar la boda de su hija. Mientras tanto, su hija espera un hijo de un joven, Licónides. Un esclavo de Licónides descubre el escondite y roba la olla.`},
+{who:`Plauto · La olla, 713-715`,h:`¡Me han robado!`,ctx:`Euclión descubre el robo y sale a escena desesperado, hablando incluso al público.`,lat:`Perii, interii, occidi. Quo curram? Quo non curram? Tene, tene. Quem? Quis?\nNescio, nil video, caecus eo atque equidem quo eam aut ubi sim aut qui sim\nnequeo cum animo certum investigare.`,tr:`¡Estoy perdido, muerto, asesinado! ¿Adónde corro? ¿Adónde no corro? ¡Al ladrón, al ladrón! ¿A quién? ¿Quién?\nNo sé, no veo nada, voy ciego, y no consigo averiguar con seguridad\nadónde voy, dónde estoy ni quién soy.`,verse:1},
+{who:`Terencio · El atormentador de sí mismo, 75-77`,h:`Soy humano`,ctx:`Menedemo reprocha a su vecino Cremes que se meta en asuntos ajenos. La respuesta se hizo inmortal.`,lat:`MENEDEMUS: Chreme, tantumne ab re tuast oti tibi\naliena ut cures ea quae nil ad te attinent?\nCHREMES: Homo sum: humani nil a me alienum puto.`,tr:`MENEDEMO: Cremes, ¿tanto tiempo libre te dejan tus asuntos\nque te ocupas de los ajenos, de lo que no te importa?\nCREMES: Soy hombre: nada de lo humano me es ajeno.`,verse:1}],
+ta:[`¿Qué recursos hacen reír en el monólogo de Euclión? Fíjate en las repeticiones, las preguntas y el desconcierto.`,`¿Qué tipo de personaje es Euclión? Nombra otros tipos fijos de la comedia (el joven enamorado, el esclavo astuto…) y busca un equivalente en una serie actual.`,`Compara a Plauto y a Terencio a partir de los dos textos: ¿cuál busca la risa y cuál la reflexión?`,`Plauto 2.0 (en equipo): escribid en un folio una escena de tres minutos en la que un Euclión de hoy esconda algo que ahora se guarda con angustia (una contraseña, un móvil, unas entradas). Mantened los tipos y el malentendido.`],
+en:`Respuestas 1, 2 y 3. El guion del equipo, en un folio.`},
+
+{n:10,t:`La prosa latina y la Edad Media`,sp:`Prosa latina`,c:`#d9c2b0`,
+hoy:`Historia, oratoria, filosofía, novela y el latín medieval, en una sola sesión. Apuntes, apartado 6.`,
+tx:[
+{who:`Cicerón · Primera Catilinaria, 1-2 (63 a. C.)`,h:`¿Hasta cuándo, Catilina?`,ctx:`Cicerón, cónsul, denuncia en el Senado una conjura para tomar el poder. El jefe, Catilina, está sentado delante de él.`,lat:`Quo usque tandem abutere, Catilina, patientia nostra? Quam diu etiam furor iste tuus nos eludet? Quem ad finem sese effrenata iactabit audacia? […] O tempora, o mores! Senatus haec intellegit, consul videt; hic tamen vivit.`,tr:`¿Hasta cuándo, Catilina, abusarás de nuestra paciencia? ¿Cuánto tiempo seguirá burlándose de nosotros esa locura tuya? ¿Hasta dónde llegará tu desenfrenada osadía? […] ¡Qué tiempos, qué costumbres! El Senado lo sabe, el cónsul lo ve, y sin embargo este hombre sigue vivo.`},
+{who:`Séneca · Epístolas a Lucilio, 1`,h:`Recupérate para ti`,ctx:`La primera carta de Séneca a su amigo Lucilio trata del tiempo.`,lat:`Ita fac, mi Lucili: vindica te tibi, et tempus quod adhuc aut auferebatur aut subripiebatur aut excidebat collige et serva. […] Omnes horas complectere.`,tr:`Hazlo así, querido Lucilio: recupérate para ti mismo, y el tiempo que hasta ahora te arrebataban, te robaban o se te escapaba, recógelo y guárdalo. […] Abraza todas las horas.`},
+{who:`Apuleyo · El asno de oro IV, 28`,h:`Había una vez…`,ctx:`Así empieza la historia de Eros y Psique, el primer «cuento de hadas» de Occidente.`,lat:`Erant in quadam civitate rex et regina. Hi tres numero filias forma conspicuas habuere.`,tr:`Había en cierta ciudad un rey y una reina. Tuvieron tres hijas de notable belleza.`},
+{who:`Apuleyo · Eros y Psique`,h:`La historia completa, en resumen`,ctx:`Para la tarea de los titulares.`,tr:`Psique es tan bella que la gente deja de adorar a Venus. La diosa, celosa, ordena a su hijo Cupido (Eros) que la enamore del ser más miserable, pero Cupido se enamora de ella. Un oráculo manda abandonar a Psique en un monte para un monstruo; el viento la lleva a un palacio donde un esposo invisible la visita cada noche y le prohíbe mirarlo. Sus hermanas, envidiosas, la convencen de que es un monstruo. Una noche, Psique lo ilumina con una lámpara: es Cupido. Una gota de aceite lo quema, él despierta y huye. Psique lo busca por el mundo y Venus le impone pruebas imposibles, la última, bajar a los infiernos por una caja con la belleza de Proserpina. Psique la abre y cae en un sueño mortal. Cupido la despierta, Júpiter la hace inmortal y celebran la boda. Su hija se llamará Placer.`},
+{who:`San Agustín · Confesiones I, 1 (c. 400)`,h:`Un corazón inquieto`,ctx:`La primera gran autobiografía interior empieza hablando con Dios.`,lat:`Fecisti nos ad te, et inquietum est cor nostrum donec requiescat in te.`,tr:`Nos hiciste para ti, y nuestro corazón está inquieto hasta que descanse en ti.`},
+{who:`Carmina Burana (manuscrito del s. XIII)`,h:`Oh Fortuna`,ctx:`El poema goliardo que Carl Orff convirtió en 1937 en una de las músicas más usadas en el cine.`,lat:`O Fortuna,\nvelut luna\nstatu variabilis,\nsemper crescis\naut decrescis;\nvita detestabilis\nnunc obdurat\net tunc curat\nludo mentis aciem,\negestatem,\npotestatem\ndissolvit ut glaciem.`,tr:`Oh Fortuna,\ncomo la luna,\ncambiante de estado,\nsiempre creces\no menguas;\nla vida detestable\nahora endurece\ny luego cuida\njugando con nuestra mente;\nla pobreza\ny el poder\nlos derrite como el hielo.`,verse:1}],
+ta:[`Titulares: escribe tres titulares de periódico sobre la historia de Eros y Psique (uno de prensa seria, uno sensacionalista y uno deportivo o de humor). Después explica qué representan Eros y Psique.`,`Catilinaria: ¿qué efecto tienen las tres preguntas seguidas y la exclamación «O tempora, o mores»?`,`Escribe dos máximas propias al estilo de Séneca, breves y sentenciosas, sobre el tiempo y sobre el amor.`,`¿Con qué compara el poeta a la Fortuna? ¿Qué idea de la vida transmite?`],
+en:`Los titulares con su explicación (1) y las dos máximas (3).`},
+
+{n:11,t:`Taller de la biblioteca`,sp:`Taller`,c:`#c9d6ea`,
+hoy:`Cada equipo elabora en papel sus tres fichas de préstamo. Consulta en Biblioteca ideal las seis partes de la ficha y el reparto de roles.`,
+tx:[],ta:[`Elegid definitivamente vuestros tres fragmentos (podéis sacarlos de las sesiones 1-10).`,`Cada alumna redacta y firma al menos un comentario completo.`,`Preparad el diseño de cada ficha en un folio A4: a mano, con dibujos, collage o texto impreso.`],
+en:`Los borradores de las tres fichas, para que la profesora los corrija.`},
+
+{n:12,t:`Inauguración de la biblioteca`,sp:`Inauguración`,c:`#e6c8a0`,
+hoy:`Cada equipo presenta sus fichas en tres minutos y lee en voz alta uno de sus fragmentos. Las fichas se exponen en la biblioteca del colegio.`,
+tx:[],ta:[`Completa en tu cuaderno: «Ahora pienso que los clásicos…» y compáralo con lo que escribiste en la sesión 1.`,`Rellena la diana de autoevaluación que te dará la profesora.`],
+en:`Las fichas definitivas (en papel), la rutina y la diana.`},
+
+{n:13,t:`Prueba escrita`,sp:`Prueba`,c:`#cfd8c4`,
+hoy:`Prueba de 55 minutos en papel: preguntas de teoría y comentario de un fragmento de la Eneida que te dará la profesora. Para prepararla, repasa Apuntes y Cómo comentar.`,
+tx:[],ta:[`Repasa los conceptos de la tragedia, los tópicos y qué escribió cada autor.`,`Practica el comentario en seis pasos con algún fragmento de la sesión 5 o la 6.`],en:`La prueba.`}
 ];
-const A=[
- {s:1,who:'Homero · Odisea, canto XVII',h:'Argos reconoce a Odiseo',ctx:'Odiseo vuelve a Ítaca disfrazado de mendigo tras veinte años. Nadie lo reconoce. Nadie, salvo su perro.',tr:'Allí yacía el perro Argos, lleno de garrapatas. En cuanto notó que Odiseo estaba cerca, movió la cola y dejó caer las orejas, pero ya no tuvo fuerzas para acercarse a su amo. Odiseo, volviendo la cara, se secó una lágrima sin que Eumeo lo viera. Y a Argos se lo llevó el destino de la negra muerte nada más ver a Odiseo, después de veinte años.',q:['¿Por qué Odiseo tiene que esconder la lágrima?','¿Qué nos dice esta escena sobre la fidelidad y el paso del tiempo?']},
- {s:2,who:'Eurípides · Medea (431 a. C.)',h:'«Tres veces junto al escudo»',ctx:'Medea, abandonada por Jasón, habla al coro de mujeres de Corinto sobre la condición femenina.',tr:'Dicen que nosotras llevamos en casa una vida sin peligros, mientras ellos luchan con la lanza. ¡Qué mal razonan! Preferiría estar tres veces en primera línea con el escudo que dar a luz una sola vez.',q:['¿Contra qué idea de su tiempo protesta Medea?','¿Te parece un discurso actual? ¿Por qué Eurípides fue tan polémico?']},
- {s:2,who:'Sófocles · Antígona (c. 441 a. C.)',h:'Dos frases de Antígona',ctx:'Antígona desafía al rey Creonte para enterrar a su hermano. La primera frase la canta el coro; la segunda la dice ella.',tr:'Muchas cosas hay asombrosas, pero ninguna más asombrosa que el ser humano.\n\nNo nací para compartir el odio, sino el amor.',verse:1,q:['¿Por qué el ser humano es «asombroso» y a la vez peligroso?','¿Qué ley obedece Antígona: la del rey o la de su conciencia?']},
- {s:3,who:'Aristóteles · Poética (s. IV a. C.)',h:'Qué es una tragedia',ctx:'La definición más citada de la historia de la teoría literaria.',tr:'La tragedia es la imitación de una acción seria y completa, de cierta extensión, en un lenguaje embellecido, representada por personajes que actúan y no narrada, y que, mediante la compasión y el temor, lleva a cabo la purificación de esas emociones.',q:['Localiza en la definición la palabra que corresponde a «catarsis».','¿Qué película o serie te ha producido «compasión y temor»?']},
- {s:4,who:'Heródoto · Historia, proemio (s. V a. C.)',h:'Para que no se olvide',ctx:'Así comienza el primer libro de historia de Occidente.',tr:'Esta es la exposición de la investigación de Heródoto de Halicarnaso, para que con el tiempo no se borre el recuerdo de lo que hicieron los hombres, y para que las grandes y admirables hazañas de griegos y bárbaros no queden sin gloria.',q:['¿Para qué escribe Heródoto? ¿Coincide con lo que hoy esperamos de un historiador?']},
- {s:4,who:'Platón · Apología de Sócrates (s. IV a. C.)',h:'Una vida sin examen',ctx:'Sócrates, condenado a muerte, se niega a dejar de hacer preguntas.',tr:'Una vida sin examen no merece ser vivida por el ser humano.',q:['¿Qué significa «examinar» la propia vida?']},
- {s:5,who:'Virgilio · Eneida I, 1-7',h:'Canto las armas y al héroe',ctx:'El comienzo de la epopeya nacional de Roma. Fíjate en cuánto dice en siete versos.',lat:'Arma virumque cano, Troiae qui primus ab oris\nItaliam, fato profugus, Laviniaque venit\nlitora, multum ille et terris iactatus et alto\nvi superum saevae memorem Iunonis ob iram;\nmulta quoque et bello passus, dum conderet urbem,\ninferretque deos Latio, genus unde Latinum,\nAlbanique patres, atque altae moenia Romae.',tr:'Canto las armas y al hombre que, el primero, desde las costas de Troya,\nprófugo por el destino, llegó a Italia y a las playas\nde Lavinio, muy zarandeado por tierra y por mar\npor la fuerza de los dioses, por la ira rencorosa de la cruel Juno;\nque mucho sufrió también en la guerra, hasta fundar una ciudad\ny llevar sus dioses al Lacio: de ahí la raza latina,\nlos padres albanos y las murallas de la alta Roma.',verse:1,q:['Localiza el tema, el héroe, la enemiga y la meta del viaje.','¿Qué palabra pone la última piedra de la frase? ¿Por qué ahí?']},
- {s:6,who:'Virgilio · Eneida IV, 305-308 y 653-654',h:'Dido',ctx:'Dido descubre que Eneas se marcha a escondidas. Después, antes de morir, mira su propia vida.',lat:'Dissimulare etiam sperasti, perfide, tantum\nposse nefas tacitusque mea decedere terra?\nNec te noster amor nec te data dextera quondam\nnec moritura tenet crudeli funere Dido?\n\nVixi et quem dederat cursum Fortuna peregi,\net nunc magna mei sub terras ibit imago.',tr:'¿Esperabas, traidor, poder ocultar tanta infamia\ny marcharte de mi tierra en silencio?\n¿No te retiene nuestro amor, ni la mano que un día me diste,\nni Dido, que va a morir de una muerte cruel?\n\nHe vivido, y he recorrido el camino que la Fortuna me dio,\ny ahora una gran imagen de mí bajará bajo la tierra.',verse:1,q:['Cuenta las negaciones de la primera parte. ¿Qué efecto producen?','¿Cómo se ve Dido a sí misma al final: como víctima o como reina?']},
- {s:6,who:'Virgilio · Eneida VI, 851-853',h:'La misión de Roma',ctx:'Anquises, en los infiernos, revela a su hijo el destino de su pueblo. Lo comentarás en la prueba.',lat:'Tu regere imperio populos, Romane, memento\n(hae tibi erunt artes), pacisque imponere morem,\nparcere subiectis et debellare superbos.',tr:'Tú, romano, recuerda gobernar a los pueblos con tu poder\n(estas serán tus artes), imponer la costumbre de la paz,\nperdonar a los sometidos y derrotar a los soberbios.',verse:1,q:['¿Qué «artes» reserva Virgilio a Roma? ¿Por qué es un texto político?']},
- {s:7,who:'Catulo · Poema 5',h:'Vivamos, Lesbia mía',ctx:'El poema de amor más famoso de Roma.',lat:'Vivamus, mea Lesbia, atque amemus,\nrumoresque senum severiorum\nomnes unius aestimemus assis!\nSoles occidere et redire possunt:\nnobis cum semel occidit brevis lux,\nnox est perpetua una dormienda.\nDa mi basia mille, deinde centum,\ndein mille altera, dein secunda centum,\ndeinde usque altera mille, deinde centum.\nDein, cum milia multa fecerimus,\nconturbabimus illa, ne sciamus,\naut ne quis malus invidere possit,\ncum tantum sciat esse basiorum.',tr:'Vivamos, Lesbia mía, y amemos,\ny las habladurías de los viejos tan severos\nvalorémoslas todas en un céntimo.\nLos soles pueden ponerse y volver:\nnosotros, cuando se apague de una vez nuestra breve luz,\ntendremos que dormir una sola noche eterna.\nDame mil besos, después cien,\nluego otros mil, luego otros cien,\ndespués otros mil más, después cien.\nLuego, cuando sumemos muchos miles,\nlos embrollaremos para no saber la cuenta\no para que ningún envidioso pueda echarnos mal de ojo\nal saber que hay tantos besos.',verse:1,q:['¿Qué tópico aparece en los versos 4-6?','¿Por qué hay que «embrollar» la cuenta de los besos?']},
- {s:7,who:'Catulo · Poema 85',h:'Odio y amo',ctx:'Dos versos que caben en un tatuaje.',lat:'Odi et amo. Quare id faciam, fortasse requiris.\nNescio, sed fieri sentio et excrucior.',tr:'Odio y amo. ¿Por qué lo hago?, quizá preguntes.\nNo lo sé, pero siento que ocurre y me atormento.',verse:1,q:['El poema no tiene ni un adjetivo. ¿Por qué?']},
- {s:7,who:'Horacio · Odas I, 11',h:'Carpe diem',ctx:'Horacio aconseja a Leucónoe, que consulta a los astrólogos.',lat:'Tu ne quaesieris, scire nefas, quem mihi, quem tibi\nfinem di dederint, Leuconoe, nec Babylonios\ntemptaris numeros. Ut melius, quidquid erit, pati!\nSeu pluris hiemes seu tribuit Iuppiter ultimam,\nquae nunc oppositis debilitat pumicibus mare\nTyrrhenum, sapias, vina liques et spatio brevi\nspem longam reseces. Dum loquimur, fugerit invida\naetas: carpe diem, quam minimum credula postero.',tr:'No preguntes, Leucónoe (no está permitido saberlo), qué final\nnos han dado los dioses a ti y a mí, ni consultes\nlos cálculos babilonios. ¡Cuánto mejor aceptar lo que venga!\nTanto si Júpiter nos concede más inviernos como si este es el último,\neste que ahora rompe el mar Tirreno contra las rocas,\nsé sensata, filtra el vino y, en un tiempo tan breve,\ncorta la esperanza larga. Mientras hablamos, habrá huido el tiempo\nenvidioso: aprovecha el día y no te fíes nada del mañana.',verse:1,q:['¿Qué significa «cortar la esperanza larga»?','¿Es el carpe diem una invitación a la fiesta o a la sensatez?']},
- {s:7,who:'Horacio · Épodo II, 1-8',h:'Beatus ille',ctx:'El elogio de la vida en el campo. Ojo: lo pronuncia un usurero.',lat:'Beatus ille qui procul negotiis,\nut prisca gens mortalium,\npaterna rura bubus exercet suis\nsolutus omni faenore,\nneque excitatur classico miles truci\nneque horret iratum mare,\nforumque vitat et superba civium\npotentiorum limina.',tr:'Dichoso aquel que, lejos de los negocios,\ncomo la antigua raza de los mortales,\nlabra los campos de su padre con sus propios bueyes,\nlibre de toda usura;\nque no se despierta, como el soldado, con la trompeta feroz\nni teme el mar embravecido,\ny evita el foro y los soberbios\numbrales de los ciudadanos poderosos.',verse:1,q:['¿Qué vidas se rechazan? Haz una lista.','Compara con la versión de Fray Luis en el libro (p. 67).']},
- {s:7,who:'Horacio · Odas III, 30',h:'Un monumento más duradero que el bronce',ctx:'Horacio cierra sus tres primeros libros de odas convencido de su inmortalidad.',lat:'Exegi monumentum aere perennius\nregalique situ pyramidum altius,\nquod non imber edax, non Aquilo impotens\npossit diruere aut innumerabilis\nannorum series et fuga temporum.\nNon omnis moriar…',tr:'He levantado un monumento más duradero que el bronce\ny más alto que la regia mole de las pirámides,\nque ni la lluvia voraz ni el desatado Aquilón\npodrán derribar, ni la innumerable\nsucesión de los años ni la huida del tiempo.\nNo moriré del todo…',verse:1,q:['¿Tenía razón Horacio? Lo estás leyendo dos mil años después.']},
- {s:8,who:'Ovidio · Metamorfosis I, 548-552 y 557-559',h:'Dafne se convierte en laurel',ctx:'Dafne, perseguida por Apolo, pide ayuda a su padre. Compáralo con la escultura de Bernini (libro, p. 73).',lat:'Vix prece finita torpor gravis occupat artus,\nmollia cinguntur tenui praecordia libro,\nin frondem crines, in ramos bracchia crescunt,\npes modo tam velox pigris radicibus haeret,\nora cacumen habet: remanet nitor unus in illa.\n\nCui deus «At quoniam coniunx mea non potes esse,\narbor eris certe» dixit «mea! Semper habebunt\nte coma, te citharae, te nostrae, laure, pharetrae.»',tr:'Apenas termina su súplica, un pesado entumecimiento se apodera de sus miembros,\nsu blando pecho se ciñe de una fina corteza,\nsus cabellos se convierten en hojas, sus brazos en ramas,\nel pie, hace un momento tan veloz, se agarra a raíces perezosas,\nsu cara es una copa de árbol: solo le queda su brillo.\n\nEl dios le dijo: «Ya que no puedes ser mi esposa,\nserás al menos mi árbol. Siempre te llevarán,\nlaurel, mis cabellos, mi lira y mi aljaba».',verse:1,q:['¿En qué orden se transforma el cuerpo? ¿Qué parte elige Bernini?','¿Apolo acepta el «no» de Dafne?']},
- {s:9,who:'Plauto · La olla (Aulularia), 713-715',h:'¡Me han robado!',ctx:'Euclión descubre que le han robado la olla de oro. Molière copió este monólogo en El avaro.',lat:'Perii, interii, occidi. Quo curram? Quo non curram? Tene, tene. Quem? Quis?\nNescio, nil video, caecus eo atque equidem quo eam aut ubi sim aut qui sim\nnequeo cum animo certum investigare.',tr:'¡Estoy perdido, muerto, asesinado! ¿Adónde corro? ¿Adónde no corro? ¡Al ladrón, al ladrón! ¿A quién? ¿Quién?\nNo sé, no veo nada, voy ciego, y no consigo averiguar con seguridad\nadónde voy, dónde estoy ni quién soy.',verse:1,q:['¿Qué recursos hacen reír? Fíjate en las repeticiones y las preguntas.','Recítalo en voz alta como lo haría un actor.']},
- {s:9,who:'Terencio · El atormentador de sí mismo, 75-77',h:'Soy humano',ctx:'Menedemo reprocha a su vecino Cremes que se meta en asuntos ajenos. La respuesta se hizo inmortal.',lat:'MENEDEMUS: Chreme, tantumne ab re tuast oti tibi\naliena ut cures ea quae nil ad te attinent?\nCHREMES: Homo sum: humani nil a me alienum puto.',tr:'MENEDEMO: Cremes, ¿tanto tiempo libre te dejan tus asuntos\nque te ocupas de los ajenos, de lo que no te importa?\nCREMES: Soy hombre: nada de lo humano me es ajeno.',verse:1,q:['¿Es Cremes un entrometido o una persona solidaria?']},
- {s:10,who:'Cicerón · Primera Catilinaria, 1-2 (63 a. C.)',h:'¿Hasta cuándo, Catilina?',ctx:'Cicerón, cónsul, denuncia en el Senado la conjura de Catilina, que está sentado delante de él.',lat:'Quo usque tandem abutere, Catilina, patientia nostra? Quam diu etiam furor iste tuus nos eludet? Quem ad finem sese effrenata iactabit audacia? […] O tempora, o mores! Senatus haec intellegit, consul videt; hic tamen vivit.',tr:'¿Hasta cuándo, Catilina, abusarás de nuestra paciencia? ¿Cuánto tiempo seguirá burlándose de nosotros esa locura tuya? ¿Hasta dónde llegará tu desenfrenada osadía? […] ¡Qué tiempos, qué costumbres! El Senado lo sabe, el cónsul lo ve, y sin embargo este hombre sigue vivo.',q:['¿Qué efecto tienen las tres preguntas seguidas?','¿Qué político actual habla así?']},
- {s:10,who:'Séneca · Epístolas a Lucilio, 1',h:'Recupérate para ti',ctx:'La primera carta de Séneca a su amigo Lucilio trata del tiempo.',lat:'Ita fac, mi Lucili: vindica te tibi, et tempus quod adhuc aut auferebatur aut subripiebatur aut excidebat collige et serva. […] Omnes horas complectere.',tr:'Hazlo así, querido Lucilio: recupérate para ti mismo, y el tiempo que hasta ahora te arrebataban, te robaban o se te escapaba, recógelo y guárdalo. […] Abraza todas las horas.',q:['¿Quién o qué te «roba» el tiempo a ti?']},
- {s:10,who:'Apuleyo · El asno de oro IV, 28',h:'Había una vez…',ctx:'Así empieza la historia de Eros y Psique, el primer «cuento de hadas» de Occidente.',lat:'Erant in quadam civitate rex et regina. Hi tres numero filias forma conspicuas habuere.',tr:'Había en cierta ciudad un rey y una reina. Tuvieron tres hijas de notable belleza.',q:['¿Qué cuentos que conoces empiezan así? ¿Qué tienen en común con Psique?']},
- {s:10,who:'San Agustín · Confesiones I, 1 (c. 400)',h:'Un corazón inquieto',ctx:'La primera autobiografía interior de la literatura empieza hablando con Dios.',lat:'Fecisti nos ad te, et inquietum est cor nostrum donec requiescat in te.',tr:'Nos hiciste para ti, y nuestro corazón está inquieto hasta que descanse en ti.',q:['¿Por qué se dice que las Confesiones inventan la autobiografía?']},
- {s:10,who:'Carmina Burana (s. XIII)',h:'Oh Fortuna',ctx:'El poema goliardo que Carl Orff convirtió en la música más usada en tráileres de cine.',lat:'O Fortuna,\nvelut luna\nstatu variabilis,\nsemper crescis\naut decrescis;\nvita detestabilis\nnunc obdurat\net tunc curat\nludo mentis aciem,\negestatem,\npotestatem\ndissolvit ut glaciem.',tr:'Oh Fortuna,\ncomo la luna,\ncambiante de estado,\nsiempre creces\no menguas;\nla vida detestable\nahora endurece\ny luego cuida\njugando con nuestra mente;\nla pobreza\ny el poder\nlos derrite como el hielo.',verse:1,q:['Escucha el «O Fortuna» de Orff. ¿Encaja la música con el texto?']}
-];
+
 const M=[
  {h:'§ 20 · La definición',lat:'Est enim amicitia nihil aliud nisi omnium divinarum humanarumque rerum cum benevolentia et caritate consensio.',tr:'La amistad no es otra cosa que el acuerdo en todas las cosas divinas y humanas, unido a la benevolencia y al cariño.'},
  {h:'§ 18 · Solo entre buenos',lat:'Sed hoc primum sentio, nisi in bonis amicitiam esse non posse.',tr:'Pero ante todo pienso esto: que la amistad no puede existir más que entre personas buenas.'},
@@ -274,16 +361,20 @@ const M=[
  {h:'§ 89 · La verdad molesta',lat:'Obsequium amicos, veritas odium parit.',tr:'La complacencia crea amigos; la verdad, odio. (Cicerón cita aquí La andriana de Terencio, ¡que ya conocéis!)'},
  {h:'§ 104 · La conclusión',lat:'Vos autem hortor ut ita virtutem locetis, sine qua amicitia esse non potest, ut ea excepta nihil amicitia praestabilius putetis.',tr:'Os exhorto a que deis a la virtud, sin la cual no puede haber amistad, tal lugar que, exceptuándola a ella, no consideréis nada más valioso que la amistad.'}
 ];
-const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
-const done=id=>store.get('cpv-'+id)==='1';
-const shelf=document.getElementById('shelf');
+
+const extra=[{n:14,t:`De amicitia I`,c:`#d8b9c3`},{n:15,t:`De amicitia II`,c:`#d9c2b0`},{n:16,t:`Sobre la amistad`,c:`#a4262c`,f:1}];
+const all=S.concat(extra);
 const hs=[300,330,290,345,315,300,335,295,320,340,300,325,290,335,315,360];
-shelf.innerHTML=S.map((s,i)=>`<a class="spine${s.f?' final':''}${done(s.n)?' done':''}" id="sp${s.n}" href="#${s.n>=14?'amicitia':(A.some(a=>a.s===s.n)?'ses'+s.n:'ruta')}" style="height:${Math.round(hs[i]*0.62)}px;background:${s.c}" title="Sesión ${s.n}: ${s.t}">${s.n}<span>${s.sp||s.t}</span></a>`).join('');
-document.getElementById('route').innerHTML=S.map(s=>`<li><input type="checkbox" id="c${s.n}" ${done(s.n)?'checked':''} aria-label="Sesión ${s.n} entregada"><label for="c${s.n}"><b>Sesión ${s.n}. ${s.t}</b><br>${s.d}</label></li>`).join('');
-document.getElementById('route').addEventListener('change',e=>{const n=e.target.id.slice(1);store.set('cpv-'+n,e.target.checked?'1':'0');const sp=document.getElementById('sp'+n);if(sp)sp.classList.toggle('done',e.target.checked)});
-let last=0;
-document.getElementById('anth').innerHTML=A.map(a=>{let head='';if(a.s!==last){last=a.s;const s=S.find(x=>x.n===a.s);head=`<div class="sess" id="ses${a.s}">Sesión ${a.s} · ${s.t}</div>`}
- return head+`<article class="frag"><div class="who">${a.who}</div><h4>${a.h}</h4><p style="margin:.2em 0">${a.ctx}</p><blockquote class="${a.verse?'verse':''}">${a.tr.replace(/\n/g,'<br>')}</blockquote>${a.lat?`<details><summary>Ver el original latino</summary><p class="lat">${a.lat}</p></details>`:''}<ul class="think">${a.q.map(q=>`<li>${q}</li>`).join('')}</ul></article>`}).join('');
+document.getElementById('shelf').innerHTML=all.map((s,i)=>`<a class="spine${s.f?' final':''}" href="#${s.n>=14?'amicitia':'s'+s.n}" style="height:${Math.round(hs[i]*0.62)}px;background:${s.c}" title="Sesión ${s.n}: ${s.t}">${s.n}<span>${s.sp||s.t}</span></a>`).join('');
+document.getElementById('toc').innerHTML=all.map(s=>`<li><a href="#${s.n>=14?'amicitia':'s'+s.n}">${s.t}</a></li>`).join('');
+const br=t=>t.replace(/\n/g,'<br>');
+document.getElementById('sessions').innerHTML=S.map(s=>`<section id="s${s.n}" class="band session"><div class="wrap read">
+<div class="num">Sesión ${s.n} de 16</div><h2>${s.t}</h2>
+<h3>Hoy</h3><p>${s.hoy}</p>
+${s.tx.length?'<h3>Los textos</h3>'+s.tx.map(a=>`<article class="frag"><div class="who">${a.who}</div><h4>${a.h}</h4><p style="margin:.2em 0">${a.ctx}</p><blockquote class="${a.verse?'verse':''}">${br(a.tr)}</blockquote>${a.lat?`<details><summary>${a.latlab||'Ver el original latino'}</summary><p class="lat">${br(a.lat)}</p></details>`:''}</article>`).join(''):''}
+<h3>En tu cuaderno</h3><ol class="tasks">${s.ta.map(t=>`<li>${t}</li>`).join('')}</ol>
+<p class="deliver"><b>Entrega:</b> ${s.en}</p>
+</div></section>`).join('');
 document.getElementById('amic').innerHTML=M.map(m=>`<article class="frag"><h4>${m.h}</h4><blockquote>${m.tr}</blockquote><details><summary>Ver el original latino</summary><p class="lat">${m.lat}</p></details></article>`).join('');
 }
 </script>
