@@ -78,6 +78,14 @@ footer{background:var(--band);color:#d6deee;font-size:14px}
 .tasks{background:var(--panel);border-radius:10px;padding:16px 20px 16px 40px}
 .tasks li{margin:.45em 0}
 .deliver{border-left:4px solid var(--red);padding:6px 14px;margin:16px 0;font-size:16px}
+.steps{list-style:none;padding:0;margin:0 0 10px}
+.steps li{display:grid;grid-template-columns:72px minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.steps .min{font:700 15px Archivo,Arial,sans-serif;color:var(--red);white-space:nowrap}
+.act{border:2px solid var(--blue);border-radius:10px;padding:18px 22px;margin:20px 0}
+:root[data-theme=dark] .act{border-color:#9fb6e6}
+.act h4{font:600 22px Cinzel,serif;margin:0 0 .5em}
+.act ol,.act ul{padding-left:1.3em}.act li{margin:.35em 0}
+.lab{margin:14px 0 6px}
 </style>
 <script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
 </head>
@@ -207,10 +215,19 @@ footer{background:var(--band);color:#d6deee;font-size:14px}
   <tr><td>Sesión 15</td><td>Pasajes clave</td><td>Lectura en voz alta de los pasajes de abajo, con el latín</td><td>Elige tu pasaje favorito y explica por qué</td></tr>
   <tr><td>Sesión 16</td><td>Obra completa</td><td>Tertulia dialógica y entrega final</td><td>Entrega: «Sobre la amistad, 2026»</td></tr>
   </tbody></table>
+  <h3>Cómo es la tertulia dialógica (sesión 16)</h3>
+  <ol>
+    <li>Cada alumna trae marcado en su texto un pasaje que le haya hecho pensar.</li>
+    <li>Nos sentamos en círculo. La moderadora (al principio, la profesora) da los turnos.</li>
+    <li>Cada una lee su pasaje en voz alta, dice en qué parágrafo está y explica en un minuto por qué lo ha elegido.</li>
+    <li>Las demás pueden responder levantando la mano: estar de acuerdo, discrepar o relacionarlo con otro pasaje o con su vida.</li>
+    <li>Normas: se habla de una en una, se respeta la opinión ajena y lo que se dice se apoya en el texto.</li>
+    <li>En los últimos 15 minutos leemos en voz alta algunos diálogos «Sobre la amistad, 2026».</li>
+  </ol>
   <h3>Pasajes clave</h3>
   <div id="amic"></div>
   <h3>Entrega final: «Sobre la amistad, 2026»</h3>
-  <p>Escribe por parejas un diálogo breve (500-700 palabras) entre dos amigas de hoy que, tras un desengaño, hablan sobre qué es un amigo de verdad. Debe incluir al menos tres ideas de Cicerón citadas o reconocibles, un desacuerdo entre ellas y una conclusión. Se leerán en voz alta en la sesión 16.</p>
+  <p>Escribe por parejas un diálogo breve (500-700 palabras) entre dos amigas de hoy que, tras un desengaño, hablan sobre qué es un amigo de verdad. Debe incluir al menos tres ideas de Cicerón citadas o reconocibles, un desacuerdo entre ellas y una conclusión. Se escribe en casa, en papel, durante la segunda semana de lectura, y se leerán en voz alta en la sesión 16.</p>
   <h3>¿Y si no es Cicerón?</h3>
   <p>Si la profesora lo indica, podéis leer en su lugar otra obra breve: Séneca, <i>Sobre la brevedad de la vida</i> (sobre cómo usamos el tiempo; continúa los pasajes de la sesión 10); Platón, <i>Apología de Sócrates</i> (el juicio y la defensa del filósofo); o Plauto, <i>La olla</i> (lectura dramatizada por equipos).</p>
 </div></section>
@@ -352,6 +369,79 @@ hoy:`Prueba de 55 minutos en papel: preguntas de teoría y comentario de un frag
 tx:[],ta:[`Repasa los conceptos de la tragedia, los tópicos y qué escribió cada autor.`,`Practica el comentario en seis pasos con algún fragmento de la sesión 5 o la 6.`],en:`La prueba.`}
 ];
 
+const P={
+1:{pasos:[[10,`<b>El muro.</b> En la pizarra hay diez frases. Pega un gomet en cada una: verde si crees que se escribió después del año 2000, rojo si crees que es anterior a 1900. En un pos-it escribe quién podría publicarla hoy. En silencio.`],[10,`<b>La revelación.</b> Todas son clásicas. Con tu equipo, emparejad cada frase con su autor en la hoja que os da la profesora. Corregimos en voz alta.`],[10,`<b>Argos.</b> Leemos en voz alta el fragmento de la Odisea. Respondes la tarea 1 en tu cuaderno.`],[12,`<b>Rastreadoras de latín.</b> Mira las instrucciones de abajo.`],[13,`<b>El reto.</b> La profesora presenta la biblioteca ideal y sorteamos los bloques entre los equipos.`]],
+act:{t:`Rastreadoras de latín`,h:`<ol><li>Cinco minutos: con tu equipo, buscad a vuestro alrededor (mochilas, ropa, marcas, el móvil, el aula) palabras, marcas o nombres que vengan del latín o del griego.</li><li>Apuntadlos en la hoja de equipo y escribid qué creéis que significan.</li><li>Siete minutos: cada equipo dice sus hallazgos. Gana el equipo con más orígenes correctos.</li><li>Pistas si os atascáis: Nike, Audi, Volvo, Ajax, Pandora, Asics; ultimátum, déficit, currículum, quórum, ipso facto.</li></ol>`},
+extra:`<details><summary>Las diez frases (ábrelo solo cuando lo diga la profesora)</summary><ol><li>«Vive hoy. No te fíes nada del mañana.» Horacio, <i>Odas</i> I, 11: <i>carpe diem, quam minimum credula postero</i>.</li><li>«Te odio y te quiero…» Catulo, poema 85: <i>odi et amo</i>.</li><li>«Soy humana: nada de lo humano me es ajeno.» Terencio: <i>homo sum, humani nil a me alienum puto</i>.</li><li>«El ser humano es un lobo para el ser humano.» Plauto, <i>Asinaria</i>: <i>lupus est homo homini</i>.</li><li>«Enseñando es como más se aprende.» Séneca: <i>homines dum docent discunt</i>.</li><li>«Gota a gota se agujerea la piedra.» Ovidio: <i>gutta cavat lapidem</i>.</li><li>«La suerte está de parte de las que se atreven.» Virgilio, <i>Eneida</i>: <i>audentes fortuna iuvat</i>.</li><li>«El amor lo vence todo.» Virgilio, <i>Bucólicas</i>: <i>omnia vincit Amor</i>.</li><li>«No vivimos como queremos, sino como podemos.» Menandro.</li><li>«La historia es la maestra de la vida.» Cicerón: <i>historia magistra vitae</i>.</li></ol></details>`,
+clase:[`Argos: ¿por qué crees que Odiseo tiene que esconder la lágrima?`,`«Antes pensaba que los clásicos…»: completa con tres o cuatro líneas sinceras.`,`Copia la frase que te tatuarías y explica en una línea por qué.`],casa:[],
+en:`Las tres respuestas, en la primera página del cuaderno, antes de salir.`},
+
+2:{pasos:[[10,`<b>Teoría.</b> La profesora explica la tragedia y sus conceptos (Apuntes, apartado 1) y leemos las dos frases de Antígona como ejemplo de heroína trágica. Anota los conceptos: los necesitarás para la tarea de casa 3.`],[12,`<b>Las bacantes.</b> Leemos en voz alta el fragmento y el final. Comentamos oralmente las tareas de casa 1 y 2.`],[30,`<b>Juicio a Medea.</b> Leemos el argumento y el fragmento de Medea, y celebramos el juicio. Instrucciones abajo.`],[3,`<b>Cierre.</b> ¿Por qué Eurípides no castiga a Medea y la saca de escena en el carro del Sol?`]],
+act:{t:`Juicio a Medea (30 minutos)`,h:`<p><b>La acusación:</b> Medea está acusada de matar a la princesa de Corinto, al rey Creonte y a sus propios hijos. El tribunal debe decidir si es <b>culpable</b>, si es <b>víctima</b> o si es <b>las dos cosas</b>.</p><p><b>Papeles (uno por equipo):</b></p><ul><li><b>Fiscalía:</b> acusa a Medea. Debe demostrar que actuó con premeditación.</li><li><b>Defensa:</b> defiende a Medea. Debe explicar qué la llevó a actuar así.</li><li><b>Jasón:</b> testigo. Declara en primera persona: cómo conoció a Medea y por qué la dejó.</li><li><b>La nodriza:</b> testigo. Conoce a Medea desde niña: cuenta lo que ha sacrificado por Jasón y cómo está desde el abandono.</li><li><b>Jurado:</b> prepara una pregunta para cada parte y los criterios con los que va a decidir.</li></ul><p><b>Desarrollo:</b></p><ol><li><b>Lectura (3 min).</b> Leemos el argumento de Medea y el fragmento «Tres veces junto al escudo».</li><li><b>Preparación (8 min).</b> Cada equipo escribe en un folio tres argumentos sacados de los textos (los testigos, su declaración; el jurado, sus preguntas). Elegid a una portavoz.</li><li><b>Juicio (15 min).</b> Habla la fiscalía (2 min) y después la defensa (2 min). Declara Jasón (1 min) y el jurado le hace su pregunta. Declara la nodriza (1 min) y el jurado le hace su pregunta. Réplica de la fiscalía (1 min) y de la defensa (1 min).</li><li><b>Veredicto (4 min).</b> El jurado delibera en voz alta delante de la clase y da el veredicto con una razón.</li></ol><p>El folio con los argumentos se entrega al final: lleva el nombre de todas las integrantes del equipo.</p>`},
+clase:[`Folio del equipo para el juicio: tres argumentos (o la declaración, o las preguntas del jurado).`],
+casa:[`Penteo: ¿qué ha descubierto al volver? ¿Por qué se enfrenta a Dioniso? Cita sus palabras.`,`¿Qué le aconseja Tiresias? Relaciona su consejo con la <i>hybris</i>.`,`Define en una línea, con un ejemplo de las obras de hoy: <i>hybris</i>, <i>hamartía</i>, <i>anagnórisis</i>, catarsis y <i>deus ex machina</i>. (En Las bacantes: ¿cuál es la hamartía de Penteo? ¿Quién sufre la anagnórisis?)`],
+en:`El folio del juicio, hoy. Las tres tareas de casa, al empezar la sesión 3.`},
+
+3:{pasos:[[10,`<b>Teoría.</b> La profesora explica la comedia antigua y la nueva (Apuntes, apartado 1, «La comedia»). Leemos la definición de tragedia de Aristóteles para comparar.`],[10,`<b>Lectura dramatizada de Las nubes.</b> Dos voluntarias leen a Estrepsíades y a Sócrates; la profesora lee la situación. Se repite con otras dos.`],[15,`<b>Por parejas:</b> tareas de clase 1 y 2.`],[15,`<b>En equipo:</b> la tabla comparativa (tarea de clase 3). Cada equipo dice en voz alta una diferencia.`],[5,`<b>Cierre.</b> La máxima de Menandro: ¿es triste o sabia?`]],
+clase:[`¿Qué resulta cómico en la escena de Las nubes? Señala al menos tres recursos (la situación, el lenguaje, los personajes).`,`¿A quién ridiculiza Aristófanes? ¿Te parece justo con Sócrates?`,`Tabla de dos columnas: comedia antigua (Aristófanes) y comedia nueva (Menandro). Compáralas en temas, personajes, finalidad y lenguaje.`],
+casa:[`¿Qué palabra de la definición de Aristóteles corresponde a la catarsis? ¿Qué película o serie te ha producido «compasión y temor»? Explícalo en cinco líneas.`],
+en:`Tareas de clase 1, 2 y 3, al final de la sesión.`},
+
+4:{pasos:[[10,`<b>Teoría.</b> La profesora presenta los géneros en prosa (Apuntes, apartado 2).`],[15,`<b>Puzle de textos.</b> Cada equipo lee uno de los textos y prepara una exposición. Instrucciones abajo.`],[15,`<b>Exposiciones.</b> Cada equipo explica su texto en dos minutos. Las demás toman notas.`],[15,`<b>Cuadro sinóptico.</b> Empiezas en clase la tarea 1 y la terminas en casa.`]],
+act:{t:`Puzle de textos (15 minutos de preparación)`,h:`<p><b>Reparto:</b> equipo 1, Heródoto · equipo 2, Platón, <i>Carta VII</i> · equipo 3, Platón, <i>Apología</i>, y Esopo · equipo 4, Teócrito · equipo 5, la época helenística (Apuntes, apartado 2: Alejandría, Apolonio, Plutarco, Luciano, la novela griega).</p><p><b>Cada equipo prepara, en un folio, una exposición de dos minutos con:</b></p><ol><li>Quién es el autor, cuándo vivió y qué género cultiva.</li><li>De qué trata el texto, en dos frases.</li><li>Una cita que os parezca importante y por qué.</li><li>Una pregunta para la clase.</li></ol><p>Hablan al menos dos integrantes de cada equipo.</p>`},
+clase:[`Empieza el cuadro sinóptico de la prosa griega y helenística. Columnas: género · autor · obra · rasgo principal. Ve rellenándolo con las exposiciones de las compañeras.`],
+casa:[`Termina el cuadro sinóptico con al menos diez autores (usa Apuntes, apartado 2).`,`Escribe una nueva versión de «La cigarra y la hormiga» (unas 150 palabras) en la que la hormiga actúe de forma más solidaria.`],
+en:`El cuadro sinóptico, al empezar la sesión 5. La fábula va en el cuaderno.`},
+
+5:{pasos:[[10,`<b>Teoría.</b> Virgilio y la Eneida (Apuntes, apartado 3) y el argumento libro a libro.`],[10,`<b>El comienzo de la Eneida.</b> La profesora lo lee en latín y después en castellano. Hacemos oralmente la tarea de clase 1.`],[25,`<b>Paralelismos por equipos.</b> Instrucciones abajo.`],[10,`<b>Individual:</b> tarea de clase 2.`]],
+act:{t:`Paralelismos entre la Eneida e historia de Roma (25 minutos)`,h:`<p>Cada equipo investiga un paralelismo con el argumento libro a libro, los Apuntes y la profecía de Anquises:</p><ul><li><b>Equipo 1:</b> el amor de Eneas y Dido y la enemistad de Roma y Cartago (las guerras púnicas).</li><li><b>Equipo 2:</b> Ascanio, llamado también Iulo, y la familia Julia de Julio César y Augusto.</li><li><b>Equipo 3:</b> la profecía de Anquises («Tú, romano, recuerda…»): qué misión da a Roma.</li><li><b>Equipo 4:</b> las guerras en el Lacio (libros VII-XII) y las guerras civiles que Roma acababa de vivir.</li><li><b>Equipo 5:</b> la <i>pietas</i> de Eneas y la imagen que Augusto quería dar de sí mismo.</li></ul><ol><li><b>15 minutos:</b> escribid en un folio qué pasa en la Eneida, a qué hecho histórico remite y qué quería conseguir Virgilio con ello.</li><li><b>10 minutos:</b> cada equipo lo explica en dos minutos. Todas copian los cinco paralelismos en el cuaderno.</li></ol>`},
+clase:[`En el comienzo de la Eneida, localiza el tema, el héroe, la diosa enemiga y la meta del viaje.`,`¿Por qué se dice que la Eneida es propaganda de Augusto y, a la vez, mucho más que eso? Usa los cinco paralelismos.`],
+casa:[],
+en:`El folio del equipo y la tarea de clase 2, al final de la sesión.`},
+
+6:{pasos:[[10,`<b>Dido.</b> Leemos en voz alta los dos fragmentos de Virgilio. Tarea de clase 1.`],[10,`<b>Purcell.</b> Escuchamos dos veces el lamento de Dido, con la letra delante. Tarea de clase 2.`],[20,`<b>Debate: ¿hizo bien Eneas en marcharse?</b> Instrucciones abajo.`],[15,`<b>Biblioteca ideal.</b> Cada equipo elige sus tres fragmentos provisionales de entre los textos de las sesiones 1-6; podrá cambiarlos más adelante.`]],
+act:{t:`Debate: ¿hizo bien Eneas en marcharse? (20 minutos)`,h:`<ol><li><b>Reparto (1 min).</b> Los equipos 1 y 2 defienden que Eneas hizo bien: cumplió con su deber, su <i>pietas</i>. Los equipos 3 y 4 defienden que hizo mal: traicionó a Dido. El equipo 5 es el jurado y anota los mejores argumentos.</li><li><b>Preparación (5 min).</b> Cada equipo escribe dos argumentos, cada uno con una cita de los textos.</li><li><b>Debate (10 min).</b> Habla un equipo de cada bando por turnos: equipo 1, equipo 3, equipo 2, equipo 4. Cada turno dura un minuto y medio. Después, réplica libre levantando la mano.</li><li><b>Conclusión (4 min).</b> El jurado dice qué argumento le ha convencido más y por qué.</li></ol>`},
+clase:[`Cuenta las negaciones del primer fragmento de Virgilio. ¿Qué efecto producen? ¿Qué le reprocha Dido a Eneas?`,`Lamento de Purcell: ¿qué transmite el bajo que se repite? ¿Qué pide Dido y qué pide que se olvide?`],
+casa:[`¿Cómo se ve Dido a sí misma antes de morir: como víctima o como reina? Cita.`,`Escribe una carta de Dido a Eneas antes de morir (200 palabras), con un reproche, un recuerdo compartido y una alusión a la <i>pietas</i>.`],
+en:`Hoy: tareas de clase 1 y 2, y un folio por equipo con los tres fragmentos provisionales. La carta, al empezar la sesión 7.`},
+
+7:{pasos:[[10,`<b>Teoría.</b> Catulo y Horacio (Apuntes, apartados 4 y 7).`],[12,`<b>Traducimos a Catulo.</b> Tarea de clase 1, individual. Después leemos tres traducciones en voz alta y las comparamos.`],[5,`<b>Vivamos, Lesbia mía.</b> Lectura en voz alta del poema 5.`],[25,`<b>Comentario del Beatus ille, por parejas.</b> Leemos los dos textos (Horacio y Fray Luis) y empezáis la tarea de clase 2.`],[3,`<b>Cierre.</b> Horacio leído en voz alta: «No moriré del todo».`]],
+clase:[`Traduce el poema 85 de Catulo con el vocabulario. ¿Por qué el poema no tiene ni un solo adjetivo?`,`Comentario del <i>Beatus ille</i>. a) ¿En qué consiste el tópico? b) ¿Qué vidas se rechazan y cuál se alaba? c) ¿Qué ventajas de la vida en el campo se citan? d) ¿Qué cambia al saber que quien habla es un usurero? e) Compara la versión de Fray Luis con la traducción literal: ¿qué gana y qué pierde?`],
+casa:[`Termina el comentario del <i>Beatus ille</i>.`,`Busca un tópico en el poema 5 de Catulo y otro en la oda I, 11 de Horacio. Explica cada uno con una cita.`],
+en:`La traducción, hoy. El comentario del Beatus ille, al empezar la sesión 8.`},
+
+8:{pasos:[[5,`<b>El mito.</b> La profesora cuenta la historia de Apolo y Dafne.`],[10,`<b>Bernini: veo, pienso, me pregunto.</b> Miramos la escultura proyectada (también puedes verla en el enlace de abajo). Anota en tu cuaderno qué ves, qué piensas que ocurre y qué te preguntas.`],[10,`<b>Ovidio.</b> Leemos el fragmento. ¿Qué instante exacto eligió Bernini?`],[10,`<b>Pound.</b> Leemos el poema en inglés y en castellano. ¿Quién habla ahora?`],[20,`<b>Comentario comparado, por parejas.</b> Tareas de clase 1 y 2.`]],
+extra:`<p><a href="https://es.wikipedia.org/wiki/Apolo_y_Dafne_(Bernini)">Ver la escultura de Bernini (Wikipedia)</a></p>`,
+clase:[`Veo, pienso, me pregunto (Bernini): tres listas breves.`,`Contenido. ¿Quién habla en Ovidio y quién en cada estrofa de Pound? ¿Qué cambia al contar la metamorfosis desde dentro?`,`¿En qué orden se transforma el cuerpo de Dafne en Ovidio? ¿Y en Pound? ¿Qué instante elige Bernini?`],
+casa:[`Forma. Compara la riqueza de detalles de Ovidio con la sencillez de Pound: estrofas, repeticiones («you are»), léxico.`,`Interpretación. ¿Acepta Apolo el «no» de Dafne? ¿Puede leerse la metamorfosis como una forma de libertad? ¿Qué significa «todo esto es locura para el mundo»?`],
+en:`El comentario comparado completo (clase y casa), al empezar la sesión 9.`},
+
+9:{pasos:[[10,`<b>Teoría.</b> El teatro latino (Apuntes, apartado 5) y el argumento de La olla.`],[10,`<b>Lectura dramatizada.</b> Una voluntaria representa el monólogo de Euclión como lo haría una actriz. Dos voluntarias leen la escena de Terencio.`],[10,`<b>Por parejas:</b> tareas de clase 1 y 2, oralmente; las escribirás en casa.`],[25,`<b>Plauto 2.0.</b> Instrucciones abajo.`]],
+act:{t:`Plauto 2.0 (25 minutos)`,h:`<ol><li><b>La idea (3 min).</b> Cada equipo elige qué esconde su Euclión de hoy: algo que ahora se guarda con la misma angustia que el oro (una contraseña, un móvil, unas entradas para un concierto…).</li><li><b>El guion (10 min).</b> En un folio escribid una escena de dos minutos con tres personajes: el Euclión de hoy, alguien de quien sospecha sin motivo (como el cocinero) y un tercero que crea un malentendido. Tiene que haber al menos un monólogo desesperado como el de Plauto.</li><li><b>Representación (10 min).</b> Cada equipo representa su escena, con el folio en la mano si hace falta.</li><li><b>Votación (2 min).</b> La clase vota la escena más plautina: la que más hace reír con los mismos recursos que Plauto.</li></ol>`},
+clase:[`¿Qué recursos hacen reír en el monólogo de Euclión? (oral, por parejas)`,`¿Qué tipo de personaje es Euclión? ¿Qué otros tipos fijos tiene la comedia? (oral, por parejas)`,`El guion de Plauto 2.0, en el folio del equipo.`],
+casa:[`Escribe las respuestas a las tareas de clase 1 y 2. Añade un equivalente actual de cada tipo de personaje (en series, películas o redes).`,`Compara a Plauto y a Terencio a partir de los dos textos: ¿cuál busca la risa y cuál la reflexión?`],
+en:`El guion, hoy. Las dos tareas de casa, al empezar la sesión 10.`},
+
+10:{pasos:[[10,`<b>Teoría.</b> La prosa latina y la Edad Media (Apuntes, apartado 6).`],[15,`<b>Puzle de textos.</b> Cada equipo prepara un texto. Instrucciones abajo.`],[15,`<b>Exposiciones.</b> Dos minutos por equipo.`],[15,`<b>Individual:</b> los titulares de Eros y Psique (tarea de clase 1).`]],
+act:{t:`Puzle de textos (15 minutos de preparación)`,h:`<p><b>Reparto:</b> equipo 1, Cicerón · equipo 2, Séneca · equipo 3, Apuleyo (los dos textos de Eros y Psique) · equipo 4, san Agustín · equipo 5, los <i>Carmina Burana</i>.</p><p><b>Cada equipo prepara una exposición de dos minutos con:</b></p><ol><li>Quién es el autor y qué género cultiva (para los <i>Carmina</i>: quiénes eran los goliardos).</li><li>Qué dice el texto, en dos frases.</li><li>Un recurso de estilo que os llame la atención.</li><li>Por qué podría interesar a alguien de hoy.</li></ol>`},
+clase:[`Titulares: escribe tres titulares de periódico sobre la historia de Eros y Psique (uno de prensa seria, uno sensacionalista y uno de humor). Después explica en tres líneas qué representan Eros y Psique.`],
+casa:[`Escribe dos máximas propias al estilo de Séneca, breves y sentenciosas: una sobre el tiempo y otra sobre el amor.`,`Catilinaria: ¿qué efecto tienen las tres preguntas seguidas y la exclamación «O tempora, o mores»?`],
+en:`Los titulares, hoy. Las máximas y la tarea sobre Cicerón, al empezar la sesión 11.`},
+
+11:{pasos:[[5,`<b>Repaso.</b> Las seis partes de la ficha y los roles (apartado Biblioteca ideal).`],[10,`<b>Elección definitiva.</b> Cada equipo confirma sus tres fragmentos y reparte quién comenta cada uno.`],[30,`<b>Escritura.</b> Cada alumna escribe su comentario a mano. La documentalista busca imágenes y la obra de «Si te gustó…».`],[10,`<b>Revisión.</b> La redactora lee los comentarios; la profesora pasa por los equipos.`]],
+clase:[`Tu comentario firmado (250-300 palabras, en seis pasos) y tu parte de «Por qué te lo presto hoy».`],
+casa:[`Pasa a limpio tu parte de la ficha en un folio A4.`],
+en:`Los borradores, hoy, para que la profesora los corrija. Las fichas definitivas, en la sesión 12.`},
+
+12:{pasos:[[5,`<b>Montaje.</b> Colocamos las quince fichas en la pared o en las mesas.`],[30,`<b>Presentaciones.</b> Cada equipo presenta sus fichas en tres minutos y lee en voz alta uno de sus fragmentos. Las demás anotan una pregunta para cada equipo.`],[10,`<b>Paseo por la biblioteca.</b> Leemos las fichas de los otros equipos.`],[10,`<b>Cierre.</b> Rutina y diana (tareas de clase).`]],
+clase:[`Completa «Ahora pienso que los clásicos…» y compáralo con lo que escribiste en la sesión 1.`,`Rellena la diana de autoevaluación que te dará la profesora.`],casa:[],
+en:`Las fichas definitivas, la rutina y la diana.`},
+
+13:{pasos:[[55,`<b>Prueba escrita en papel.</b> Teoría y comentario de un fragmento de la Eneida que te dará la profesora.`]],
+clase:[],casa:[`Antes de la prueba: repasa los conceptos de la tragedia, los tópicos y qué escribió cada autor (Apuntes).`,`Practica el comentario en seis pasos (Cómo comentar) con algún fragmento de las sesiones 5 o 6.`],
+en:`La prueba.`}
+};
+
 const M=[
  {h:'§ 20 · La definición',lat:'Est enim amicitia nihil aliud nisi omnium divinarum humanarumque rerum cum benevolentia et caritate consensio.',tr:'La amistad no es otra cosa que el acuerdo en todas las cosas divinas y humanas, unido a la benevolencia y al cariño.'},
  {h:'§ 18 · Solo entre buenos',lat:'Sed hoc primum sentio, nisi in bonis amicitiam esse non posse.',tr:'Pero ante todo pienso esto: que la amistad no puede existir más que entre personas buenas.'},
@@ -368,13 +458,20 @@ const hs=[300,330,290,345,315,300,335,295,320,340,300,325,290,335,315,360];
 document.getElementById('shelf').innerHTML=all.map((s,i)=>`<a class="spine${s.f?' final':''}" href="#${s.n>=14?'amicitia':'s'+s.n}" style="height:${Math.round(hs[i]*0.62)}px;background:${s.c}" title="Sesión ${s.n}: ${s.t}">${s.n}<span>${s.sp||s.t}</span></a>`).join('');
 document.getElementById('toc').innerHTML=all.map(s=>`<li><a href="#${s.n>=14?'amicitia':'s'+s.n}">${s.t}</a></li>`).join('');
 const br=t=>t.replace(/\n/g,'<br>');
-document.getElementById('sessions').innerHTML=S.map(s=>`<section id="s${s.n}" class="band session"><div class="wrap read">
+const frag=a=>`<article class="frag"><div class="who">${a.who}</div><h4>${a.h}</h4><p style="margin:.2em 0">${a.ctx}</p><blockquote class="${a.verse?'verse':''}">${br(a.tr)}</blockquote>${a.lat?`<details><summary>${a.latlab||'Ver el original latino'}</summary><p class="lat">${br(a.lat)}</p></details>`:''}</article>`;
+const li=arr=>arr.map(t=>`<li>${t}</li>`).join('');
+document.getElementById('sessions').innerHTML=S.map(s=>{const p=P[s.n];return `<section id="s${s.n}" class="band session"><div class="wrap read">
 <div class="num">Sesión ${s.n} de 16</div><h2>${s.t}</h2>
 <h3>Hoy</h3><p>${s.hoy}</p>
-${s.tx.length?'<h3>Los textos</h3>'+s.tx.map(a=>`<article class="frag"><div class="who">${a.who}</div><h4>${a.h}</h4><p style="margin:.2em 0">${a.ctx}</p><blockquote class="${a.verse?'verse':''}">${br(a.tr)}</blockquote>${a.lat?`<details><summary>${a.latlab||'Ver el original latino'}</summary><p class="lat">${br(a.lat)}</p></details>`:''}</article>`).join(''):''}
-<h3>En tu cuaderno</h3><ol class="tasks">${s.ta.map(t=>`<li>${t}</li>`).join('')}</ol>
-<p class="deliver"><b>Entrega:</b> ${s.en}</p>
-</div></section>`).join('');
+<h3>Paso a paso (55 minutos)</h3><ol class="steps">${p.pasos.map(x=>`<li><span class="min">${x[0]} min</span><span>${x[1]}</span></li>`).join('')}</ol>
+${p.act?`<div class="act"><h4>${p.act.t}</h4>${p.act.h}</div>`:''}
+${p.extra||''}
+${s.tx.length?'<h3>Los textos</h3>'+s.tx.map(frag).join(''):''}
+<h3>En tu cuaderno</h3>
+${p.clase.length?`<p class="lab">En clase</p><ol class="tasks">${li(p.clase)}</ol>`:''}
+${p.casa.length?`<p class="lab">En casa</p><ol class="tasks">${li(p.casa)}</ol>`:''}
+<p class="deliver"><b>Entrega:</b> ${p.en}</p>
+</div></section>`}).join('');
 document.getElementById('amic').innerHTML=M.map(m=>`<article class="frag"><h4>${m.h}</h4><blockquote>${m.tr}</blockquote><details><summary>Ver el original latino</summary><p class="lat">${m.lat}</p></details></article>`).join('');
 }
 </script>
