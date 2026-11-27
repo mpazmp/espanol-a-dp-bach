@@ -416,7 +416,7 @@ div.nube .btn2{padding:5px 12px;}
 .nube-dialogo{background:#faf7f1;border-radius:10px;max-width:460px;width:100%;padding:1.4rem 1.5rem;box-shadow:0 10px 40px rgba(0,0,0,.3);border-top:5px solid #0e9aa7;}
 .nube-dialogo h3{font-family:'Playfair Display',Georgia,serif;color:#1a4a7a;margin:0 0 .5rem;}
 .nube-dialogo label{display:block;font-weight:600;margin:.8rem 0 .25rem;}
-.nube-dialogo input{width:100%;box-sizing:border-box;padding:.5rem .6rem;border:1px solid #c9c2b4;border-radius:6px;font:inherit;}
+.nube-dialogo input,.nube-dialogo select{width:100%;box-sizing:border-box;padding:.5rem .6rem;border:1px solid #c9c2b4;border-radius:6px;font:inherit;}
 .nube-dialogo .nube-aviso{color:#c64829;min-height:1.2em;margin:.6rem 0 0;}
 @media print{div.nube{display:none !important;}}
 /* Pestaña Teoría */
@@ -2329,6 +2329,9 @@ h4.teo-h{font-family:'Source Sans 3',sans-serif;font-size:1rem;font-weight:700;c
     }
   };
 
+  function marcarConfirmada() { try { sessionStorage.setItem('nube-confirmada', '1'); } catch (e) { /* nada */ } }
+  function yaConfirmada() { try { return sessionStorage.getItem('nube-confirmada') === '1'; } catch (e) { return false; } }
+
   function identidad() { return C.store.getJSON(ID_KEY, null); }
 
   function texto(node) { return node ? node.textContent.replace(/\s+/g, ' ').trim() : ''; }
@@ -2385,8 +2388,8 @@ h4.teo-h{font-family:'Source Sans 3',sans-serif;font-size:1rem;font-weight:700;c
     return { clave: key, apartado: etiqueta(key), texto: valor, palabras: palabras(valor), valor: valor };
   }
 
-  function carga(claves) {
-    var id = identidad();
+  function carga(claves, idForzada) {
+    var id = idForzada || identidad();
     return {
       accion: 'guardar', modulo: MODULO, alumna: id.nombre, grupo: id.grupo, codigo: id.codigo,
       items: claves.map(item)
@@ -2470,47 +2473,106 @@ h4.teo-h{font-family:'Source Sans 3',sans-serif;font-size:1rem;font-weight:700;c
     estado.textContent = msg[id ? modo : 'sin'] || '';
   }
 
-  function dialogo() {
+  function norm(t) { return String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ').trim(); }
+
+  /* Al cambiar de alumna en el mismo Chromebook: se envía lo de la anterior y se vacía la página */
+  function cambiarDePersona(idAnterior) {
+    var claves = todasLasClaves();
+    if (idAnterior && claves.length && navigator.sendBeacon) {
+      navigator.sendBeacon(ENDPOINT, new Blob([JSON.stringify(carga(claves, idAnterior))], { type: 'text/plain;charset=utf-8' }));
+    }
+    claves.forEach(function (k) {
+      try { localStorage.removeItem('campana1bach:' + k); } catch (e) { /* nada */ }
+    });
+    Object.keys(pendientes).forEach(function (k) { delete pendientes[k]; });
+    try { localStorage.removeItem('campana1bach:nube-ultimo'); } catch (e) { /* nada */ }
+  }
+
+  function dialogo(obligatorio) {
     var id = identidad() || {};
     var fondo = el('div', { className: 'nube-fondo' });
     var caja = el('div', { className: 'nube-dialogo', attrs: { role: 'dialog', 'aria-modal': 'true' } });
-    var nombre = el('input', { attrs: { type: 'text', id: 'nube-nombre', autocomplete: 'name', placeholder: 'Nombre y dos apellidos' } });
-    var grupo = el('input', { attrs: { type: 'text', id: 'nube-grupo', placeholder: 'Por ejemplo: 1º A' } });
-    var codigo = el('input', { attrs: { type: 'text', id: 'nube-codigo', inputmode: 'numeric', maxlength: '4', placeholder: '4 cifras' } });
-    nombre.value = id.nombre || '';
-    grupo.value = id.grupo || '';
-    codigo.value = id.codigo || '';
+    var nombre = el('input', { attrs: { type: 'text', id: 'nube-nombre', autocomplete: 'off', placeholder: 'Nombre y dos apellidos' } });
+    var grupo = el('select', { attrs: { id: 'nube-grupo' } }, [
+      el('option', { attrs: { value: '' }, text: 'Elige tu grupo' }),
+      el('option', { attrs: { value: '1º A' }, text: '1º A' }),
+      el('option', { attrs: { value: '1º B' }, text: '1º B' })
+    ]);
+    var codigo = el('input', { attrs: { type: 'text', id: 'nube-codigo', inputmode: 'numeric', maxlength: '4', autocomplete: 'off', placeholder: '4 cifras' } });
+    if (!obligatorio) {
+      nombre.value = id.nombre || '';
+      grupo.value = id.grupo === '1º A' || id.grupo === '1º B' ? id.grupo : '';
+      codigo.value = id.codigo || '';
+    }
     var aviso = el('p', { className: 'nube-aviso' });
     var aceptar = el('button', { className: 'btn2 primary', attrs: { type: 'button' }, text: 'Guardar y continuar' });
-    var cancelar = el('button', { className: 'btn2', attrs: { type: 'button' }, text: 'Cancelar' });
+    var botones = [aceptar];
+    var cancelar = null;
+    if (!obligatorio && identidad()) {
+      cancelar = el('button', { className: 'btn2', attrs: { type: 'button' }, text: 'Cancelar' });
+      botones.push(cancelar);
+    }
 
     caja.appendChild(el('h3', { text: 'Identifícate' }));
-    caja.appendChild(el('p', { text: 'Escribe siempre el mismo nombre y el mismo código. Si el Chromebook borra tus datos, con ellos recuperarás lo que ya habías escrito.' }));
+    caja.appendChild(el('p', { text: 'Para que tus respuestas lleguen a la profesora tienes que identificarte. Escribe siempre el mismo nombre y el mismo código: con ellos recuperarás lo que ya habías escrito aunque el Chromebook lo borre.' }));
     [['nube-nombre', 'Nombre y apellidos', nombre], ['nube-grupo', 'Grupo', grupo], ['nube-codigo', 'Código personal (inventa 4 cifras y no lo olvides)', codigo]].forEach(function (f) {
       caja.appendChild(el('label', { attrs: { 'for': f[0] }, text: f[1] }));
       caja.appendChild(f[2]);
     });
     caja.appendChild(aviso);
-    caja.appendChild(el('div', { className: 'btn-row' }, [aceptar, cancelar]));
+    caja.appendChild(el('div', { className: 'btn-row' }, botones));
     fondo.appendChild(caja);
     document.body.appendChild(fondo);
     nombre.focus();
 
     function cerrar() { document.body.removeChild(fondo); }
-    cancelar.addEventListener('click', cerrar);
+    if (cancelar) cancelar.addEventListener('click', cerrar);
     aceptar.addEventListener('click', function () {
       var n = nombre.value.replace(/\s+/g, ' ').trim();
       var c = codigo.value.replace(/\D/g, '');
       if (n.split(' ').length < 2) { aviso.textContent = 'Escribe tu nombre y al menos un apellido.'; return; }
+      if (!grupo.value) { aviso.textContent = 'Elige tu grupo.'; return; }
       if (c.length !== 4) { aviso.textContent = 'El código debe tener 4 cifras.'; return; }
-      C.store.setJSON(ID_KEY, { nombre: n, grupo: grupo.value.trim(), codigo: c });
+      var anterior = identidad();
+      var otra = anterior && (norm(anterior.nombre) !== norm(n) || anterior.codigo !== c);
+      if (otra) cambiarDePersona(anterior);
+      C.store.setJSON(ID_KEY, { nombre: n, grupo: grupo.value, codigo: c });
+      marcarConfirmada();
       cerrar();
+      if (otra) {
+        recuperarYEnviar(true);
+        return;
+      }
       recuperarYEnviar();
     });
   }
 
+  /* Cada vez que se abre la página, la alumna confirma quién es */
+  function confirmar() {
+    var id = identidad();
+    var fondo = el('div', { className: 'nube-fondo' });
+    var caja = el('div', { className: 'nube-dialogo', attrs: { role: 'dialog', 'aria-modal': 'true' } });
+    var si = el('button', { className: 'btn2 primary', attrs: { type: 'button' }, text: 'Sí, soy yo' });
+    var no = el('button', { className: 'btn2', attrs: { type: 'button' }, text: 'No, soy otra persona' });
+    caja.appendChild(el('h3', { text: '¿Eres tú?' }));
+    caja.appendChild(el('p', {}, [el('strong', { text: id.nombre }), C.txt(id.grupo ? ' · ' + id.grupo : '')]));
+    caja.appendChild(el('p', { text: 'Tus respuestas se enviarán a la profesora con este nombre.' }));
+    caja.appendChild(el('div', { className: 'btn-row' }, [si, no]));
+    fondo.appendChild(caja);
+    document.body.appendChild(fondo);
+    si.focus();
+    function cerrar() { document.body.removeChild(fondo); }
+    si.addEventListener('click', function () {
+      cerrar();
+      if (id.grupo !== '1º A' && id.grupo !== '1º B') { dialogo(false); return; }
+      marcarConfirmada();
+      recuperarYEnviar();
+    });
+    no.addEventListener('click', function () { cerrar(); dialogo(true); });
+  }
+
   /* Trae de la hoja lo que la alumna ya había escrito y rellena lo que falte aquí */
-  function recuperarYEnviar() {
+  function recuperarYEnviar(recargar) {
     var id = identidad();
     pintar('recuperando');
     fetch(ENDPOINT, { method: 'POST', body: JSON.stringify({ accion: 'recuperar', modulo: MODULO, alumna: id.nombre, codigo: id.codigo }) })
@@ -2526,14 +2588,16 @@ h4.teo-h{font-family:'Source Sans 3',sans-serif;font-size:1rem;font-weight:700;c
         todasLasClaves().forEach(function (k) {
           if (C.store.get(k) !== nube[k]) pendientes[k] = true;
         });
-        if (traidas) {
+        if (traidas || recargar) {
           enviarYa();
+          marcarConfirmada();
           window.location.reload();
           return;
         }
         enviar();
       })
       .catch(function () {
+        if (recargar) { marcarConfirmada(); window.location.reload(); return; }
         pintar('error');
         if (temporizador) clearTimeout(temporizador);
         temporizador = setTimeout(recuperarYEnviar, 60000);
@@ -2552,7 +2616,7 @@ h4.teo-h{font-family:'Source Sans 3',sans-serif;font-size:1rem;font-weight:700;c
       todasLasClaves().forEach(function (k) { pendientes[k] = true; });
       enviar();
     });
-    btnCambiar.addEventListener('click', dialogo);
+    btnCambiar.addEventListener('click', function () { dialogo(false); });
     interior.appendChild(nombreTxt);
     interior.appendChild(estado);
     interior.appendChild(el('span', { className: 'nube-botones' }, [btnEnviar, btnCambiar]));
@@ -2566,10 +2630,11 @@ h4.teo-h{font-family:'Source Sans 3',sans-serif;font-size:1rem;font-weight:700;c
 
     if (identidad()) {
       pintar('ok');
-      setTimeout(recuperarYEnviar, 800);
+      if (yaConfirmada()) setTimeout(recuperarYEnviar, 600);
+      else setTimeout(confirmar, 600);
     } else {
       pintar('sin');
-      setTimeout(dialogo, 600);
+      setTimeout(function () { dialogo(true); }, 600);
     }
   }
 
